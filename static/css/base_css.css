@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+*{
+    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat",sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    padding-bottom: 110px;
+    min-height: 100vh;
+}
+
+/* The navigation bar */
+.navbar {
+
+    background-color: rgba(24, 53, 76, 1);
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    width: 100%;
+    /* Full width */
+    height: auto;
+    color: #fff;
+
+}
+
+/* Links inside the navbar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a,
+.dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover,
+.dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+  /* Main content */
+.main {
+    margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FOOTER LINKS */
+.footer{
+    background: #cfcfcf;
+    color: #616161;
+    font-size: 16px;
+    padding: 20px 0;
+    text-align: center;
+    padding-bottom: 20px;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:333px){
+    .main {
+        margin-top: 40px; /* Add a top margin to avoid content overlay */
+        margin-bottom: 40px;
+    }
+}

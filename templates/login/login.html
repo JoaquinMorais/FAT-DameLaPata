@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block head %}
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base_css.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login/login_css.css') }}">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- SCROOL REVEAL -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+{% endblock %}
+
+
+{% block content %}
+    <h1>Estas en Login!!!</h1>
+    <form method="post">
+        <div class="imgcontainer">
+          <img src="img_avatar2.png" alt="" class="avatar">
+        </div>
+      
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="username" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+      
+          <button type="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+    </form>
+    <a href="{{ url_for('Login.singin') }}"> Sing In</a>
+{% endblock %}

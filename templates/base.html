@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} My Pagina Web {% endblock %}</title>
+    
+    {% block head %}
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base_css.css') }}">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- SCROOL REVEAL -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    {% endblock %}
+</head>
+<body>
+    <div class="navbar">   
+        <ul>
+            <li><a href="/expotronica/home">Home</a></li>
+            <li><a href="/expotronica/participantes">Participantes</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">Proyectos</a>
+              <div class="dropdown-content">
+                <a href="/expotronica/proyecto/1">Villada Assistant</a>
+                <a href="/expotronica/proyecto/2">Open-Cv</a>
+                <a href="/expotronica/proyecto/3">Bot De Whatsapp</a>
+              </div>
+            </li>
+          </ul>
+    </div>
+      
+    <div class="main">
+        <p>Some text some text some text some</p>
+    </div>
+
+    
+
+    {% block content %}
+
+    {% endblock %}
+    
+    
+    <footer class="footer">
+        <h3>Copyright © 2022</h3>
+    </footer>
+</body>
+</html>
