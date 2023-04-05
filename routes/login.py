@@ -4,11 +4,6 @@ from models.users import User
 from utils.db import db
 
 Login = Blueprint("Login",__name__)
-
-
-
-
-
 @Login.before_request
 def before_request():
     if 'user_id' in session:
@@ -35,10 +30,7 @@ def login():
             user = user[0]
             session['user_id'] = user.id
             return redirect(url_for('Login.profile'))
-
         return redirect(url_for('Login.login'))
-
-
     return render_template("login/login.html")
 
 @Login.route("/profile")
