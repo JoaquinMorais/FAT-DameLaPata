@@ -2,11 +2,11 @@
 
 ## Tecnologias
 
--Flask(.py)
--React(.jsx)
--MySql(.sql)
+1. Flask(.py)
+2. React(.jsx)
+3. MySql(.sql)
 
 ## Refugios
 
--Garra
--Chiquito
+1. Garra
+2. Chiquito
