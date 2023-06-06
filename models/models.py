@@ -206,3 +206,4 @@ class Peticion(db.Model):
         self.id_estado = id_estado
         self.id_persona = id_persona
         self.id_mascota = id_mascota
+# alejo labura epicamente
