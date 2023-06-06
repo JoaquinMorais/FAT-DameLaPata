@@ -1,31 +1,14 @@
 import React from 'react';
-
-function Header() {
-  return <h1>Header</h1>;
-}
-
-function Sidebar() {
-  return (
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
-  );
-}
-
-function Content() {
-  return <p>Contenido principal</p>;
-}
+import { Header } from '../components/Header/Header'
+import { Cards } from '../components/Cards/Cards'
+import { Navbar } from '../components/Navbar/Navbar'
 
 function App() {
   return (
     <div>
+      <Navbar />
       <Header />
-      <div>
-        <Sidebar />
-        <Content />
-      </div>
+      <Cards />
     </div>
   );
 }
