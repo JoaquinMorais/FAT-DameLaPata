@@ -2,9 +2,15 @@
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic as GD
 import time 
-import math
+from datetime import datetime
 
-geo = Nominatim(user_agent = "MyApp")
+# Importaciones para el dibujo
+from mpl_toolkits.basemap.test import Basemap
+import matplotlib.pyplot as plt 
+
+# Variables y otros
+geo = Nominatim(user_agent = "MyApp", timeout=3)
+print(datetime.now())
 
 # Un lugar a la vez
 def OnePlace():
@@ -32,4 +38,13 @@ def Distance():
 
     print(f"La distancia entre {place_1} y {place_2} es {distance}.km")
 
-Distance()
+# Dibujado de un lugar a la vez
+def DrawnOnePlace():
+    #place = geo.geocode("Cordoba, Argentina")
+    plt.figure(figsize=(20,18))
+    my_map=Basemap(projection='robin', lon_0=0, lat_0=0)
+    my_map.drawcoastlines()
+    my_map.drawcounties
+
+DrawnOnePlace()
+print(datetime.now())
