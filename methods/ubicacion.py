@@ -23,8 +23,8 @@ def ManyPlaces():
 
 # Distancia entre dos lugares
 def Distance():
-    place_1 = geo.geocode("place_1, Argentina")
-    place_2 = geo.geocode("place_2, Argentina")
+    place_1 = geo.geocode("Cordoba, Argentina")
+    place_2 = geo.geocode("Buenos Aires, Argentina")
 
     coord_place_1 = (place_1.latitude, place_1.longitude)   
     coord_place_2 = (place_2.latitude, place_2.longitude)
@@ -32,3 +32,4 @@ def Distance():
 
     print(f"La distancia entre {place_1} y {place_2} es {distance}.km")
 
+Distance()
