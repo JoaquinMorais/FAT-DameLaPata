@@ -1,7 +1,6 @@
 # Importaciones
-from socket import timeout
 from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
+from geopy.distance import geodesic as GD
 import time 
 import math
 
@@ -24,14 +23,12 @@ def ManyPlaces():
 
 # Distancia entre dos lugares
 def Distance():
-    Cordoba = geo.geocode("Cordoba, Argentina")
-    Rosario = geo.geocode("Rosario, Argentina")
-    print(Cordoba + Rosario)
-    '''
-    coord_Cordoba = (Cordoba.latidude, Cordoba.longitude)
-    coord_Rosario = (Rosario.latidude, Rosario.longitude)
+    place_1 = geo.geocode("place_1, Argentina")
+    place_2 = geo.geocode("place_2, Argentina")
 
-    #distance = geodesic(coord_Cordoba, coord_Rosario).km
-    print("La distancia entre " + Cordoba + " y " + Rosario + " es " + geodesic(coord_Cordoba, coord_Rosario).km)
-'''
-Distance()
+    coord_place_1 = (place_1.latitude, place_1.longitude)   
+    coord_place_2 = (place_2.latitude, place_2.longitude)
+    distance = GD(coord_place_2, coord_place_1).km
+
+    print(f"La distancia entre {place_1} y {place_2} es {distance}.km")
+
