@@ -1,14 +1,28 @@
 # La idea es calcular el estatus con varias preguntas y segun la respuesta sume determinados puntos para despues
 # sacar una conclusion...
-rate = 0
+points = 0
 
 # Calcular estatus Sueldo
-ingreso = int(input("Ingresos aproximado: "))
-if ingreso >= 150000:
-    rate += 10
-elif ingreso <= 75000:
-    rate += 5
+income = int(input("Ingresos aproximado: "))
+if income >= 150000:
+    points += 10
+elif income <= 75000:
+    points += 1
 else:
-    rate += 1
+    points += 5
+
+# Tiene mas mascotas???
+def stone(pet, sum1, sum2, points):
+    if pet == "y":
+        points += sum1
+    else:
+        points += sum2
+    return points
+
+pets = str(input("Tiene mas mascotas(y/n): "))
+points = stone(pets, 10, 5, points)
+
+pets = str(input("Has tenido alguna mascota(y/n): "))
+points = stone(pets, 15, 5, points)
 
 # Calcular estatus Casa
