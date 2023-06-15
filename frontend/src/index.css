@@ -1,13 +1,221 @@
-body {
+  @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cherry+Bomb+One&family=Open+Sans&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cherry+Bomb+One&family=Open+Sans&family=Rowdies&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* APP */
+.App{
+  max-width: 1550px;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  box-sizing: 0 2px 6px #000;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.dogs {
+  width: 80%;
+  margin: 80px 10%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* NAVBAR */
+header{
+  width: 90%;
+  margin: 0 5%;
+  min-height: 50px;
+  max-width: 1530px;
+  overflow: hidden;
+  position: fixed;
+  box-sizing: border-box;
+  background-color: transparent;
+  -moz-box-shadow: 0px 0px 15px 2px rgba(8,160,92,0.75);
+  -webkit-box-shadow: 0px 0px 15px 2px rgba(8,160,92,0.75);
+  box-shadow: 0px 0px 15px 2px rgba(8,160,92,0.75);
+  z-index: 9999;
+  background-color: white;
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+}
+
+.logo img{
+  width: 170px;
+  height: 100%;
+  border: 2px solid #fff;
+}
+
+.links{
+  display: flex;
+  align-items: center;
+}
+
+.links a{
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.links a:hover{
+  color: rgb(8,160,92);
+}
+
+li{
+  list-style: none;
+}
+
+header ul{
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+header ul li{
+  padding: 0 1rem;
+}
+
+header ul li a{
+  font-weight: bold;
+}
+
+.total-favoritos{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin-top: -10px;
+  margin-left: -2px;
+  color: white;
+  border: 2px solid red;
+  background-color: red;
+  border-radius: 100%;
+  padding: 1px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hamburguer-div{
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+/* HEADER */
+.titulo{
+  padding: 150px 0 0 0;
+  text-align: center;
+  font-size: 70px;
+  /*font-family: 'Rowdies', cursive;*/
+}
+
+.slogan{
+  padding: 5px 0 15px 0;
+  text-align: center;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.hr{
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CARDS */
+.carta-click{
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.3s ease;
+}
+
+.carta {
+  width: 90%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.carta img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.texto-carta{
+  position: relative;
+  width: 90%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f5f6f7;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  border-radius: 16px;
+  margin-top: -50px;
+  margin-bottom: 10px;
+}
+
+.texto-carta:hover{
+  background-color: rgb(8, 160, 92);
+}
+
+.texto-carta h3{
+  font-size: 20px;
+}
+
+.texto-carta h6{
+  font-size: 15px;
+}
+
+.texto-carta p{
+  text-align: left;
+  margin-bottom: 0;
+  margin-left: 0;
+  font-size: 12px;
+  font-style: italic;
+  color: rgb(85, 85, 85);
+}
+
+/* FOOTER */
+.footer{
+  width: 100%;
+  height: 300px;
+  background-color: rgb(20, 20, 20);
+}
+
+.footer h3{
+  color: rgb(8, 160, 92);
+}
+
+/* RESPONSIVE (MEDIA QUERIES) */
+/* NAVBAR */
+@media only screen and (max-width: 800px){
+  header ul{
+    display: none;
+  }
+
+  .hamburguer-div{
+    display: flex;
+  }
 }
