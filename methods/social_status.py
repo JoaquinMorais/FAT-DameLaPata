@@ -19,6 +19,7 @@ def stone(pet, sum1, sum2, points):
         points += sum2
     return points
 
+
 pets = str(input("Tiene mas mascotas(y/n): "))
 points = stone(pets, 10, 5, points)
 
