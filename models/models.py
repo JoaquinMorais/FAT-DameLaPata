@@ -36,31 +36,56 @@ class Address(db.Model):
 class User(db.Model): # se pueden hacer las querys
     __tablename__ = 'user'
     id_user = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(70), nullable = False)
+    email = db.Column(db.String(150), nullable = False)
+
+    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
+
+    def __init__(self, username, password, email, id_address):
+        self.username = username
+        self.password = password
+        self.email = email
+        self.id_address = id_address
+
+class Adoptante(db.Model): # se pueden hacer las querys
+    __tablename__ = 'user'
+    id_user = db.Column(ForeignKey('user.id_user', onupdate='CASCADE'), db.Integer, primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
     username = db.Column(db.String(70), nullable = False)
-    password = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
     phone_number = db.Column(db.String(70), nullable = False)
-    email = db.Column(db.String(150), nullable = False)
+    latitud = db.Column(db.String(70), nullable = False)
+    longitud = db.Column(db.String(70), nullable = False)
 
     id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self,name, surname, username, password, birth_date, phone_number, email, id_address, id_document_type):
+    def __init__(self, id_user,name, surname, username, birth_date, phone_number, id_address, id_document_type, latitud, longitud):
+        self.id_user = id_user
         self.name = name
         self.surname = surname
         self.username = username
-        self.password = password
         self.birth_date = birth_date
         self.phone_number = phone_number
-        self.email = email
         self.id_address = id_address
         self.id_document_type = id_document_type
+        self.latitud = latitud
+        self.longitud = longitud
 
-    def __repr__(self):
-        return f'Name: {self.name}, Surname: {self.surname}\n'
-    
+class Credencial(db.Model):
+    __tablename__ = 'credenciales'
+    id_credencial = db.Column(db.Integer, primary_key=True)
+    campo = db.Column(db.String(150), nullable = False)
+    tipo = db.Column(db.String(150), nullable = False)
+
+    id_usuario = db.Column(db.Integer, ForeignKey('usuario.id_usuario', ondelete='SET NULL', onupdate='CASCADE'))
+
+    def __init__(self, campo, tipo, id_usuario):
+        self.campo = campo
+        self.tipo = tipo
+        self.id_usuario = id_usuario
+
 
 class Size(db.Model):
     __tablename__ = 'size'
