@@ -3,7 +3,7 @@
 points = 0
 
 # Calcular estatus Sueldo
-income = int(input("Ingresos aproximado: "))
+income = int(input("Ingresos aproximado(Ej: 150000): "))
 if income >= 150000:
     points += 10
 elif income <= 75000:
@@ -26,3 +26,6 @@ pets = str(input("Has tenido alguna mascota(y/n): "))
 points = stone(pets, 15, 5, points)
 
 # Calcular estatus Casa
+
+
+print(points)
