@@ -2,7 +2,8 @@ import os
 import pathlib
 
 import requests
-from flask import Blueprint, session, abort, redirect, request,url_for
+from flask import Blueprint, session, abort, redirect, request,url_for,jsonify
+from flask_login import (UserMixin, login_required, login_user, logout_user, current_user)
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
@@ -56,6 +57,7 @@ def Login():
 @Login_Google.route("/logout")
 def Logout():
     session.clear()
+    
     return redirect(url_for('Login_Google.Home'))
 
 @Login_Google.route("/callback")
@@ -75,6 +77,7 @@ def callback():
         request=token_request,
         audience=GOOGLE_CLIENT_ID
     )
+    #return jsonify(id_info)
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
     return redirect("/protected_area")
