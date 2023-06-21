@@ -36,9 +36,7 @@ def login_is_required(function):
 
 
 
-@Login_Google.route("/")
-def Home():
-    return "Home <a href='/login'><button>Login</button></a>"
+
 
 
 @Login_Google.route("/protected_area",endpoint = 'ProtectedArea')
@@ -47,7 +45,7 @@ def ProtectedArea():
     return f"Hello {session['name']}! <br/> <a href='/logout'><button>Logout</button></a>"
 
 
-@Login_Google.route("/login")
+@Login_Google.route("/google_login")
 def Login():
     autorization_url,state = flow.authorization_url()
     session['state'] = state
@@ -57,15 +55,19 @@ def Login():
 @Login_Google.route("/logout")
 def Logout():
     session.clear()
-    
-    return redirect(url_for('Login_Google.Home'))
+    #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
+
+    return redirect(url_for('Login.login'))
 
 @Login_Google.route("/callback")
 def callback():
     flow.fetch_token(authorization_response=request.url)
 
-    if not session["state"] == request.args["state"]:
-        abort(500)  # State does not match!
+    try:
+        if not session["state"] == request.args["state"]:
+            abort(500)  # State does not match!
+    except:
+        pass
 
     credentials = flow.credentials
     request_session = requests.session()
@@ -80,6 +82,7 @@ def callback():
     #return jsonify(id_info)
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
-    return redirect("/protected_area")
+    
+    return redirect("/profile")
 
 

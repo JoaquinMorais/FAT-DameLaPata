@@ -1,8 +1,12 @@
-from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash
+from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
 from models.users import User
 from utils.db import db
 
 Login = Blueprint("Login",__name__)
+
+
+
+
 @Login.before_request
 def before_request():
     if 'user_id' in session:
@@ -32,11 +36,7 @@ def login():
         return redirect(url_for('Login.login'))
     return render_template("login/login.html")
 
-@Login.route("/profile")
-def profile():
-    if not g.user:
-        return redirect(url_for('Login.login'))
-    return render_template("login/profile.html")
+
 
 
 @Login.route("/singin",methods=['GET','POST'])
@@ -59,6 +59,13 @@ def singin():
             session['user_id'] = User.query.all()[-1].id
         return redirect(url_for('Login.profile'))
         
-
     flash('')
     return render_template("login/singin.html")
+
+
+
+@Login.route("/profile", endpoint = 'profile')
+def profile():
+    if not g.user:
+        return redirect(url_for('Login.login'))
+    return g.user.username
