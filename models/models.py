@@ -40,23 +40,20 @@ class User(db.Model): # se pueden hacer las querys
     email = db.Column(db.String(150), nullable = False)
 
     id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
-
-    def __init__(self, username, password, email, id_address):
+    
+    def __init__(self, username, email, id_address):
         self.username = username
-        self.password = password
         self.email = email
         self.id_address = id_address
 
 class Adoptante(db.Model): # se pueden hacer las querys
-    __tablename__ = 'user'
-    id_user = db.Column(ForeignKey('user.id_user', onupdate='CASCADE'), db.Integer, primary_key=True)
+    __tablename__ = 'adoptante'
+    id_user = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
     username = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
     phone_number = db.Column(db.String(70), nullable = False)
-    latitud = db.Column(db.String(70), nullable = False)
-    longitud = db.Column(db.String(70), nullable = False)
 
     id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
@@ -70,18 +67,19 @@ class Adoptante(db.Model): # se pueden hacer las querys
         self.phone_number = phone_number
         self.id_address = id_address
         self.id_document_type = id_document_type
-        self.latitud = latitud
-        self.longitud = longitud
 
 class Credencial(db.Model):
     __tablename__ = 'credenciales'
     id_credencial = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable = False)
     campo = db.Column(db.String(150), nullable = False)
     tipo = db.Column(db.String(150), nullable = False)
+    
 
-    id_usuario = db.Column(db.Integer, ForeignKey('usuario.id_usuario', ondelete='SET NULL', onupdate='CASCADE'))
+    id_usuario = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self, campo, tipo, id_usuario):
+    def __init__(self,titulo, campo, tipo, id_usuario):
+        self.titulo = titulo
         self.campo = campo
         self.tipo = tipo
         self.id_usuario = id_usuario

@@ -1,6 +1,5 @@
 from app import app
 from utils.db import db
-from models.users import *
 
 from routes.home import Home
 from routes.login import Login
@@ -10,7 +9,9 @@ app.config.update(
 SECRET_KEY='MySecretKey'
 )
 
-#app.register_blueprint(Home)
+with app.app_context():
+    db.create_all()
+
 app.register_blueprint(Login)
 app.register_blueprint(Login_Google)
 app.register_blueprint(Home)

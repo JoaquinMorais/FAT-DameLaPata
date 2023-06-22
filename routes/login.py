@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.users import User
+from models.models import User, Adoptante, Address
 from utils.db import db
 
 Login = Blueprint("Login",__name__)
@@ -52,11 +52,14 @@ def singin():
             flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
             return redirect(url_for('Login.singin'))
         else:
-            newInstance = User(username,password)
-            db.session.add(newInstance)
+            address = Address('pepe','districto','2121','2121')
+            
+            newInstance = User(username,f'{username}@gmail.com',2)
+            
+            db.session.add(address,newInstance)
             db.session.commit()
 
-            session['user_id'] = User.query.all()[-1].id
+            session['user_id'] = User.query.all()[-1].id_user
         return redirect(url_for('Login.profile'))
         
     flash('')
@@ -69,3 +72,5 @@ def profile():
     if not g.user:
         return redirect(url_for('Login.login'))
     return g.user.username
+
+
