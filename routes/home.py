@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify,render_template,redirect,url_for
-from models.users import ExampleDatabase
 from utils.db import db
 from flask import send_from_directory
 import os
@@ -37,3 +36,8 @@ def api_data():
         'message': 'fds'
     }
     return jsonify(data)
+
+
+
+
+
