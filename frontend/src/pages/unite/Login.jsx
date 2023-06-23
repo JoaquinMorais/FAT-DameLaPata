@@ -16,14 +16,12 @@ export function Login() {
                         <label htmlFor="email">Email</label>
                         <input type="email" placeholder="tumail@dog.com" id="email" />
                         <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="********" id="password" />
+                        <input type="password" placeholder="*******" id="password" />
                         <button>Log In</button>
                     </form>
                 </div>
             </div>
         </div>
-
-  
       );
 }
 export default Login;
