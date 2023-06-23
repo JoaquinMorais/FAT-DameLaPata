@@ -158,6 +158,11 @@ header ul li a{
   border-radius: 8px;
 }
 
+.link-to{
+  text-decoration: none;
+  color: black;
+}
+
 .texto-carta{
   position: relative;
   width: 90%;
@@ -174,6 +179,7 @@ header ul li a{
   border-radius: 16px;
   margin-top: -50px;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 
 .texto-carta:hover{

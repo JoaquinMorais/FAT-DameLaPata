@@ -9,12 +9,12 @@ export const Navbar = () => {
         <div className="menu">
             <a href="">
                 <div className="logo">
-                    <img src={Logo} alt="logo" />
+                    <Link to='/'></Link><img src={Logo} alt="logo" />
                 </div>
             </a>
             <div className="links">
                 <ul>
-                    <li><Link to="/a">Inicio</Link></li>
+                    <li><Link to="/">Inicio</Link></li>
                     <li><Link to="/pinder">TInder</Link></li>
                     <li><a href="">Información</a></li>
                     <li><a href="">Favoritos</a><span className='total-favoritos'>2</span></li>

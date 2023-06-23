@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 /* IMPORTS COMPONENTS */
 import Home from '../pages/Home';
 import Pinder from '../pages/Pinder';
+import { BigCard } from '../components/BigCard/BigCard';
 
 import '.././index.css';
  
@@ -11,8 +12,15 @@ function App() {
   return (
     <Router>
         <Routes>
-          <Route path="/a" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/pinder" element={<Pinder />} />
+          <Route path="/Max" element={
+            <BigCard 
+            nombre = 'Juan'
+            edad = '10'
+            tamaño = 'Mediano'
+            /> 
+          } />
         </Routes>
     </Router>
   );
@@ -20,15 +28,19 @@ function App() {
 
 export default App;
 
-
+{/* RUTAS FINALLY */}
 
 const routes = [
   {
-  path:'/a',
-  Component: Home
+    path:'/',
+    Component: Home
   },
   {
     path:'/pinder',
     Component: Pinder
-    }
+  },
+  {
+    path:'/Max',
+    Component: BigCard
+  }
 ];
