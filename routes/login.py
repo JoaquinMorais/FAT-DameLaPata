@@ -1,10 +1,15 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
 from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
+from decorators.flask_decorators import * 
 
 Login = Blueprint("Login",__name__)
 
-
+def Request(value):
+    try:
+        return request.form[value]
+    except:
+        return None
 
 
 @Login.before_request
@@ -23,20 +28,18 @@ def before_request():
 def login():
     if request.method == 'POST':
         session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
+        username = Request('username')
+        password = Request('password')
 
-
-        database = User.query.all()
 
         user = User.query.filter_by(username = username).first()
-
         user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
         print(f'password {user_password}')
-        if user!=None and user_password.campo == password:
+        if user and user_password.campo == password:
             session['user_id'] = user.id_user
             return redirect(url_for('Login.profile'))
+        
         return redirect(url_for('Login.login'))
         
         
@@ -45,33 +48,45 @@ def login():
 
 
 
-@Login.route("/singin",methods=['GET','POST'])
+@Login.route("/singin",methods=['GET','POST'],endpoint = 'singin')
+@tryTo
 def singin():
     if request.method == 'POST':
         session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
 
-        database = User.query.all()
-        user = [x for x in database if x.username == username]
-        if len(user)!=0:
+        username = Request('username')
+        password = Request('password')
+        province = Request('province')
+        city = Request('city')
+        district = Request('district')
+        
+
+
+
+
+        users = User.query.filter_by(username = username).all()
+        
+        if users:
             flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
             return redirect(url_for('Login.singin'))
         
         else:
-            address = Address('ub','districto','2121','2121')
+            address = Address(province,city,district,'1','1')
             db.session.add(address)
-            user = User(username,f'{username}@gmail.com',1)
-            db.session.add(user)
-            user_password = Credencial('password',password,'normal',user.getId())
-            print(user.id_user)
-            print(address.id_address)
+            db.session.commit()
+
+            user = User(username,f'{username}@gmail.com',address.id_address)
             
+            db.session.add(user)
+            db.session.commit()
+            
+            user_password = Credencial('password',password,'normal',user.getId())
             db.session.add(user_password)
 
             db.session.commit()
 
             session['user_id'] = User.query.all()[-1].id_user
+        
         return redirect(url_for('Login.profile'))
         
     flash('')

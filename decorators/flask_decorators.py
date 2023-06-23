@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template,redirect,url_for
 from colorama import init as init_colorama, Fore as Color_colorama, Style as Style_colorama
 
 
@@ -26,7 +26,7 @@ def tryTo(func):
             return func()
         except Exception as e:
             print_color(f'ERROR: {e}',Color_colorama.RED)
-            return 'ERROR'
+            return redirect(url_for('Login.profile'))
     return response
 
 def fuckIt(func):
