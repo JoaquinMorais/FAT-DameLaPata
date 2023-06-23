@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adoptante, Address
+from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
 
 Login = Blueprint("Login",__name__)
@@ -12,7 +12,7 @@ def before_request():
     if 'user_id' in session:
         database = User.query.all()
         try:
-            user = [x for x in database if x.id == session['user_id']][0]
+            user = [x for x in database if x.id_user == session['user_id']][0]
             g.user = user
         except:
             pass
@@ -25,15 +25,21 @@ def login():
         session.pop('user_id',None)
         username = request.form['username']
         password = request.form['password']
-        #remember = request.form['remember']
+
+
         database = User.query.all()
-        print(database)
-        user = [x for x in database if x.username == username]
-        if len(user)!=0 and user[0].password == password:
-            user = user[0]
-            session['user_id'] = user.id
+
+        user = User.query.filter_by(username = username).first()
+
+        user_password = Credencial.query.filter_by(id_user = user.getId()).first()
+        
+        print(f'password {user_password}')
+        if user!=None and user_password.campo == password:
+            session['user_id'] = user.id_user
             return redirect(url_for('Login.profile'))
         return redirect(url_for('Login.login'))
+        
+        
     return render_template("login/login.html")
 
 
@@ -51,12 +57,18 @@ def singin():
         if len(user)!=0:
             flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
             return redirect(url_for('Login.singin'))
+        
         else:
-            address = Address('pepe','districto','2121','2121')
+            address = Address('ub','districto','2121','2121')
+            db.session.add(address)
+            user = User(username,f'{username}@gmail.com',1)
+            db.session.add(user)
+            user_password = Credencial('password',password,'normal',user.getId())
+            print(user.id_user)
+            print(address.id_address)
             
-            newInstance = User(username,f'{username}@gmail.com',2)
-            
-            db.session.add(address,newInstance)
+            db.session.add(user_password)
+
             db.session.commit()
 
             session['user_id'] = User.query.all()[-1].id_user

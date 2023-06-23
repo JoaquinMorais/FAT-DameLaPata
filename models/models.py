@@ -39,12 +39,15 @@ class User(db.Model): # se pueden hacer las querys
     username = db.Column(db.String(70), nullable = False)
     email = db.Column(db.String(150), nullable = False)
 
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
+    address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     
     def __init__(self, username, email, id_address):
         self.username = username
         self.email = email
         self.id_address = id_address
+    
+    def getId(self):
+        return self.id_user
 
 class Adoptante(db.Model): # se pueden hacer las querys
     __tablename__ = 'adoptante'
@@ -76,13 +79,13 @@ class Credencial(db.Model):
     tipo = db.Column(db.String(150), nullable = False)
     
 
-    id_usuario = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self,titulo, campo, tipo, id_usuario):
+    def __init__(self,titulo, campo, tipo, id_user):
         self.titulo = titulo
         self.campo = campo
         self.tipo = tipo
-        self.id_usuario = id_usuario
+        self.id_user = id_user
 
 
 class Size(db.Model):
