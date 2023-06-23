@@ -5,15 +5,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from '../pages/Home';
 import Pinder from '../pages/Pinder';
 import { BigCard } from '../components/BigCard/BigCard';
+import {Register} from '../pages/unite/Register';
+import {Login} from '../pages/unite/Login';
 
 import '.././index.css';
- 
+import '.././login.css';
+
 function App() {
   return (
     <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pinder" element={<Pinder />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/Max" element={
             <BigCard 
             nombre = 'Juan'
@@ -42,5 +46,13 @@ const routes = [
   {
     path:'/Max',
     Component: BigCard
+  },
+  {
+    path:'/signup',
+    Component: Register
+  },
+  {
+    path:'/login',
+    Component: Login
   }
 ];
