@@ -64,8 +64,8 @@ def singin():
             user = User(username,f'{username}@gmail.com',1)
             db.session.add(user)
             user_password = Credencial('password',password,'normal',user.getId())
-            print(user.username)
-            
+            print(user.id_user)
+            print(address.id_address)
             
             db.session.add(user_password)
 

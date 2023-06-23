@@ -39,7 +39,7 @@ class User(db.Model): # se pueden hacer las querys
     username = db.Column(db.String(70), nullable = False)
     email = db.Column(db.String(150), nullable = False)
 
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
+    address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     
     def __init__(self, username, email, id_address):
         self.username = username
