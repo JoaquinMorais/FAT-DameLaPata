@@ -1,0 +1,48 @@
+.boton-huella-perro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .boton-huella-perro.pressed {
+    animation-name: bounce;
+    animation-duration: 0.5s;
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+     25% {
+      transform: translateY(-5px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-2px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .huella-perro-img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  .texto-entrar {
+    position: relative;
+    z-index: 1;
+  }

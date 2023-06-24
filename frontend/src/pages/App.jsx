@@ -18,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pinder" element={<Pinder />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/Max" element={
             <BigCard 
             nombre = 'Juan'
