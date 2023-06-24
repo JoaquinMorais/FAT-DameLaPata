@@ -6,22 +6,29 @@ import '../../login.css';
 
 
 export function Login() {
+    const [email, setEmail] = useState('')
+    const [pass, setPass] = useState('')
+
     return (
         <div>
-            <Navbar />
-            <div>
+          <Navbar />
+          <div className="main">
                 <h1>Login</h1>
-                <div>
-                    <form action="">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" placeholder="tumail@dog.com" id="email" />
-                        <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="*******" id="password" />
-                        <button>Log In</button>
-                    </form>
+                  <form id="form" action="" className="form">
+                    <label htmlFor="name">Usuario <span>*</span></label>
+                    <input name="name" required type="text" id="name" placeholder="elpepe777" />
+                    
+                    <label htmlFor="email">Contrasena <span>*</span></label>
+                    <input name="password" type="password" id="email" required placeholder="**********" />
+                    <button type="submit" className="button-58">Login</button>
+                  </form>
                 </div>
-            </div>
-        </div>
+                <div className='ifnot'>
+                  <p>¿No tienes cuenta? <a href="/register">Registrate</a></p>
+                </div>
+              </div>
+
       );
-}
+    }
+
 export default Login;
