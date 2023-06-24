@@ -23,7 +23,7 @@ def before_request():
             user = [x for x in database if x.id_user == session['user_id']][0]
             g.user = user
         except:
-            pass
+            return redirect(url_for('Login.login'))
     else:
         g.user = None
 
@@ -53,7 +53,6 @@ def login():
 
 
 @Login.route("/singin",methods=['GET','POST'],endpoint = 'singin')
-@tryTo
 def singin():
     if request.method == 'POST':
         session.pop('user_id',None)
@@ -84,7 +83,7 @@ def singin():
 
             db.session.commit()
 
-            session['user_id'] = User.query.all()[-1].id_user
+            session['user_id'] = user.getId()
         
         return redirect(url_for('Login.profile'))
         
@@ -97,6 +96,6 @@ def singin():
 def profile():
     if not g.user:
         return redirect(url_for('Login.login'))
-    return g.user.username
+    return jsonify(g.user.username,g.user.email)
 
 

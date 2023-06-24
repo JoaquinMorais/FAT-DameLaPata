@@ -9,7 +9,7 @@ from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
 
-from models.models import User
+from models.models import User,Address,Credencial
 from utils.db import db
 
 GOOGLE_CLIENT_ID = "191643232132-e96g0rrr3soareb2fda05hep1db4ru6p.apps.googleusercontent.com"
@@ -54,7 +54,7 @@ def Login():
 
 @Login_Google.route("/logout")
 def Logout():
-    session.clear()
+    session.pop('user_id',None)
     #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
 
     return redirect(url_for('Login.login'))
@@ -79,10 +79,38 @@ def callback():
         request=token_request,
         audience=GOOGLE_CLIENT_ID
     )
-    #return jsonify(id_info)
+
+    user_google_id = Credencial.query.filter_by(campo = id_info.get("sub")).first()
+
+    print(user_google_id)
+    if user_google_id:
+        user = User.query.filter_by(id_user = user_google_id.id_user).first()
+        session['user_id'] = user.getId()
+    else: 
+        address = Address("form['province']","form['city']","form['district']",'1','1')
+        db.session.add(address)
+        db.session.commit()
+
+        user = User(id_info.get("name"),id_info.get("email"),address.id_address)
+            
+        db.session.add(user)
+        db.session.commit()
+            
+        google_id = Credencial('google_id',id_info.get("sub"),'google',user.getId())
+        db.session.add(google_id)
+
+        db.session.commit()
+
+        session['user_id'] = user.getId()
+    
+    
+    '''
+    return jsonify(id_info)
+
+    
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
-    
+    '''
     return redirect("/profile")
 
 
