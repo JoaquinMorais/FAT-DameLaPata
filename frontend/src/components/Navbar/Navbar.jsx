@@ -20,7 +20,7 @@ export const Navbar = () => {
                     <li><a href="">Información</a></li>
                     <li><a href="">Favoritos</a><span className='total-favoritos'>2</span></li>
                     <li><a href="">Perfil</a></li>
-                    <li><Link to="/login"> <MdOutlinePets />ÚNETE</Link><MdOutlinePets /></li>
+                    <li><Link to="/option"> <MdOutlinePets />ÚNETE</Link><MdOutlinePets /></li>
 
                 </ul>
             </div>

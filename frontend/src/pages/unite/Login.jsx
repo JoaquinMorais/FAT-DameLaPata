@@ -23,7 +23,7 @@ export function Login() {
                   </form>
                 </div>
                 <div className='ifnot'>
-                  <p>¿No tienes cuenta? <a href="/signup">Registrate</a></p>
+                  <p>¿No tienes cuenta? <a href="/option">Registrate</a></p>
                 </div>
               </div>
 

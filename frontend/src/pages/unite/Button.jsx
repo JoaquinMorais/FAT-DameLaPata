@@ -21,7 +21,7 @@ const BotonHuellaPerro = () => {
       onAnimationEnd={handleAnimationEnd}
     >
       <img src={huellaPerro} alt="Huella de perro" className="huella-perro-img" />
-      <span className="texto-entrar">Entrar</span>
+      <span className="texto-entrar">Ingresar</span>
     </button>
   );
 };

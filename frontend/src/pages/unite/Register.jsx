@@ -5,7 +5,7 @@ import '../../login.css';
 
 export function Register() {
   const [provinces, setProvinces] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
 
   useEffect(() => {
@@ -16,15 +16,16 @@ export function Register() {
 
   useEffect(() => {
     if (selectedProvince) {
-      fetch(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${selectedProvince}`)
+      fetch(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${selectedProvince}`)
         .then(response => response.json())
-        .then(data => setCities(data.localidades));
+        .then(data => setDepartments(data.departamentos));
     }
   }, [selectedProvince]);
 
   const handleProvinceChange = (event) => {
     setSelectedProvince(event.target.value);
   };
+
 
   return (
     <div>
@@ -55,22 +56,22 @@ export function Register() {
             ))}
           </select>
 
-          <label htmlFor="city">Ciudad <span>*</span></label>
-          <select name="city" required id="city" className="custom-select">
-            <option value="">Seleccione una ciudad</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.id}>{city.nombre}</option>
+          <label htmlFor="department">Departamento <span>*</span></label>
+          <select name="department" required id="department" className="custom-select">
+            <option value="">Seleccione un departamento</option>
+            {departments.map((department) => (
+              <option key={department.id} value={department.id}>{department.nombre}</option>
             ))}
           </select>
 
           <label htmlFor="district">Barrio <span>*</span></label>
           <input name="district" required type="text" id="district" placeholder="Barrio" />
 
-          <BotonHuellaPerro className='button' />
+          <BotonHuellaPerro />
         </form>
       </div>
       <div className="ifnot">
-        <p>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+        <p>¿Ya tienes cuenta? <a href="/option/login">Inicia sesión</a></p>
       </div>
     </div>
   );

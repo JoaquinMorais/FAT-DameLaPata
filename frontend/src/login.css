@@ -20,42 +20,41 @@ body {
 
 }
 
-  h1{
-      font-size: 50px;
-      margin-top:100px;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-  }
+h1{
+  font-size: 50px;
+  margin-top:100px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
   
-  form {
-      width: 400px;
-      margin: 50px auto;
-      text-align: left;
-      padding: 20px;
-      border: 3px solid #ccc;
-      border-radius: 20px;
-      justify-content: center;
-      align-items: center;
-  }
-  
-  label {
-      font-size: 20px;
-      font-weight: bold;
-  }
-  
-  input,
-  textarea {
-      width: 100%;
-      padding: 12px 20px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 16px;
-  }
-  
+form {
+  width: 400px;
+  margin: 50px auto;
+  text-align: left;
+  padding: 20px;
+  border: 3px solid #ccc;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
 
+label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+  
 
   .ifnot{
     font-size: 20px;
@@ -65,21 +64,21 @@ body {
  }
 
  .custom-select {
-  display: flex;
-  flex-direction: column;
-  appearance: none;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 8px 10px;
-  padding-right: 24px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  line-height: 1.6;
-  padding: 12px 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    appearance: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 8px 10px;
+    padding-right: 24px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .custom-select option {
@@ -87,36 +86,36 @@ body {
   color: #000;
 }
 @media only screen and (max-width: 1020px) {
-    form {
-      width: 60%;
-    }
+  form {
+    width: 60%;
   }
-  
-  @media only screen and (max-width: 650px) {
-    h1 {
-      font-size: 40px;
-    }
-    form {
-      width: 90%;
-      margin: 20px auto;
-    }
-    .container {
-      grid-template-columns: 1fr;
-    }
-    .social-buttons {
-      width: 95%;
-  
-    }
+}
+
+@media only screen and (max-width: 650px) {
+  h1 {
+    font-size: 40px;
+}
+form {
+  width: 90%;
+  margin: 20px auto;
+  }
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .social-buttons {
+    width: 95%;
 
   }
-  @media (max-width: 300px) {
-    h1 {
-      font-size: 30px;
-    }
-    
-    form {
-      width: 90%;
-      margin: 30px auto;
-      padding: 10px;
-    }
+
+}
+@media (max-width: 300px) {
+  h1 {
+    font-size: 30px;
   }
+  
+  form {
+    width: 90%;
+    margin: 30px auto;
+    padding: 10px;
+  }
+}

@@ -7,6 +7,7 @@ import Pinder from '../pages/Pinder';
 import { BigCard } from '../components/BigCard/BigCard';
 import {Register} from '../pages/unite/Register';
 import {Login} from '../pages/unite/Login';
+import {Option} from '../pages/unite/Option';
 
 import '.././index.css';
 import '.././login.css';
@@ -17,8 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pinder" element={<Pinder />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/option" element={<Option />} />
+          <Route path="/option/login" element={<Login />} />
+          <Route path="/option/signup" element={<Register />} />
+
           <Route path="/Max" element={
             <BigCard 
             nombre = 'Juan'
@@ -49,11 +52,15 @@ const routes = [
     Component: BigCard
   },
   {
-    path:'/signup',
+    path:'/option/signup',
     Component: Register
   },
   {
-    path:'/login',
+    path:'/option/login',
     Component: Login
+  },
+  {
+    path:'/option',
+    Component: Option
   }
 ];
