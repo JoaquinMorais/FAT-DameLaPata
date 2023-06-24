@@ -5,9 +5,12 @@ from decorators.flask_decorators import *
 
 Login = Blueprint("Login",__name__)
 
-def Request(value):
+def Request(*args):
+    response = {}
     try:
-        return request.form[value]
+        for arg in args:
+            response[f'{arg}'] =  request.form[arg]
+        return response
     except:
         return None
 
@@ -28,15 +31,16 @@ def before_request():
 def login():
     if request.method == 'POST':
         session.pop('user_id',None)
-        username = Request('username')
-        password = Request('password')
+
+        form = Request('username','password')
 
 
-        user = User.query.filter_by(username = username).first()
+        user = User.query.filter_by(username = form['username']).first()
         user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
+        print(form)
         print(f'password {user_password}')
-        if user and user_password.campo == password:
+        if user and user_password.campo == form['password']:
             session['user_id'] = user.id_user
             return redirect(url_for('Login.profile'))
         
@@ -54,33 +58,28 @@ def singin():
     if request.method == 'POST':
         session.pop('user_id',None)
 
-        username = Request('username')
-        password = Request('password')
-        province = Request('province')
-        city = Request('city')
-        district = Request('district')
-        
+
+        form = Request('username','password','province','city','district')
 
 
 
-
-        users = User.query.filter_by(username = username).all()
+        users = User.query.filter_by(username = form['username']).all()
         
         if users:
             flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
             return redirect(url_for('Login.singin'))
         
         else:
-            address = Address(province,city,district,'1','1')
+            address = Address(form['province'],form['city'],form['district'],'1','1')
             db.session.add(address)
             db.session.commit()
 
-            user = User(username,f'{username}@gmail.com',address.id_address)
+            user = User(form['username'],f'{ form["username"] }@gmail.com',address.id_address)
             
             db.session.add(user)
             db.session.commit()
             
-            user_password = Credencial('password',password,'normal',user.getId())
+            user_password = Credencial('password',form['password'],'normal',user.getId())
             db.session.add(user_password)
 
             db.session.commit()
