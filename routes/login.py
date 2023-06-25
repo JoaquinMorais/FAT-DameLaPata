@@ -90,9 +90,8 @@ def singin():
 
 
 @Login.route("/profile", endpoint = 'profile')
+@login_is_required
 def profile():
-    if not g.user:
-        return redirect(url_for('Login.login'))
     return jsonify(g.user.username,g.user.email)
 
 

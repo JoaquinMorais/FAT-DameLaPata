@@ -12,6 +12,7 @@ import google.auth.transport.requests
 from models.models import User,Address,Credencial
 from utils.db import db
 from methods.requests import Request
+from decorators.flask_decorators import login_is_required
 
 GOOGLE_CLIENT_ID = "191643232132-e96g0rrr3soareb2fda05hep1db4ru6p.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "../client_secret.json")
@@ -27,13 +28,6 @@ flow = Flow.from_client_secrets_file(
 
 Login_Google = Blueprint("Login_Google",__name__)
 
-def login_is_required(function):
-    def wrapper(*args, **kwargs):
-        if "google_id" not in session:
-            return abort(401) #Autorization Required
-        else:
-            return function()
-    return wrapper
 
 
 
@@ -106,7 +100,7 @@ def callback():
         return redirect(url_for('Login_Google.googleAddress'))
 
 
-@Login_Google.route("/google-address",methods=['GET','POST'])
+@Login_Google.route("/google_login/register-address",methods=['GET','POST'])
 def googleAddress():
     if request.method == 'POST':
         form = Request('province','city','district')
