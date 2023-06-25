@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from '../../components/Navbar/Navbar';
 import BotonHuellaPerro from '../../components/Unite/Button';
 import '../../login.css';
+import { FcGoogle } from 'react-icons/fc';
+
+
 
 export function Register() {
   const [provinces, setProvinces] = useState([]);
@@ -32,6 +35,13 @@ export function Register() {
       <Navbar />
       <div className="main">
         <h1>REGISTRATE</h1>
+        <div className="google-login">
+          <p>o inicia sesión con Google</p>
+          <a className="google-button" type="button" href='www.google.com'>
+            <FcGoogle className="google-icon" />
+          </a>
+          <hr />
+        </div>
         <form id="form" className="form">
           <label htmlFor="name">Nombre <span>*</span></label>
           <input name="name" required type="text" id="name" placeholder="Nombre" />
