@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navbar } from '../../components/Navbar/Navbar';
-import BotonHuellaPerro from '../unite/Button';
+import BotonHuellaPerro from '../../components/Unite/Button';
 
 
 

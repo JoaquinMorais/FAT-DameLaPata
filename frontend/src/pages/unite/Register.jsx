@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from '../../components/Navbar/Navbar';
-import BotonHuellaPerro from '../unite/Button';
+import BotonHuellaPerro from '../../components/Unite/Button';
 import '../../login.css';
 
 export function Register() {
