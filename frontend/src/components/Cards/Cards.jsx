@@ -7,7 +7,7 @@ export const Cards = (props) => {
       <div className="carta">
         <img src={require(`../../images/Dogs/perros-${props.nombre}.jpg`)} alt="imagen" />
       </div>
-      <Link to={ props.clave } className='link-to'>
+      <Link className='link-to' to={props.ruta}>
       <div className="texto-carta">
         <h3>{ props.nombre }</h3>
         <h6>{ props.edad } - { props.tamaño }</h6>

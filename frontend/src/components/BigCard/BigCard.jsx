@@ -16,6 +16,16 @@ export const BigCard = (props) => {
       </div>
 
       <div className="cartaGrande-info">
+        <h2>HISTORIA</h2>
+        <p>{ props.historia }</p>
+        <h2>SALUD</h2>
+        <p>{ props.salud }</p>
+        <h2>COMPORTAMIENTO</h2>
+        <p>{ props.comportamiento }</p>
+        <h2>REQUERIMIENTOS</h2>
+        <p>{ props.requerimientos }</p>
+        <h2>CONTACTO</h2>
+        <p>{ props.contacto }</p>
 
       </div>
     </>

@@ -19,6 +19,11 @@ function Home() {
         edad = '6'
         tamaño = 'Grande'
         ruta = '/Max'
+        historia = 'Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem '
+        salud = 'Todas las vacunas al dia'
+        comportamiento = 'Es un perro bueno con personas y otros perros.'
+        requerimientos = 'Comida balanceada, salir a pasear una vez al dia (Minimo) y por los primeros 2 años dejarlo solo lo menos posible en su casa.'
+        contacto = 'Whatsapp: 1212121212'
         />
 
         <Cards 
