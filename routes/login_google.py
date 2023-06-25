@@ -86,6 +86,7 @@ def callback():
     if user_google_id:
         user = User.query.filter_by(id_user = user_google_id.id_user).first()
         session['user_id'] = user.getId()
+        return redirect(url_for('Login.profile'))
     else: 
         address = Address("form['province']","form['city']","form['district']",'1','1')
         db.session.add(address)
@@ -103,14 +104,6 @@ def callback():
 
         session['user_id'] = user.getId()
     
-    
-    '''
-    return jsonify(id_info)
-
-    
-    session["google_id"] = id_info.get("sub")
-    session["name"] = id_info.get("name")
-    '''
-    return redirect("/profile")
+        return redirect(url_for('Login.profile'))
 
 

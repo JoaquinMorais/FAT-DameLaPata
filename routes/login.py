@@ -29,13 +29,16 @@ def before_request():
 
 @Login.route("/login",methods=['GET','POST'])
 def login():
+    session.pop('user_id',None)
     if request.method == 'POST':
-        session.pop('user_id',None)
 
         form = Request('username','password')
 
 
         user = User.query.filter_by(username = form['username']).first()
+        if not user:
+            flash('tonto')
+            return redirect(url_for('Login.profile'))
         user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
         print(form)
@@ -54,10 +57,8 @@ def login():
 
 @Login.route("/singin",methods=['GET','POST'],endpoint = 'singin')
 def singin():
+    session.pop('user_id',None)
     if request.method == 'POST':
-        session.pop('user_id',None)
-
-
         form = Request('username','password','province','city','district')
 
 
