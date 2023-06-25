@@ -2,17 +2,12 @@ from flask import Blueprint,render_template,redirect,url_for,request,session,g,a
 from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
 from decorators.flask_decorators import * 
+from methods.requests import Request
+
 
 Login = Blueprint("Login",__name__)
 
-def Request(*args):
-    response = {}
-    try:
-        for arg in args:
-            response[f'{arg}'] =  request.form[arg]
-        return response
-    except:
-        return None
+
 
 
 @Login.before_request
@@ -30,6 +25,7 @@ def before_request():
 @Login.route("/login",methods=['GET','POST'])
 def login():
     session.pop('user_id',None)
+    g.user = None
     if request.method == 'POST':
 
         form = Request('username','password')
