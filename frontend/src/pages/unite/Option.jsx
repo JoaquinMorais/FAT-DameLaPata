@@ -36,7 +36,7 @@ export function Option() {
                     <Link to="/option/signup" style={linkStyle} > <BsPersonHearts/>   SOY ADOPTANTE   <BsPersonHearts/></Link>
                 </div>
                 <div className='options'>
-                    <Link to="/option/organitation" style={linkStyle}><IoHome/>   SOY UNA ORGANIZACION   <IoHome/></Link>
+                    <Link to="/option/organitation  " style={linkStyle}><IoHome/>   SOY UN REFUGIO   <IoHome/></Link>
                 </div>
             </div>
                 <div className='ifnot'>
