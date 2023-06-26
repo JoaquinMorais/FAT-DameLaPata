@@ -3,6 +3,8 @@ from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
+from methods.encrypt import Encrypt
+
 
 
 Login = Blueprint("Login",__name__)
@@ -10,82 +12,70 @@ Login = Blueprint("Login",__name__)
 
 
 
-@Login.before_request
-def before_request():
-    if 'user_id' in session:
-        database = User.query.all()
-        try:
-            user = [x for x in database if x.id_user == session['user_id']][0]
-            g.user = user
-        except:
-            return redirect(url_for('Login.login'))
-    else:
-        g.user = None
+
 
 @Login.route("/login",methods=['GET','POST'])
 def login():
     session.pop('user_id',None)
-    g.user = None
-    if request.method == 'POST':
-
-        form = Request('username','password')
+    data = Request('username','password')
 
 
-        user = User.query.filter_by(username = form['username']).first()
-        if not user:
-            flash('tonto')
-            return redirect(url_for('Login.profile'))
-        user_password = Credencial.query.filter_by(id_user = user.getId()).first()
+    user = User.query.filter_by(username = data['username']).first()
+    if not user:
+        return jsonify({"error":"Unauthorized"}),401
+    user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
-        print(form)
-        print(f'password {user_password}')
-        if user and user_password.campo == form['password']:
-            session['user_id'] = user.id_user
-            return redirect(url_for('Login.profile'))
+    if user_password.campo != Encrypt(data['password']): 
+        return jsonify({"error":"Unauthorized"}),401
+    
+    session['user_id'] = user.id_user
+    return jsonify({
+        'user_id' : session['user_id'],
+        'username' : user.username,
+        'password' : user_password.campo,
+        'email' : user.mail,
         
-        return redirect(url_for('Login.login'))
+    })
         
         
-    return render_template("login/login.html")
+    
 
 
 
 
-@Login.route("/singin",methods=['GET','POST'],endpoint = 'singin')
-def singin():
+@Login.route("/register",methods=['POST'],endpoint = 'register_user')
+def register_user():
     session.pop('user_id',None)
-    if request.method == 'POST':
-        form = Request('username','password','province','city','district')
+    
+    data = Request('username','password','province','city','district')
 
-
-
-        users = User.query.filter_by(username = form['username']).all()
+    users = User.query.filter_by(username = data['username']).all()
         
-        if users:
-            flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
-            return redirect(url_for('Login.singin'))
+    if users:
+        return jsonify({"error":"User already exists"}), 409
         
-        else:
-            address = Address(form['province'],form['city'],form['district'],'1','1')
-            db.session.add(address)
-            db.session.commit()
-
-            user = User(form['username'],f'{ form["username"] }@gmail.com',address.id_address)
+    address = Address(data['province'],data['city'],data['district'],'1','1')
+    db.session.add(address)
+    db.session.commit()
+    
+    user = User(data['username'],f'{ data["username"] }@gmail.com',address.id_address)
             
-            db.session.add(user)
-            db.session.commit()
+    db.session.add(user)
+    db.session.commit()
             
-            user_password = Credencial('password',form['password'],'normal',user.getId())
-            db.session.add(user_password)
+    user_password = Credencial('password',Encrypt(data['password']) ,'normal',user.getId())
+    db.session.add(user_password)
 
-            db.session.commit()
+    db.session.commit()
 
-            session['user_id'] = user.getId()
+    session['user_id'] = user.getId()
+    
+    return jsonify({
+        'id':session['user_id'],
+        'email' : user.email,
+    })
         
-        return redirect(url_for('Login.profile'))
-        
-    flash('')
-    return render_template("login/singin.html")
+    
 
 
 

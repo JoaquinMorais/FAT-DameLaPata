@@ -2,6 +2,7 @@ from flask import Blueprint, session, abort, redirect, request,url_for,jsonify,r
 from colorama import init as init_colorama, Fore as Color_colorama, Style as Style_colorama
 
 
+
 def print_color(text, color):
     init_colorama()  # inicializa colorama
     #Negro      #Rojo
