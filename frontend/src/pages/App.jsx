@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 /* IMPORTS COMPONENTS */
 import Home from '../pages/Home';
 import Pinder from '../pages/Pinder';
+import ProfilePage from '../pages/ProfilePage';
 import { BigCard } from '../components/BigCard/BigCard';
 
 import '.././index.css';
@@ -24,7 +25,8 @@ function App() {
           <Route path="/SonGoku" element={<BigCard nombre = 'SonGoku' edad = '5' tamaño = 'Grande'/> } />
           <Route path="/Hit" element={<BigCard nombre = 'Hit' edad = '1' tamaño = 'Pequeño'/> } />
           <Route path="/Ler" element={<BigCard nombre = 'Ler' edad = '1' tamaño = 'Pequeño'/> } />
-          <Route path="/Juan" element={<BigCard nombre = 'Juan' edad = '10' tamaño = 'Mediano'/> } />  
+          <Route path="/Juan" element={<BigCard nombre = 'Juan' edad = '10' tamaño = 'Mediano'/> } />
+          <Route path="/perfil" element={<ProfilePage />} />  
         </Routes>
     </Router>
   );

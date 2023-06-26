@@ -1,6 +1,8 @@
 import React from 'react'
 import {BrowserRouter, Link} from 'react-router-dom'
 
+import '../Cards/Cards.css'
+
 export const Cards = (props) => {
   return (
     <div className='carta-container'>

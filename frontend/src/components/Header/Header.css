@@ -1,0 +1,21 @@
+/* HEADER */
+.titulo{
+    padding: 150px 0 0 0;
+    text-align: center;
+    font-size: 70px;
+    /*font-family: 'Rowdies', cursive;*/
+  }
+  
+  .slogan{
+    padding: 5px 0 15px 0;
+    text-align: center;
+    font-size: 25px;
+    font-style: italic;
+  }
+  
+  .hr{
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }

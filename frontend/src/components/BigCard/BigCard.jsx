@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../BigCard/BigCard.css'
+
 export const BigCard = (props) => {
   return (
     <>
