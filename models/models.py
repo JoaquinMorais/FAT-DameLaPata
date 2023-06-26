@@ -177,6 +177,10 @@ class Pet(db.Model):
 
     id_size = db.Column(db.Integer, ForeignKey('size.id_size', ondelete='SET NULL', onupdate='CASCADE'))
 
+    pet_colors = db.relationship('RelationShipPetColor', lazy=True)
+    pet_characteristics = db.relationship('RelationShipPetCharacteristics', lazy=True)
+    pet_size = db.relationship('Size', lazy=True)
+    
     def __init__(self, name, birth_date, size):
         self.name = name
         self.birth_date = birth_date
@@ -194,6 +198,8 @@ class RelationShipPetColor(db.Model):
     id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
     id_color = db.Column(db.Integer, ForeignKey('color.id_color', ondelete='SET NULL', onupdate='CASCADE'))
 
+    color_value = db.relationship('Color', lazy=True)
+
     def __init__(self, pet, color):
         self.id_pet = pet
         self.id_color = color
@@ -205,6 +211,8 @@ class RelationShipPetCharacteristics(db.Model):
 
     id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
     id_characteristics = db.Column(db.Integer, ForeignKey('characteristics.id_characteristics', ondelete='SET NULL', onupdate='CASCADE'))
+
+    characteristics_value = db.relationship('Characteristics', lazy=True)
 
     def __init__(self, pet, characteristics):
         self.id_pet = pet

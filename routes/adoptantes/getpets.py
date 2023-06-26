@@ -17,18 +17,40 @@ Adoptante_getPets = Blueprint("Adoptante_getPets",__name__)
 @login_is_required
 def getPets():
     pets = Pet.query.all()
+    data = []
+    for i in pets:
+        size_json = {
+            'title':i.pet_size.title,
+        }
+        characteristics = []
+        colors = []
+        for x in i.pet_characteristics:
+            characteristics.append(
+                {
+                    'titulo':x.characteristics_value.title,
+                    'valor':x.characteristics_value.description
+                }
+            )
+        for x in i.pet_colors:
+            colors.append(
+                {
+                    'titulo':x.color_value.title,
+                    'valor':x.color_value.description
+                }
+            )
 
 
-    return jsonify({
-        'data' : [{
-            'id_pet' : x.id_pet,
-            'name' : x.name,
-            'birthdate' : x.birth_date,
-            'pet_size' : None,
-            'pet_color':[z for z in [
-                #PONER TODAS LOS COLORES QUE TENGA
-            ]],
-        } for x in pets]
-    })
+        data.append(
+            {
+                'id':i.id_pet,
+                'name':i.name,
+                'birthdate':i.birth_date,
+                'size':size_json,
+                'caracteristics':characteristics,
+                'colors':colors
+            }
+        )
+
+    return jsonify(data)
 
 
