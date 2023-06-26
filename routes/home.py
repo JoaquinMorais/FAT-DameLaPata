@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify,render_template,redirect,url_for
-from models.users import ExampleDatabase
 from utils.db import db
 from flask import send_from_directory
 import os
+from models.models import *
 
 
 Home = Blueprint("Home",__name__, static_folder="static")
@@ -15,19 +15,44 @@ def serve(path):
     else:
         return send_from_directory(Home.static_folder, 'static/index.html')
 
-
-@Home.route("/db/añadir")
-def añadir():
-    newInstance = ExampleDatabase('Coca cola','Bebida bebible')
-    db.session.add(newInstance)
-    db.session.commit()
-    return redirect(url_for('Home.getHome'))
-
 @Home.route("/db/traer")
 def traer():
-    database = ExampleDatabase.query.all()
-    print(database)
-    return redirect(url_for('Home.getHome'))
+    pets = Pet.query.all()
+    data = []
+    for i in pets:
+        size_json = {
+            'title':i.pet_size.title,
+        }
+        characteristics = []
+        colors = []
+        for x in i.pet_characteristics:
+            characteristics.append(
+                {
+                    'titulo':x.characteristics_value.title,
+                    'valor':x.characteristics_value.description
+                }
+            )
+        for x in i.pet_colors:
+            colors.append(
+                {
+                    'titulo':x.color_value.title,
+                    'valor':x.color_value.description
+                }
+            )
+
+
+        data.append(
+            {
+                'id':i.id_pet,
+                'name':i.name,
+                'birthdate':i.birth_date,
+                'size':size_json,
+                'caracteristics':characteristics,
+                'colors':colors
+            }
+        )
+
+    return jsonify(data)
 
 
 
@@ -37,3 +62,8 @@ def api_data():
         'message': 'fds'
     }
     return jsonify(data)
+
+
+
+
+

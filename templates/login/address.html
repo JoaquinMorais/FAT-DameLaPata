@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+    Si
+{% endblock %}
+
+{% block head %}
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base_css.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login/login_css.css') }}">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- SCROOL REVEAL -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+{% endblock %}
+
+
+{% block content %}
+    <h1>Completa estos pasos para terminar tu cuenta!!!</h1>
+    <form method="post">
+        <div class="imgcontainer">
+          <img src="img_avatar2.png" alt="" class="avatar">
+        </div>
+      
+        <div class="container">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for msg in messages %}
+                <p>{{msg}}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          
+          
+          <input type="province" placeholder="Enter Province" name="province" required>
+          
+          <input type="city" placeholder="Enter city" name="city" required>
+          
+          <input type="district" placeholder="Enter district" name="district" required>
+          
+          <button type="submit">Sing In</button>
+          
+        </div>
+      
+        
+    </form>
+{% endblock %}

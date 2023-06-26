@@ -1,64 +1,92 @@
-from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash
-from models.users import User
+from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
+from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
+from decorators.flask_decorators import * 
+from methods.requests import Request
+from methods.encrypt import Encrypt
+
+
 
 Login = Blueprint("Login",__name__)
-@Login.before_request
-def before_request():
-    if 'user_id' in session:
-        database = User.query.all()
-        try:
-            user = [x for x in database if x.id == session['user_id']][0]
-            g.user = user
-        except:
-            pass
-    else:
-        g.user = None
-
-@Login.route("/login",methods=['GET','POST'])
-def login():
-    if request.method == 'POST':
-        session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
-        #remember = request.form['remember']
-        database = User.query.all()
-        print(database)
-        user = [x for x in database if x.username == username]
-        if len(user)!=0 and user[0].password == password:
-            user = user[0]
-            session['user_id'] = user.id
-            return redirect(url_for('Login.profile'))
-        return redirect(url_for('Login.login'))
-    return render_template("login/login.html")
-
-@Login.route("/profile")
-def profile():
-    if not g.user:
-        return redirect(url_for('Login.login'))
-    return render_template("login/profile.html")
 
 
-@Login.route("/singin",methods=['GET','POST'])
-def singin():
-    if request.method == 'POST':
-        session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
 
-        database = User.query.all()
-        user = [x for x in database if x.username == username]
-        if len(user)!=0:
-            flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
-            return redirect(url_for('Login.singin'))
-        else:
-            newInstance = User(username,password)
-            db.session.add(newInstance)
-            db.session.commit()
 
-            session['user_id'] = User.query.all()[-1].id
-        return redirect(url_for('Login.profile'))
+  
+@Login.route("/register",methods=['POST'],endpoint = 'register_user')
+def register_user():
+    session.pop('user_id',None)
+    
+    data = Request('username','password','province','city','district')
+
+    users = User.query.filter_by(username = data['username']).all()
+        
+    if users:
+        return jsonify({"error":"User already exists"}), 409
+        
+    address = Address(data['province'],data['city'],data['district'],'1','1')
+    db.session.add(address)
+    db.session.commit()
+    
+    user = User(data['username'],f'{ data["username"] }@gmail.com',address.id_address)
+            
+    db.session.add(user)
+    db.session.commit()
+            
+    user_password = Credencial('password',Encrypt(data['password']) ,'normal',user.getId())
+    db.session.add(user_password)
+
+    db.session.commit()
+
+    session['user_id'] = user.getId()
+    
+    return jsonify({
+        'id':session['user_id'],
+        'email' : user.email,
+    })
         
 
-    flash('')
-    return render_template("login/singin.html")
+@Login.route("/login",methods=['GET','POST'])
+def login_user():
+    session.pop('user_id',None)
+    data = Request('username','password')
+
+
+    user = User.query.filter_by(username = data['username']).first()
+    if not user:
+        return jsonify({"error":"Unauthorized"}),401
+    user_password = Credencial.query.filter_by(id_user = user.getId()).first()
+        
+    if user_password.campo != Encrypt(data['password']): 
+        return jsonify({"error":"Unauthorized"}),401
+    
+    session['user_id'] = user.id_user
+    return jsonify({
+        'user_id' : session['user_id'],
+        'username' : user.username,
+        'password' : user_password.campo,
+        'email' : user.email,
+
+    })
+        
+
+@Login.route("/profile",methods=['POST'], endpoint = 'profile')
+@login_is_required
+def profile():
+    user = User.query.filter_by(id_user = session['user_id']).first()
+    
+    if not user:
+        return jsonify({"error":"User dont exists"}), 409
+    
+    return jsonify({
+        'id' : user.id_user,
+        'username' : user.username
+    })
+
+
+@Login.route("/logout",methods=['POST'])
+def logout():
+    session.pop('user_id',None)
+    #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
+
+    return "200"
