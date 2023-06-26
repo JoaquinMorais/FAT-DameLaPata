@@ -38,8 +38,8 @@ def fuckIt(func):
 
 def login_is_required(function):
     def wrapper(*args, **kwargs):
-        if not g.user:
-            return redirect(url_for('Login.login'))
-        else:
+        if "user_id" in session:
             return function()
+        else:
+            return jsonify({"error":"Unauthorized"}),401
     return wrapper
