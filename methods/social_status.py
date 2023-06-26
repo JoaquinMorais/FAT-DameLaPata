@@ -46,11 +46,9 @@ points = stone(pets, 9, 3, points)
 pets = str(input("¿Tienes los recursos necesarios para mantener todas las necesidades de la mascota?(y/n): "))
 points = stone(pets, 10, 2, points)
 
-
 # Calculos finales (max= 75;min= 30) (1=Bueno, 2=Mediocre, 3=Malo)
-
 def final_calculation():
-    if points <= 60:
+    if points >= 60:
         result = 1
     elif points <= 45:
         result = 3
