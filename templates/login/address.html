@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-    Sing In
+    Si
 {% endblock %}
 
 {% block head %}
@@ -16,16 +16,13 @@
 
 
 {% block content %}
-    <h1>Estas en Sing In!!!</h1>
+    <h1>Completa estos pasos para terminar tu cuenta!!!</h1>
     <form method="post">
         <div class="imgcontainer">
           <img src="img_avatar2.png" alt="" class="avatar">
         </div>
       
         <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="username" required>
-          
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for msg in messages %}
@@ -34,9 +31,7 @@
             {% endif %}
           {% endwith %}
 
-          <label for="psw"><b>Password</b></label>
           
-          <input type="password" placeholder="Enter Password" name="password" required>
           
           <input type="province" placeholder="Enter Province" name="province" required>
           
@@ -50,6 +45,4 @@
       
         
     </form>
-    <a href="{{ url_for('Login_Google.Login') }}"> Google</a>
-    <a href="{{ url_for('Login.login') }}"> Login</a>
 {% endblock %}

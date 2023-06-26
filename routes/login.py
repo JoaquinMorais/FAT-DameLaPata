@@ -1,6 +1,9 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
 from models.models import User, Adoptante, Address, Credencial
 from utils.db import db
+from decorators.flask_decorators import * 
+from methods.requests import Request
+
 
 Login = Blueprint("Login",__name__)
 
@@ -15,28 +18,31 @@ def before_request():
             user = [x for x in database if x.id_user == session['user_id']][0]
             g.user = user
         except:
-            pass
+            return redirect(url_for('Login.login'))
     else:
         g.user = None
 
 @Login.route("/login",methods=['GET','POST'])
 def login():
+    session.pop('user_id',None)
+    g.user = None
     if request.method == 'POST':
-        session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
+
+        form = Request('username','password')
 
 
-        database = User.query.all()
-
-        user = User.query.filter_by(username = username).first()
-
+        user = User.query.filter_by(username = form['username']).first()
+        if not user:
+            flash('tonto')
+            return redirect(url_for('Login.profile'))
         user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
+        print(form)
         print(f'password {user_password}')
-        if user!=None and user_password.campo == password:
+        if user and user_password.campo == form['password']:
             session['user_id'] = user.id_user
             return redirect(url_for('Login.profile'))
+        
         return redirect(url_for('Login.login'))
         
         
@@ -45,33 +51,37 @@ def login():
 
 
 
-@Login.route("/singin",methods=['GET','POST'])
+@Login.route("/singin",methods=['GET','POST'],endpoint = 'singin')
 def singin():
+    session.pop('user_id',None)
     if request.method == 'POST':
-        session.pop('user_id',None)
-        username = request.form['username']
-        password = request.form['password']
+        form = Request('username','password','province','city','district')
 
-        database = User.query.all()
-        user = [x for x in database if x.username == username]
-        if len(user)!=0:
+
+
+        users = User.query.filter_by(username = form['username']).all()
+        
+        if users:
             flash(f'Este nombre de usuario ya ha sido seleccionado, intentelo nuevamente')
             return redirect(url_for('Login.singin'))
         
         else:
-            address = Address('ub','districto','2121','2121')
+            address = Address(form['province'],form['city'],form['district'],'1','1')
             db.session.add(address)
-            user = User(username,f'{username}@gmail.com',1)
-            db.session.add(user)
-            user_password = Credencial('password',password,'normal',user.getId())
-            print(user.id_user)
-            print(address.id_address)
+            db.session.commit()
+
+            user = User(form['username'],f'{ form["username"] }@gmail.com',address.id_address)
             
+            db.session.add(user)
+            db.session.commit()
+            
+            user_password = Credencial('password',form['password'],'normal',user.getId())
             db.session.add(user_password)
 
             db.session.commit()
 
-            session['user_id'] = User.query.all()[-1].id_user
+            session['user_id'] = user.getId()
+        
         return redirect(url_for('Login.profile'))
         
     flash('')
@@ -80,9 +90,8 @@ def singin():
 
 
 @Login.route("/profile", endpoint = 'profile')
+@login_is_required
 def profile():
-    if not g.user:
-        return redirect(url_for('Login.login'))
-    return g.user.username
+    return jsonify(g.user.username,g.user.email)
 
 

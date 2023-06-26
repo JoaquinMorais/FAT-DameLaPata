@@ -21,13 +21,16 @@ class Address(db.Model):
     location = db.Column(db.String(70), nullable = False)
     district = db.Column(db.String(70), nullable = False)
     street = db.Column(db.String(70), nullable = False)
-    height = db.Column(db.String(70), nullable = False)
     
-    def __init__(self, location, district, street, height):
+    latitude = db.Column(db.String(70), nullable = False)
+    longitude = db.Column(db.String(70), nullable = False)
+    
+    def __init__(self, location, district, street, latitude, longitude):
         self.location = location
         self.district = district
         self.street = street
-        self.height = height
+        self.latitude = latitude
+        self.longitude = longitude
 
     def __repr__(self):
         return f'{self.title}'
@@ -39,7 +42,7 @@ class User(db.Model): # se pueden hacer las querys
     username = db.Column(db.String(70), nullable = False)
     email = db.Column(db.String(150), nullable = False)
 
-    address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
+    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     
     def __init__(self, username, email, id_address):
         self.username = username

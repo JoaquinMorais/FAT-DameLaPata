@@ -10,7 +10,7 @@ export const Navbar = () => {
         <div className="menu">
             <a href="">
                 <div className="logo">
-                    <Link to='/'></Link><img src={Logo} alt="logo" />
+                    <Link to='/'><img src={Logo} alt="logo" /></Link>
                 </div>
             </a>
             <div className="links">
