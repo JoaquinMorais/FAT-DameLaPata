@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -9,16 +9,18 @@ import { Cards } from '../components/Cards/Cards';
 import { Footer } from '../components/Footer/Footer';
 
 function Home() {
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-    fetch('/just because').then(
-      res => res.json()
-    ).then(
-      data=> {
-        setData(data)
-        console.log(data)
-      }
-    )
-}, [])
+    fetch('/just because')
+      .then(res => res.json())
+      .then(data => {
+        setData(data);
+        console.log(data);
+      });
+  }, []);
+
+  
   return (
     <div>
       <Navbar />
