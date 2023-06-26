@@ -1,47 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar } from '../../components/Navbar/Navbar';
-import BotonHuellaPerro from '../../components/Unite/Button';
+import React, { useState } from 'react';
+import '../../button.css';
 import '../../login.css';
-import { FcGoogle } from 'react-icons/fc';
 
+import GoogleSign from '../../components/Unite/Google';
 
-
-export function Register() {
-  const [provinces, setProvinces] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState('');
-
-  useEffect(() => {
-    fetch('https://apis.datos.gob.ar/georef/api/provincias')
-      .then(response => response.json())
-      .then(data => setProvinces(data.provincias));
-  }, []);
-
-  useEffect(() => {
-    if (selectedProvince) {
-      fetch(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${selectedProvince}`)
-        .then(response => response.json())
-        .then(data => setDepartments(data.departamentos));
-    }
-  }, [selectedProvince]);
-
-  const handleProvinceChange = (event) => {
-    setSelectedProvince(event.target.value);
-  };
-
+const FormRegister = () => {
 
   return (
     <div>
-      <Navbar />
-      <div className="main">
         <h1>REGISTRATE</h1>
-        <div className="google-login">
-          <p>o inicia sesión con Google</p>
-          <a className="google-button" type="button" href='www.google.com'>
-            <FcGoogle className="google-icon" />
-          </a>
-          <hr />
-        </div>
+        <GoogleSign/>
         <form id="form" className="form">
           <label htmlFor="name">Nombre <span>*</span></label>
           <input name="name" required type="text" id="name" placeholder="Nombre" />
@@ -79,12 +47,11 @@ export function Register() {
 
           <BotonHuellaPerro />
         </form>
-      </div>
       <div className="ifnot">
-        <p>¿Ya tienes cuenta? <a href="/option/login">Inicia sesión</a></p>
-      </div>
+        <p>¿Ya tienes cuenta? <Link to="/option/login">Inicia sesión</Link></p>
+      </div>    
     </div>
   );
-}
+};
 
-export default Register;
+export default FormRegister;

@@ -1,12 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:wght@100&display=swap%27');
 
 .main{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
+  .google-icon {
+    color: #000; 
+    font-size: 32px; 
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: -10px;
   }
 body {
   background: #ffffff;
@@ -18,6 +28,13 @@ body {
   margin: 0;
   width: 100%;
 
+}
+
+hr{
+  margin-top: 20px;
+  margin-bottom: -10px;
+  height: 1px;
+  background-color: #ccc;
 }
 
 h1{
