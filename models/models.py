@@ -54,25 +54,55 @@ class User(db.Model): # se pueden hacer las querys
 
 class Adoptante(db.Model): # se pueden hacer las querys
     __tablename__ = 'adoptante'
-    id_user = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    id_adoptante = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
-    username = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
     phone_number = db.Column(db.String(70), nullable = False)
+    document = db.Column(db.String(70), nullable = False)
 
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self, id_user,name, surname, username, birth_date, phone_number, id_address, id_document_type, latitud, longitud):
+    def __init__(self, id_user,name, surname, birth_date, phone_number, id_document_type, document):
         self.id_user = id_user
         self.name = name
         self.surname = surname
-        self.username = username
         self.birth_date = birth_date
         self.phone_number = phone_number
-        self.id_address = id_address
         self.id_document_type = id_document_type
+        self.document = document
+
+class Shelter(db.Model):
+    __tablename__ = 'shelter'
+    id_shelter = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    name = db.Column(db.String(70), nullable = False)
+
+
+    def __init__(self, id_user, name):
+        self.id_user = id_user
+        self.name = name
+
+class Volunteer(db.Model): # se pueden hacer las querys
+    __tablename__ = 'volunteer'
+    id_volunteer = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    name = db.Column(db.String(70), nullable = False)
+    surname = db.Column(db.String(70), nullable = False)
+    birth_date = db.Column(db.Date, nullable = False)
+    phone_number = db.Column(db.String(70), nullable = False)
+    document = db.Column(db.String(70), nullable = False)
+
+    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
+    shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', ondelete='SET NULL', onupdate='CASCADE'))
+
+    def __init__(self, id_user,name, surname, birth_date, phone_number, id_document_type, document, shelter):
+        self.id_volunteer = id_user
+        self.name = name
+        self.surname = surname
+        self.birth_date = birth_date
+        self.phone_number = phone_number
+        self.id_document_type = id_document_type
+        self.document = document
+        self.shelter = shelter
 
 class Credencial(db.Model):
     __tablename__ = 'credenciales'
@@ -226,7 +256,7 @@ class Request(db.Model):
     edition_date = db.Column(db.Date, nullable = False)
 
     id_state = db.Column(db.Integer, ForeignKey('state.id_state', ondelete='SET NULL', onupdate='CASCADE'))
-    id_user = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('adoptante.id_adoptante', ondelete='SET NULL', onupdate='CASCADE'))
     id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
 
     def __init__(self, request_date, edition_date, id_state, id_user, id_pet):
@@ -235,6 +265,13 @@ class Request(db.Model):
         self.id_state = id_state
         self.id_user = id_user
         self.id_pet = id_pet
+
+class Image(db.Model):
+    id_image = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(70), nullable = False)
+    field = db.Column(db.String(300), nullable = False)
+    
+    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
 # alejo labura epicamente
 # primer commit de 'feature'
 # quiero pushear
