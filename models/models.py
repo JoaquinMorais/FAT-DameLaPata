@@ -204,6 +204,9 @@ class RelationShipPetColor(db.Model):
         self.id_pet = pet
         self.id_color = color
 
+    def getTitleColor(self):
+        return self.color_value.title
+
 
 class RelationShipPetCharacteristics(db.Model):
     __tablename__ = 'relationshippetcharacteristics'
@@ -218,6 +221,11 @@ class RelationShipPetCharacteristics(db.Model):
         self.id_pet = pet
         self.id_characteristics = characteristics
 
+    def getTitleCharacteristics(self):
+        return self.characteristics_value.title
+    
+    def getDescriptionCharacteristics(self):
+        return self.characteristics_value.description
 # caracteristicas deseadas de la persona:
 
 class RelationShipUserColor(db.Model):
