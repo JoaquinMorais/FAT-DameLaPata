@@ -47,7 +47,7 @@ def register_user():
         
 
 @Login.route("/login",methods=['GET','POST'])
-def login():
+def login_user():
     session.pop('user_id',None)
     data = Request('username','password')
 
@@ -84,12 +84,9 @@ def profile():
     })
 
 
-@Login.route("/logout")
-def Logout():
-    if 'user_id' in session:
-        return jsonify({"error":"User dont exists"}), 409 
-
+@Login.route("/logout",methods=['POST'])
+def logout():
     session.pop('user_id',None)
     #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
 
-    return 
+    return "200"

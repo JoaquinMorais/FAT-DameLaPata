@@ -1,11 +1,13 @@
 from app import app
 from utils.db import db
-
+from flask_cors import CORS, cross_origin
 
 app.config.update(
-SECRET_KEY='MySecretKey'
+SECRET_KEY='MyUltraDupaSecretKey'
 )
 
+
+cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
 
 from routes.home import Home
 from routes.login import Login
