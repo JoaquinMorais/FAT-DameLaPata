@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:wght@100&display=swap%27');
 
 .main{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-
-  }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
   .google-icon {
     color: #000; 
