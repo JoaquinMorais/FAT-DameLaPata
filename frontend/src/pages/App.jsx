@@ -6,9 +6,13 @@ import Home from '../pages/Home';
 import Pinder from '../pages/Pinder';
 import ProfilePage from '../pages/ProfilePage';
 import { BigCard } from '../components/BigCard/BigCard';
+import {Register} from '../pages/unite/Register';
+import {Login} from '../pages/unite/Login';
+import {Option} from '../pages/unite/Option';
 
 import '.././index.css';
- 
+import '.././login.css';
+
 function App() {
   {/* RUTAS FINALLY */}
   return (
@@ -44,4 +48,20 @@ const routes = [
     path:'/pinder',
     Component: Pinder
   },
+  {
+    path:'/Max',
+    Component: BigCard
+  },
+  {
+    path:'/option/signup',
+    Component: Register
+  },
+  {
+    path:'/option/login',
+    Component: Login
+  },
+  {
+    path:'/option',
+    Component: Option
+  }
 ];

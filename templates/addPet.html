@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+    Sing In
+{% endblock %}
+
+{% block head %}
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base_css.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login/login_css.css') }}">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- SCROOL REVEAL -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Añadi un perro bien fachero!!!</h1>
+<form method="post">
+    <div class="imgcontainer">
+      <img src="img_avatar2.png" alt="" class="avatar">
+    </div>
+  
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for msg in messages %}
+            <p>{{msg}}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      
+      <input type="text" placeholder="Enter nombre" name="name" required>
+      
+      <label for="valor1">Chico</label>
+      <input type="radio" id="valor1" name="size" value="1">
+
+      <label for="valor2">Mediano</label>
+      <input type="radio" id="valor2" name="size" value="2">
+
+      <label for="valor3">Grande</label>
+      <input type="radio" id="valor3" name="size" value="3">
+
+
+      <input type="date" placeholder="Enter nacimiento aproximado" name="birthdate" required>
+      
+      <button type="">Añadime pofavo</button>
+      
+    </div>
+  
+    
+</form>
+{% endblock %}

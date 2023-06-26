@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,18 @@ import { BigCard } from '../components/BigCard/BigCard';
 import { Footer } from '../components/Footer/Footer';
 
 function Pinder() {
+  fetch("/adoptante/getPet")
+  const [data, setData] = useState([{}])
+  useEffect(() =>{
+    fetch('/db/traer').then(
+      res => res.json()
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, [])
   return (
     <div>
       <Navbar />
@@ -17,54 +29,6 @@ function Pinder() {
         edad = '6'
         tamaño = 'Grande'
         />
-
-        <BigCard 
-        nombre = 'Ryan'
-        edad = '3'
-        tamaño = 'Grande'
-        />
-
-        <BigCard 
-        nombre = 'Wachin'
-        edad = '11'
-        tamaño = 'Pequeño'
-        />
-
-        <BigCard 
-        nombre = 'Tobi'
-        edad = '8'
-        tamaño = 'Pequeño'
-        />
-
-        <BigCard 
-        nombre = 'Rufian'
-        edad = '2'
-        tamaño = 'Mediano'
-        />
-
-        <BigCard 
-        nombre = 'SonGoku'
-        edad = '5'
-        tamaño = 'Grande'
-        />
-
-        <BigCard 
-        nombre = 'Hit'
-        edad = '1'
-        tamaño = 'Pequeño'
-        />
-
-        <BigCard 
-        nombre = 'Ler'
-        edad = '1'
-        tamaño = 'Pequeño'
-        />
-
-        <BigCard 
-        nombre = 'Juan'
-        edad = '10'
-        tamaño = 'Mediano'
-        /> 
       </div>
       <Footer />
     </div>
