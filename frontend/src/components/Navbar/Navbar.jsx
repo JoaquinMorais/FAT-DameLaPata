@@ -18,19 +18,12 @@ export const Navbar = () => {
             <div className="links">
                 <ul>
                     <li><Link to="/">Inicio</Link></li>
-<<<<<<< HEAD
-                    <li><Link to="/pinder">Pinder</Link></li>
-                    <li><a href="">Información</a></li>
-                    <li><a href="">Favoritos</a><span className='total-favoritos'>2</span></li>
-                    <li><Link to="/perfil">Perfil</Link></li>
-=======
                     <li><Link to="/pinder">Tinder</Link></li>
                     <li><a href="">Información</a></li>
                     <li><a href="">Favoritos</a><span className='total-favoritos'>2</span></li>
-                    <li><a href="">Perfil</a></li>
+                    <li><Link to="/perfil">Perfil</Link></li>
                     <li><Link to="/option"> <MdOutlinePets />ÚNETE</Link><MdOutlinePets /></li>
 
->>>>>>> main
                 </ul>
             </div>
             <div className="hamburguer-div">
