@@ -4,7 +4,7 @@ import '../BigCard/BigCard.css'
 
 export const BigCard = (props) => {
   return (
-    <>
+    <div className='a'>
       <div className='cartaGrande-container'>
         <div className="cartaGrande">
           <img src={require(`../../images/Dogs/perros-${props.nombre}.jpg`)} alt="imagen" />
@@ -30,6 +30,6 @@ export const BigCard = (props) => {
         <p>{ props.contacto }</p>
 
       </div>
-    </>
+    </div>
   )
 }
