@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import Pinder from '../pages/Pinder';
@@ -10,12 +10,27 @@ import { Option } from '../pages/unite/Option';
 import notFound from '../pages/notFound';
 import '.././index.css';
 import '.././login.css';
+import axios from 'axios';
 
 const App = () => {
-  const user = {
-    id: '123',
-    email: 'example@example.com',
-  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.post('http://localhost:5000/refugio/register');
+        console.log(response.data)
+        console.log(response.status)
+        //setUser(response.data);
+      } catch (error) {
+        console.error(error);
+        console.log('error mediatico')
+      }
+    };
+
+    fetchUser();
+  }, []);
+
 
   return (
     <BrowserRouter>
