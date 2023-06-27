@@ -29,7 +29,6 @@ export function Register() {
     setSelectedProvince(event.target.value);
   };
 
-
   return (
     <div>
       <Navbar />

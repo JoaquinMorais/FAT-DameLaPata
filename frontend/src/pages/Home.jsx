@@ -7,9 +7,17 @@ import { Navbar } from '../components/Navbar/Navbar';
 import { Header } from '../components/Header/Header';
 import { Cards } from '../components/Cards/Cards';
 import { Footer } from '../components/Footer/Footer';
+import { User } from '../types';
+import httoClient from '../httoClient';
 
 function Home() {
   const [data, setData] = useState(null);
+
+
+  const logOut = async () =>{
+    await httoClient.post("//localhost:5000/logout");
+    window.location.href = "/";
+  }
 
   useEffect(() => {
     fetch('/just because')
@@ -19,6 +27,25 @@ function Home() {
         console.log(data);
       });
   }, []);
+
+  const [user, setUser] = useState<User>(null);
+
+  useEffect(() => {
+    (async() => {
+      try{
+        const resp = httoClient.get("//localhost:5000/profile");
+
+        setUser(resp.data); 
+      
+      } catch(error){
+        console.log("NO ESTAS AUTORIZADO BROO")
+      }
+
+      
+
+    })()
+  })
+  
 
   
   return (
@@ -89,8 +116,25 @@ function Home() {
         ruta = '/Juan'
         /> 
       </div>
+
+      {user != null ? (
+        <div><p>LOGUED</p>
+        <button onClick={logOut}>logout</button>
+        </div>
+      ) : (
+        <div>
+          <p>NO ESTAS LOGUEADO</p>
+          <div>
+            <a href="/login">LOGIN</a>
+            <a href="/register">REGISTER</a>
+
+          </div>
+        </div>
+      )}
       <Footer />
+      
     </div>
+
   );
 };
 
