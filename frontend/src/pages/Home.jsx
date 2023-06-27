@@ -14,8 +14,7 @@ function Home() {
   const [data, setData] = useState(null);
 
 
-  const logOut = async () =>{
-    await httoClient.post("//localhost:5000/logout");
+  const logOut = async () =>{await httoClient.post("//localhost:5000/logout");
     window.location.href = "/";
   }
 
