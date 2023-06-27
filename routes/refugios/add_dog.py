@@ -16,29 +16,33 @@ def sizes():
     db.session.add(Color('golden', 'qsy dorado'))
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
+    
     db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3))
     db.session.commit()
+    
     db.session.add(RelationShipPetColor(1, 1))
     db.session.add(RelationShipPetCharacteristics(1, 1))
+    db.session.commit()
+
+    db.session.add(DocumentType('dni','soy un dni'))
     db.session.commit()
 
     return redirect(url_for('Refugio_AddPet.addPet'))
 
 
-@Refugio_AddPet.route("/add-pet",methods=['GET','POST'])
+@Refugio_AddPet.route("/refugios/añadir-mascota",methods=['POST'])
 def addPet():
-    if request.method == 'POST':
-        form = Request('name','size','birthdate')
+    form = Request('name','size','birthdate')
 
-        pet = Pet(form['name'],form['birthdate'],int(form['size']))
+    pet = Pet(form['name'],form['birthdate'],int(form['size']))
 
-        db.session.add(pet)
-        db.session.commit()
+    db.session.add(pet)
+    db.session.commit()
 
-        return form
+    return form
         
         
-    return render_template("addPet.html")
+    
 
 
 
