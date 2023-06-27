@@ -52,9 +52,9 @@ class User(db.Model): # se pueden hacer las querys
     def getId(self):
         return self.id_user
 
-class Adoptante(db.Model): # se pueden hacer las querys
+class Adoptante(User): # se pueden hacer las querys
     __tablename__ = 'adoptante'
-    id_adoptante = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    id_adoptante = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
@@ -63,8 +63,8 @@ class Adoptante(db.Model): # se pueden hacer las querys
 
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self, id_user,name, surname, birth_date, phone_number, id_document_type, document):
-        self.id_user = id_user
+    def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document):
+        super().__init__(username, email, id_address)
         self.name = name
         self.surname = surname
         self.birth_date = birth_date
@@ -72,19 +72,18 @@ class Adoptante(db.Model): # se pueden hacer las querys
         self.id_document_type = id_document_type
         self.document = document
 
-class Shelter(db.Model):
+class Shelter(User):
     __tablename__ = 'shelter'
-    id_shelter = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    id_shelter = db.Column(db.Integer, ForeignKey('user.id_user',ondelete='CASCADE', onupdate='CASCADE'), primary_key=True)
     name = db.Column(db.String(70), nullable = False)
 
-
-    def __init__(self, id_user, name):
-        self.id_user = id_user
+    def __init__(self,username, email, id_address, name):
+        super().__init__(username, email, id_address)
         self.name = name
 
-class Volunteer(db.Model): # se pueden hacer las querys
+class Volunteer(User): # se pueden hacer las querys
     __tablename__ = 'volunteer'
-    id_volunteer = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True, autoincrement=False)
+    id_volunteer = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
@@ -94,8 +93,8 @@ class Volunteer(db.Model): # se pueden hacer las querys
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
     shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', ondelete='SET NULL', onupdate='CASCADE'))
 
-    def __init__(self, id_user,name, surname, birth_date, phone_number, id_document_type, document, shelter):
-        self.id_volunteer = id_user
+    def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document, shelter):
+        super().__init__(username, email, id_address)
         self.name = name
         self.surname = surname
         self.birth_date = birth_date

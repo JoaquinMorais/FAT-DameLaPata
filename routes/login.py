@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adoptante, Address, Credencial
+from models.models import User, Adoptante, Shelter, Address, Credencial
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
@@ -13,14 +13,14 @@ Login = Blueprint("Login",__name__)
 
 
   
-@Login.route("/register",methods=['POST'],endpoint = 'register_user')
-def register_user():
+@Login.route("/adoptante/register",methods=['POST'],endpoint = 'register_adoptante')
+def register_adoptante():
     session.pop('user_id',None)
     
-    data = Request('username','password','province','city','district')
+    data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
 
     users = User.query.filter_by(username = data['username']).all()
-        
+    
     if users:
         return jsonify({"error":"User already exists"}), 409
         
@@ -28,8 +28,8 @@ def register_user():
     db.session.add(address)
     db.session.commit()
     
-    user = User(data['username'],f'{ data["username"] }@gmail.com',address.id_address)
-            
+    user = Adoptante(data['username'],data["email"],address.id_address,data["name"],data["surname"],data["birthdate"],data["phone_number"],data["id_document_type"],data["document"])
+    
     db.session.add(user)
     db.session.commit()
             
@@ -46,15 +46,50 @@ def register_user():
     })
         
 
-@Login.route("/login",methods=['GET','POST'])
+@Login.route("/refugio/register",methods=['POST'],endpoint = 'register_refugio')
+def register_refugio():
+    session.pop('user_id',None)
+    
+    data = Request('username','name','password','email','province','city','district')
+
+    users = User.query.filter_by(username = data['username']).all()
+        
+    if users:
+        return jsonify({"error":"User already exists"}), 409
+    
+    address = Address(data['province'],data['city'],data['district'],'1','1')
+    db.session.add(address)
+    db.session.commit()
+    
+    user = Shelter(data['username'], data["email"],address.id_address,data['name'])
+    
+    db.session.add(user)
+    db.session.commit()
+
+    user_password = Credencial('password',Encrypt(data['password']) ,'refugio',user.getId())
+    
+    db.session.add(user_password)
+    db.session.commit()
+
+    session['user_id'] = user.getId()
+    
+    return jsonify({
+        'id':session['user_id'],
+        'email' : user.email,
+    })
+        
+
+
+@Login.route("/login",methods=['POST'])
 def login_user():
     session.pop('user_id',None)
     data = Request('username','password')
 
-
     user = User.query.filter_by(username = data['username']).first()
+
     if not user:
         return jsonify({"error":"Unauthorized"}),401
+    
     user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
     if user_password.campo != Encrypt(data['password']): 
