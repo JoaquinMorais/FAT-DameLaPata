@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adoptante, Shelter, Address, Credencial
+from models.models import User, Adopter, Shelter, Address, Credencial
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
@@ -13,8 +13,8 @@ Login = Blueprint("Login",__name__)
 
 
   
-@Login.route("/adoptante/register",methods=['POST'],endpoint = 'register_adoptante')
-def register_adoptante():
+@Login.route("/adopter/register",methods=['POST'],endpoint = 'register_adopter')
+def register_adopter():
     session.pop('user_id',None)
     
     data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
@@ -28,7 +28,7 @@ def register_adoptante():
     db.session.add(address)
     db.session.commit()
     
-    user = Adoptante(data['username'],data["email"],address.id_address,data["name"],data["surname"],data["birthdate"],data["phone_number"],data["id_document_type"],data["document"])
+    user = Adopter(data['username'],data["email"],address.id_address,data["name"],data["surname"],data["birthdate"],data["phone_number"],data["id_document_type"],data["document"])
     
     db.session.add(user)
     db.session.commit()
@@ -46,8 +46,8 @@ def register_adoptante():
     })
         
 
-@Login.route("/refugio/register",methods=['POST'],endpoint = 'register_refugio')
-def register_refugio():
+@Login.route("/shelter/register",methods=['POST'],endpoint = 'register_shelter')
+def register_shelter():
     session.pop('user_id',None)
     
     data = Request('username','name','password','email','province','city','district')
@@ -66,7 +66,7 @@ def register_refugio():
     db.session.add(user)
     db.session.commit()
 
-    user_password = Credencial('password',Encrypt(data['password']) ,'refugio',user.getId())
+    user_password = Credencial('password',Encrypt(data['password']) ,'shelter',user.getId())
     
     db.session.add(user_password)
     db.session.commit()

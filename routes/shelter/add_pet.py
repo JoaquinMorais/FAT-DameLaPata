@@ -5,9 +5,9 @@ from decorators.flask_decorators import *
 from methods.requests import Request
 
 
-Refugio_AddPet = Blueprint("Refugio_AddPet",__name__)
+Shelter_AddPet = Blueprint("Shelter_AddPet",__name__)
 
-@Refugio_AddPet.route("/sizes",methods=['GET','POST'])
+@Shelter_AddPet.route("/sizes",methods=['GET','POST'])
 def sizes():
     
     db.session.add(Size('Chico',1,2,3,4))
@@ -27,10 +27,10 @@ def sizes():
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.commit()
 
-    return redirect(url_for('Refugio_AddPet.addPet'))
+    return redirect(url_for('Shelter_AddPet.addPet'))
 
 
-@Refugio_AddPet.route("/refugios/añadir-mascota",methods=['POST'])
+@Shelter_AddPet.route("/shelter/addpet",methods=['POST'])
 def addPet():
     form = Request('name','size','birthdate')
 
