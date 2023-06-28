@@ -36,10 +36,14 @@ def fuckIt(func):
     return response
 
 
-def login_is_required(function):
-    def wrapper(*args, **kwargs):
-        if "user_id" in session:
-            return function()
-        else:
-            return jsonify({"error":"Unauthorized"}),401
-    return wrapper
+def login_is_required(SESSION):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            if "user_id" in SESSION:
+                return function()
+            else:
+                return jsonify({"error":"Unauthorized"}),401
+        return wrapper
+    return decorator
+
+

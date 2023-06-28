@@ -8,7 +8,7 @@ Adopter_getPets = Blueprint("Adopter_getPets",__name__)
 
  
 @Adopter_getPets.route("/adopter/getpets",methods=['GET','POST'], endpoint = 'getPets')
-@login_is_required
+#@login_is_required(session)
 def getPets():
     pets = Pet.query.all()
     
@@ -35,7 +35,7 @@ def getPets():
 
 
 @Adopter_getPets.route("/adopter/getpet/<int:n>",methods=['GET','POST'], endpoint = 'getPet')
-@login_is_required
+@login_is_required(session)
 def getPet(n):
     pets = Pet.query.all()
     

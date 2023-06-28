@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/refugio/register');
+        const response = await axios.post('http://localhost:5000/adopter/getpets');
         console.log(response.data)
         console.log(response.status)
         //setUser(response.data);
@@ -28,7 +28,29 @@ const App = () => {
       }
     };
 
+
+    const fetchAddPet = async () => {
+      try {
+        const data = {
+          name: "Fini tonto",
+          birthdate: "2020-02-01",
+          size: 1
+        };
+        
+        const response = await axios.post('http://localhost:5000/shelter/addpet', data);
+        
+        console.log(response.data)
+        console.log(response.status)
+        //setUser(response.data);
+      } catch (error) {
+        console.error(error);
+        console.log('error mediatico')
+      }
+    };
+
+    
     fetchUser();
+    fetchAddPet();
   }, []);
 
 

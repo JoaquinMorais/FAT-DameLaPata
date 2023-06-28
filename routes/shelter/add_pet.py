@@ -31,6 +31,7 @@ def sizes():
 
 
 @Shelter_AddPet.route("/shelter/addpet",methods=['POST'])
+#@login_is_required(session)
 def addPet():
     form = Request('name','size','birthdate')
 

@@ -106,7 +106,7 @@ def login_user():
         
 
 @Login.route("/profile",methods=['POST'], endpoint = 'profile')
-@login_is_required
+@login_is_required(session)
 def profile():
     user = User.query.filter_by(id_user = session['user_id']).first()
     
