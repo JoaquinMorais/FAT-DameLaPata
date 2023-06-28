@@ -3,7 +3,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import { Link } from 'react-router-dom';
 import { BsPersonHearts } from 'react-icons/bs';
 import { IoHome } from 'react-icons/io5';
-
+import { Container, Button } from '@mui/material'
 
 import '../../login.css';
 import '../../option.css';
@@ -28,6 +28,9 @@ export function Option() {
   return (
       <div>
         <Navbar />
+        <Container>
+          <Button></Button>
+        </Container>
         <div className="main">
           <div className='container'>
           <h1>Queremos conocerte mas</h1>

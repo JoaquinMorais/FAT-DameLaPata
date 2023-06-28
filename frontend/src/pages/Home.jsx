@@ -9,7 +9,6 @@ import { Cards } from '../components/Cards/Cards';
 import { Footer } from '../components/Footer/Footer';
 import httoClient from '../httoClient';
 
-
 function Home() {
   const [data, setData] = useState(null);
 
