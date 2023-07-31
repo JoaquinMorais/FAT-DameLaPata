@@ -1,39 +1,17 @@
-  @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cherry+Bomb+One&family=Open+Sans&display=swap');
-
-  @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cherry+Bomb+One&family=Open+Sans&family=Rowdies&display=swap');
-
-* {
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+*{
+  box-sizing: border-box;
+  color: #393c41;
   margin: 0;
   padding: 0;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* APP */
-.App{
-  max-width: 1550px;
+body{
   width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
-  box-sizing: 0 2px 6px #000;
-  padding: 0 15px;
-  box-sizing: border-box;
 }
 
-.dogs {
-  width: 80%;
-  margin: 80px 10%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+a{
+  text-decoration: none; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
