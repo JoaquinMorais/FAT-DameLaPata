@@ -1,10 +1,12 @@
 import React from 'react'
-import Section from '../components/Who/Section'
+import TitleFile from '../components/Who/Title'
+import Left from '../components/Who/Left'
 
 function Who() {
   return (
     <>
-        <Section/>
+        <TitleFile/>
+        <Left/>
     </>
   )
 }

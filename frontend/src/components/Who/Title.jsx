@@ -1,21 +1,21 @@
 import React from 'react'
 import { styled } from 'styled-components';
 
-function Section() {
+function TitleFile() {
   return (
     <Wrap>
         <Container>
-            <Title>QUIENES SOMOS PART</Title>  
+            <Title>¿QUIENES SOMOS?</Title>  
         </Container>
     </Wrap>
   )
 }
 
-export default Section
+export default TitleFile
 
 const Wrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 40vh;
 `;
 
 const Container = styled.div`
