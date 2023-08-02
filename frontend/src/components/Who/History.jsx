@@ -5,10 +5,15 @@ import Subtitle from './Subtitle'
 
 function History() {
   return (
-    <>
-    <Subtitle write={'Un poco de nuestra historia'}/>
-    </>
+    <Wrap>
+      <Subtitle write={'Un poco de nuestra historia'}/>
+    
+    </Wrap>
   )
 }
 
 export default History
+
+const Wrap = styled.div`
+  background-color:red;
+`
