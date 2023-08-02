@@ -135,6 +135,10 @@ const Titulo = styled.h1`
   font-size: 40px;
   font-weight: bold;
   margin: 7.5px auto;
+  text-align: center;
+  @media(max-width: 360px){
+    font-size: 30px;
+  }
 `;
 
 const Subtitulo = styled.p`
@@ -142,6 +146,10 @@ const Subtitulo = styled.p`
   font-size: 20px;
   font-style: italic;
   margin: 7.5px auto;
+  text-align: center;
+  @media(max-width: 360px){
+    font-size: 15px;
+  }
 `;
 
 const Imagenes = styled.div`
