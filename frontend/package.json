@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@egjs/flicking": "^4.10.8",
+    "@egjs/react-flicking": "^4.10.10",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
@@ -13,6 +15,8 @@
     "@testing-library/user-event": "^14.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-multi-carousel": "^2.8.4",
+    "react-redux": "^8.1.1",
     "react-redux": "^8.1.2",
     "react-reveal": "^1.2.2",
     "react-router": "^6.14.2",
