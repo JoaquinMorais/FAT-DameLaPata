@@ -1,10 +1,14 @@
 import React from 'react'
 import { styled } from 'styled-components'
+import Fade from 'react-reveal/Fade';
 
 function Subtitle({write}) {
   return (
     <Container>
+      <Fade bottom>
         <Sub>{write}</Sub>
+
+      </Fade>
     </Container>
   )
 }
@@ -16,5 +20,6 @@ const Container = styled.div`
 `
 
 const Sub = styled.h2`
-    font-size: 30px;
+    font-size: 40px;
+
 `

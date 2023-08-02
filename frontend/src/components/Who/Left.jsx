@@ -1,17 +1,21 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import Subtitle from './Subtitle';
+import Fade from 'react-reveal/Fade';
 
 
 const LeftContent = ({ text, imageUrl}) => {
   return (
     <Wrap>
+      <Fade bottom>
+
       <Container>
         <TPart>
           <Txt>{text}</Txt>
         </TPart>
         <ImgPart src={imageUrl} />
       </Container>
+      </Fade>
 
     </Wrap>
   );
