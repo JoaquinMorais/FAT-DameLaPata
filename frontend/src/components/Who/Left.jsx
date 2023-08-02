@@ -1,37 +1,50 @@
-import React from 'react'
+import React from 'react';
 import { styled } from 'styled-components';
+import Subtitle from './Subtitle';
 
-function Left() {
+
+const LeftContent = ({ text, imageUrl}) => {
   return (
     <Wrap>
-        <Container>
-            <TPart>
+      <Container>
+        <TPart>
+          <Txt>{text}</Txt>
+        </TPart>
+        <ImgPart src={imageUrl} />
+      </Container>
 
-            </TPart>
-            <ImgPart>
-            
-            </ImgPart>
-        </Container>
     </Wrap>
-  )
-}
+  );
+};
 
-export default Left
+export default LeftContent;
 
 const Wrap = styled.div`
-    width: 100%;
-    height: 40vh;
+  width: 100%;
 `;
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-  `;
+  display: flex;
+  height: 40vh;
+  flex-direction: row;
+`;
 
 const TPart = styled.div`
-
+  width: 50%;
 `;
 
-const ImgPart = styled.div`
-
+const Txt = styled.p`
+  float: left;
+  text-align: justify;
+  margin-left: 30px;
+  margin-top: 30px;
+  font-size: 30px;
 `;
+
+const ImgPart = styled.img`
+  object-fit: cover;
+  height: auto;
+  width: 50%;
+  clip-path: polygon(43% 0, 100% 0, 100% 100%, 0 100%);
+`;
+
