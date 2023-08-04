@@ -6,6 +6,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center; /* Centrar verticalmente */
   margin-bottom: 20px;
+  margin-top: 20px; /* Agregar margen en la parte superior */
 `;
 
 const Title = styled.h3`
