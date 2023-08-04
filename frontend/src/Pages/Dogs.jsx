@@ -7,10 +7,12 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
+import NavBar from '../components/NavBar/navBar';
 
 function Dogs() {
   return (
     <>
+    <NavBar/>
       <Principio>
         <Lamina>
           <Flip top>

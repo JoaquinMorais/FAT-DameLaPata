@@ -52,9 +52,9 @@ class User(db.Model): # se pueden hacer las querys
     def getId(self):
         return self.id_user
 
-class Adoptante(User): # se pueden hacer las querys
-    __tablename__ = 'adoptante'
-    id_adoptante = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
+class Adopter(User): # se pueden hacer las querys
+    __tablename__ = 'adopter'
+    id_adopter = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     surname = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
@@ -179,11 +179,13 @@ class Pet(db.Model):
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
     pet_characteristics = db.relationship('RelationShipPetCharacteristics', lazy=True)
     pet_size = db.relationship('Size', lazy=True)
+    weight = db.Column(db.Integer, nullable = False)
     
-    def __init__(self, name, birth_date, size):
+    def __init__(self, name, birth_date, size, weight):
         self.name = name
         self.birth_date = birth_date
         self.id_size = size
+        self.weight = weight
 
     def __repr__(self):
         return f'{self.name}'
@@ -271,7 +273,7 @@ class Request(db.Model):
     edition_date = db.Column(db.Date, nullable = False)
 
     id_state = db.Column(db.Integer, ForeignKey('state.id_state', ondelete='SET NULL', onupdate='CASCADE'))
-    id_user = db.Column(db.Integer, ForeignKey('adoptante.id_adoptante', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('adopter.id_adopter', ondelete='SET NULL', onupdate='CASCADE'))
     id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
 
     def __init__(self, request_date, edition_date, id_state, id_user, id_pet):
