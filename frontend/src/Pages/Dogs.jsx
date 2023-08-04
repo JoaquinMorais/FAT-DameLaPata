@@ -8,6 +8,7 @@ import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/Navbar';
+import Filters from '../components/Dogs/Filters/Filters'
 
 function Dogs() {
   return (
@@ -28,6 +29,12 @@ function Dogs() {
             <img src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
           </Imagenes>
         </Slide>
+
+        <slide bottom>
+          <Filters>
+            
+          </Filters>
+        </slide>
 
       </Principio>
 
