@@ -7,7 +7,7 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
-import NavBar from '../components/NavBar/navBar';
+import NavBar from '../components/NavBar/Navbar';
 
 function Dogs() {
   return (
@@ -67,11 +67,6 @@ function Dogs() {
           descripcion = 'Maná tiene 1 año, es una perra de tamaño grande y está vacunada al 75%.'
           />
         </Zoom>
-
-
-
-
-
 
         <Zoom>
           <Cards
