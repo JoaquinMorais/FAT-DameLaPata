@@ -17,6 +17,7 @@ export default Subtitle
 
 const Container = styled.div`
     margin-top: 100px;
+    text-align: center;
 `
 
 const Sub = styled.h2`
