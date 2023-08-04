@@ -35,4 +35,4 @@ def Distance(coord_place_1, coord_place_2):
     print(f"La distancia es {distance}.km")
     return distance
 
-print(datetime.now())
+#print(datetime.now())
