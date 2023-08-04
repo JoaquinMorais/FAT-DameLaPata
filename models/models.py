@@ -179,6 +179,7 @@ class Pet(db.Model):
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
     pet_characteristics = db.relationship('RelationShipPetCharacteristics', lazy=True)
     pet_size = db.relationship('Size', lazy=True)
+    pet_weight = db.Column(db.Integer, nullable = False)
     
     def __init__(self, name, birth_date, size):
         self.name = name
