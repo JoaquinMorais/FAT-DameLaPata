@@ -35,8 +35,7 @@ def sizes():
 def addPet():
     form = Request('name','size','weight','birthdate')
 
-    pet = Pet(form['name'],form['birthdate'],int(form['size']))
-
+    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
     db.session.add(pet)
     db.session.commit()
 
