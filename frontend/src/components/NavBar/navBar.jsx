@@ -6,14 +6,14 @@ function NavBar() {
   return (
     <Container>
       <LogoLink>
-        <LogoImage src="/Images/dame_logo.png" alt="" />
+        <LogoImage src="/Images/dame_logo.png" alt="" href="/"/>
       </LogoLink>
 
       <Menu>
-        <MenuItem><a href="#">INICIO</a></MenuItem>
-        <MenuItem><a href="#">ADOPTA</a></MenuItem>
-        <MenuItem><a href="#">SOBRE NOSOTROS</a></MenuItem>
-        <MenuItem><a href="#">DONAR</a></MenuItem>
+        <MenuItem><a href="/">INICIO</a></MenuItem>
+        <MenuItem><a href="/dogs">ADOPTA</a></MenuItem>
+        <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
+        <MenuItem><a href="/give">DONAR</a></MenuItem>
       </Menu>
 
       <RightMenuContainer>

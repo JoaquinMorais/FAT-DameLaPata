@@ -3,11 +3,13 @@ import TitleFile from '../components/Who/Title'
 import Left from '../components/Who/Left'
 import Cards from '../components/Who/Cards'
 import History from '../components/Who/History'
+import NavBar from '../components/NavBar/navBar';
 
 
 function Who() {
   return (
     <>
+    <NavBar/>
         <TitleFile/>
         <Left
           text={'Somos un grupo comprometido de estudiantes y amantes de los animales del Instituto Tecnico Salesiano Villada. Nuestro propósito es brindarles una oportunidad de encontrar un hogar responsable. Creemos firmemente que cada perro merece una segunda oportunidad y el cariño incondicional de una familia. Por ello, hemos creado esta plataforma para conectar a perros rescatados con personas que estén dispuestas a darles un hogar lleno de amor.'}
