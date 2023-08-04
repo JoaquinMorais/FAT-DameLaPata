@@ -1,61 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Navbar } from '../components/Navbar/Navbar';
-import { Header } from '../components/Header/Header';
-import { Cards } from '../components/Cards/Cards';
-import { Footer } from '../components/Footer/Footer';
-import httoClient from '../httoClient';
+import React from 'react'
+import styled from 'styled-components'
+import Section from '../components/Home/Section/Section1/Section'
+import Section_2 from '../components/Home/Section/Section2/Section_2'
+import Section_3 from '../components/Home/Section/Section3/Section_3'
+import Sponsor from '../components/Home/Section/Section4/Sponsor'
+import NavBar from '../components/NavBar/navBar';
 
-function Home({ user }) {
-  const [data, setData] = useState(null);
-
-  const logOut = async () => {
-    await httoClient.post("//localhost:5000/logout");
-    window.location.href = "/";
-  };
-
-  useEffect(() => {
-    fetch('/just because')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data);
-      });
-  }, []);
-
+function Home() {
   return (
-    <div>
-      <Navbar />
-      <Header />
-      <div className="dogs">
-        <Cards nombre="Max" edad="6" tamaño="Grande" ruta="/Max" />
-        <Cards nombre="Ryan" edad="3" tamaño="Grande" ruta="/Ryan" />
-        <Cards nombre="Wachin" edad="11" tamaño="Pequeño" ruta="/Wachin" />
-        <Cards nombre="Tobi" edad="8" tamaño="Pequeño" ruta="/Tobi" />
-        <Cards nombre="Rufian" edad="2" tamaño="Mediano" ruta="/Rufian" />
-        <Cards nombre="SonGoku" edad="5" tamaño="Grande" ruta="/SonGoku" />
-        <Cards nombre="Hit" edad="1" tamaño="Pequeño" ruta="/Hit" />
-        <Cards nombre="Ler" edad="1" tamaño="Pequeño" ruta="/Ler" />
-        <Cards nombre="Juan" edad="10" tamaño="Mediano" ruta="/Juan" />
-      </div>
+    <>
+    <NavBar/>
+      <Section/>
+      <Section_2/>
+      <Section_3/>
+      <Sponsor/>
 
-      {user ? (
-        <div>
-          <p>LOGUED</p>
-          <button onClick={logOut}>logout</button>
-        </div>
-      ) : (
-        <div>
-          <p>NO ESTAS LOGUEADO</p>
-          <div>
-            <a href="/login">LOGIN</a>
-            <a href="/register">REGISTER</a>
-          </div>
-        </div>
-      )}
-      <Footer />
-    </div>
-  );
+    </>
+    
+  )
 }
 
-export default Home;
+export default Home
 
+const Container = styled.div`
+height : 100 vh;
+`

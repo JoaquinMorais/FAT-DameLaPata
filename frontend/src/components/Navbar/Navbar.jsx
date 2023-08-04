@@ -1,35 +1,86 @@
 import React from 'react';
-import Logo from "../../images/logo.png";
-import { MdOutlinePets } from 'react-icons/md';
+import styled from 'styled-components';
+import MenuIcon from '@mui/icons-material/Menu';
 
-import '../Navbar/Navbar.css'
-
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-
-export const Navbar = () => {
+function NavBar() {
   return (
-    <header>
-        <div className="menu">
-            <a href="">
-                <div className="logo">
-                    <Link to='/'><img src={Logo} alt="logo" /></Link>
-                </div>
-            </a>
-            <div className="links">
-                <ul>
-                    <li><Link to="/">Inicio</Link></li>
-                    <li><Link to="/pinder">Tinder</Link></li>
-                    <li><a href="">Información</a></li>
-                    <li><a href="">Favoritos</a><span className='total-favoritos'>2</span></li>
-                    <li><Link to="/perfil">Perfil</Link></li>
-                    <li><Link to="/option"> <MdOutlinePets />ÚNETE</Link><MdOutlinePets /></li>
+    <Container>
+      <LogoLink>
+        <LogoImage src="/Images/dame_logo.png" alt="" href="/"/>
+      </LogoLink>
 
-                </ul>
-            </div>
-            <div className="hamburguer-div">
-                <a href="" className='hamburguer'><box-icon name="menu"></box-icon></a>
-            </div>
-        </div>
-    </header>
-  )
+      <Menu>
+        <MenuItem><a href="/">INICIO</a></MenuItem>
+        <MenuItem><a href="/dogs">ADOPTA</a></MenuItem>
+        <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
+        <MenuItem><a href="/give">DONAR</a></MenuItem>
+      </Menu>
+
+      <RightMenuContainer>
+        <RightMenu>
+          <a href="#">INICIA SESION</a>
+          <a href="#">REGISTRATE</a>
+          <CustomMenu />
+        </RightMenu>
+      </RightMenuContainer>
+    </Container>
+  );
 }
+
+export default NavBar;
+
+const Container = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  min-height: 80px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 15px;
+`;
+
+const LogoLink = styled.a``;
+
+const LogoImage = styled.img`
+  width: 90px;
+  height: auto;
+`;
+
+const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  @media(max-width: 768px){
+    display:none;
+  }
+`;
+
+const MenuItem = styled.p`
+  a {
+    color: white;
+  }
+  font-weight: 600;
+  padding: 0 20px;
+`;
+
+const RightMenuContainer = styled.div`
+  margin-left: auto; /* Pushes the RightMenu to the right */
+`;
+
+const RightMenu = styled.div`
+  display: flex;
+  align-items: center;
+  a {
+    color: white;
+    font-weight: 600;
+    margin-right: 15px;
+  }
+`;
+
+const CustomMenu = styled(MenuIcon)`
+  cursor: pointer;
+`;
