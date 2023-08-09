@@ -11,15 +11,15 @@ import './Cards.css';
 function Cards(props) {
   return (
     <Content>
-      <Card sx={{ MaxWidth: 250, height: 350 }}>
+      <Card sx={{ MaxWidth: 250, height: 350, borderRadius: 2 }}>
         
         <CardMedia
-          sx={{ height: 150 }}
+          sx={{ height: 150}}
           image={props.foto}
           title={props.titulo}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{ borderBottom: 1 }}>
             {props.nombre}
           </Typography>
           <Typography variant="body2" color="text.secondary">

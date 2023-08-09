@@ -1,8 +1,12 @@
 import React from 'react'
+import BigCards from '../components/Pinder/BigCards/BigCards';
+import slides from '../dogs.json'
 
 function Pinder() {
   return (
-    <div><h1>PINDER</h1></div>
+    <>
+      <BigCards slides={slides}/>
+    </>
   )
 }
 
