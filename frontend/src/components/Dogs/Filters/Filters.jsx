@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Content = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center; /* Centrar verticalmente */
+  justify-content: center;
   margin-bottom: 20px;
-  margin-top: 20px; /* Agregar margen en la parte superior */
+  margin-top: 20px; 
 `;
 
 const Title = styled.h3`
@@ -21,7 +21,7 @@ const Button = styled.button`
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  margin-right: 10px; /* Agregar espacio entre los botones */
+  margin-right: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -30,7 +30,18 @@ const Button = styled.button`
   }
 `;
 
-function Filters() {
+function Filters({ onColorFilter }) {
+  const [showColorButtons, setShowColorButtons] = useState(false);
+
+  const handleColorButtonClick = () => {
+    setShowColorButtons(!showColorButtons);
+  };
+
+  const handleColorSelection = (color) => {
+    onColorFilter(color);
+    setShowColorButtons(false);
+  };
+
   return (
     <Content>
       <Title>Filtrar por:</Title>
@@ -38,9 +49,20 @@ function Filters() {
       <Button>Tamaño</Button>
       <Button>Especie</Button>
       <Button>Peso</Button>
-      <Button>Color</Button>
+      <div>
+        <Button onClick={handleColorButtonClick}>Color</Button>
+        {showColorButtons && (
+          <div>
+            <Button onClick={() => handleColorSelection('red')}>Rojo</Button>
+            <Button onClick={() => handleColorSelection('blue')}>Azul</Button>
+            <Button onClick={() => handleColorSelection('green')}>Verde</Button>
+            {/* Agregar más botones según los colores en tu data */}
+          </div>
+        )}
+      </div>
     </Content>
   );
 }
+
 
 export default Filters;

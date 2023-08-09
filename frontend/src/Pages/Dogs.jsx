@@ -10,6 +10,21 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/Navbar';
 import Filters from '../components/Dogs/Filters/Filters'
 
+var data = [
+  {
+      'id':1,
+      'color':'red'
+  },
+  {
+      'id':2,
+      'color':'blue'
+  },
+  {
+      'id':3,
+      'color':'green'
+  },
+]
+
 function Dogs() {
   return (
     <>
@@ -32,7 +47,6 @@ function Dogs() {
 
         <slide bottom>
           <Filters>
-            
           </Filters>
         </slide>
 
@@ -166,7 +180,7 @@ const Imagenes = styled.div`
 
 const Container = styled.div`
   width: 80%;
-  margin: 80px auto;
+  margin: 150px auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
