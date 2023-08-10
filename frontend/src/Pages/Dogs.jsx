@@ -7,7 +7,23 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
-import NavBar from '../components/NavBar/navBar';
+import NavBar from '../components/NavBar/Navbar';
+import Filters from '../components/Dogs/Filters/Filters'
+
+var data = [
+  {
+      'id':1,
+      'color':'red'
+  },
+  {
+      'id':2,
+      'color':'blue'
+  },
+  {
+      'id':3,
+      'color':'green'
+  },
+]
 
 function Dogs() {
   return (
@@ -28,6 +44,11 @@ function Dogs() {
             <img src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
           </Imagenes>
         </Slide>
+
+        <slide bottom>
+          <Filters>
+          </Filters>
+        </slide>
 
       </Principio>
 
@@ -67,11 +88,6 @@ function Dogs() {
           descripcion = 'Maná tiene 1 año, es una perra de tamaño grande y está vacunada al 75%.'
           />
         </Zoom>
-
-
-
-
-
 
         <Zoom>
           <Cards
@@ -164,7 +180,7 @@ const Imagenes = styled.div`
 
 const Container = styled.div`
   width: 80%;
-  margin: 80px auto;
+  margin: 150px auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
