@@ -1,0 +1,9 @@
+react
+styled
+icon-material
+material
+react-reveal
+react-router-dom
+react-router
+swiper
+color-thief-react
