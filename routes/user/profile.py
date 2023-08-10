@@ -4,6 +4,7 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
 from methods.encrypt import Encrypt
+from methods.response import Response
 
 Profile = Blueprint("Profile",__name__)
 
@@ -15,9 +16,12 @@ def profile():
     user = User.query.filter_by(id_user = session['user_id']).first()
     
     if not user:
-        return jsonify({"error":"User dont exists"}), 409
+        return Response(
+            'Error: User not found',
+            404
+        )
     
-    return jsonify({
-        'id' : user.id_user,
-        'username' : user.username
-    })
+    return Response(
+        user.json(),
+        200
+    )

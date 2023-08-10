@@ -3,6 +3,7 @@ from models.models import *
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
+from methods.response import Response
 
 
 OnePet = Blueprint("OnePet",__name__)
@@ -18,34 +19,18 @@ def addPet():
     db.session.add(pet)
     db.session.commit()
 
-    return form
+    return Response(
+        pet.json(),
+        200
+    )
         
 
 @OnePet.route("/pet/<int:id>",methods=['GET'])
 #@login_is_required(session)
 def getPet(id):
-    pets = Pet.query.filter_by(id_pet = id).first()
+    pet = Pet.query.filter_by(id_pet = id).first()
     
-    return jsonify(
-        [
-            {
-                'id':pet.id_pet,
-                'name' : pet.name,
-                'birthdate' : pet.birth_date,
-                'size' : pet.pet_size.title,
-                'colors' : [
-                    x.getTitleColor() for x in pet.pet_colors
-                ],
-                'characteristics' : [
-                    {
-                        'title':x.getTitleCharacteristics(),
-                        'description' : x.getDescriptionCharacteristics()
-                    } for x in pet.pet_characteristics
-                ]
-                
-            }
-        for pet in pets]
-    )
+    return pet.name
 
 
 @OnePet.route("/sizes",methods=['GET','POST'])

@@ -4,6 +4,7 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
 from methods.encrypt import Encrypt
+from methods.response import Response
 
 Login = Blueprint("Login",__name__)
 
@@ -17,26 +18,22 @@ def login_user():
     user = User.query.filter_by(username = data['username']).first()
 
     if not user:
-        return jsonify({"error":"Unauthorized"}),401
+        return Response(
+            'Error: Unauthorized',
+            401
+        )
     
     user_password = Credencial.query.filter_by(id_user = user.getId()).first()
         
     if user_password.campo != Encrypt(data['password']): 
-        return jsonify({"error":"Unauthorized"}),401
+        return Response(
+            'Error: Unauthorized',
+            401
+        )
     
     session['user_id'] = user.id_user
-    return jsonify({
-        'user_id' : session['user_id'],
-        'username' : user.username,
-        'password' : user_password.campo,
-        'email' : user.email,
+    return Response(
+        user.json(),
+        200
+    )
 
-    })
-
-
-@Login.route("/logout",methods=['POST'])
-def logout():
-    session.pop('user_id',None)
-    #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
-
-    return "200"

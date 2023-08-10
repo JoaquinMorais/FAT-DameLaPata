@@ -1,6 +1,6 @@
 from flask import jsonify
 
-def response(response,status):
+def Response(response,status):
     return jsonify(
         {
             'response' : response,

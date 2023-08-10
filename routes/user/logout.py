@@ -4,6 +4,8 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
 from methods.encrypt import Encrypt
+from methods.response import Response
+
 
 Logout = Blueprint("Logout",__name__)
 
@@ -13,4 +15,7 @@ def logout():
     session.pop('user_id',None)
     #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
 
-    return "200"
+    return Response(
+        None,
+        200
+    )
