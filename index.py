@@ -9,24 +9,35 @@ SECRET_KEY='MyUltraDupaSecretKey'
 
 cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
 
-from routes.home import Home
+#adopter
+from routes.adopter.register import AdopterRegister
+#shelter
+from routes.shelter.register import ShelterRegister
+#pets
+from routes.pets.pet import OnePet
+from routes.pets.pets import Pets
+#user
+from routes.user.login import Login
+from routes.user.logout import Logout
+from routes.user.profile import Profile
 
-from routes.login import Login
-from routes.login_google import Login_Google
-
-from routes.shelter.add_pet import Shelter_AddPet
-
-from routes.adopter.getpets import Adopter_getPets
 
 
 with app.app_context():
     db.create_all()
 
+#adopter
+app.register_blueprint(AdopterRegister)
+#shelter
+app.register_blueprint(ShelterRegister)
+#pets
+app.register_blueprint(OnePet)
+app.register_blueprint(Pets)
+#user
 app.register_blueprint(Login)
-app.register_blueprint(Login_Google)
-app.register_blueprint(Home)
-app.register_blueprint(Shelter_AddPet)
-app.register_blueprint(Adopter_getPets)
+app.register_blueprint(Logout)
+app.register_blueprint(Profile)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
