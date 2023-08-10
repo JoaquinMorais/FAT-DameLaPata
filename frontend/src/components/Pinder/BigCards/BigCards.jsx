@@ -2,6 +2,11 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { styled } from 'styled-components'
 import 'swiper/css';
+/* ANIMACIONES */
+import Flip from 'react-reveal/Flip';
+import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
+import Zoom from 'react-reveal/Zoom';
 
 
 export const BigCards = ({slides}) => {
@@ -17,43 +22,54 @@ export const BigCards = ({slides}) => {
           <Carta>
             <ImagenContainer>
               <Imagen src={slide.image} alt="" />
-              <Texto>
-                <Titulo>{slide.name}</Titulo>
-                <Subtitulo>{slide.date_of_birth} - {slide.age}</Subtitulo>
-                <Subtitulo>{slide.gender}</Subtitulo>
-              </Texto>
+              <Abajo>
+                <Texto>
+                  <Flip top><Titulo>{slide.name}</Titulo></Flip>
+                  <Zoom left><Subtitulo>{slide.date_of_birth} - {slide.age}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{slide.gender}</Subtitulo></Zoom>
+                </Texto>
+                <Botones>
+                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/512/9804/9804051.png'}></PerroNo></No></Zoom>
+                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/512/9804/9804028.png'}></PerroSi></Si></Zoom>
+                </Botones>
+              </Abajo>
             </ImagenContainer>
             <Container>
 
+            <Fade>
               <Div1>
                 <Titulo2>Descripcion</Titulo2>
-                <Hr></Hr>
                 <Caracteristicas>{slide.description}</Caracteristicas>
               </Div1>
+            </Fade>
               
+            <Fade>
               <Div2>
                 <Titulo2>Apodos</Titulo2>
-                <Hr></Hr>
                 <Caracteristicas>{slide.nicknames}</Caracteristicas>
               </Div2>
-              
+            </Fade>
+
+            <Fade>
               <Div3>
                 <Titulo2>Edad</Titulo2>
-                <Hr></Hr>
                 <Caracteristicas>Fecha: {slide.date_of_birth} - Edad: {slide.age}</Caracteristicas>
               </Div3>
-
+            </Fade>
+            
+            <Fade>
               <Div4>
                 <Titulo2>Tamaño</Titulo2>
-                <Hr></Hr>
                 <Caracteristicas>Es un perro de tamaño {slide.size}</Caracteristicas>
               </Div4>
+            </Fade>
               
+            <Fade>
               <Div5>
                 <Titulo2>Vacunas</Titulo2>
-                <Hr></Hr>
                 <Caracteristicas>{slide.vaccination}</Caracteristicas>
               </Div5>
+            </Fade>
               
             </Container>
           </Carta>
@@ -88,7 +104,7 @@ const Imagen = styled.img`
     object-fit: cover;
 `;
 
-const Texto = styled.div`
+const Abajo = styled.div`
     position: absolute;
     bottom: 0%;
     width: 100%;
@@ -98,8 +114,19 @@ const Texto = styled.div`
     background: linear-gradient(to right, rgba(0,0,0,0.8), transparent);
     padding: 10px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Texto = styled.div`   
+    display: flex;
     flex-direction: column;
-    justify-content: center;
+`;
+
+const Botones = styled.div`
+    display: flex;
+    flex-direction: row;
 `;
 
 const Titulo = styled.h1`
@@ -114,6 +141,54 @@ const Subtitulo = styled.p`
     font-size: 20px;
 `;
 
+const No = styled.button`
+    width: 75px;
+    height: 75px;
+    border-radius: 16px;
+    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      background-color: red;
+`;
+
+const Si = styled.button`
+    width: 75px;
+    height: 75px;
+    border-radius: 16px;
+    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      background-color: green;
+`;
+
+const PerroNo = styled.img`
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.4) rotate(-10deg);
+`;
+
+const PerroSi = styled.img`
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    transition: transform 0.3s ease;  
+
+    &:hover {
+      transform: scale(1.4) rotate(-10deg);
+`;
+
 const Container = styled.div`
     width: 100%;
     text-align: left;
@@ -123,18 +198,18 @@ const Container = styled.div`
     text-align: center;
 `;
 
-const Titulo2 = styled.h1`
+const Titulo2 = styled.h2`
     color: black;
     text-transform: uppercase;
     font-style: italic;
-    padding: 30px 15px 0 15px;
+    padding: 20px 15px 0 15px;
     margin-bottom: 10px;
 `;
 
 const Caracteristicas = styled.p`
-    font-size: 25px;
+    font-size: 18px;
     color: black;
-    padding: 0px 15px 30px 15px;
+    padding: 0px 15px 20px 15px;
     word-wrap: break-word;
 `;
 
@@ -177,3 +252,4 @@ const Div5 = styled.div`
     align-items: center;
     background-color: #aa8612;
 `;
+
