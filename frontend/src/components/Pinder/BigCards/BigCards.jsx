@@ -29,10 +29,14 @@ export const BigCards = ({slides}) => {
                   <Zoom left><Subtitulo>{slide.gender}</Subtitulo></Zoom>
                 </Texto>
                 <Botones>
-                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/512/9804/9804051.png'}></PerroNo></No></Zoom>
-                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/512/9804/9804028.png'}></PerroSi></Si></Zoom>
+                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
+                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
                 </Botones>
               </Abajo>
+              
+
+              
+
             </ImagenContainer>
             <Container>
 
@@ -106,27 +110,34 @@ const Imagen = styled.img`
 
 const Abajo = styled.div`
     position: absolute;
-    bottom: 0%;
+    bottom: 8.5%;
     width: 100%;
     height: 150px;
-    text-align: left;
-    color: white;
-    background: linear-gradient(to right, rgba(0,0,0,0.8), transparent);
-    padding: 10px;
+    background: linear-gradient(to right, rgba(0,0,0,0.8), transparent 30%);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 `;
 
 const Texto = styled.div`   
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 10px;
     display: flex;
     flex-direction: column;
 `;
 
 const Botones = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Titulo = styled.h1`
@@ -142,12 +153,13 @@ const Subtitulo = styled.p`
 `;
 
 const No = styled.button`
-    width: 75px;
-    height: 75px;
+    width: 125px;
+    height: 125px;
     border-radius: 16px;
     border: 2px solid black;
-    background-color: rgba(0, 0, 0, 0.2);
-    margin: 0 15px;
+    background: inherit;
+    backdrop-filter: blur(20px);
+    margin: 0 50px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -156,12 +168,13 @@ const No = styled.button`
 `;
 
 const Si = styled.button`
-    width: 75px;
-    height: 75px;
+    width: 125px;
+    height: 125px;
     border-radius: 16px;
     border: 2px solid black;
-    background-color: rgba(0, 0, 0, 0.2);
-    margin: 0 15px;
+    background: inherit;
+    backdrop-filter: blur(20px);
+    margin: 0 50px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
