@@ -101,7 +101,7 @@ function Dogs() {
         
         <Zoom>
           <Cards
-          foto = 'https://estaticos-cdn.prensaiberica.es/clip/823f515c-8143-4044-8f13-85ea1ef58f3a_16-9-discover-aspect-ratio_default_0.jpg'
+          foto = 'https://images.unsplash.com/photo-1595876171225-463c72774783?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fHw%3D&w=1000&q=80'
           nombre = 'Saiyan'
           titulo = 'Saiyan es un perro muy feliz :D'
           descripcion = 'Super Saiyan (Apodo) tiene 1 año, es de tamaño grande y está vacunado al 100%.'
