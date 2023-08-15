@@ -30,16 +30,19 @@ function NavBar() {
 
         <Menu>
           <MenuItem><a href="/">INICIO</a></MenuItem>
-          <MenuItem><a href="/dogs">ADOPTA</a></MenuItem>
+          <MenuItem><a href="/dogs">ADOPTÁ</a></MenuItem>
           <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
-          <MenuItem><a href="/give">DONAR</a></MenuItem>
+          <MenuItem><a href="/give">PUBLICÁ</a></MenuItem>
+          {/*<MenuItem><a href="/give">DONAR</a></MenuItem>*/}
         </Menu>
 
         <RightMenuContainer>
           <RightMenu>
             <a href="#">INICIA SESION</a>
             <a href="#">REGISTRATE</a>
+            {/* MENU =========================== */}
             <CustomMenu />
+            {/* ================================ */}
           </RightMenu>
         </RightMenuContainer>
       </Container>
@@ -60,13 +63,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 5px 5px;
-  background-color: ${props => (props.scrolled ? 'rgb(0, 119, 255)' : 'transparent')};
+  background-color: ${props => (props.scrolled ? '#f76402' : 'transparent')};
 `;
 
 const LogoLink = styled.a``;
 
 const LogoImage = styled.img`
-  width: 60px;
+  width: 55px;
   height: auto;
 `;
 
@@ -75,7 +78,7 @@ const Menu = styled.div`
   align-items: center;
   flex: 1;
 
-  @media(max-width: 768px){
+  @media(max-width: 1000px){
     display:none;
   }
 `;
@@ -83,13 +86,19 @@ const Menu = styled.div`
 const MenuItem = styled.p`
   a {
     color: white;
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+
+    &:hover {
+      color: black; 
+    }
   }
   font-weight: 600;
   padding: 0 20px;
 `;
 
 const RightMenuContainer = styled.div`
-  margin-left: auto; /* Pushes the RightMenu to the right */
+  margin-left: auto; 
 `;
 
 const RightMenu = styled.div`
@@ -99,9 +108,25 @@ const RightMenu = styled.div`
     color: white;
     font-weight: 600;
     margin-right: 15px;
+    transition: color 0.3s ease; 
+
+    &:hover {
+      color: black; 
+    }
+
+    @media(max-width: 1000px){
+      display: none;
+    }
   }
 `;
 
 const CustomMenu = styled(MenuIcon)`
   cursor: pointer;
+  visibility: hidden;
+  margin-right: -20px;
+
+  @media(max-width: 1000px){
+    visibility: visible;
+    margin-right: 20px;
+  }
 `;

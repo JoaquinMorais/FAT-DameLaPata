@@ -24,7 +24,7 @@ function Dogs() {
 
         <Slide bottom>
           <Imagenes>
-            <img src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
+            <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt=""/>
           </Imagenes>
         </Slide>
 
@@ -159,6 +159,28 @@ const Imagenes = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Imagen = styled.img`
+  @media(max-width: 570px){
+    width: 500px;
+    margin-top: 13px;
+  }
+
+  @media(max-width: 500px){
+    width: 400px;
+    margin-top: 36px;
+  }
+
+  @media(max-width: 400px){
+    width: 300px;
+    margin-top: 59px;
+  }
+
+  @media(max-width: 300px){
+    width: 200px;
+    margin-top: 82px;
+  }
 `;
 
 const Container = styled.div`
