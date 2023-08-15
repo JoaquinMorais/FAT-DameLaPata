@@ -16,6 +16,6 @@ def logout():
     #return redirect(f"https://accounts.google.com/o/oauth2/v2.0/logout?post_logout_redirect_uri={url_for('Login_Google.Home')}")
 
     return Response(
-        None,
+        'Successful',
         200
     )

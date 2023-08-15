@@ -5,7 +5,7 @@ from decorators.flask_decorators import *
 from methods.requests import Request
 from methods.encrypt import Encrypt
 from methods.response import Response
-
+from methods.requests import Request
 
 AdopterRegister = Blueprint("AdopterRegister",__name__)
 
@@ -18,7 +18,12 @@ def register_adopter():
     session.pop('user_id',None)
     
     data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
-
+    for x in data:
+        if data[x] == None:
+            return Response(
+                'Error: Bad Request',
+                404
+            )
     users = User.query.filter_by(username = data['username']).all()
     
     if users:

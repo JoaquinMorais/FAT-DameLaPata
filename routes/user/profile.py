@@ -17,7 +17,7 @@ def profile():
     
     if not user:
         return Response(
-            'Error: User not found',
+            'Error: User Not Found',
             404
         )
     

@@ -19,8 +19,8 @@ def login_user():
 
     if not user:
         return Response(
-            'Error: Unauthorized',
-            401
+            'Error: User Not Found',
+            404
         )
     
     user_password = Credencial.query.filter_by(id_user = user.getId()).first()

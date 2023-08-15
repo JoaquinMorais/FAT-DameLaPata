@@ -5,6 +5,7 @@ from decorators.flask_decorators import *
 from methods.requests import Request
 from methods.encrypt import Encrypt
 from methods.response import Response
+from methods.requests import Request
 
 
 ShelterRegister = Blueprint("ShelterRegister",__name__)
@@ -16,12 +17,19 @@ def register_shelter():
     session.pop('user_id',None)
     
     data = Request('username','name','password','email','province','city','district')
+    for x in data:
+        if data[x] == None:
+            return Response(
+                'Error: Bad Request',
+                404
+            )
+
 
     users = User.query.filter_by(username = data['username']).all()
         
     if users:
         return Response(
-            'Error: User already exists',
+            'Error: User Already Exists',
             409
         )
     

@@ -5,32 +5,72 @@ from decorators.flask_decorators import *
 from methods.requests import Request
 from methods.response import Response
 
-
 OnePet = Blueprint("OnePet",__name__)
 
-
-
-@OnePet.route("/pet",methods=['PUT'])
-#@login_is_required(session)
-def addPet():
-    form = Request('name','size','weight','birthdate')
-
-    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
-    db.session.add(pet)
-    db.session.commit()
-
-    return Response(
-        pet.json(),
-        200
-    )
-        
+    
 
 @OnePet.route("/pet/<int:id>",methods=['GET'])
 #@login_is_required(session)
 def getPet(id):
     pet = Pet.query.filter_by(id_pet = id).first()
+    if not pet:
+        return Response(
+            'Error: Pet Not Found',
+            404
+        )
+
+
+    return Response(
+        pet.json(),
+        200
+    )
+
+
+@OnePet.route("/pet",methods=['PUT'])
+#@login_is_required(session)
+def putPet():
+    form = Request('name','size','weight','birthdate')
+    for x in form:
+        if form[x] == None:
+            return Response(
+                'Error: Bad Request',
+                400
+            ) 
+    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
+    if pet == None:
+        return Response(
+            'Error: Bad Request',
+            400
+        ) 
     
-    return pet.name
+    db.session.add(pet)
+    db.session.commit()
+
+
+    return Response(
+        pet.json(),
+        200
+    )
+    
+@OnePet.route("/pet/<int:id>",methods=['DELETE'])
+#@login_is_required(session)
+def deletePet(id):
+    pet = Pet.query.filter_by(id_pet = id).first()
+    if not pet:
+        return Response(
+            'Error: Pet Not Found',
+            404
+        )
+    db.session.delete(pet)
+    db.session.commit()
+
+    return Response(
+        'Successful',
+        200
+    )
+
+
+
 
 
 @OnePet.route("/sizes",methods=['GET','POST'])
