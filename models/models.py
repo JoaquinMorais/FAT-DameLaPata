@@ -52,6 +52,14 @@ class User(db.Model): # se pueden hacer las querys
     def getId(self):
         return self.id_user
 
+    def json(self):
+        return {
+            'id' : self.id_user,
+            'username' : self.username,
+            'email' : self.email,
+            'id_address' : self.id_address
+        }
+
 class Adopter(User): # se pueden hacer las querys
     __tablename__ = 'adopter'
     id_adopter = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
@@ -189,6 +197,14 @@ class Pet(db.Model):
 
     def __repr__(self):
         return f'{self.name}'
+    
+    def json(self):
+        return {
+            'id':self.id_pet,
+            'name':self.name,
+            'birth_date' : self.birth_date,
+            
+        }
 
 # caracteristicas de las mascotas:
 

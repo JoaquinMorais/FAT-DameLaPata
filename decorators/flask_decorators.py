@@ -1,6 +1,7 @@
 from flask import Blueprint, session, abort, redirect, request,url_for,jsonify,render_template, g
 from colorama import init as init_colorama, Fore as Color_colorama, Style as Style_colorama
 
+from methods.response import Response
 
 
 def print_color(text, color):
@@ -42,7 +43,10 @@ def login_is_required(SESSION):
             if "user_id" in SESSION:
                 return function()
             else:
-                return jsonify({"error":"Unauthorized"}),401
+                return Response(
+                    'Error: Unauthorized',
+                    401
+                )
         return wrapper
     return decorator
 
