@@ -12,16 +12,13 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
-<<<<<<< HEAD
     "@testing-library/user-event": "^14.4.3",
     "color-thief-react": "^2.1.0",
-=======
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "mdb-react-ui-kit": "^6.1.0",
     "mdbreact": "^5.2.0",
->>>>>>> a8fc45f3a98f3eaa84ab1f75f2d2078acd40cd63
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-multi-carousel": "^2.8.4",
