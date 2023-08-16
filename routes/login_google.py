@@ -35,7 +35,7 @@ Login_Google = Blueprint("Login_Google",__name__)
 
 
 @Login_Google.route("/protected_area",endpoint = 'ProtectedArea')
-@login_is_required
+@login_is_required(session)
 def ProtectedArea():
     return f"Hello {session['name']}! <br/> <a href='/logout'><button>Logout</button></a>"
 
