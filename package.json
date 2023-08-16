@@ -3,15 +3,12 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
-<<<<<<< HEAD
     "@mui/material": "^5.14.2",
     "@mui/styled-engine-sc": "^5.12.0",
     "install": "^0.13.0",
     "npm": "^9.8.1",
-=======
     "@mui/material": "^5.13.6",
     "axios": "^1.4.0",
->>>>>>> conectionBackFront
     "react-icons": "^4.10.1",
     "react-redux": "^8.1.2",
     "react-router": "^6.14.2",
