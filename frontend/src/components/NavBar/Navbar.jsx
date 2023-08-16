@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function NavBar() {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function NavBar() {
           <MenuItem><a href="/">INICIO</a></MenuItem>
           <MenuItem><a href="/dogs">ADOPTÁ</a></MenuItem>
           <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
-          <MenuItem><a href="/give">PUBLICÁ</a></MenuItem>
+          <MenuItem><a href="/post">PUBLICÁ</a></MenuItem>
           {/*<MenuItem><a href="/give">DONAR</a></MenuItem>*/}
         </Menu>
 
@@ -50,7 +50,7 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navbar;
 
 const Container = styled.div`
   top: 0;
