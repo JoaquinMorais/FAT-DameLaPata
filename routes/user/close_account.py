@@ -21,7 +21,7 @@ def close_account(id_user):
             return 'La cuenta ya ha sido cerrada...'
     else:
         return Response(
-            'Error: User Not Found',
-            404
+            'Error: bad Request',
+            400
         )
     
