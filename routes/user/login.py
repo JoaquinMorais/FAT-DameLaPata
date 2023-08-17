@@ -8,8 +8,6 @@ from methods.response import Response
 
 Login = Blueprint("Login",__name__)
 
-
-
 @Login.route("/login",methods=['POST'])
 def login_user():
     session.pop('user_id',None)
