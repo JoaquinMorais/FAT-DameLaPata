@@ -20,7 +20,7 @@ from routes.pets.pets import Pets
 from routes.user.login import Login
 from routes.user.logout import Logout
 from routes.user.profile import Profile
-#from routes.user.close_account import Close_account
+from routes.user.close_account import Close_account
 #developing
 from routes.developing.developing import Developing
 
@@ -39,7 +39,7 @@ app.register_blueprint(Pets)
 app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
-#app.register_blueprint(Close_account)
+app.register_blueprint(Close_account)
 #developing
 app.register_blueprint(Developing)
 
