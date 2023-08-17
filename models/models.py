@@ -283,7 +283,7 @@ class State(db.Model):
     def __repr__(self):
         return f'{self.name}'
 
-class Request(db.Model):
+class RequestPetAdopter(db.Model):
     id_request = db.Column(db.Integer, primary_key=True)
     request_date = db.Column(db.Date, nullable = False) 
     edition_date = db.Column(db.Date, nullable = False)

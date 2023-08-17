@@ -12,11 +12,11 @@ OnePet = Blueprint("OnePet",__name__)
 @OnePet.route("/pet/<int:id>",methods=['GET'])
 #@login_is_required(session)
 def getPet(id):
-    pet = Pet.query.filter_by(id_pet = id).first()
+    pet = Pet.query.get(id)
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            404
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
 
 
@@ -39,7 +39,7 @@ def putPet():
     pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
     if pet == None:
         return Response(
-            'Error: Bad Request',
+            'Error: Bad Request (Pet Not Found)',
             400
         ) 
     
@@ -58,8 +58,8 @@ def deletePet(id):
     pet = Pet.query.filter_by(id_pet = id).first()
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            404
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
     db.session.delete(pet)
     db.session.commit()
