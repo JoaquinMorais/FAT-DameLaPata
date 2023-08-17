@@ -10,12 +10,13 @@ function Post() {
         <Link href='https://es.wikipedia.org/wiki/Jenna_Ortega'>
             <Container>
                 <Fade top><Image src="Images/agregar-huella-2.png"></Image></Fade>
-                <Fade bottom><Title>¡Agrega un perrito para que pueda ser adoptado!</Title></Fade>
+                <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
             </Container>
         </Link>
     </Background>
   )
 }
+
 
 export default Post
 
