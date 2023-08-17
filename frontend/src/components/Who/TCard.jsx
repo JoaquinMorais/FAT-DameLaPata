@@ -11,8 +11,6 @@ export default function CardTeam({ alt, image, name, desc}) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="350"
-          width="350"
           image= {image}
           alt={alt}
         />

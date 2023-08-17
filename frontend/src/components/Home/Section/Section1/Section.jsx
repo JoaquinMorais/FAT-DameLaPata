@@ -20,7 +20,7 @@ function Section() {
 
           </Fade>
 
-            <Button></Button>
+            <Button/>
           </CenterContent>
         </Content>
       </Wrap>

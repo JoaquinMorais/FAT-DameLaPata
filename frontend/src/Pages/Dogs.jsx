@@ -2,7 +2,6 @@ import React from 'react'
 import Cards from '../components/Dogs/Cards/Cards'
 import { styled } from 'styled-components'
 import Phrase from '../components/Dogs/Phrase/Phrase';
-import './Dogs.css';
 import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
