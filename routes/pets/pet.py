@@ -15,8 +15,8 @@ def getPet(id):
     pet = Pet.query.get(id)
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            401
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
 
 
@@ -34,13 +34,13 @@ def putPet():
         if form[x] == None:
             return Response(
                 'Error: Bad Request',
-                401
+                400
             ) 
     pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
     if pet == None:
         return Response(
-            'Error: Bad Request',
-            401
+            'Error: Bad Request (Pet Not Found)',
+            400
         ) 
     
     db.session.add(pet)
@@ -58,8 +58,8 @@ def deletePet(id):
     pet = Pet.query.filter_by(id_pet = id).first()
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            401
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
     db.session.delete(pet)
     db.session.commit()

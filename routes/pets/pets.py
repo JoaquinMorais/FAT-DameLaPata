@@ -78,7 +78,7 @@ def getPetsFilterby():
     #RelationShipPetCharacteristics()
     #RelationShipPetColor()
     data = {
-        **RequestList('color','characteristic','birth_date','weight','pet_size'),
+        **RequestList('color','characteristic','birth_date','weight','size'),
         **Request('more_birth_date','less_birth_date','more_weight','less_weight')
     }
     
@@ -146,6 +146,15 @@ def getPetsFilterby():
         pets = pets.filter(
             Pet.weight <= data['less_weight']
         )
+    
+    if data['size']:
+        if len(data['size']) == 1:
+            pets = pets.filter(
+                Pet.id_size == data['size']
+            )
+        else:
+            size_filters = [Pet.id_size == size for size in data['size']]
+            pets = pets.filter(or_(*size_filters))  # Aplicar condiciones OR
     
 
     return jsonify(
