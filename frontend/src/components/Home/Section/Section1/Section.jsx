@@ -1,10 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import Button from './Button';
+import Button from '../Button';
 import { Fade } from 'react-reveal';
 import { Flip } from 'react-reveal';
 import { FaxRounded } from '@mui/icons-material';
-
 
 
 function Section() {
@@ -17,10 +16,12 @@ function Section() {
           <Fade top>
             <Title>Dame La Pata</Title>
             <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
-
           </Fade>
 
-            <Button/>
+            <Button
+              text={'ADOPTA YA'}
+              link={'aaa'}
+            />
           </CenterContent>
         </Content>
       </Wrap>

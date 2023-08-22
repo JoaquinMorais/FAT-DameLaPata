@@ -223,7 +223,7 @@ function Register() {
             />
             {formik.errors.username ? <Error>{formik.errors.username}</Error> : null}
 
-            <label htmlFor="name">Nombre</label>
+            <label htmlFor="name">Nombre del refugio</label>
             <input
               id="name"
               name="name"
