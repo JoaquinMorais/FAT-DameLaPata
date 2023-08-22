@@ -42,12 +42,14 @@ class User(db.Model): # se pueden hacer las querys
     username = db.Column(db.String(70), nullable = False)
     email = db.Column(db.String(150), nullable = False)
 
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address', ondelete='SET NULL', onupdate='CASCADE'))
+    id_address = db.Column(db.Integer, ForeignKey('address.id_address', onupdate='CASCADE'))
+    id_status = db.Column(db.Integer, ForeignKey('status.id_status',  onupdate='CASCADE'))
     
-    def __init__(self, username, email, id_address):
+    def __init__(self, username, email, id_address, id_status):
         self.username = username
         self.email = email
         self.id_address = id_address
+        self.id_status = id_status
     
     def getId(self):
         return self.id_user
@@ -165,6 +167,20 @@ class Color(db.Model):
 class Characteristics(db.Model):
     __tablename__ = 'characteristics'
     id_characteristics = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(70), nullable = False)
+    description = db.Column(db.String(500), nullable = False)
+
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+
+    def __repr__(self):
+        return f'{self.title}'
+    
+    
+class Status(db.Model):
+    __tablename__ = 'status'
+    id_status = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
 
