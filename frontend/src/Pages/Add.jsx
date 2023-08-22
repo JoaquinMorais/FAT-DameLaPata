@@ -16,51 +16,19 @@ function Add() {
             <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
             <Hr></Hr>
             <Texto>Nombre</Texto>
-            <Input type="text" placeholder="Ingresar nombre..."></Input>
+            <Input type="text" placeholder="Ejemplo: Firulais..."/>
 
             <Texto>Fecha de nacimiento</Texto>
-            <Input type="date" placeholder="Ingresar fecha..."></Input>
+            <Input type="date"></Input>
+
+            <Texto>Color</Texto>
+            <Input type="text" placeholder="Ejemplo: Amarillo patito..."/>
 
             <Texto>Tamaño</Texto>
-            <ContainerInputs>
-                <Checkbox
-                type="checkbox"
-                id=" Chico (1)"
-                name=" Mediano (2)"
-                value=" Grande (3)"
-                checked={opcionSeleccionada === 'Chico (1)'}
-                onChange={() => handleSeleccion('Chico (1)')}
-                />
-                <label htmlFor="Chico (1)">Opción 1</label>
-            </ContainerInputs>
-            <div>
-                <input
-                type="checkbox"
-                id="opcion2"
-                name="opcion"
-                value="opcion2"
-                checked={opcionSeleccionada === 'Mediano (2)'}
-                onChange={() => handleSeleccion('Mediano (2)')}
-                />
-                <label htmlFor="Mediano (2)">Opción 2</label>
-            </div>
-            <div>
-                <input
-                type="checkbox"
-                id="opcion3"
-                name="opcion"
-                value="opcion3"
-                checked={opcionSeleccionada === 'Grande (3)'}
-                onChange={() => handleSeleccion('Grande (3)')}
-                />
-                <label htmlFor="Grande (3)">Opción 3</label>
-            </div>
+            <Input type="number" min="1" max="3" placeholder="Opciones: 1, 2 o 3..."/>
 
-            <Texto>Nombre</Texto>
-            <Input type="text" placeholder="Ingresar nombre..."></Input>
-
-            <Texto>Nombre</Texto>
-            <Input type="text" placeholder="Ingresar nombre..."></Input>
+            <Texto>Peso</Texto>
+            <Input type="number" min="1" max="3" placeholder="Peso"/>
         </Container>
     </>
   )
@@ -105,6 +73,7 @@ const Input = styled.input`
 `;
 
 const ContainerInputs = styled.div`
+    width: 200px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

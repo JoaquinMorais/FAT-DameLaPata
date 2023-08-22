@@ -6,6 +6,7 @@ import Pinder from './Pages/Pinder';
 import Home from './Pages/Home';
 import Who from './Pages/Who';
 import Post from './Pages/Post';
+import Add from './Pages/Add';
 
 const App = () => {
   return (
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="pinder/*" element={<Pinder />} />
           <Route path="about/*" element={<Who />} />
           <Route path="post/*" element={<Post />} />
+          <Route path="add/*" element={<Add />} />
+
         </Routes>
       </BrowserRouter>
     </div>

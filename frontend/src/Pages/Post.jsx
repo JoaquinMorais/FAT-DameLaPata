@@ -7,7 +7,7 @@ import Fade from 'react-reveal/Fade';
 function Post() {
   return (
     <Background>
-        <Link href='https://es.wikipedia.org/wiki/Jenna_Ortega'>
+        <Link href='/add'>
             <Container>
                 <Fade top><Image src="Images/agregar-huella-2.png"></Image></Fade>
                 <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
