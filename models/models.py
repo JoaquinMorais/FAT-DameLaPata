@@ -132,21 +132,24 @@ class Size(db.Model):
     __tablename__ = 'size'
     id_size = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
-    max_length = db.Column(db.Integer, nullable = False)
-    min_length = db.Column(db.Integer, nullable = False)
     max_height = db.Column(db.Integer, nullable = False)
     min_height = db.Column(db.Integer, nullable = False)
 
-    def __init__(self, title, max_length, min_length, max_height, min_height):
+    def __init__(self, title, max_height, min_height):
         self.title = title
-        self.max_length = max_length
-        self.min_length = min_length
         self.max_height = max_height
         self.min_height = min_height
 
     def __repr__(self):
         return f'{self.title}'
 
+    def json(self):
+        return {
+            'id_size':self.id_size,
+            'title':self.title,
+            'max_height':self.max_height,
+            'min_height':self.min_height,
+        }
 
 class Color(db.Model):
     __tablename__ = 'color'
@@ -161,6 +164,12 @@ class Color(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
+    def json(self):
+        return {
+            'id_color':self.id_color,
+            'title':self.title,
+            'max_height':self.description,
+        }
 
 class Characteristics(db.Model):
     __tablename__ = 'characteristics'
@@ -175,6 +184,13 @@ class Characteristics(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
+    def json(self):
+        return {
+            'id_characteristic':self.id_characteristics,
+            'title':self.title,
+            'max_height':self.description,
+            
+        }
 
 class Pet(db.Model):
     __tablename__ = 'pet'
@@ -202,7 +218,9 @@ class Pet(db.Model):
         return {
             'id':self.id_pet,
             'name':self.name,
-            'birth_date' : self.birth_date,
+            'birth_date' : self.birth_date.strftime("%Y-%m-%d"),
+            'id_size' : self.id_size,
+            'weight' : self.weight
             
         }
 

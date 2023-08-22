@@ -73,17 +73,17 @@ def deletePet(id):
 
 
 
-@OnePet.route("/sizes",methods=['GET','POST'])
+@OnePet.route("/db/populate",methods=['GET','POST'])
 def sizes():
     
-    db.session.add(Size('Chico',1,2,3,4))
-    db.session.add(Size('Mediano',1,2,3,4))
-    db.session.add(Size('Grande',1,2,3,4))
+    db.session.add(Size('Chico',3,4))
+    db.session.add(Size('Mediano',3,4))
+    db.session.add(Size('Grande',3,4))
     db.session.add(Color('golden', 'qsy dorado'))
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3))
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))

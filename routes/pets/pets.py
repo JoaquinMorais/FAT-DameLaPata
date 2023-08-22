@@ -75,11 +75,9 @@ AND EXISTS (
 
 @Pets.route("/pets/filterby",methods=['GET'])
 def getPetsFilterby():
-    #RelationShipPetCharacteristics()
-    #RelationShipPetColor()
     data = {
         **RequestList('color','characteristic','birth_date','weight','size'),
-        **Request('more_birth_date','less_birth_date','more_weight','less_weight')
+        **Request('more_birth_date','less_birth_date','more_weight','less_weight','limit')
     }
     
     
@@ -156,12 +154,17 @@ def getPetsFilterby():
             size_filters = [Pet.id_size == size for size in data['size']]
             pets = pets.filter(or_(*size_filters))  # Aplicar condiciones OR
     
-
+    if data['limit']:
+        return jsonify(
+            {
+                'pets':[x.id_pet for x in pets.limit(int(data['limit'])).all()],
+            }
+        )
     return jsonify(
-        {
-            'pets':[x.id_pet for x in pets.all()],
-        }
-    )
+            {
+                'pets':[x.id_pet for x in pets.all()],
+            }
+        )
 
 
 
