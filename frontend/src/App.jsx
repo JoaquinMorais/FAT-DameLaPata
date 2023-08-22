@@ -5,7 +5,7 @@ import Dogs from './Pages/Dogs';
 import Pinder from './Pages/Pinder';
 import Home from './Pages/Home';
 import Who from './Pages/Who';
-import Post from './Pages/Post';
+import Register from './Pages/Register';
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <Route path="dogs/*" element={<Dogs />} />
           <Route path="pinder/*" element={<Pinder />} />
           <Route path="about/*" element={<Who />} />
-          <Route path="post/*" element={<Post />} />
+          <Route path="unite/*" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>

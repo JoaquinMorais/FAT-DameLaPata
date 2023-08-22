@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Slide } from 'react-reveal';
 
-function Button() {
-
-
+function Button({text}, {link}) {
   return (
     <Container>
       <Slide bottom>
-        <ButtonContainer>
+        <ButtonContainer >
           <ButtonAdop src='/Images/pataa.jpg' />
-          <ButtonText>ADOPTAR</ButtonText>
+          <ButtonText><a href={link}>{text}</a></ButtonText>
         </ButtonContainer>
       </Slide>
     </Container>
