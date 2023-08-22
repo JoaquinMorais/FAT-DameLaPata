@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components'
 import NavBar from '../components/NavBar/Navbar';
+import NumberInput from '../components/Add/NumberInput';
 
 function Add() {
+
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
     const handleSeleccion = (opcion) => {
@@ -25,10 +27,10 @@ function Add() {
             <Input type="text" placeholder="Ejemplo: Amarillo patito..."/>
 
             <Texto>Tamaño</Texto>
-            <Input type="number" min="1" max="3" placeholder="Opciones: 1, 2 o 3..."/>
+            <NumberInput />
 
             <Texto>Peso</Texto>
-            <Input type="number" min="1" max="3" placeholder="Peso"/>
+            <Input type="number" min="1" max="3" placeholder="Ejemplo: 18,12"/>
         </Container>
     </>
   )
@@ -67,6 +69,8 @@ const Input = styled.input`
     width: 250px;
     height: 35px;
     border: 2px solid black;
+    border-radius: 4px;
+    margin-bottom: 20px;
     &:hover{
         border: 2px solid #f76402;
     }

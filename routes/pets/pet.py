@@ -83,7 +83,7 @@ def sizes():
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3))
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,10))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
