@@ -31,26 +31,34 @@ def getPets(id_user):
             RelationShipUserColor.id_user == user.id_user
         ).all()
 
-        taste_size = RelationShipUserSize.query.filter(
+        taste_size = subquery = db.session.query(
+            RelationShipUserSize.id_size
+        ).filter(
             RelationShipUserSize.id_user == user.id_user
         ).all()
         
          
         pets = Pet.query
         subqueries = []
-        
-        
-    
-        for color_id in taste_color:
-            subquery = db.session.query(
-                RelationShipPetColor.id_pet
-            ).filter(
-                RelationShipPetColor.id_color == color_id[0]
-            ).subquery()
-            subqueries.append(subquery)
+        if taste_color:
+            for color_id in taste_color:
+                subquery = db.session.query(
+                    RelationShipPetColor.id_pet
+                ).filter(
+                    RelationShipPetColor.id_color == color_id[0]
+                ).subquery()
+                subqueries.append(subquery)
+
+
         pets = pets.filter(
             *[db.exists(subquery.select().where(subquery.c.id_pet == Pet.id_pet)) for subquery in subqueries],
         )
+
+        if taste_size:
+            for size_id in taste_size:
+                pets = pets.filter(
+                    Pet.id_size == size_id[0]
+                )
 
         """
         
