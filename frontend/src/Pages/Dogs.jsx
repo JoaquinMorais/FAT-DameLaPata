@@ -159,6 +159,11 @@ const Imagenes = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media(max-width: 425px){
+    height: auto;
+    width: 290px;
+  }
 `;
 
 const Container = styled.div`
