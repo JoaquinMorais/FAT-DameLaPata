@@ -42,8 +42,7 @@ class User(db.Model): # se pueden hacer las querys
     username = db.Column(db.String(70), nullable = False)
     email = db.Column(db.String(150), nullable = False)
 
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address', onupdate='CASCADE'))
-    id_status = db.Column(db.Integer, ForeignKey('status.id_status',  onupdate='CASCADE'))
+    id_address = db.Column(db.Integer, ForeignKey('address.id_address',  onupdate='CASCADE'))
     
     def __init__(self, username, email, id_address, id_status):
         self.username = username
@@ -53,6 +52,9 @@ class User(db.Model): # se pueden hacer las querys
     
     def getId(self):
         return self.id_user
+
+    def this_type(self):
+        return type(self).__name__
 
     def json(self):
         return {
@@ -71,7 +73,7 @@ class Adopter(User): # se pueden hacer las querys
     phone_number = db.Column(db.String(70), nullable = False)
     document = db.Column(db.String(70), nullable = False)
 
-    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
+    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type',  onupdate='CASCADE'))
 
     def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document):
         super().__init__(username, email, id_address)
@@ -100,8 +102,8 @@ class Volunteer(User): # se pueden hacer las querys
     phone_number = db.Column(db.String(70), nullable = False)
     document = db.Column(db.String(70), nullable = False)
 
-    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type', ondelete='SET NULL', onupdate='CASCADE'))
-    shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', ondelete='SET NULL', onupdate='CASCADE'))
+    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type',  onupdate='CASCADE'))
+    shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter',  onupdate='CASCADE'))
 
     def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document, shelter):
         super().__init__(username, email, id_address)
@@ -121,7 +123,7 @@ class Credencial(db.Model):
     tipo = db.Column(db.String(150), nullable = False)
     
 
-    id_user = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('user.id_user',  onupdate='CASCADE'))
 
     def __init__(self,titulo, campo, tipo, id_user):
         self.titulo = titulo
@@ -134,21 +136,24 @@ class Size(db.Model):
     __tablename__ = 'size'
     id_size = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
-    max_length = db.Column(db.Integer, nullable = False)
-    min_length = db.Column(db.Integer, nullable = False)
     max_height = db.Column(db.Integer, nullable = False)
     min_height = db.Column(db.Integer, nullable = False)
 
-    def __init__(self, title, max_length, min_length, max_height, min_height):
+    def __init__(self, title, max_height, min_height):
         self.title = title
-        self.max_length = max_length
-        self.min_length = min_length
         self.max_height = max_height
         self.min_height = min_height
 
     def __repr__(self):
         return f'{self.title}'
 
+    def json(self):
+        return {
+            'id_size':self.id_size,
+            'title':self.title,
+            'max_height':self.max_height,
+            'min_height':self.min_height,
+        }
 
 class Color(db.Model):
     __tablename__ = 'color'
@@ -163,6 +168,12 @@ class Color(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
+    def json(self):
+        return {
+            'id_color':self.id_color,
+            'title':self.title,
+            'max_height':self.description,
+        }
 
 class Characteristics(db.Model):
     __tablename__ = 'characteristics'
@@ -177,39 +188,39 @@ class Characteristics(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
-    
-class Status(db.Model):
-    __tablename__ = 'status'
-    id_status = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(70), nullable = False)
-    description = db.Column(db.String(500), nullable = False)
-
-    def __init__(self, title, description):
-        self.title = title
-        self.description = description
-
-    def __repr__(self):
-        return f'{self.title}'
-    
+    def json(self):
+        return {
+            'id_characteristic':self.id_characteristics,
+            'title':self.title,
+            'max_height':self.description,
+            
+        }
 
 class Pet(db.Model):
     __tablename__ = 'pet'
     id_pet = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     birth_date = db.Column(db.Date, nullable = True)
+    image_path = db.Column(db.Text, nullable = False)
 
-    id_size = db.Column(db.Integer, ForeignKey('size.id_size', ondelete='SET NULL', onupdate='CASCADE'))
+    id_size = db.Column(db.Integer, ForeignKey('size.id_size',  onupdate='CASCADE'))
+    id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', onupdate='CASCADE'))
+
 
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
     pet_characteristics = db.relationship('RelationShipPetCharacteristics', lazy=True)
     pet_size = db.relationship('Size', lazy=True)
     weight = db.Column(db.Integer, nullable = False)
     
-    def __init__(self, name, birth_date, size, weight):
+    
+
+    def __init__(self, name, birth_date, size, weight,id_shelter,image_path):
         self.name = name
         self.birth_date = birth_date
         self.id_size = size
         self.weight = weight
+        self.id_shelter = id_shelter
+        self.image_path = image_path
 
     def __repr__(self):
         return f'{self.name}'
@@ -218,7 +229,9 @@ class Pet(db.Model):
         return {
             'id':self.id_pet,
             'name':self.name,
-            'birth_date' : self.birth_date,
+            'birth_date' : self.birth_date.strftime("%Y-%m-%d"),
+            'id_size' : self.id_size,
+            'weight' : self.weight
             
         }
 
@@ -228,8 +241,8 @@ class RelationShipPetColor(db.Model):
     __tablename__ = 'relationshippetcolor'
     id_relationship = db.Column(db.Integer, primary_key=True)
     
-    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
-    id_color = db.Column(db.Integer, ForeignKey('color.id_color', ondelete='SET NULL', onupdate='CASCADE'))
+    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet',  onupdate='CASCADE'))
+    id_color = db.Column(db.Integer, ForeignKey('color.id_color',  onupdate='CASCADE'))
 
     color_value = db.relationship('Color', lazy=True)
 
@@ -245,8 +258,8 @@ class RelationShipPetCharacteristics(db.Model):
     __tablename__ = 'relationshippetcharacteristics'
     id_relationship = db.Column(db.Integer, primary_key=True)
 
-    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
-    id_characteristics = db.Column(db.Integer, ForeignKey('characteristics.id_characteristics', ondelete='SET NULL', onupdate='CASCADE'))
+    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet',  onupdate='CASCADE'))
+    id_characteristics = db.Column(db.Integer, ForeignKey('characteristics.id_characteristics',  onupdate='CASCADE'))
 
     characteristics_value = db.relationship('Characteristics', lazy=True)
 
@@ -262,11 +275,11 @@ class RelationShipPetCharacteristics(db.Model):
 # caracteristicas deseadas de la persona:
 
 class RelationShipUserColor(db.Model):
-    __tablename__ = 'relationshipusercolor'
+    __tablename__ = 'relationship_adopter_color'
     id_relationship = db.Column(db.Integer, primary_key=True)
 
-    id_user = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
-    id_color = db.Column(db.Integer, ForeignKey('color.id_color', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('user.id_user',  onupdate='CASCADE'))
+    id_color = db.Column(db.Integer, ForeignKey('color.id_color',  onupdate='CASCADE'))
 
     def __init__(self, user, color):
         self.id_user = user
@@ -274,11 +287,11 @@ class RelationShipUserColor(db.Model):
 
 
 class RelationShipUserSize(db.Model):
-    __tablename__ = 'relationshipusersize'
+    __tablename__ = 'relationship_adopter_size'
     id_relationship = db.Column(db.Integer, primary_key=True)
 
-    id_user = db.Column(db.Integer, ForeignKey('user.id_user', ondelete='SET NULL', onupdate='CASCADE'))
-    id_size = db.Column(db.Integer, ForeignKey('size.id_size', ondelete='SET NULL', onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('user.id_user',  onupdate='CASCADE'))
+    id_size = db.Column(db.Integer, ForeignKey('size.id_size',  onupdate='CASCADE'))
 
     def __init__(self, user, size):
         self.id_user = user
@@ -299,14 +312,14 @@ class State(db.Model):
     def __repr__(self):
         return f'{self.name}'
 
-class Request(db.Model):
+class RequestPetAdopter(db.Model):
     id_request = db.Column(db.Integer, primary_key=True)
     request_date = db.Column(db.Date, nullable = False) 
     edition_date = db.Column(db.Date, nullable = False)
 
-    id_state = db.Column(db.Integer, ForeignKey('state.id_state', ondelete='SET NULL', onupdate='CASCADE'))
-    id_user = db.Column(db.Integer, ForeignKey('adopter.id_adopter', ondelete='SET NULL', onupdate='CASCADE'))
-    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
+    id_state = db.Column(db.Integer, ForeignKey('state.id_state',  onupdate='CASCADE'))
+    id_user = db.Column(db.Integer, ForeignKey('adopter.id_adopter',  onupdate='CASCADE'))
+    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet',  onupdate='CASCADE'))
 
     def __init__(self, request_date, edition_date, id_state, id_user, id_pet):
         self.request_date = request_date
@@ -320,7 +333,7 @@ class Image(db.Model):
     type = db.Column(db.String(70), nullable = False)
     field = db.Column(db.String(300), nullable = False)
     
-    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet', ondelete='SET NULL', onupdate='CASCADE'))
+    id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet',  onupdate='CASCADE'))
 # alejo labura epicamente
 # primer commit de 'feature'
 # quiero pushear
