@@ -10,10 +10,68 @@ Pets = Blueprint("Pets",__name__)
 
 
 
-@Pets.route("/pets",methods=['GET'])
+@Pets.route("/pets/<int:id_user>",methods=['GET'])
 #@login_is_required(session)
-def getPets():
+def getPets(id_user):
     limit = Request('limit')
+
+    user = Adopter.query.get(id_user)
+    if not user:
+        user = Shelter.query.get(id_user)
+    if not user:
+        return Response(
+            'Error: User Not Found',
+            401
+        )
+    
+    if user.this_type() == 'Adopter':
+        taste_color = subquery = db.session.query(
+            RelationShipUserColor.id_color
+        ).filter(
+            RelationShipUserColor.id_user == user.id_user
+        ).all()
+
+        taste_size = RelationShipUserSize.query.filter(
+            RelationShipUserSize.id_user == user.id_user
+        ).all()
+        
+         
+        pets = Pet.query
+        subqueries = []
+        
+        
+    
+        for color_id in taste_color:
+            subquery = db.session.query(
+                RelationShipPetColor.id_pet
+            ).filter(
+                RelationShipPetColor.id_color == color_id[0]
+            ).subquery()
+            subqueries.append(subquery)
+        pets = pets.filter(
+            *[db.exists(subquery.select().where(subquery.c.id_pet == Pet.id_pet)) for subquery in subqueries],
+        )
+
+        """
+        
+        
+        )"""
+    elif user.this_type() == 'Shelter':
+        pets = Pet.query.filter(
+            Pet.id_shelter == user.id_user
+        )
+
+    return Response(
+        [pet.json() for pet in pets.all()],
+        200
+    )
+
+    
+
+
+
+
+
     if limit:
         pets = Pet.query.limit(int(limit)).all()
     else:
@@ -50,27 +108,6 @@ def getPetsAll():
         [pet.json() for pet in pets],
         200
     )
-"""
-
-SELECT p.name
-FROM pet p
-WHERE EXISTS (
-    SELECT 1
-    FROM relationshippetcolor rpc1
-    WHERE rpc1.id_pet = p.id_pet AND rpc1.id_color = 1
-)
-AND EXISTS (
-    SELECT 1
-    FROM relationshippetcolor rpc2
-    WHERE rpc2.id_pet = p.id_pet AND rpc2.id_color = 2
-);
-
-
-
-"""
-
-
-
 
 
 @Pets.route("/pets/filterby",methods=['GET'])

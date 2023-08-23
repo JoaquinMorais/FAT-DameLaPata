@@ -29,14 +29,14 @@ def getPet(id):
 @OnePet.route("/pet",methods=['PUT'])
 #@login_is_required(session)
 def putPet():
-    form = Request('name','size','weight','birthdate')
+    form = Request('name','size','weight','birthdate','id_shelter','image_path')
     for x in form:
         if form[x] == None:
             return Response(
                 'Error: Bad Request',
                 400
             ) 
-    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
+    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']),int(form['id_shelter']),form['image_path'])
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
@@ -83,12 +83,14 @@ def sizes():
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11))
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
     db.session.add(RelationShipPetCharacteristics(1, 1))
     db.session.commit()
+    
+
 
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.commit()
