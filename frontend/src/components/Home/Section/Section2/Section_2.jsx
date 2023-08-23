@@ -31,12 +31,25 @@ export default Section_2
 const Title = styled.h1`
 margin-top: 100px;
 font-size: 60px;
+text-align: center;
+
+@media (max-width: 768px) {
+  font-size: 55px;
+  text-align: center;
+}
 `
 
 const SubTitle = styled.p`
 margin-top: 30px;
 font-size: 30px;
 font-family: 'Grape Nuts', cursive;
+text-align: center;
+
+@media (max-width: 768px) {
+  font-size: 25px;
+
+}
+
 `
 
 const RightPart = styled.div`
@@ -57,9 +70,7 @@ const RightImage = styled.img`
   width: auto;
 
   @media(max-width: 768px){
-    height: 400px;
-
-    
+    height: 400px;    
   }
 `
 
@@ -67,6 +78,9 @@ const RightText = styled.p`
   float: top;
   font-size: 30px;
   margin-top: 30px;
+  @media(max-width: 768px){
+    font-size: 25px;
+  }
 `
 
 const ColumnText = styled.div`
@@ -74,4 +88,10 @@ const ColumnText = styled.div`
   text-align: justify;
   flex-direction: column;
   margin-right: 40px;
+
+  @media(max-width: 768px){
+    margin-right:20px;
+    margin-left:20px;
+
+  }
 `

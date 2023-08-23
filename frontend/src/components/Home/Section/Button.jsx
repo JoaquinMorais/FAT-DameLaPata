@@ -19,6 +19,10 @@ export default Button;
 
 const Container = styled.div`
   width: 26%;
+  @media(max-width: 425px){
+    margin:0 auto;
+
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -27,7 +31,12 @@ const ButtonContainer = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: pointer; 
+  
+  @media(max-width: 425px){
+    margin:0 auto;
+
+  }
 `;
 
 const ButtonText = styled.h3`
