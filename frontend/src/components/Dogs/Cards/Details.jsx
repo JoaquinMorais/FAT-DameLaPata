@@ -1,46 +1,62 @@
 import React, { useEffect, useState } from 'react'; 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { styled } from 'styled-components'
-import 'swiper/css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 /* ANIMACIONES */
 import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
+const Details = () => {
+    const { id } = useParams();
+    const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
-const BigCards = () => {
-  const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
+            setResponseData(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error.message);
+        }
+        }
+        
+        fetchData();
+    }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/pets/all');
-        setResponseData(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
-  }, []);
+    // const { id } = useParams();
+    // const [responseData, setResponseData] = useState(); // Agrega el estado para la respuesta de axios
+  
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     try {
+    //       const response = await axios.get(`http://localhost:5000/pet/${id}`)
+    //       setResponseData(response.data);
+    //       console.log(response.data);
+  
+    //       // Coloca aquí cualquier código que dependa de responseData
+    //       console.log(response.data?.response.id); // Esto estará bien aquí
+  
+    //     } catch (error) {
+    //       console.error('Error al realizar la solicitud:', error.message);
+    //     }
+    //   }
+  
+    //   fetchData(); // Llama a la función fetchData para obtener los datos
+    // }, [id]); // Debes incluir 'id' en la lista de dependencias para que useEffect se ejecute cuando 'id' cambie
 
   return (
-    <Swiper
-      spaceBetween={5}
-      slidesPerView={1}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-    {responseData?.response.map((item) => ( 
-        <SwiperSlide key={item.id}>
+    <>
+        {
+        <SwiperSlide key={responseData?.response.id}>
           <Carta>
             <ImagenContainer>
               <Imagen src='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg' alt="" />
               <Abajo>
                 <Texto>
-                  <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{`${item.date_of_birth}`}</Subtitulo></Zoom>
+                  <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
+                  <Zoom left><Subtitulo>{`${responseData?.response.birth_day}`}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
                 </Texto>
                 <Botones>
@@ -69,7 +85,7 @@ const BigCards = () => {
             <Fade>
               <Div3>
                 <Titulo2>Edad</Titulo2>
-                <Caracteristicas>Fecha: {`${item.date_of_birth}`}</Caracteristicas>
+                <Caracteristicas>Fecha: {`${responseData?.response.birth_date}`}</Caracteristicas>
               </Div3>
             </Fade>
             
@@ -90,12 +106,12 @@ const BigCards = () => {
             </Container>
           </Carta>
         </SwiperSlide>
-    ))}
-    </Swiper>
+        }
+    </>
   )
 }
 
-export default BigCards
+export default Details;
 
 const Carta = styled.div`
     width: 100%;

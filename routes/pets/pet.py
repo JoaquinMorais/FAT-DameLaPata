@@ -12,11 +12,11 @@ OnePet = Blueprint("OnePet",__name__)
 @OnePet.route("/pet/<int:id>",methods=['GET'])
 #@login_is_required(session)
 def getPet(id):
-    pet = Pet.query.filter_by(id_pet = id).first()
+    pet = Pet.query.get(id)
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            404
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
 
 
@@ -29,17 +29,17 @@ def getPet(id):
 @OnePet.route("/pet",methods=['PUT'])
 #@login_is_required(session)
 def putPet():
-    form = Request('name','size','weight','birthdate')
+    form = Request('name','size','weight','birthdate','id_shelter','image_path')
     for x in form:
         if form[x] == None:
             return Response(
                 'Error: Bad Request',
                 400
             ) 
-    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']))
+    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']),int(form['id_shelter']),form['image_path'])
     if pet == None:
         return Response(
-            'Error: Bad Request',
+            'Error: Bad Request (Pet Not Found)',
             400
         ) 
     
@@ -58,8 +58,8 @@ def deletePet(id):
     pet = Pet.query.filter_by(id_pet = id).first()
     if not pet:
         return Response(
-            'Error: Pet Not Found',
-            404
+            'Error: Bad Request (Pet Not Found)',
+            400
         )
     db.session.delete(pet)
     db.session.commit()
@@ -73,22 +73,28 @@ def deletePet(id):
 
 
 
-@OnePet.route("/sizes",methods=['GET','POST'])
+@OnePet.route("/db/populate",methods=['GET','POST'])
 def sizes():
     
-    db.session.add(Size('Chico',1,2,3,4))
-    db.session.add(Size('Mediano',1,2,3,4))
-    db.session.add(Size('Grande',1,2,3,4))
+    db.session.add(Size('Chico',3,4))
+    db.session.add(Size('Mediano',3,4))
+    db.session.add(Size('Grande',3,4))
     db.session.add(Color('golden', 'qsy dorado'))
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3))
+<<<<<<< HEAD
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,10))
+=======
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
+>>>>>>> fad71ddfeb821a538aa5b408fa88bcee07496850
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
     db.session.add(RelationShipPetCharacteristics(1, 1))
     db.session.commit()
+    
+
 
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.commit()
