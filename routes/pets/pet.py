@@ -83,18 +83,14 @@ def sizes():
     db.session.add(Characteristics('bonito', 'bonituwu'))
     db.session.commit()
     
-<<<<<<< HEAD
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,10))
-=======
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
->>>>>>> fad71ddfeb821a538aa5b408fa88bcee07496850
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
     db.session.add(RelationShipPetCharacteristics(1, 1))
     db.session.commit()
     
-
+    
 
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.commit()

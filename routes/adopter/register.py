@@ -19,6 +19,7 @@ def register_adopter():
     
     data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
     for x in data:
+        print({x: data[x]})
         if data[x] == None:
             return Response(
                 'Error: Bad Request',

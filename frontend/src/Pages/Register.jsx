@@ -6,12 +6,7 @@ import Explicacion from "../components/Register/Explicacion";
 import { Formik, useFormik } from 'formik';
 import { basicSchema } from "../schemas";
 import Navbar from '../components/NavBar/Navbar';
-
-
-function SubmitUser(){
-
-  
-}
+import axios from 'axios'
 
 const validate = values => {
   const errors = {};
@@ -58,16 +53,25 @@ function Register() {
       email: '',
       birthdate: '',
       phone_number: '',
-      id_document_type: '',
-      document: ''
+      id_document_type: 1,
+      document: ''  
     },
     validationSchema: basicSchema,
     validate,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+
+      console.log(JSON.stringify(values, null, 2))
+      const dataToSend = values
+      axios.put('http://localhost:5000/adopter/register', dataToSend)
+        .then(response => {
+          console.log('Response:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    
     },
   });
-
   return (
     <Container>
       <Navbar />
@@ -181,7 +185,7 @@ function Register() {
             <input
               id="phone_number"
               name="phone_number"
-              type="number"
+              type="text"
               onChange={formik.handleChange}
               value={formik.values.phone_number}
             />
@@ -193,9 +197,9 @@ function Register() {
               placeholder=""
               onChange={formik.handleChange}
               value={formik.values.id_document_type}>
-                <option value='1'>DNI</option>
-                <option value='2'>LE Nro</option>
-                <option value='3'>LC Nro</option>
+                <option value={1}>DNI</option>
+                <option value={2}>LE Nro</option>
+                <option value={3}>LC Nro</option>
 
               </select>
 
