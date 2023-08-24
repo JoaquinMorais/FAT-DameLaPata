@@ -227,9 +227,10 @@ class Pet(db.Model):
     def json(self):
         return {
             'id':self.id_pet,
-            'name':self.name,
+            'name':self.name.title(),
             'birth_date' : self.birth_date.strftime("%Y-%m-%d"),
             'id_size' : self.id_size,
+            'size' : self.pet_size.title.title(),
             'weight' : self.weight
             
         }
