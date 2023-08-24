@@ -56,7 +56,7 @@ const Details = () => {
               <Abajo>
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{`${responseData?.response.birth_day}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
                 </Texto>
                 <Botones>
@@ -70,36 +70,36 @@ const Details = () => {
 
             <Fade>
               <Div1>
-                <Titulo2>Descripcion</Titulo2>
-                <Caracteristicas>hola hola hola hola hola</Caracteristicas>
+                <Titulo2>Nombre</Titulo2>
+                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
               </Div1>
             </Fade>
               
             <Fade>
               <Div2>
-                <Titulo2>Apodos</Titulo2>
-                <Caracteristicas>a a a a a</Caracteristicas>
+                <Titulo2>Nacimiento</Titulo2>
+                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
               </Div2>
             </Fade>
 
             <Fade>
               <Div3>
-                <Titulo2>Edad</Titulo2>
-                <Caracteristicas>Fecha: {`${responseData?.response.birth_date}`}</Caracteristicas>
+                <Titulo2>Tamaño</Titulo2>
+                <Caracteristicas>{`${responseData?.response.size}`}</Caracteristicas>
               </Div3>
             </Fade>
             
             <Fade>
               <Div4>
-                <Titulo2>Tamaño</Titulo2>
-                <Caracteristicas>Es un perro de tamaño Grande</Caracteristicas>
+                <Titulo2>Peso</Titulo2>
+                <Caracteristicas>{`${responseData?.response.weight}`}</Caracteristicas>
               </Div4>
             </Fade>
               
             <Fade>
               <Div5>
                 <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Todas</Caracteristicas>
+                <Caracteristicas>Consultar</Caracteristicas>
               </Div5>
             </Fade>
               

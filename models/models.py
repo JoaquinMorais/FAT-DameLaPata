@@ -44,11 +44,10 @@ class User(db.Model): # se pueden hacer las querys
 
     id_address = db.Column(db.Integer, ForeignKey('address.id_address',  onupdate='CASCADE'))
     
-    def __init__(self, username, email, id_address, id_status):
+    def __init__(self, username, email, id_address):
         self.username = username
         self.email = email
         self.id_address = id_address
-        self.id_status = id_status
     
     def getId(self):
         return self.id_user
