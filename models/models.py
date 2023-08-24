@@ -232,7 +232,6 @@ class Pet(db.Model):
             'id_size' : self.id_size,
             'size' : self.pet_size.title.title(),
             'weight' : self.weight
-            
         }
 
 # caracteristicas de las mascotas:
