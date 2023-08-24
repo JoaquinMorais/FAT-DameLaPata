@@ -2,9 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Button from '../Button';
 import { Fade } from 'react-reveal';
-import { Flip } from 'react-reveal';
-import { FaxRounded } from '@mui/icons-material';
-
+import { Slide } from 'react-reveal';
 
 function Section() {
   return (
@@ -18,10 +16,15 @@ function Section() {
             <Slogan>"Rescatar, proteger y encontrar hogares amorosos para perros necesitados."</Slogan>
           </Fade>
 
-            <Button
-              text={'ADOPTA YA'}
-              link={'aaa'}
-            />
+          <Container>
+          <Slide bottom>
+            <ButtonContainer >
+            <ButtonAdop src='/Images/pataa.jpg' />
+            <ButtonText>ADOPTA</ButtonText>
+          </ButtonContainer>
+        </Slide>
+        </Container>
+
           </CenterContent>
         </Content>
       </Wrap>
@@ -36,6 +39,11 @@ const Title = styled.h1`
   color: white;
   text-align: center;
   margin-bottom: 10px;
+
+  @media(max-width: 425px){
+    font-size: 60px;
+
+  }
 `;
 
 const Slogan = styled.h4`
@@ -45,6 +53,11 @@ const Slogan = styled.h4`
   text-align: center;
   font-style: italic;
   font-family: 'Patrick Hand', cursive;
+
+  @media(max-width: 425px){
+    font-size: 20px;
+  }
+  
 `
 const Content = styled.div`
   position: relative;
@@ -54,6 +67,7 @@ const Content = styled.div`
   align-items: center;
   height: 100%;
   z-index: 1;
+
 `;
 
 const Wrap = styled.div`
@@ -61,6 +75,13 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   color: white;
+
+  @media(max-width: 425px){
+    margin:0 auto;
+    text-align:center;
+    justify-content:center;
+    align-items:center;
+  }
 `;
 
 const BackgroundImage = styled.div`
@@ -92,3 +113,40 @@ const CenterContent = styled.div`
   justify-content: center;
   height: 100%;
 `
+
+const Container = styled.div`
+  width: 26%;
+  @media(max-width: 425px){
+    margin:0 auto;
+    width:100%;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 200px;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; 
+  
+  @media(max-width: 425px){
+    margin:0 auto;
+
+  }
+`;
+
+const ButtonText = styled.h3`
+  color: white;
+  position: relative;
+  margin-top: -50px;
+  font-size: 14px;
+`;
+
+const ButtonAdop = styled.img`
+  filter: drop-shadow(0px 5px 15px rgba(255, 255, 255, 0.8));
+  margin-top: 50px;
+  width: 130px;
+  height: auto;
+`;
+

@@ -61,6 +61,9 @@ const WhyPart = styled.div`
 const WhyTitle = styled.h1`
   font-size: 80px;
   color: white;
+  @media(max-width: 768px){
+    font-size: 50px;
+  }
 `;
 
 const ReasonsContainer = styled.div`
@@ -69,17 +72,33 @@ const ReasonsContainer = styled.div`
   justify-content: center;
   text-align: justify;
 
+  @media(max-width: 768px){
+      flex-direction: column;
+      text-align:center;
+  }
+
 `;
 
 const ReasonTitle = styled.h1`
     font-size: 45px;
     font-family: 'Grape Nuts', cursive;
+
+
 `
 
 const ReasonImage = styled.img`
   width: 400px;
   height: auto;
   filter: drop-shadow(0px 5px 15px rgba(255,255, 255, 0.8));
+  
+  @media(max-width: 768px){
+    width: 400px;    
+  }
+
+  @media(max-width: 425px){
+    font-size: 60px;
+
+  }
 
 `
 
@@ -93,20 +112,15 @@ const ReasonLeft = styled.div`
   margin-bottom: 10px;
   word-wrap: break-word;
   height: 500px;
-  position: relative; /* Añadimos la posición relativa para que el ::before se posicione correctamente */
-  overflow: hidden; /* Añadimos esto para que las huellas no se desborden */
-  ::before {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 25%;
-    width: 100%;
-    height: 100%;
-    background-image: url('/Images/huellitas.png'); /* Ruta a la imagen de las huellas */
-    background-repeat: no-repeat;
-    opacity: 0.2;
-    z-index: -1; /* Colocamos el pseudo-elemento detrás del contenido principal */
+  position: relative; 
+  overflow: hidden; 
+  
+  @media(max-width: 768px){
+    max-width: 100%;
+    margin:0;
+    margin-top: 50px;
   }
+
 `;
 
 const ReasonRight = styled.div`
@@ -118,18 +132,11 @@ const ReasonRight = styled.div`
   margin-bottom: 10px;
   word-wrap: break-word; 
   height: 500px;
-  position: relative; /* Añadimos la posición relativa para que el ::before se posicione correctamente */
-  overflow: hidden; /* Añadimos esto para que las huellas no se desborden */
-  ::before {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 25%;
-    width: 100%;
-    height: 100%;
-    background-image: url('/Images/huellitas.png'); /* Ruta a la imagen de las huellas */
-    background-repeat: no-repeat;
-    opacity: 0.2;
-    z-index: -1; /* Colocamos el pseudo-elemento detrás del contenido principal */
+
+  @media(max-width: 768px){
+    max-width: 100%;
+    margin:0;
+    margin-top: 50px;
+
   }
 `
