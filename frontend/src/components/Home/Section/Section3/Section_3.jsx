@@ -100,6 +100,10 @@ const ReasonImage = styled.img`
 
   }
 
+  @media (max-width: 375px) {
+    width: 300px;    
+
+  }
 `
 
 

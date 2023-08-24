@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import NavBar from "../components/NavBar/navBar";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Explicacion from "../components/Register/Explicacion";
 import { Formik, useFormik } from 'formik';
 import { basicSchema } from "../schemas";
+import Navbar from '../components/NavBar/Navbar';
 
+
+function SubmitUser(){
+
+  
+}
 
 const validate = values => {
   const errors = {};
@@ -65,7 +70,7 @@ function Register() {
 
   return (
     <Container>
-      <NavBar />
+      <Navbar />
       <h1>¿Cómo te quieres registrar?</h1>
       <Tabs>
         <TabList>

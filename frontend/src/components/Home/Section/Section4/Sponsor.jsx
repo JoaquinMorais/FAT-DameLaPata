@@ -44,6 +44,10 @@ const WhyTitle = styled.h1`
   @media (max-width: 425px) {
     font-size: 40px;
   }
+
+  @media (max-width: 320px) {
+    font-size: 30px;
+  }
 `
 
 const SponsorContaint = styled.div`
@@ -86,4 +90,6 @@ const ImageSponsor = styled.img`
   @media (max-width: 425px) {
     width: 200px;
   }
+
+
 `;

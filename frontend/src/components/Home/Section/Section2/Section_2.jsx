@@ -18,8 +18,6 @@ function Section_2() {
         <RightText>En nuestra página de adopción, nuestra misión es clara y apasionada: promover la adopción responsable, crear conciencia sobre el abandono de perros y ofrecer recursos para el cuidado adecuado de estas adorables mascotas. Creemos que al unirnos como una comunidad de amantes de los animales, podemos hacer una verdadera diferencia en la vida de estos compañeros peludos que tanto lo necesitan.</RightText>
         <RightText>A través de nuestra página y campañas en redes sociales, nos esforzamos por crear conciencia sobre el problema del abandono de perros y sus efectos devastadores. Compartimos historias inspiradoras de perros rescatados y cómo han encontrado una nueva oportunidad en una familia amorosa. También trabajamos en colaboración con otras organizaciones y refugios para prevenir el abandono y educar sobre la importancia de la tenencia responsable de mascotas.</RightText>
       </ColumnText>
-
-
     </RightPart>
   </Bounce>
   </>
@@ -72,6 +70,12 @@ const RightImage = styled.img`
   @media(max-width: 768px){
     height: 400px;    
   }
+
+  @media (max-width: 375px) {
+    height: 300px;    
+
+  }
+  
 `
 
 const RightText = styled.p`

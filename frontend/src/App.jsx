@@ -8,7 +8,8 @@ import Home from './Pages/Home';
 import Who from './Pages/Who';
 import Post from './Pages/Post';
 import Add from './Pages/Add';
-
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 const App = () => {
 
 
@@ -55,6 +56,8 @@ const App = () => {
           <Route path="/about" element={<Who />} />
           <Route path="/post" element={<Post />} />
           <Route path="/add" element={<Add />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
         </Routes>
       </BrowserRouter>

@@ -38,8 +38,8 @@ function Navbar() {
 
         <RightMenuContainer>
           <RightMenu>
-            <a href="#">INICIA SESION</a>
-            <a href="#">REGISTRATE</a>
+            <a href="/login">INICIA SESION</a>
+            <a href="/register">REGISTRATE</a>
             {/* MENU =========================== */}
             <CustomMenu />
             {/* ================================ */}
