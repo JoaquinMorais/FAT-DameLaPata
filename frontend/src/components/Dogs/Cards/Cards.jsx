@@ -11,7 +11,7 @@ import './Cards.css';
 function Cards(props) {
   return (
     <Content>
-      <Card sx={{ MaxWidth: 250, height: 350, borderRadius: 2 }}>
+      <Card sx={{ width: 250, height: 350, borderRadius: 2 }}>
         
         <CardMedia
           sx={{ height: 150}}
