@@ -23,6 +23,11 @@ export default TitleFile
 const Wrap = styled.div`
   width: 100%;
   height: 40vh;
+  @media(max-width: 425px){
+
+    text-align:center;
+  }
+
 `;
 
 const Container = styled.div`
@@ -33,6 +38,10 @@ const Container = styled.div`
     align-items: center;
     height: 100%;
     z-index: 1;
+    @media(max-width: 425px){
+
+      width:100%;
+    }
 `;
 
 const Title = styled.h1`
