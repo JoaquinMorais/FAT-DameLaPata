@@ -1,33 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  margin-top: 20px; 
+  margin-top: 20px;
 `;
 
 const Title = styled.h3`
   font-size: 18px;
   margin-right: 10px;
-`;
-
-const Button = styled.button`
-  padding: 8px 12px;
-  font-size: 14px;
-  background-color: #3498db;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #2980b9;
-  }
 `;
 
 const CheckboxGroup = styled.div`
@@ -65,7 +51,7 @@ function Filters({ onColorFilter }) {
       <Button>Especie</Button>
       <Button>Peso</Button>
       <div>
-      <Button onClick={() => setShowColorCheckboxes(!showColorCheckboxes)}>Color</Button>
+        <Button onClick={() => setShowColorCheckboxes(!showColorCheckboxes)}>Color</Button>
         {showColorCheckboxes && (
           <CheckboxGroup>
             <CheckboxLabel>
@@ -96,13 +82,14 @@ function Filters({ onColorFilter }) {
               Verde
             </CheckboxLabel>
             {/* Agregar más checkboxes según los colores en tu data */}
-            <Button onClick={applyColorFilters}>Aplicar</Button>
+            <ButtonGroup variant="contained" aria-label="contained primary button group">
+              <Button onClick={applyColorFilters}>Aplicar</Button>
+            </ButtonGroup>
           </CheckboxGroup>
         )}
       </div>
     </Content>
   );
 }
-
 
 export default Filters;
