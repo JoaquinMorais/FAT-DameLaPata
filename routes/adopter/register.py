@@ -13,7 +13,7 @@ AdopterRegister = Blueprint("AdopterRegister",__name__)
 
 
   
-@AdopterRegister.route("/adopter/register",methods=['POST'],endpoint = 'register_adopter')
+@AdopterRegister.route("/adopter/register",methods=['PUT'],endpoint = 'register_adopter')
 def register_adopter():
     session.pop('user_id',None)
     
