@@ -12,7 +12,7 @@ ShelterRegister = Blueprint("ShelterRegister",__name__)
 
 
 
-@ShelterRegister.route("/shelter/register",methods=['POST'],endpoint = 'register_shelter')
+@ShelterRegister.route("/shelter/register",methods=['PUT'],endpoint = 'register_shelter')
 def register_shelter():
     session.pop('user_id',None)
     
