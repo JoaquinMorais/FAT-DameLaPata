@@ -1,133 +1,236 @@
-import React, { useState, useEffect } from 'react';
+// NAVBAR SHELTER
+
+import * as React from 'react';
 import styled from 'styled-components';
-import MenuIcon from '@mui/icons-material/Menu';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
+function NavBar() {
   return (
-    <Container scrolled={scrolled}>
-      <Container>
-        <LogoLink>
-          <LogoImage src="/Images/dame_logo.png" alt="" href="/"/>
-        </LogoLink>
-
-        <Menu>
-          <MenuItem><a href="/">INICIO</a></MenuItem>
-          <MenuItem><a href="/dogs">ADOPTÁ</a></MenuItem>
-          <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
-          <MenuItem><a href="/post">PUBLICÁ</a></MenuItem>
-          {/*<MenuItem><a href="/give">DONAR</a></MenuItem>*/}
-        </Menu>
-
-        <RightMenuContainer>
-          <RightMenu>
-            <a href="/login">INICIA SESION</a>
-            <a href="/register">REGISTRATE</a>
-            {/* MENU =========================== */}
-            <CustomMenu />
-            {/* ================================ */}
-          </RightMenu>
-        </RightMenuContainer>
-      </Container>
-    </Container>
+    <Posicion>
+      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="/"><Imagen src="/Images/dame_logo.png" alt="" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/">Inicio</Nav.Link>
+              <Nav.Link href="/about">Quienes Somos</Nav.Link>
+              <NavDropdown title="Mis Mascotas" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="/dogs">
+                  Ver mis perros
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/post">
+                  Publicar
+                </NavDropdown.Item>
+                {/* <NavDropdown.Divider />
+                <NavDropdown.Item href="/TODAVIA-NO-BRO">
+                  Favoritos
+                </NavDropdown.Item> */}
+              </NavDropdown>
+            </Nav>
+            <Nav>
+              <NavDropdown title="Mi perfil" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="/TODAVIA-NO-BRO">
+                    Ver Perfil
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/TODAVIA-NO-BRO">
+                    Cerrar Sesión
+                  </NavDropdown.Item>
+                </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </Posicion>
   );
 }
 
-export default Navbar;
+export default NavBar;
 
-const Container = styled.div`
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  min-height: 60px;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 5px;
-  background-color: ${props => (props.scrolled ? '#f76402' : 'transparent')};
+const Imagen = styled.img`
+  width: 50px;
 `;
 
-const LogoLink = styled.a``;
-
-const LogoImage = styled.img`
-  width: 55px;
-  height: auto;
+const Posicion = styled.div`
+position: fixed;
+width: 100%;
+z-index: 9999;
 `;
 
-const Menu = styled.div`
-  display: flex;
-  align-items: center;
-  flex: 1;
-
-  @media(max-width: 1000px){
-    display:none;
-  }
+const Perfil = styled.img`
+  width: 50px;
 `;
 
-const MenuItem = styled.p`
-  a {
-    color: white;
-    text-decoration: none; 
-    transition: color 0.3s ease; 
 
-    &:hover {
-      color: black; 
-    }
-  }
-  font-weight: 600;
-  padding: 0 20px;
-`;
 
-const RightMenuContainer = styled.div`
-  margin-left: auto; 
-`;
 
-const RightMenu = styled.div`
-  display: flex;
-  align-items: center;
-  a {
-    color: white;
-    font-weight: 600;
-    margin-right: 15px;
-    transition: color 0.3s ease; 
 
-    &:hover {
-      color: black; 
-    }
 
-    @media(max-width: 1000px){
-      display: none;
-    }
-  }
-`;
 
-const CustomMenu = styled(MenuIcon)`
-  cursor: pointer;
-  visibility: hidden;
-  margin-right: -20px;
 
-  @media(max-width: 1000px){
-    visibility: visible;
-    margin-right: 20px;
-  }
-`;
+
+
+// import AppBar from '@mui/material/AppBar';
+// import Box from '@mui/material/Box';
+// import Toolbar from '@mui/material/Toolbar';
+// import IconButton from '@mui/material/IconButton';
+// import Typography from '@mui/material/Typography';
+// import Menu from '@mui/material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import Container from '@mui/material/Container';
+// import Avatar from '@mui/material/Avatar';
+// import Button from '@mui/material/Button';
+// import Tooltip from '@mui/material/Tooltip';
+// import MenuItem from '@mui/material/MenuItem';
+// import AdbIcon from '@mui/icons-material/Adb';
+
+// const pages = ['Inicio', 'Adoptar', 'Quienes somos', 'Publicar'];
+// const settings = ['Perfil', 'Cerrar sesión'];
+
+// function Navbar() {
+//   const [anchorElNav, setAnchorElNav] = React.useState(null);
+//   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+//   const handleOpenNavMenu = (event) => {
+//     setAnchorElNav(event.currentTarget);
+//   };
+//   const handleOpenUserMenu = (event) => {
+//     setAnchorElUser(event.currentTarget);
+//   };
+
+//   const handleCloseNavMenu = () => {
+//     setAnchorElNav(null);
+//   };
+
+//   const handleCloseUserMenu = () => {
+//     setAnchorElUser(null);
+//   };
+
+//   return (
+//     <AppBar position="static">
+//       <Container maxWidth="xl">
+//         <Toolbar disableGutters>
+//           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+//           <Typography
+//             variant="h6"
+//             noWrap
+//             component="a"
+//             href="/"
+//             sx={{
+//               mr: 2,
+//               display: { xs: 'none', md: 'flex' },
+//               fontFamily: 'monospace',
+//               fontWeight: 700,
+//               letterSpacing: '.3rem',
+//               color: 'inherit',
+//               textDecoration: 'none',
+//             }}
+//           >
+//             DAME LA PATA
+//           </Typography>
+
+//           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+//             <IconButton
+//               size="large"
+//               aria-label="account of current user"
+//               aria-controls="menu-appbar"
+//               aria-haspopup="true"
+//               onClick={handleOpenNavMenu}
+//               color="inherit"
+//             >
+//               <MenuIcon />
+//             </IconButton>
+//             <Menu
+//               id="menu-appbar"
+//               anchorEl={anchorElNav}
+//               anchorOrigin={{
+//                 vertical: 'bottom',
+//                 horizontal: 'left',
+//               }}
+//               keepMounted
+//               transformOrigin={{
+//                 vertical: 'top',
+//                 horizontal: 'left',
+//               }}
+//               open={Boolean(anchorElNav)}
+//               onClose={handleCloseNavMenu}
+//               sx={{
+//                 display: { xs: 'block', md: 'none' },
+//               }}
+//             >
+//               {pages.map((page) => (
+//                 <MenuItem key={page} onClick={handleCloseNavMenu}>
+//                   <Typography textAlign="center">{page}</Typography>
+//                 </MenuItem>
+//               ))}
+//             </Menu>
+//           </Box>
+//           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+//           <Typography
+//             variant="h5"
+//             noWrap
+//             component="a"
+//             href="/"
+//             sx={{
+//               mr: 2,
+//               display: { xs: 'flex', md: 'none' },
+//               flexGrow: 1,
+//               fontFamily: 'monospace',
+//               fontWeight: 700,
+//               letterSpacing: '.3rem',
+//               color: 'inherit',
+//               textDecoration: 'none',
+//             }}
+//           >
+//             AAAAAA
+//           </Typography>
+//           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+//             {pages.map((page) => (
+//               <Button
+//                 key={page}
+//                 onClick={handleCloseNavMenu}
+//                 sx={{ my: 2, color: 'white', display: 'block' }}
+//               >
+//                 {page}
+//               </Button>
+//             ))}
+//           </Box>
+
+//           <Box sx={{ flexGrow: 0 }}>
+//             <Tooltip title="Open settings">
+//               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+//                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+//               </IconButton>
+//             </Tooltip>
+//             <Menu
+//               sx={{ mt: '45px' }}
+//               id="menu-appbar"
+//               anchorEl={anchorElUser}
+//               anchorOrigin={{
+//                 vertical: 'top',
+//                 horizontal: 'right',
+//               }}
+//               keepMounted
+//               transformOrigin={{
+//                 vertical: 'top',
+//                 horizontal: 'right',
+//               }}
+//               open={Boolean(anchorElUser)}
+//               onClose={handleCloseUserMenu}
+//             >
+//               {settings.map((setting) => (
+//                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
+//                   <Typography textAlign="center">{setting}</Typography>
+//                 </MenuItem>
+//               ))}
+//             </Menu>
+//           </Box>
+//         </Toolbar>
+//       </Container>
+//     </AppBar>
+//   );
+// }
+// export default Navbar;
