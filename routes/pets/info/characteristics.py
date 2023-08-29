@@ -7,9 +7,6 @@ from methods.response import Response
 
 PetInfoCharacteristics = Blueprint("PetInfoCharacteristics",__name__)
 
-    
-
-
 
 @PetInfoCharacteristics.route("/pets/info/characteristics",methods=['GET'])
 def getCharacteristics():
