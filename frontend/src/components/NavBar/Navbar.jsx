@@ -1,34 +1,133 @@
 import React, { useState, useEffect } from 'react';
-import { styled } from 'styled-components';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import styled from 'styled-components';
+import MenuIcon from '@mui/icons-material/Menu';
 
-function NavBar() {
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Container scrolled={scrolled}>
       <Container>
-        <Navbar.Brand href="/">DameLaPata</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/">INICIO</Nav.Link>
-            <Nav.Link href="/dogs">SOBRE NOSOTROS</Nav.Link>
-            <NavDropdown title="ADOPTÁ" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/dogs">Ver todos</NavDropdown.Item>
-              <NavDropdown.Item href="/pinder">Vista detallada</NavDropdown.Item>
-              {/* <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item> */}
-            </NavDropdown>
-            <Nav.Link href="/post">PUBLICÁ</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
+        <LogoLink>
+          <LogoImage src="/Images/dame_logo.png" alt="" href="/"/>
+        </LogoLink>
+
+        <Menu>
+          <MenuItem><a href="/">INICIO</a></MenuItem>
+          <MenuItem><a href="/dogs">ADOPTÁ</a></MenuItem>
+          <MenuItem><a href="/about">SOBRE NOSOTROS</a></MenuItem>
+          <MenuItem><a href="/post">PUBLICÁ</a></MenuItem>
+          {/*<MenuItem><a href="/give">DONAR</a></MenuItem>*/}
+        </Menu>
+
+        <RightMenuContainer>
+          <RightMenu>
+            <a href="#">INICIA SESION</a>
+            <a href="#">REGISTRATE</a>
+            {/* MENU =========================== */}
+            <CustomMenu />
+            {/* ================================ */}
+          </RightMenu>
+        </RightMenuContainer>
       </Container>
-    </Navbar>
+    </Container>
   );
 }
 
-export default NavBar;
+export default Navbar;
+
+const Container = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  min-height: 60px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 5px;
+  background-color: ${props => (props.scrolled ? '#f76402' : 'transparent')};
+`;
+
+const LogoLink = styled.a``;
+
+const LogoImage = styled.img`
+  width: 55px;
+  height: auto;
+`;
+
+const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  @media(max-width: 1000px){
+    display:none;
+  }
+`;
+
+const MenuItem = styled.p`
+  a {
+    color: white;
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+
+    &:hover {
+      color: black; 
+    }
+  }
+  font-weight: 600;
+  padding: 0 20px;
+`;
+
+const RightMenuContainer = styled.div`
+  margin-left: auto; 
+`;
+
+const RightMenu = styled.div`
+  display: flex;
+  align-items: center;
+  a {
+    color: white;
+    font-weight: 600;
+    margin-right: 15px;
+    transition: color 0.3s ease; 
+
+    &:hover {
+      color: black; 
+    }
+
+    @media(max-width: 1000px){
+      display: none;
+    }
+  }
+`;
+
+const CustomMenu = styled(MenuIcon)`
+  cursor: pointer;
+  visibility: hidden;
+  margin-right: -20px;
+
+  @media(max-width: 1000px){
+    visibility: visible;
+    margin-right: 20px;
+  }
+`;
