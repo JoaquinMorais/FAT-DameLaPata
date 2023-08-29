@@ -176,9 +176,11 @@ def getPetsFilterby():
 @login_is_required(session)
 def getPets():
     limit = Request('limit')
-   
-    id_user = session['user_id']
+    id_user_developer = Request('id_user_developer')
 
+    id_user = session['user_id']
+    if id_user_developer is not None:
+        id_user = int(id_user_developer)
 
     user = Adopter.query.get(id_user)
     if not user:
@@ -190,6 +192,7 @@ def getPets():
         )
     
     if user.this_type() == 'Adopter':
+        text = 'No existe ningun perro en base a tus gustos'
         taste_color = subquery = db.session.query(
             RelationShipUserColor.id_color
         ).filter(
@@ -230,17 +233,18 @@ def getPets():
         
         )"""
     elif user.this_type() == 'Shelter':
+        text = 'No tienes ningun perro'
         pets = Pet.query.filter(
             Pet.id_shelter == user.id_user
         )
-    
+
     if limit:
-        pets = Pet.query.limit(int(limit)).all()
+        pets = pets.limit(int(limit)).all()
     else:
-        pets = Pet.query.all()
+        pets = pets.all()
     if not pets:
         return Response(
-            'Error: Pet Not Found',
+            text,
             401
         )
 
