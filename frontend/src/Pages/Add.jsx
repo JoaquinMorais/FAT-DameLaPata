@@ -1,42 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from 'styled-components'
+import React from 'react';
+import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
-import NumberInput from '../components/Add/NumberInput';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios'; // Asegúrate de importar Axios
 
 function Add() {
+  const initialValues = {
+    name: '',
+    birthdate: '',
+    size: '',
+    weight: '',
+    id_shelter: 1,
+    image_path: '',
+  };
 
-    const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
+  const validationSchema = Yup.object({
+    name: Yup.string().required('El nombre es obligatorio'),
+    birthdate: Yup.date().required('La fecha de nacimiento es obligatoria'),
+    size: Yup.number().required('El tamaño es obligatorio'),
+    weight: Yup.number().required('El peso es obligatorio'),
+  });
 
-    const handleSeleccion = (opcion) => {
-        setOpcionSeleccionada(opcion);
-    };
+  const handleSubmit = (values, { setSubmitting }) => {
+    // Aquí puedes manejar la lógica de envío del formulario
+    console.log(JSON.stringify(values, null, 2));
+    const dataToSend = values;
+    axios
+      .put('http://localhost:5000/pet', dataToSend)
+      .then((response) => {
+        console.log('Response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    setSubmitting(false);
+  };
+
   return (
     <>
-        <NavBar/>
-        <Container>
+      <NavBar />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <Container>
             <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
             <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
             <Hr></Hr>
-            <Texto>Nombre</Texto>
-            <Input type="text" placeholder="Ejemplo: Firulais..."/>
 
-            <Texto>Fecha de nacimiento</Texto>
-            <Input type="date"></Input>
+            <div>
+              <Texto>Nombre</Texto>
+              <FieldStyled type="text" name="name" placeholder="Ejemplo: Firulais..." />
+              <ErrorMessage name="name" component="div" />
+            </div>
 
-            <Texto>Color</Texto>
-            <Input type="text" placeholder="Ejemplo: Amarillo patito..."/>
+            <div>
+              <Texto>Fecha de nacimiento</Texto>
+              <FieldStyled type="date" name="birthdate" />
+              <ErrorMessage name="birthdate" component="div" />
+            </div>
 
-            <Texto>Tamaño</Texto>
-            <NumberInput />
+            <div>
+              <Texto>Tamaño</Texto>
+              <FieldStyled type="number" min="1" max="3" name="size" placeholder="1: Chico; 2: Mediano; 3: Grande" />
+              <ErrorMessage name="size" component="div" />
+            </div>
 
-            <Texto>Peso</Texto>
-            <Input type="number" min="1" max="3" placeholder="Ejemplo: 18,12"/>
-        </Container>
+            <div>
+              <Texto>Peso</Texto>
+              <FieldStyled type="number" name="weight" placeholder="Ejemplo: 18,12" />
+              <ErrorMessage name="weight" component="div" />
+            </div>
+
+            <div>
+              <Texto>Imagen</Texto>
+              <FieldStyled type="text" name="image_path" placeholder="https://..." />
+              <ErrorMessage name="image_path" component="div" />
+            </div>
+
+            <Boton type="submit">PUBLICAR</Boton>
+          </Container>
+        </Form>
+      </Formik>
     </>
-  )
+  );
 }
 
-export default Add
+export default Add;
+
 
 const Container = styled.div`
     display: flex;
@@ -44,7 +99,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 60px;
+    margin-top: 80px;
 `;
 
 const Titulo = styled.h3`
@@ -65,7 +120,7 @@ const Texto = styled.p`
     font-weight: weight;
 `;
 
-const Input = styled.input`
+const FieldStyled = styled(Field)`
     width: 250px;
     height: 35px;
     border: 2px solid black;
@@ -84,6 +139,16 @@ const ContainerInputs = styled.div`
     align-items: center;
 `;
 
-const Checkbox = styled.input`
-    
+const Boton = styled.button`
+    width: 100px;
+    height: 50px;
+    margin-top: 20px;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: transparent;
+    font-weight: bold;
+    &:hover{
+        background-color: #f76402;
+        cursor: pointer;
+    }
 `;

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'; 
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+
 import { styled } from 'styled-components'
 import 'swiper/css';
 import axios from 'axios';

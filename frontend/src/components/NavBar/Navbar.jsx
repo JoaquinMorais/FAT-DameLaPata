@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MenuIcon from '@mui/icons-material/Menu';
 
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
