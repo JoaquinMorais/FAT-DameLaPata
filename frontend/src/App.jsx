@@ -60,7 +60,7 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/CloseAccount" element={<CloseAccount />} />
+          <Route path="/closeAccount" element={<CloseAccount />} />
         </Routes>
       </BrowserRouter>
     </div>
