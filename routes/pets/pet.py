@@ -35,7 +35,8 @@ def putPet():
             return Response(
                 'Error: Bad Request',
                 400
-            ) 
+            )
+        
     pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']),int(form['id_shelter']),form['image_path'])
     if pet == None:
         return Response(
