@@ -10,7 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 function NavBar() {
   return (
     <Posicion>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+      <CustomNavbar collapseOnSelect expand="lg" className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/"><Imagen src="/Images/dame_logo.png" alt="" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -43,12 +43,16 @@ function NavBar() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </CustomNavbar>
     </Posicion>
   );
 }
 
 export default NavBar;
+
+const CustomNavbar = styled.div`
+  background-color: blue;
+`;
 
 const Imagen = styled.img`
   width: 50px;
@@ -110,7 +114,7 @@ const Perfil = styled.img`
 //   };
 
 //   return (
-//     <AppBar position="static">
+//     <AppBar position="static" sx={{ backgroundColor: 'blue' }}>
 //       <Container maxWidth="xl">
 //         <Toolbar disableGutters>
 //           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
