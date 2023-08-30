@@ -10,6 +10,8 @@ import Post from './Pages/Post';
 import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import CloseAccount from './Pages/CloseAccount';
+
 const App = () => {
 
 
@@ -58,7 +60,7 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
+          <Route path="/CloseAccount" element={<CloseAccount />} />
         </Routes>
       </BrowserRouter>
     </div>
