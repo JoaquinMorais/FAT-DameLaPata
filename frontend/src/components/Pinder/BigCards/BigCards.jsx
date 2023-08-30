@@ -163,7 +163,6 @@ const Titulo = styled.h1`
 
 const Subtitulo = styled.p`
     color: white;
-    margin-top: 10px;
     font-size: 20px;
 `;
 
