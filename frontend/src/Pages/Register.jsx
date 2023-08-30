@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ShelterRegister from "../components/Register/RegisterShelter";
 import Explicacion from "../components/Register/Explicacion";
 import { Formik, useFormik } from 'formik';
 import { basicSchema } from "../schemas";
 import Navbar from '../components/NavBar/Navbar';
 import axios from 'axios'
+import AdopterRegister from "../components/Register/RegisterAdopter";
 
 const validate = values => {
   const errors = {};
@@ -82,195 +84,10 @@ function Register() {
           <Tab>Refugio - Home adopter</Tab>
         </TabList>
         <TabPanel>
-          <Explicacion
-            txt={'Completar este apartado nos permitirá conocerte mejor y entender tus preferencias para poder hacer la mejor coincidencia entre tu estilo de vida y el perro que deseas adoptar. Queremos asegurarnos de que cada perro encuentre un hogar donde sea amado y cuidado adecuadamente.'}
-          />
-          <StyledForm onSubmit={formik.handleSubmit}>
-            <label htmlFor="username">Nombre de Usuario</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="JoaMora"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-            />
-            {formik.errors.username ? <Error>{formik.errors.username}</Error> : null}
-
-            <label htmlFor="name">Nombre</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Pepito"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-            {formik.errors.name ? <Error>{formik.errors.name}</Error> : null}
-
-            <label htmlFor="surname">Apellido</label>
-            <input
-              id="surname"
-              name="surname"
-              type="text"
-              placeholder="Perez"
-              onChange={formik.handleChange}
-              value={formik.values.surname}
-            />
-            {formik.errors.surname ? <Error>{formik.errors.surname}</Error> : null}
-
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Introduce una contraseña"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-            {formik.errors.password ? <Error>{formik.errors.password}</Error> : null}
-
-            <label htmlFor="province">Provincia</label>
-            <input
-              id="province"
-              name="province"
-              type="text"
-              placeholder="Cordoba"
-              onChange={formik.handleChange}
-              value={formik.values.province}
-            />
-
-            <label htmlFor="city">Ciudad</label>
-            <input
-              id="city"
-              name="city"
-              type="text"
-              placeholder="Cordoba"
-              onChange={formik.handleChange}
-              value={formik.values.city}
-            />
-
-            <label htmlFor="district">Barrio</label>
-            <input
-              id="district"
-              name="district"
-              type="text"
-              placeholder="Alberdi"
-              onChange={formik.handleChange}
-              value={formik.values.district}
-            />
-
-            <label htmlFor="email">Correo Electrónico</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="pepitoperez@gmail.com"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-            />
-            {formik.errors.email ? <Error>{formik.errors.email}</Error> : null}
-
-            <label htmlFor="birthdate">Fecha de Nacimiento</label>
-            <input
-              id="birthdate"
-              name="birthdate"
-              type="date"
-              placeholder="02/03/2001"
-              onChange={formik.handleChange}
-              value={formik.values.birthdate}
-            />
-
-            <label htmlFor="phone_number">Número de Teléfono</label>
-            <input
-              id="phone_number"
-              name="phone_number"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.phone_number}
-            />
-
-            <label htmlFor="id_document_type">Tipo de Documento</label>
-            <select 
-              id="id_document_type"
-              name="id_document_type"
-              placeholder=""
-              onChange={formik.handleChange}
-              value={formik.values.id_document_type}>
-                <option value={1}>DNI</option>
-                <option value={2}>LE Nro</option>
-                <option value={3}>LC Nro</option>
-
-              </select>
-
-            <label htmlFor="document">Número de Documento</label>
-            <input
-              id="document"
-              name="document"
-              type="text"
-              placeholder="43929199"
-              onChange={formik.handleChange}
-              value={formik.values.document}
-            />
-            
-            <button type="submit">Enviar</button>
-          </StyledForm>
+            <AdopterRegister/>
         </TabPanel>
         <TabPanel>
-        <Explicacion
-            txt={'Si sos refugio o un hogar que tenga un perro y lo quiera dar en adopcion, este es tu lugar'}
-          />
-                
-          <StyledForm onSubmit={formik.handleSubmit}>
-            <label htmlFor="username">Nombre de Usuario</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-            />
-            {formik.errors.username ? <Error>{formik.errors.username}</Error> : null}
-
-            <label htmlFor="name">Nombre del refugio</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-            {formik.errors.name ? <Error>{formik.errors.name}</Error> : null}
-
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-            {formik.errors.password ? <Error>{formik.errors.password}</Error> : null}
-
-            <label htmlFor="province">Provincia</label>
-            <input
-              id="province"
-              name="province"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.province}
-            />
-
-            <label htmlFor="city">Ciudad</label>
-            <input
-              id="city"
-              name="city"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.city}
-            />
-            <button type="submit">Enviar</button>
-          </StyledForm>
+          <ShelterRegister/>
         </TabPanel>
         </Tabs>
     </Container>
