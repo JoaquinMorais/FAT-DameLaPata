@@ -1,5 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { styled } from 'styled-components';
+
 
 const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
     return (
@@ -16,10 +18,10 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
                 },
             }}
         >
-            <h2>Confirmation</h2>
-            <p>Are you sure you want to delete your account?</p>
-            <button onClick={onConfirm}>Yes, delete account</button>
-            <button onClick={onClose}>Cancel</button>
+            <h2>Confirmación</h2>
+            <p>¿Estás seguro de que deseas borrar tu cuenta?</p>
+            <button onClick={onConfirm}>Sí, borrar cuenta</button>
+            <button onClick={onClose}>Cancelar</button>
         </Modal>
     );
 };
