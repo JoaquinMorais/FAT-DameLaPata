@@ -2,7 +2,7 @@ from flask import Blueprint,render_template,redirect,url_for,request,session,g,a
 from models.models import *
 from utils.db import db
 from decorators.flask_decorators import * 
-from methods.requests import Request
+from methods.requests import Request, RequestList
 from methods.response import Response
 
 OnePet = Blueprint("OnePet",__name__)
@@ -27,17 +27,41 @@ def getPet(id):
 
 
 @OnePet.route("/pet",methods=['PUT'])
-#@login_is_required(session)
+@login_is_required(session)
 def putPet():
-    form = Request('name','size','weight','birthdate','id_shelter','image_path')
-    for x in form:
-        if form[x] == None:
+    data = {
+        **RequestList('colors','characteristics'),
+        **Request('name','size','weight','birthdate','image_path')
+    }
+    id_shelter = Request('id_shelter')
+    if not id_shelter:
+        user = User.query.get(session['user_id'])
+        if not user:
+            return Response(
+                'Error: User Not Found',
+                404
+            )
+        if user.type != 'shelter':
+           return Response(
+                'Error: Permission Error',
+                404
+            )
+        id_shelter = user.id_user
+        
+    for x in data:
+        if data[x] == None:
             return Response(
                 'Error: Bad Request',
                 400
             )
-        
-    pet = Pet(form['name'],form['birthdate'],int(form['size']),int(form['weight']),int(form['id_shelter']),form['image_path'])
+    shelter = Shelter.query.get(id_shelter)
+    if not shelter:
+        return Response(
+            'Error: Shelter Not Found',
+            404
+        )
+    
+    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'])
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
@@ -47,6 +71,16 @@ def putPet():
     db.session.add(pet)
     db.session.commit()
 
+    for color in data['colors']:
+        pet_color  = RelationShipPetColor(pet.id_pet,color)
+        db.session.add(pet_color)
+
+    for characteristic in data['characteristics']:
+        pet_characteristic  = RelationShipPetCharacteristics(pet.id_pet,characteristic)
+        db.session.add(pet_characteristic)
+
+    
+    db.session.commit()
 
     return Response(
         pet.json(),
@@ -80,20 +114,29 @@ def sizes():
     db.session.add(Size('Chico',3,4))
     db.session.add(Size('Mediano',3,4))
     db.session.add(Size('Grande',3,4))
-    db.session.add(Color('golden', 'qsy dorado'))
-    db.session.add(Characteristics('bonito', 'bonituwu'))
+
+    db.session.add(Color('Marron', 'color marron'))
+    db.session.add(Color('Negro', 'color negro'))
+    db.session.add(Color('Blanco', 'color blanco'))
+    db.session.add(Color('Dorado', 'color dorado'))
+
+    db.session.add(Characteristics('bonito', 'bonito uwu'))
+    db.session.add(Characteristics('castrado', 'pobrecito'))
+    db.session.add(Characteristics('discapacitado', 'pobre :('))
     db.session.commit()
     
     db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
+    db.session.add(RelationShipPetColor(1, 2))
+    db.session.add(RelationShipPetColor(1, 3))
     db.session.add(RelationShipPetCharacteristics(1, 1))
+    db.session.add(RelationShipPetCharacteristics(1, 2))
     db.session.commit()
-    
-
 
     db.session.add(DocumentType('dni','soy un dni'))
+    db.session.add(DocumentType('cuit','soy un cuit'))
     db.session.commit()
 
     return 'a'

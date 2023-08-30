@@ -27,19 +27,19 @@ def RequestList(*args):
     if len(args) == 1:
         arg = args[0]
         try:
-            return request.args.getlist(arg)
+            return request.json[arg]
         except:
             try:
-                return request.json[arg]
+                return request.args.getlist(arg)
             except:
                 return None
     else:
         for arg in args:
             try:
-                response[f'{arg}'] =  request.args.getlist(arg)
+                response[f'{arg}'] =  request.json[arg]
             except:
                 try:
-                    response[f'{arg}'] =  request.json[arg]
+                    response[f'{arg}'] =  request.args.getlist(arg)
                 except:
                     response[f'{arg}'] = None
     return response

@@ -265,7 +265,7 @@ class Pet(db.Model):
     image_path = db.Column(db.Text, nullable = False)
 
     id_size = db.Column(db.Integer, ForeignKey('size.id_size',  onupdate='CASCADE'))
-    id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', onupdate='CASCADE'))
+    id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter'))
 
 
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
@@ -293,7 +293,8 @@ class Pet(db.Model):
             'birth_date' : self.birth_date.strftime("%Y-%m-%d"),
             'id_size' : self.id_size,
             'size' : self.pet_size.title.title(),
-            'weight' : self.weight
+            'weight' : self.weight,
+            'id_shelter':self.id_shelter
         }
 
 # caracteristicas de las mascotas:
