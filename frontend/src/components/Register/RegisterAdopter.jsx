@@ -38,7 +38,7 @@ function AdopterRegister() {
   return (
     <>
       <Navbar />
-      <StyledLogin>
+      <StyledRegister>
         <h3>INICIA SESION</h3>
         <Formik
           initialValues={{
@@ -48,7 +48,6 @@ function AdopterRegister() {
             repeatPassword: '',
             name: '',
             surname: '',
-            password: '',
             province: '',
             city: '',
             district:'',
@@ -98,7 +97,7 @@ function AdopterRegister() {
               </div>
               <div className="form-group">
                 <label htmlFor="city">Ciudad</label>
-                <Field type="text" id="city" name="password" placeholder="Ingresa una contraseña" />
+                <Field type="text" id="city" name="city" placeholder="Ingresa una contraseña" />
                 <ErrorMessage name="city" component="div" className="error" />
               </div>
               <div className="form-group">
@@ -127,17 +126,52 @@ function AdopterRegister() {
                 <ErrorMessage name="document" component="div" className="error" />
               </div>
 
-              <button type="submit">Enviar</button>
+              <StyledButton type="submit">Registrarse</StyledButton>
             </Form>
           )}
         </Formik>
-        <RegisterLink to="/login">Ya tenes una cuenta? Ingresa</RegisterLink>
-      </StyledLogin>
+        <StyledLink to="/login">¿Ya tienes una cuenta? Inicia sesión aquí</StyledLink>
+      </StyledRegister>
     </>
   ); 
 }
 
 export default AdopterRegister;
 
-const StyledLogin = styled.div``
-const RegisterLink = styled.a``
+const StyledRegister = styled.div`
+    display:flex;
+    flex-direction: column;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin-bottom: 20px;
+  }
+`;
+
+const StyledButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+`;
+
+const StyledLink = styled.a`
+  display: block;
+  margin-top: 10px;
+  color: #333;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
