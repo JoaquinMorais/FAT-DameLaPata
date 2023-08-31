@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import BigCards from '../components/Pinder/BigCards/BigCards';
+import NavBar from '../components/NavBar/Navbar'
 import slides from '../dogs.json'
 import axios from 'axios';
 
@@ -12,6 +13,7 @@ function Pinder() {
   axiosTest()
   return (
     <> 
+      <NavBar />
       <BigCards />
     </>
   )

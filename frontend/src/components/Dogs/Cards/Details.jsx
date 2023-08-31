@@ -111,7 +111,7 @@ const Details = () => {
   )
 }
 
-export default Details;
+export default Details
 
 const Carta = styled.div`
     width: 100%;
@@ -147,15 +147,26 @@ const Abajo = styled.div`
 `;
 
 const Texto = styled.div`   
-    position: absolute;
-    width: 100%;
     text-align: left;
     width: 100%;
     height: 100%;
     color: white;
-    padding: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin: 0;
+`;
+
+const Titulo = styled.h1`
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 15px;
+`;
+
+const Subtitulo = styled.p`
+    color: white;
+    font-size: 20px;
 `;
 
 const Botones = styled.div`
@@ -166,18 +177,6 @@ const Botones = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-`;
-
-const Titulo = styled.h1`
-    color: white;
-    text-transform: uppercase;
-    font-style: italic;
-`;
-
-const Subtitulo = styled.p`
-    color: white;
-    margin-top: 10px;
-    font-size: 20px;
 `;
 
 const No = styled.button`

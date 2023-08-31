@@ -145,7 +145,7 @@ function Navbar() {
   }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#FF5722', position: 'fixed', zIndex: '9998' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#FF5722', position: 'fixed', zIndex: '9998', height: '50px', justifyContent: 'center' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <a href='/'><Imagen1 src='/Images/dame_logo.png' alt="Logo" style={{ width: '40px', marginRight: '16px'}} /></a>
