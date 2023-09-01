@@ -1,5 +1,5 @@
 from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adopter, Shelter, Address, Credencial
+from models.models import User, Adopter, Shelter, Address, Credencial, Volunteer
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
@@ -21,6 +21,24 @@ def profile():
             404
         )
     
+    if user.type == 'adopter':
+        user = Adopter.query.get(user.id_user)
+    elif user.type == 'shelter':
+        user = Shelter.query.get(user.id_user)
+    elif user.type == 'volunteer':
+        user = Volunteer.query.get(user.id_user)
+    else:
+        return Response(
+            'Error: Type user doesnt exists',
+            404
+        )
+    
+    if not user:
+        return Response(
+            'Error: User Not Found',
+            404
+        )
+
     return Response(
         user.json(),
         200

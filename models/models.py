@@ -36,20 +36,26 @@ class Address(db.Model):
         return f'{self.title}'
     
 
-class User(db.Model): # se pueden hacer las querys
+class User(db.Model):
     __tablename__ = 'user'
-    id_user = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(70), nullable = False)
-    email = db.Column(db.String(150), nullable = False)
-
-    id_address = db.Column(db.Integer, ForeignKey('address.id_address',  onupdate='CASCADE'))
     
+    id_user = Column(Integer, primary_key=True)
+    username = Column(String(70), nullable=False)
+    email = Column(String(150), nullable=False)
+    type = Column(String(150))
+
+    id_address = Column(Integer, ForeignKey('address.id_address', onupdate='CASCADE'))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'user',
+        'polymorphic_on': type,
+    }
+
     def __init__(self, username, email, id_address):
         self.username = username
         self.email = email
         self.id_address = id_address
 
-    
     def getId(self):
         return self.id_user
 
@@ -58,24 +64,29 @@ class User(db.Model): # se pueden hacer las querys
 
     def json(self):
         return {
-            'id' : self.id_user,
-            'username' : self.username,
-            'email' : self.email,
-            'id_address' : self.id_address
+            'id': self.id_user,
+            'username': self.username,
+            'email': self.email,
+            'id_address': self.id_address,
+            'type':self.type
         }
 
-class Adopter(User): # se pueden hacer las querys
+class Adopter(User):
     __tablename__ = 'adopter'
-    id_adopter = db.Column(db.Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
-    name = db.Column(db.String(70), nullable = False)
-    surname = db.Column(db.String(70), nullable = False)
-    birth_date = db.Column(db.Date, nullable = False)
-    phone_number = db.Column(db.String(70), nullable = False)
-    document = db.Column(db.String(70), nullable = False)
+    id_adopter = Column(Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
+    name = Column(String(70), nullable=False)
+    surname = Column(String(70), nullable=False)
+    birth_date = Column(Date, nullable=False)
+    phone_number = Column(String(70), nullable=False)
+    document = Column(String(70), nullable=False)
 
-    id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type',  onupdate='CASCADE'))
+    id_document_type = Column(Integer, ForeignKey('documenttype.id_document_type', onupdate='CASCADE'))
 
-    def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document):
+    __mapper_args__ = {
+        'polymorphic_identity': 'adopter'
+    }
+
+    def __init__(self, username, email, id_address, name, surname, birth_date, phone_number, id_document_type, document):
         super().__init__(username, email, id_address)
         self.name = name
         self.surname = surname
@@ -84,14 +95,44 @@ class Adopter(User): # se pueden hacer las querys
         self.id_document_type = id_document_type
         self.document = document
 
+    def json(self):
+        return {
+            **super().json(),
+            **{
+                'name': self.name,
+                'surname': self.surname,
+                'birth_date': self.birth_date.isoformat(),  # Convierte a formato ISO
+                'phone_number': self.phone_number,
+                'id_document_type': self.id_document_type,
+                'document': self.document,
+            },
+            
+        }
+            
+        
+
 class Shelter(User):
     __tablename__ = 'shelter'
-    id_shelter = db.Column(db.Integer, ForeignKey('user.id_user',ondelete='CASCADE', onupdate='CASCADE'), primary_key=True)
-    name = db.Column(db.String(70), nullable = False)
+    id_shelter = Column(Integer, ForeignKey('user.id_user', ondelete='CASCADE', onupdate='CASCADE'), primary_key=True)
+    name = Column(String(70), nullable=False)
 
-    def __init__(self,username, email, id_address, name):
+    __mapper_args__ = {
+        'polymorphic_identity': 'shelter'
+    }
+
+    def __init__(self, username, email, id_address, name):
         super().__init__(username, email, id_address)
         self.name = name
+    
+    def json(self):
+        return {
+            **super().json(),
+            **{
+                'name': self.name,
+            },
+            
+        }
+    
 
 class Volunteer(User): # se pueden hacer las querys
     __tablename__ = 'volunteer'
@@ -105,6 +146,10 @@ class Volunteer(User): # se pueden hacer las querys
     id_document_type = db.Column(db.Integer, ForeignKey('documenttype.id_document_type',  onupdate='CASCADE'))
     shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter',  onupdate='CASCADE'))
 
+    __mapper_args__ = {
+        'polymorphic_identity': 'volunteer'
+    }
+
     def __init__(self,username, email, id_address,name, surname, birth_date, phone_number, id_document_type, document, shelter):
         super().__init__(username, email, id_address)
         self.name = name
@@ -114,6 +159,22 @@ class Volunteer(User): # se pueden hacer las querys
         self.id_document_type = id_document_type
         self.document = document
         self.shelter = shelter
+    
+    def json(self):
+        return {
+            **super().json(),
+            **{
+                'name': self.name,
+                'surname': self.surname,
+                'birth_date': self.birth_date.isoformat(),  # Convierte a formato ISO
+                'phone_number': self.phone_number,
+                'id_document_type': self.id_document_type,
+                'document': self.document,
+                'shelter':self.shelter.json(),
+                'id_shelter' : self.shelter.id_shelter
+            },
+            
+        }
 
 class Credencial(db.Model):
     __tablename__ = 'credenciales'
@@ -204,7 +265,7 @@ class Pet(db.Model):
     image_path = db.Column(db.Text, nullable = False)
 
     id_size = db.Column(db.Integer, ForeignKey('size.id_size',  onupdate='CASCADE'))
-    id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter', onupdate='CASCADE'))
+    id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter'))
 
 
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
@@ -232,7 +293,9 @@ class Pet(db.Model):
             'birth_date' : self.birth_date.strftime("%Y-%m-%d"),
             'id_size' : self.id_size,
             'size' : self.pet_size.title.title(),
-            'weight' : self.weight
+            'weight' : self.weight,
+            'id_shelter':self.id_shelter,
+            'image_path' : self.image_path
         }
 
 # caracteristicas de las mascotas:
