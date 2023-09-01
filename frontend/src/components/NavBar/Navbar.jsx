@@ -2,96 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
-
-// import ProfileImage from '../../images/foto-perfil-ejemplo.jpg';
-
-// function NavBar() {
-//   return (
-//     <Posicion>
-//       <CustomNavbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-//         <Container>
-//           <Navbar.Brand href="/"><Imagen src="/Images/dame_logo.png" alt="" /></Navbar.Brand>
-//           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-//           <Navbar.Collapse id="responsive-navbar-nav">
-//             <Nav className="me-auto">
-//               <Nav.Link href="/">Inicio</Nav.Link>
-//               <Nav.Link href="/about">Quienes Somos</Nav.Link>
-//               <NavDropdown title="Mis Mascotas" id="collasible-nav-dropdown">
-//                 <NavDropdown.Item href="/dogs">
-//                   Ver mis perros
-//                 </NavDropdown.Item>
-//                 <NavDropdown.Item href="/post">
-//                   Publicar
-//                 </NavDropdown.Item>
-//               </NavDropdown>
-//             </Nav>
-//             <Nav>
-//               {/* Utiliza una clase de CSS personalizada para el botón */}
-//               <NavDropdown title={<div className="nav-dropdown-profile"></div>} id="collasible-nav-dropdown">
-//                 <NavDropdown.Item href="/TODAVIA-NO-BRO">
-//                   Ver Perfil
-//                 </NavDropdown.Item>
-//                 <NavDropdown.Item href="/TODAVIA-NO-BRO">
-//                   Cerrar Sesión
-//                 </NavDropdown.Item>
-//               </NavDropdown>
-//             </Nav>
-//           </Navbar.Collapse>
-//         </Container>
-//       </CustomNavbar>
-//     </Posicion>
-//   );
-// }
-
-
-// export default NavBar;
-
-// const CustomNavbar = styled(Navbar)`
-//   .nav-dropdown-profile {
-//     background-image: url(${ProfileImage});
-//     background-size: cover;
-//     background-repeat: no-repeat;
-//     width: 40px; /* Ancho de la imagen */
-//     height: 40px; /* Alto de la imagen */
-//     border-radius: 50%; /* Esto crea un borde circular para la imagen */
-//     margin-right: 8px; /* Espaciado derecho */
-//   }
-
-//   /* Cambia la altura del Navbar */
-//   height: 60px; /* Establece la altura deseada */
-// `;
-
-// const Imagen = styled.img`
-//   width: 50px;
-// `;
-
-// const Posicion = styled.div`
-// position: fixed;
-// width: 100%;
-// height: auto;
-// z-index: 9999;
-// `;
-
-// const Perfil = styled.img`
-//   width: 50px;
-// `;
-
-
-
-
-
-
-
-// /Images/dame_logo.png
-
-
-
-
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -100,14 +11,13 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['Inicio', 'Adoptar', 'Quienes somos', 'Publicar', 'Mis mascotas'];
-const settings = ['Perfil', 'Cerrar sesión'];
+const settings = ['Perfil', 'Cerrar sesion'];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -140,6 +50,15 @@ function Navbar() {
       case 'Publicar':
         return '/post';
       case 'Mis mascotas':
+        return '/TODAVIA-NO-BRO';
+    }
+  }
+
+  function getSettingsLink(settings) {
+    switch (settings) {
+      case 'Perfil':
+        return '/profile';
+      case 'Cerrar sesion':
         return '/TODAVIA-NO-BRO';
     }
   }
@@ -197,8 +116,13 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  to={getPageLink(page)} // Navegar a la ruta correspondiente
+                >
+                  {page}
                 </MenuItem>
               ))}
             </Menu>
@@ -236,8 +160,9 @@ function Navbar() {
 
           <Box sx={{ flexGrow: 0, zIndex: '9999' }}>
             <Tooltip title="Open settings">
+            <Link to={getSettingsLink(settings)} />
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar src='https://pbs.twimg.com/profile_images/1501988258078674950/_5xMT_RA_400x400.jpg' />
               </IconButton>
             </Tooltip>
             <Menu
@@ -257,9 +182,12 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                {/* Utiliza Link para redirigir */}
+                <Link to={getSettingsLink(setting)}>
+                  <Typography textAlign="center" color='#212529'>{setting}</Typography>
+                </Link>
+              </MenuItem>
               ))}
             </Menu>
           </Box>
@@ -277,6 +205,11 @@ const Imagen1 = styled.img`
   // @media (max-width: 899px) {
   //   display: none;
   // }
+`;
+
+const Avatar = styled.img`
+  width: 40px;
+  border-radius: 100%;
 `;
 
 // const Imagen2 = styled.img`

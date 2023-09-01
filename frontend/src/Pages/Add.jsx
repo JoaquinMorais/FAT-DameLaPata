@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -13,6 +13,12 @@ function Add() {
     weight: '',
     id_shelter: 1,
     image_path: '',
+    characteristics: [
+
+    ],
+    colors: [
+
+    ],
   };
 
   const validationSchema = Yup.object({
@@ -20,6 +26,9 @@ function Add() {
     birthdate: Yup.date().required('La fecha de nacimiento es obligatoria'),
     size: Yup.number().required('El tamaño es obligatorio'),
     weight: Yup.number().required('El peso es obligatorio'),
+    image_path: Yup.string().required('Necesito verlo che culiau'),
+    characteristics: Yup.string().required('¿Cómo es el perro bro?'),
+    colors: Yup.string().required('Color color...'),
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -82,6 +91,18 @@ function Add() {
               <ErrorMessage name="image_path" component="div" />
             </div>
 
+            <div>
+              <Texto>Color</Texto>
+              <FieldStyled type="number" name="colors" placeholder="Amarillo patito..." />
+              <ErrorMessage name="colors" component="div" />
+            </div>
+
+            <div>
+              <Texto>Caracteristicas</Texto>
+              <FieldStyled type="number" name="characteristics" placeholder="Lorem ipsum..." />
+              <ErrorMessage name="characteristics" component="div" />
+            </div>
+
             <Boton type="submit">PUBLICAR</Boton>
           </Container>
         </Form>
@@ -99,11 +120,11 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 80px;
 `;
 
 const Titulo = styled.h3`
     text-align: center;
+    margin-top: 80px;
 `;
 
 const Subtitulo = styled.p`
@@ -147,6 +168,7 @@ const Boton = styled.button`
     border-radius: 8px;
     background-color: transparent;
     font-weight: bold;
+    margin-bottom: 30px;
     &:hover{
         background-color: #f76402;
         cursor: pointer;

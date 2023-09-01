@@ -52,17 +52,17 @@ const Details = () => {
         <SwiperSlide key={responseData?.response.id}>
           <Carta>
             <ImagenContainer>
-              <Imagen src='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg' alt="" />
+              <Imagen src={`${responseData?.response.image_path}`} alt="" />
               <Abajo>
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
                 </Texto>
-                <Botones>
+                {/* <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
                   <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
-                </Botones>
+                </Botones> */}
               </Abajo>
 
             </ImagenContainer>

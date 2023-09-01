@@ -76,7 +76,7 @@ const Dogs = () => {
             <Zoom>
               <Cards
                 id={`${item.id}`}
-                foto='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg'
+                foto={`${item.image_path}`}
                 nombre={`${item.name}`}
                 titulo={`${item.name} es un perro muy feliz :D`}
                 descripcion={`${item.name} nació el ${item.birth_date}.`}
