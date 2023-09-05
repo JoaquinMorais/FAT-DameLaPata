@@ -10,23 +10,6 @@ import NavBar from '../components/NavBar/Navbar';
 import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
-{/*
-var data = [
-  {
-      'id':1,
-      'color':'red'
-  },
-  {
-      'id':2,
-      'color':'blue'
-  },
-  {
-      'id':3,
-      'color':'green'
-  },
-]
-*/}
-
 const Dogs = () => {
   const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 

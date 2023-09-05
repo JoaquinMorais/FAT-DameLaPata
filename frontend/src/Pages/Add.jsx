@@ -4,15 +4,31 @@ import NavBar from '../components/NavBar/Navbar';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@mui/material/TextField';
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+}));
 
 function Add() {
+  const classes = useStyles();
+  const navigate = useNavigate();
   const initialValues = {
     name: '',
     birthdate: '',
     size: '',
     weight: '',
-    id_shelter: 1,
+    id_shelter: 1, //dsp eliminar
     image_path: '',
     characteristics: [],
     colors: [],
@@ -26,27 +42,28 @@ function Add() {
     weight: Yup.number().required('El peso es obligatorio'),
     image_path: Yup.string().required('Necesito verlo che culiau'),
     characteristics: Yup.array()
-      .of(Yup.number())
+      .of(Yup.string())
       .required('¿Cómo es el perro bro?'),
     colors: Yup.array()
-      .of(Yup.number())
+      .of(Yup.string())
       .required('Color color...'),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     console.log(JSON.stringify(values, null, 2));
     const dataToSend = values;
-    axios
-      .put('http://localhost:5000/pet', dataToSend)
-      .then((response) => {
-        console.log('Response:', response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
+    try {
+      const response = await axios.put('http://localhost:5000/pet', dataToSend);
+      console.log('Response:', response.data);
+      // Después de completar la operación, redirige a la página "/adoptar"
+      navigate('/dogs');
+    } catch (error) {
+      console.error('Error:', error);
+    }
     setSubmitting(false);
   };
+    
+  
 
   return (
     <>
@@ -63,22 +80,42 @@ function Add() {
             <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
             <Hr></Hr>
 
-            <div>
-              <Texto>Nombre</Texto>
-              <FieldStyled type="text" name="name" placeholder="Ejemplo: Firulais..." />
+            <div style={{ marginBottom: '60px' }}>
+            <TextField
+              required
+              id="standard-textarea"
+              label="Nombre"
+              placeholder="Firulais..."
+              multiline
+              variant="standard"
+            />
               <ErrorMessage name="name" component="div" />
             </div>
 
-            <div>
-              <Texto>Fecha de nacimiento</Texto>
-              <FieldStyled type="date" name="birthdate" />
+            <div style={{ marginBottom: '60px' }}>
+            <TextField
+              id="date"
+              label="Birthday"
+              type="date"
+              defaultValue="2017-05-24"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
               <ErrorMessage name="birthdate" component="div" />
             </div>
 
-            <div>
-              <Texto>Tamaño</Texto>
-              <FieldStyled type="number" min="1" max="3" name="size" placeholder="1: Chico; 2: Mediano; 3: Grande" />
-              <ErrorMessage name="size" component="div" />
+            <div style={{ marginBottom: '60px' }}>
+            <TextField
+              required
+              id="standard-textarea"
+              label="Tamaño"
+              placeholder="Firulais..."
+              multiline
+              variant="standard"
+            />
+              <ErrorMessage name="name" component="div" />
             </div>
 
             <div>
@@ -146,6 +183,7 @@ function Add() {
           </div>
 
             <Boton type="submit">PUBLICAR</Boton>
+            
           </Container>
         </Form>
         )}

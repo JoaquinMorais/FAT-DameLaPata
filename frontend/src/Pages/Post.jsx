@@ -2,8 +2,6 @@ import React from 'react'
 import { styled } from 'styled-components'
 import Fade from 'react-reveal/Fade';
 
-
-
 function Post() {
   return (
     <>
@@ -19,7 +17,6 @@ function Post() {
     </>
   )
 }
-
 
 export default Post
 
