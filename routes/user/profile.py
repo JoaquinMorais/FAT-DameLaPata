@@ -11,9 +11,9 @@ Profile = Blueprint("Profile",__name__)
 
 
 @Profile.route("/profile",methods=['POST'], endpoint = 'profile')
-@login_is_required(session)
+@login_is_required(session,accepted_users=['shelter'])
 def profile():
-    user = User.query.filter_by(id_user = session['user_id']).first()
+    user = User.query.get(session['user_id'])
     
     if not user:
         return Response(
