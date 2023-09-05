@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
 import * as Yup from 'yup';
-import axios from 'axios'; // Asegúrate de importar Axios
+import axios from 'axios';
+
 
 function Add() {
   const initialValues = {
@@ -13,13 +14,10 @@ function Add() {
     weight: '',
     id_shelter: 1,
     image_path: '',
-    characteristics: [
-
-    ],
-    colors: [
-
-    ],
+    characteristics: [],
+    colors: [],
   };
+
 
   const validationSchema = Yup.object({
     name: Yup.string().required('El nombre es obligatorio'),
@@ -27,12 +25,15 @@ function Add() {
     size: Yup.number().required('El tamaño es obligatorio'),
     weight: Yup.number().required('El peso es obligatorio'),
     image_path: Yup.string().required('Necesito verlo che culiau'),
-    characteristics: Yup.string().required('¿Cómo es el perro bro?'),
-    colors: Yup.string().required('Color color...'),
+    characteristics: Yup.array()
+      .of(Yup.number())
+      .required('¿Cómo es el perro bro?'),
+    colors: Yup.array()
+      .of(Yup.number())
+      .required('Color color...'),
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
-    // Aquí puedes manejar la lógica de envío del formulario
     console.log(JSON.stringify(values, null, 2));
     const dataToSend = values;
     axios
@@ -55,6 +56,7 @@ function Add() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
+        {({ values }) => (
         <Form>
           <Container>
             <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
@@ -92,20 +94,61 @@ function Add() {
             </div>
 
             <div>
-              <Texto>Color</Texto>
-              <FieldStyled type="number" name="colors" placeholder="Amarillo patito..." />
-              <ErrorMessage name="colors" component="div" />
-            </div>
+            <Texto>Color</Texto>
+            <FieldArray name="colors">
+              {({ push, remove }) => (
+                <>
+                  {values.colors.map((color, index) => (
+                    <div key={index}>
+                      <FieldStyled
+                        type="text"
+                        name={`colors[${index}]`}
+                        placeholder="Amarillo patito..."
+                      />
+                      <button type="button" onClick={() => remove(index)}>
+                        Eliminar Color
+                      </button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => push('')}>
+                    Agregar Color
+                  </button>
+                </>
+              )}
+            </FieldArray>
+            <ErrorMessage name="colors" component="div" />
+          </div>
 
-            <div>
-              <Texto>Caracteristicas</Texto>
-              <FieldStyled type="number" name="characteristics" placeholder="Lorem ipsum..." />
-              <ErrorMessage name="characteristics" component="div" />
-            </div>
+          <div>
+            <Texto>Caracteristicas</Texto>
+            <FieldArray name="characteristics">
+              {({ push, remove }) => (
+                <>
+                  {values.characteristics.map((characteristic, index) => (
+                    <div key={index}>
+                      <FieldStyled
+                        type="text"
+                        name={`characteristics[${index}]`}
+                        placeholder="Lorem ipsum..."
+                      />
+                      <button type="button" onClick={() => remove(index)}>
+                        Eliminar Característica
+                      </button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => push('')}>
+                    Agregar Característica
+                  </button>
+                </>
+              )}
+            </FieldArray>
+            <ErrorMessage name="characteristics" component="div" />
+          </div>
 
             <Boton type="submit">PUBLICAR</Boton>
           </Container>
         </Form>
+        )}
       </Formik>
     </>
   );
