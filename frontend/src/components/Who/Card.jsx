@@ -1,11 +1,33 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Swiper from 'swiper';
 import 'swiper/css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 import CartaInd from './CartaInd';
 import { styled } from 'styled-components';
 
 export default function CardTeam() {
-  
+  useEffect(() => {
+    new Swiper('.swiper-container', {
+      slidesPerView: 1, 
+      spaceBetween: 20, 
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true, 
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    });
+  }, []);
+
+
   return (
     <Container>
       <Text>ESTE GRUPO ESTA COMPUESTO POR:</Text>
