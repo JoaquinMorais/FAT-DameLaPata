@@ -41,15 +41,30 @@ const Container = styled.div`
 const WhyTitle = styled.h1`
   font-size: 80px;
   font-family: 'Grape Nuts', cursive;  
+  @media (max-width: 425px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 30px;
+  }
 `
 
 const SponsorContaint = styled.div`
   margin-top: 50px;
   display:flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
 `;
 
 const TextSponsor = styled.h3`
   font-size: 30px;
+  @media (max-width: 425px) {
+    font-size: 23px
+  }
 `;
 
 const Description = styled.p`
@@ -65,4 +80,16 @@ const ImageSponsor = styled.img`
   width: auto;
   height: 400px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 400px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 425px) {
+    width: 200px;
+  }
+
+
 `;

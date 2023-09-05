@@ -13,12 +13,13 @@ AdopterRegister = Blueprint("AdopterRegister",__name__)
 
 
   
-@AdopterRegister.route("/adopter/register",methods=['POST'],endpoint = 'register_adopter')
+@AdopterRegister.route("/adopter/register",methods=['PUT'],endpoint = 'register_adopter')
 def register_adopter():
     session.pop('user_id',None)
     
     data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
     for x in data:
+        print({x: data[x]})
         if data[x] == None:
             return Response(
                 'Error: Bad Request',

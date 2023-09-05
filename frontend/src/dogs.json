@@ -1,0 +1,90 @@
+[
+    {
+        "image": "https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Firulais",
+        "nicknames": "Firu, Firito, Fifi",
+        "age": "7",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Masculino",
+        "vaccination": "Completa",
+        "size": "Chico"    
+    },
+    {
+        "image": "https://humanidades.com/wp-content/uploads/2017/02/perro-3-e1561679226953.jpg",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Sombra",
+        "nicknames": "Sombru, Som",
+        "age": "5",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Femenino",
+        "vaccination": "Completa",
+        "size": "Chico"    
+    },
+    {
+        "image": "https://t1.ea.ltmcdn.com/es/posts/5/6/2/10_caracteristicas_de_los_perros_24265_600_square.jpg",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Omen",
+        "nicknames": "Omi, Omito, Omo",
+        "age": "3",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Masculino",
+        "vaccination": "Completa",
+        "size": "Chico"    
+    },
+    {
+        "image": "https://estaticos-cdn.prensaiberica.es/clip/823f515c-8143-4044-8f13-85ea1ef58f3a_16-9-discover-aspect-ratio_default_0.jpg",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Mana",
+        "nicknames": "Mani",
+        "age": "1",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Femenino",
+        "vaccination": "Falta vacunarla de _________ y _________",
+        "size": "Chico"    
+    },
+    {
+        "image": "https://img.freepik.com/foto-gratis/hermoso-retrato-mascota-perro_23-2149218450.jpg",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Kura",
+        "nicknames": "Kuku, Kuri",
+        "age": "4",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Femenino",
+        "vaccination": "Completa",
+        "size": "Chico"    
+    },
+    {
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN4HJhnJo07reTM0Lta1HoTollHloqsqRUVw&usqp=CAU",
+        "description": "Hola este perro se llama lorem ipsum tengo que agregar mucho texto no se q poner la verdad pero bueno me canse chau",
+        "name": "Simon",
+        "nicknames": "Saimon, Simu",
+        "age": "2",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Masculino",
+        "vaccination": "Falta la de ____________",
+        "size": "Chico" 
+    },
+    {
+        "image": "https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2022/03/dog-glasses-2661411.jpg?tf=3840x",
+        "description": "De hecho, esa palabra no está bien escrita.",
+        "name": "Actually",
+        "nicknames": "Fini, Retrasao",
+        "age": "1",
+        "date_of_birth":"xx/xx/xx",
+        "gender": "Masculino",
+        "vaccination": "No vacunado",
+        "size": "Chico" 
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1595876171225-463c72774783?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fHw%3D&w=1000&q=80",
+        "description": "KAME HAME HAAAAAAAAAAAAAAA",
+        "name": "Saiyan",
+        "nicknames": "Super Saiyan, SSJ, Goku",
+        "age": "1",
+        "date_of_birth":"1/1/22",
+        "gender": "Masculino",
+        "vaccination": "Completa",   
+        "size": "Chico"
+    }
+]

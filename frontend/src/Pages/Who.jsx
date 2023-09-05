@@ -1,7 +1,7 @@
 import React from 'react'
 import TitleFile from '../components/Who/Title'
 import Left from '../components/Who/Left'
-import Cards from '../components/Who/Cards'
+import Card from '../components/Who/Card'
 import History from '../components/Who/History'
 import NavBar from '../components/NavBar/Navbar';
 
@@ -16,7 +16,8 @@ function Who() {
           imageUrl={'https://images.ecestaticos.com/jLESCdMEXIc9qGG2FOpA1NP4H1w=/0x0:2121x1414/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fba6%2F896%2Ff44%2Fba6896f446572c38b60115e358ae8ccb.jpg'}
         />
         <History/>
-        <Cards/>
+        <Card/>
+
     </>
   )
 }
