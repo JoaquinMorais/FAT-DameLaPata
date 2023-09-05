@@ -139,6 +139,12 @@ def sizes():
     db.session.add(DocumentType('cuit','soy un cuit'))
     db.session.commit()
 
+    db.session.add(State('adoptado','¡match completado!'))
+    db.session.add(State('aceptado','¡match!'))
+    db.session.add(State('pendiente','estado pendiente'))
+    db.session.add(State('rechazado','estado rechazado'))
+    db.session.add(State('cancelado','estado cancelado'))
+
     return 'a'
 
 
