@@ -2,7 +2,7 @@ from flask import Blueprint, session, abort, redirect, request,url_for,jsonify,r
 from colorama import init as init_colorama, Fore as Color_colorama, Style as Style_colorama
 
 from methods.response import Response
-
+from models.models import User,Shelter,Adopter,Volunteer
 
 def print_color(text, color):
     init_colorama()  # inicializa colorama
@@ -37,15 +37,27 @@ def fuckIt(func):
     return response
 
 
-def login_is_required(SESSION):
+def login_is_required(SESSION,accepted_users = ['user','adopter','shelter','volunteer']):
     def decorator(function):
         def wrapper(*args, **kwargs):
             if "user_id" in SESSION:
-                return function()
+                user = User.query.get(SESSION['user_id'])
+                if not user:
+                    return Response(
+                        'Error: User Not Found',
+                        404
+                    )
+                if user.type in accepted_users:
+                    return function()
+                else:
+                    return Response(
+                        'Error: Unauthorized',
+                        401
+                    )
             else:
                 return Response(
                     'Error: Unauthorized',
-                    401
+                    402
                 )
         return wrapper
     return decorator
