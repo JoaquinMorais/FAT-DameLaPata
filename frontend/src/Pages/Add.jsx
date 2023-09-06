@@ -5,23 +5,22 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agreg
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@mui/material/TextField';
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-function Add() {
-  const classes = useStyles();
+
+
+const Add = () => {
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
   const navigate = useNavigate();
   const initialValues = {
     name: '',
@@ -63,136 +62,157 @@ function Add() {
     setSubmitting(false);
   };
     
-  
-
   return (
     <>
       <NavBar />
       <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values }) => (
-        <Form>
-          <Container>
-            <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
-            <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
-            <Hr></Hr>
+  initialValues={initialValues}
+  validationSchema={validationSchema}
+  onSubmit={handleSubmit}
+>
+  {({ values, setFieldValue }) => (
+    <Form>
+      <Container>
+        <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
+        <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
+        <Hr />
 
-            <div style={{ marginBottom: '60px' }}>
-            <TextField
-              required
-              id="standard-textarea"
-              label="Nombre"
-              placeholder="Firulais..."
-              multiline
-              variant="standard"
-            />
-              <ErrorMessage name="name" component="div" />
-            </div>
+        <div style={{ marginBottom: '60px' }}>
+          <TextField
+            required
+            id="name"
+            name="name"
+            label="Nombre"
+            placeholder="Firulais..."
+            multiline
+            variant="standard"
+          />
+          <ErrorMessage name="name" component="div" />
+        </div>
 
-            <div style={{ marginBottom: '60px' }}>
-            <TextField
-              id="date"
-              label="Birthday"
-              type="date"
-              defaultValue="2017-05-24"
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-              <ErrorMessage name="birthdate" component="div" />
-            </div>
+        <div style={{ marginBottom: '30px' }}>
+          <TextField
+            required
+            sx={{ width: 220 }}
+            id="date"
+            label="Nacimiento"
+            type="date"
+            defaultValue="2022-12-18"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </div>
 
-            <div style={{ marginBottom: '60px' }}>
-            <TextField
-              required
-              id="standard-textarea"
-              label="Tamaño"
-              placeholder="Firulais..."
-              multiline
-              variant="standard"
-            />
-              <ErrorMessage name="name" component="div" />
-            </div>
+        <div style={{ marginBottom: '60px' }}>
+        <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+          <InputLabel id="demo-simple-select-standard-label">Tamaño</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={age}
+            onChange={handleChange}
+            label="Tamaño"  
+          >
+            <MenuItem value="">
+              <em>Quitar</em>
+            </MenuItem>
+            <MenuItem value={1}>Chico</MenuItem>
+            <MenuItem value={2}>Mediano</MenuItem>
+            <MenuItem value={3}>Grande</MenuItem>
+          </Select>
+        </FormControl>
+        </div>
 
-            <div>
-              <Texto>Peso</Texto>
-              <FieldStyled type="number" name="weight" placeholder="Ejemplo: 18,12" />
-              <ErrorMessage name="weight" component="div" />
-            </div>
+        <div style={{ marginBottom: '60px' }}>
+          <TextField
+            required
+            id="size"
+            name="size"
+            label="Peso"
+            placeholder="123..."
+            multiline
+            variant="standard"
+          />
+          <ErrorMessage name="size" component="div" />
+        </div>
 
-            <div>
-              <Texto>Imagen</Texto>
-              <FieldStyled type="text" name="image_path" placeholder="https://..." />
-              <ErrorMessage name="image_path" component="div" />
-            </div>
+        <div style={{ marginBottom: '60px' }}>
+          <TextField
+            required
+            id="size"
+            name="size"
+            label="Imagen"
+            placeholder="perro.jpg..."
+            multiline
+            variant="standard"
+          />
+          <ErrorMessage name="size" component="div" />
+        </div>
 
-            <div>
-            <Texto>Color</Texto>
-            <FieldArray name="colors">
-              {({ push, remove }) => (
-                <>
-                  {values.colors.map((color, index) => (
-                    <div key={index}>
-                      <FieldStyled
-                        type="text"
-                        name={`colors[${index}]`}
-                        placeholder="Amarillo patito..."
-                      />
-                      <button type="button" onClick={() => remove(index)}>
-                        Eliminar Color
-                      </button>
-                    </div>
-                  ))}
-                  <button type="button" onClick={() => push('')}>
-                    Agregar Color
+        <div>
+        <Texto>Color</Texto>
+        <FieldArray name="colors">
+          {({ push, remove }) => (
+            <>
+              {values.colors.map((color, index) => (
+                <div key={index}>
+                  <FieldStyled
+                    type="text"
+                    name={`characteristics[${index}]`}
+                    placeholder="Lorem ipsum..."
+                  />
+                  <button type="button" onClick={() => remove(index)}>
+                    Eliminar Color
                   </button>
-                </>
-              )}
-            </FieldArray>
-            <ErrorMessage name="colors" component="div" />
-          </div>
+                </div>
+              ))}
+              <button type="button" onClick={() => push('')}>
+                Agregar Color
+              </button>
+            </>
+          )}
+        </FieldArray>
+        <ErrorMessage name="colors" component="div" />
+      </div>
 
-          <div>
-            <Texto>Caracteristicas</Texto>
-            <FieldArray name="characteristics">
-              {({ push, remove }) => (
-                <>
-                  {values.characteristics.map((characteristic, index) => (
-                    <div key={index}>
-                      <FieldStyled
-                        type="text"
-                        name={`characteristics[${index}]`}
-                        placeholder="Lorem ipsum..."
-                      />
-                      <button type="button" onClick={() => remove(index)}>
-                        Eliminar Característica
-                      </button>
-                    </div>
-                  ))}
-                  <button type="button" onClick={() => push('')}>
-                    Agregar Característica
+      <div>
+        <Texto>Caracteristicas</Texto>
+        <FieldArray name="characteristics">
+          {({ push, remove }) => (
+            <>
+              {values.characteristics.map((characteristic, index) => (
+                <div key={index}>
+                  <FieldStyled
+                    type="text"
+                    name={`characteristics[${index}]`}
+                    placeholder="Lorem ipsum..."
+                  />
+                  <button type="button" onClick={() => remove(index)}>
+                    Eliminar Característica
                   </button>
-                </>
-              )}
-            </FieldArray>
-            <ErrorMessage name="characteristics" component="div" />
-          </div>
+                </div>
+              ))}
+              <button type="button" onClick={() => push('')}>
+                Agregar Característica
+              </button>
+            </>
+          )}
+        </FieldArray>
+        <ErrorMessage name="characteristics" component="div" />
+      </div>
 
-            <Boton type="submit">PUBLICAR</Boton>
+      <Boton type="submit">PUBLICAR</Boton>
             
-          </Container>
-        </Form>
+      </Container>
+      </Form>
         )}
       </Formik>
     </>
   );
 }
 
-export default Add;
+export default Add
 
 
 const Container = styled.div`
