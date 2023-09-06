@@ -32,8 +32,8 @@ def getPetsAll():
 @Pets.route("/pets/filterby",methods=['GET'])
 def getPetsFilterby():
     data = {
-        **RequestList('id','not_id','id_shelter','not_id_shelter','color','characteristic','birth_date','weight','size',),
-        **Request('gender','more_id','less_id','more_birth_date','less_birth_date','more_weight','less_weight','limit')
+        **RequestList('id_pet','not_id_pet','id_shelter','not_id_shelter','color','characteristic','birth_date','weight','size',),
+        **Request('id_only','gender','more_id_pet','less_id_pet','more_birth_date','less_birth_date','more_weight','less_weight','limit')
     }
     
     
@@ -62,33 +62,33 @@ def getPetsFilterby():
         *[db.exists(subquery.select().where(subquery.c.id_pet == Pet.id_pet)) for subquery in subqueries],
         
     )
-    if data['id']:
-        if len(data['id']) == 1:
+    if data['id_pet']:
+        if len(data['id_pet']) == 1:
             pets = pets.filter(
-                Pet.id_pet == data['id']
+                Pet.id_pet == data['id_pet']
             )
         else:
-            id_filters = [Pet.id_pet == id for id in data['id']]
+            id_filters = [Pet.id_pet == id for id in data['id_pet']]
             pets = pets.filter(or_(*id_filters))  # Aplicar condiciones OR
     
-    if data['more_id']:
+    if data['more_id_pet']:
         pets = pets.filter(
-            Pet.id_pet >= data['more_id']
+            Pet.id_pet >= data['more_id_pet']
         )
 
-    if data['less_id']:
+    if data['less_id_pet']:
         pets = pets.filter(
-            Pet.id_pet <= data['less_id']
+            Pet.id_pet <= data['less_id_pet']
         )
 
-    if data['not_id']:
-        if len(data['not_id']) == 1:
+    if data['not_id_pet']:
+        if len(data['not_id_pet']) == 1:
             pets = pets.filter(
-                Pet.id_pet != data['not_id']
+                Pet.id_pet != data['not_id_pet']
             )
         else:
 
-            id_filters = [Pet.id_pet != id for id in data['not_id']]
+            id_filters = [Pet.id_pet != id for id in data['not_id_pet']]
             pets = pets.filter(*id_filters)  # Aplicar condiciones OR
     
     if data['id_shelter']:
@@ -158,14 +158,13 @@ def getPetsFilterby():
             pets = pets.filter(or_(*size_filters))  # Aplicar condiciones OR
     
     if data['limit']:
-        return jsonify(
-            {
-                'pets':[x.id_pet for x in pets.limit(int(data['limit']))],
-            }
+        pets = pets.limit(int(data['limit']))
+    
+    if data['id_only'] == 'true':
+        return Response(
+            [pet.id_pet for pet in pets.all()],
+            200
         )
-    return jsonify({
-        'pets':[x.id_pet for x in pets]
-    })
     return Response(
         [pet.json() for pet in pets.all()],
         200
