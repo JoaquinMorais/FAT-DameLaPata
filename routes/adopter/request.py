@@ -84,6 +84,6 @@ def get_requests():
     
     
     return Response(
-        [request.id_ for request in pets_requests.all()],
+        [request.json() for request in pets_requests.all()],
         200
     )
