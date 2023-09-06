@@ -377,8 +377,8 @@ class State(db.Model):
 
 class RequestPetAdopter(db.Model):
     id_request = db.Column(db.Integer, primary_key=True)
-    request_date = db.Column(db.Date, nullable = False) 
-    edition_date = db.Column(db.Date, nullable = False)
+    request_date = db.Column(db.DateTime, nullable = False) 
+    edition_date = db.Column(db.DateTime, nullable = False)
 
     id_state = db.Column(db.Integer, ForeignKey('state.id_state',  onupdate='CASCADE'))
     id_user = db.Column(db.Integer, ForeignKey('adopter.id_adopter',  onupdate='CASCADE'))
@@ -390,6 +390,15 @@ class RequestPetAdopter(db.Model):
         self.id_state = id_state
         self.id_user = id_user
         self.id_pet = id_pet
+    
+    def json(self):
+        return {
+            'id_adopter' : self.id_user,
+            'id_pet':self.id_pet,
+            'id_state':self.id_state,
+            'request_date':self.request_date.isoformat(),
+            'edition_date':self.edition_date.isoformat()
+        }
 
 class Image(db.Model):
     id_image = db.Column(db.Integer, primary_key=True)
