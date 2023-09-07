@@ -49,6 +49,7 @@ const Add = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
+    console.log('Submit button clicked.'); // Agrega este log
     console.log(JSON.stringify(values, null, 2));
     const dataToSend = values;
     try {
@@ -66,177 +67,177 @@ const Add = () => {
     <>
       <NavBar />
       <Formik
-  initialValues={initialValues}
-  validationSchema={validationSchema}
-  onSubmit={handleSubmit}
->
-  {({ values, setFieldValue }) => (
-    <Form>
-      <Container>
-        <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
-        <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
-        <Hr />
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+      {({ values, setFieldValue }) => (
+      <Form>
+        <Container>
+          <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
+          <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
+          <Hr />
 
-        <div style={{ marginBottom: '60px' }}>
-          <TextField
-            required
-            id="name"
-            name="name"
-            label="Nombre"
-            placeholder="Firulais..."
-            multiline
-            variant="standard"
-          />
-          <ErrorMessage name="name" component="div" />
-        </div>
+          <div style={{ marginBottom: '60px' }}>
+            <TextField
+              required
+              id="name"
+              name="name"
+              label="Nombre"
+              placeholder="Firulais..."
+              multiline
+              variant="standard"
+            />
+            <ErrorMessage name="name" component="div" />
+          </div>
 
-        <div style={{ marginBottom: '30px' }}>
-          <TextField
-            required
-            sx={{ width: 220 }}
-            id="date"
-            label="Nacimiento"
-            type="date"
-            defaultValue="2022-12-18"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </div>
+          <div style={{ marginBottom: '30px' }}>
+            <TextField
+              required
+              sx={{ width: 220 }}
+              id="date"
+              label="Nacimiento"
+              type="date"
+              defaultValue="2022-12-18"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </div>
 
-        <div style={{ marginBottom: '60px' }}>
-        <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
-          <InputLabel id="demo-simple-select-standard-label">Tamaño</InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={age}
-            onChange={handleChange}
-            label="Tamaño"  
-          >
-            <MenuItem value="">
-              <em>Quitar</em>
-            </MenuItem>
-            <MenuItem value={1}>Chico</MenuItem>
-            <MenuItem value={2}>Mediano</MenuItem>
-            <MenuItem value={3}>Grande</MenuItem>
-          </Select>
-        </FormControl>
-        </div>
+          <div style={{ marginBottom: '60px' }}>
+          <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+            <InputLabel id="demo-simple-select-standard-label">Tamaño</InputLabel>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={age}
+              onChange={handleChange}
+              label="Tamaño"  
+            >
+              <MenuItem value="">
+                <em>Quitar</em>
+              </MenuItem>
+              <MenuItem value={1}>Chico</MenuItem>
+              <MenuItem value={2}>Mediano</MenuItem>
+              <MenuItem value={3}>Grande</MenuItem>
+            </Select>
+          </FormControl>
+          </div>
 
-        <div style={{ marginBottom: '60px' }}>
-          <TextField
-            required
-            id="size"
-            name="size"
-            label="Peso"
-            placeholder="123..."
-            multiline
-            variant="standard"
-          />
-          <ErrorMessage name="size" component="div" />
-        </div>
+          <div style={{ marginBottom: '60px' }}>
+            <TextField
+              required
+              id="size"
+              name="size"
+              label="Peso"
+              placeholder="123..."
+              multiline
+              variant="standard"
+            />
+            <ErrorMessage name="size" component="div" />
+          </div>
 
-        <div style={{ marginBottom: '60px' }}>
-          <TextField
-            required
-            id="size"
-            name="size"
-            label="Imagen"
-            placeholder="perro.jpg..."
-            multiline
-            variant="standard"
-          />
-          <ErrorMessage name="size" component="div" />
+          <div style={{ marginBottom: '60px' }}>
+            <TextField
+              required
+              id="size"
+              name="size"
+              label="Imagen"
+              placeholder="perro.jpg..."
+              multiline
+              variant="standard"
+            />
+            <ErrorMessage name="size" component="div" />
+          </div>
+
+          <div>
+          <Texto>Color</Texto>
+          <FieldArray name="colors">
+            {({ push, remove }) => (
+              <>
+                {values.colors.map((color, index) => (
+                  <div key={index}>
+                    <div style={{ marginBottom: '60px' }}>
+                      <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Color</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-standard-label"
+                          id="demo-simple-select-standard"
+                          value={age}
+                          onChange={handleChange}
+                          label="Color"  
+                        >
+                          <MenuItem value="">
+                            <em>Quitar</em>
+                          </MenuItem>
+                          <MenuItem value={1}>Blanco</MenuItem>
+                          <MenuItem value={2}>Negro</MenuItem>
+                          <MenuItem value={3}>Dorado</MenuItem>
+                          <MenuItem value={4}>Marrón</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <AgregarEliminar type="button" onClick={() => remove(index)} sx={{ marginBottom: 20 }}>
+                      Eliminar Color
+                    </AgregarEliminar>
+                  </div>
+                ))}
+                <button type="button" onClick={() => push('')}>
+                  Agregar Color
+                </button>
+              </>
+            )}
+          </FieldArray>
+          <ErrorMessage name="colors" component="div" />
         </div>
 
         <div>
-        <Texto>Color</Texto>
-        <FieldArray name="colors">
-          {({ push, remove }) => (
-            <>
-              {values.colors.map((color, index) => (
-                <div key={index}>
-                  <div style={{ marginBottom: '60px' }}>
-                    <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                      <InputLabel id="demo-simple-select-standard-label">Color</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Color"  
-                      >
-                        <MenuItem value="">
-                          <em>Quitar</em>
-                        </MenuItem>
-                        <MenuItem value={1}>Blanco</MenuItem>
-                        <MenuItem value={2}>Negro</MenuItem>
-                        <MenuItem value={3}>Dorado</MenuItem>
-                        <MenuItem value={4}>Marrón</MenuItem>
-                      </Select>
-                    </FormControl>
+          <Texto>Caracteristicas</Texto>
+          <FieldArray name="characteristics">
+            {({ push, remove }) => (
+              <>
+                {values.characteristics.map((characteristic, index) => (
+                  <div key={index}>
+                    <div style={{ marginBottom: '60px' }}>
+                      <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Caracteristica</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-standard-label"
+                          id="demo-simple-select-standard"
+                          value={age}
+                          onChange={handleChange}
+                          label="Caracteristica"  
+                        >
+                          <MenuItem value="">
+                            <em>Quitar</em>
+                          </MenuItem>
+                          <MenuItem value={1}>Juguetón</MenuItem>
+                          <MenuItem value={2}>Tranquilo</MenuItem>
+                          <MenuItem value={3}>Comilón</MenuItem>
+                          <MenuItem value={4}>Dormilón</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <AgregarEliminar type="button" onClick={() => remove(index)}>
+                      Eliminar Característica
+                    </AgregarEliminar>
                   </div>
-                  <AgregarEliminar type="button" onClick={() => remove(index)} sx={{ marginBottom: 20 }}>
-                    Eliminar Color
-                  </AgregarEliminar>
-                </div>
-              ))}
-              <button type="button" onClick={() => push('')}>
-                Agregar Color
-              </button>
-            </>
-          )}
-        </FieldArray>
-        <ErrorMessage name="colors" component="div" />
-      </div>
+                ))}
+                <button type="button" onClick={() => push('')}>
+                  Agregar Característica
+                </button>
+              </>
+            )}
+          </FieldArray>
+          <ErrorMessage name="characteristics" component="div" />
+        </div>
 
-      <div>
-        <Texto>Caracteristicas</Texto>
-        <FieldArray name="characteristics">
-          {({ push, remove }) => (
-            <>
-              {values.characteristics.map((characteristic, index) => (
-                <div key={index}>
-                  <div style={{ marginBottom: '60px' }}>
-                    <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                      <InputLabel id="demo-simple-select-standard-label">Caracteristica</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Caracteristica"  
-                      >
-                        <MenuItem value="">
-                          <em>Quitar</em>
-                        </MenuItem>
-                        <MenuItem value={1}>Juguetón</MenuItem>
-                        <MenuItem value={2}>Tranquilo</MenuItem>
-                        <MenuItem value={3}>Comilón</MenuItem>
-                        <MenuItem value={4}>Dormilón</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <AgregarEliminar type="button" onClick={() => remove(index)}>
-                    Eliminar Característica
-                  </AgregarEliminar>
-                </div>
-              ))}
-              <button type="button" onClick={() => push('')}>
-                Agregar Característica
-              </button>
-            </>
-          )}
-        </FieldArray>
-        <ErrorMessage name="characteristics" component="div" />
-      </div>
-
-      <Boton type="submit">PUBLICAR</Boton>
-            
-      </Container>
-      </Form>
-        )}
+        <Boton type="submit">PUBLICAR</Boton>
+              
+        </Container>
+        </Form>
+      )}
       </Formik>
     </>
   );
