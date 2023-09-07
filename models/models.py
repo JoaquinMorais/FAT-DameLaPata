@@ -4,6 +4,7 @@ from datetime import datetime
 
 class Gender(db.Model):
     __tablename__ = 'gender'
+    id_gender = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
 
@@ -16,6 +17,7 @@ class Gender(db.Model):
 
 
 class DocumentType(db.Model):
+    __tablename__ = 'documenttype'
     id_document_type = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
@@ -336,7 +338,7 @@ class Pet(db.Model):
             'size' : self.pet_size.title.title(),
             'weight' : self.weight,
             'id_shelter':self.id_shelter,
-            'image_path' : self.image_path
+            'image_path' : self.image_path,
             'id_gender' : self.id_gender
         }
 
