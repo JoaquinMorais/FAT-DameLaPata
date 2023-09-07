@@ -22,7 +22,7 @@ const Dogs = () => {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-    
+    cons
     fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
@@ -52,7 +52,7 @@ const Dogs = () => {
           </Filters>
         </slide>
       </Principio>
-
+      
       <Grid>
         {responseData?.response.map((item) => ( 
           <Container key={item.id}>
