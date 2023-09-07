@@ -157,14 +157,29 @@ const Add = () => {
             <>
               {values.colors.map((color, index) => (
                 <div key={index}>
-                  <FieldStyled
-                    type="text"
-                    name={`characteristics[${index}]`}
-                    placeholder="Lorem ipsum..."
-                  />
-                  <button type="button" onClick={() => remove(index)}>
+                  <div style={{ marginBottom: '60px' }}>
+                    <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+                      <InputLabel id="demo-simple-select-standard-label">Color</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={age}
+                        onChange={handleChange}
+                        label="Color"  
+                      >
+                        <MenuItem value="">
+                          <em>Quitar</em>
+                        </MenuItem>
+                        <MenuItem value={1}>Blanco</MenuItem>
+                        <MenuItem value={2}>Negro</MenuItem>
+                        <MenuItem value={3}>Dorado</MenuItem>
+                        <MenuItem value={4}>Marrón</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <AgregarEliminar type="button" onClick={() => remove(index)} sx={{ marginBottom: 20 }}>
                     Eliminar Color
-                  </button>
+                  </AgregarEliminar>
                 </div>
               ))}
               <button type="button" onClick={() => push('')}>
@@ -183,14 +198,29 @@ const Add = () => {
             <>
               {values.characteristics.map((characteristic, index) => (
                 <div key={index}>
-                  <FieldStyled
-                    type="text"
-                    name={`characteristics[${index}]`}
-                    placeholder="Lorem ipsum..."
-                  />
-                  <button type="button" onClick={() => remove(index)}>
+                  <div style={{ marginBottom: '60px' }}>
+                    <FormControl required variant="standard" sx={{ m: 1, minWidth: 220 }}>
+                      <InputLabel id="demo-simple-select-standard-label">Caracteristica</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={age}
+                        onChange={handleChange}
+                        label="Caracteristica"  
+                      >
+                        <MenuItem value="">
+                          <em>Quitar</em>
+                        </MenuItem>
+                        <MenuItem value={1}>Juguetón</MenuItem>
+                        <MenuItem value={2}>Tranquilo</MenuItem>
+                        <MenuItem value={3}>Comilón</MenuItem>
+                        <MenuItem value={4}>Dormilón</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <AgregarEliminar type="button" onClick={() => remove(index)}>
                     Eliminar Característica
-                  </button>
+                  </AgregarEliminar>
                 </div>
               ))}
               <button type="button" onClick={() => push('')}>
@@ -274,4 +304,8 @@ const Boton = styled.button`
         background-color: #f76402;
         cursor: pointer;
     }
+`;
+
+const AgregarEliminar = styled.button`
+
 `;
