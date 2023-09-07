@@ -11,7 +11,7 @@ cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
 
 #adopter
 from routes.adopter.register import AdopterRegister
-from routes.adopter.match import AdopterMatch
+from routes.adopter.request import AdopterRequest
 #shelter
 from routes.shelter.register import ShelterRegister
 #pet
@@ -33,7 +33,7 @@ with app.app_context():
 
 #adopter
 app.register_blueprint(AdopterRegister)
-app.register_blueprint(AdopterMatch)
+app.register_blueprint(AdopterRequest)
 #shelter
 app.register_blueprint(ShelterRegister)
 #pet
