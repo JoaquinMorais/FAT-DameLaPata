@@ -2,6 +2,20 @@ from utils.db import db
 from sqlalchemy import Column, Integer, String, Date, func, ForeignKey
 from datetime import datetime
 
+class Gender(db.Model):
+    __tablename__ = 'gender'
+    id_gender = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(70), nullable = False)
+    description = db.Column(db.String(500), nullable = False)
+
+    def __init__(self, name, description):
+        self.title = name
+        self.description = description
+
+    def __repr__(self):
+        return f'{self.title}'
+
+
 class DocumentType(db.Model):
     __tablename__ = 'documenttype'
     id_document_type = db.Column(db.Integer, primary_key=True)
@@ -235,6 +249,29 @@ class Color(db.Model):
             'title':self.title,
             'max_height':self.description,
         }
+class Category(db.Model):
+    __tablename__ = 'category'
+    id_category = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(70), nullable = False)
+    description = db.Column(db.String(500), nullable = False)
+    
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+
+    def __repr__(self):
+        return f'{self.title}'
+
+    def json(self):
+        return {
+            'id_category':self.id_category,
+            'title':self.title,
+            'description':self.description,
+
+        }
+
+
+
 
 class Characteristics(db.Model):
     __tablename__ = 'characteristics'
@@ -242,9 +279,13 @@ class Characteristics(db.Model):
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
 
-    def __init__(self, title, description):
+    id_category = db.Column(db.Integer, ForeignKey('category.id_category',  onupdate='CASCADE'))
+
+
+    def __init__(self, title, description, category):
         self.title = title
         self.description = description
+        self.id_category = category
 
     def __repr__(self):
         return f'{self.title}'
@@ -266,6 +307,7 @@ class Pet(db.Model):
 
     id_size = db.Column(db.Integer, ForeignKey('size.id_size',  onupdate='CASCADE'))
     id_shelter = db.Column(db.Integer, ForeignKey('shelter.id_shelter'))
+    id_gender = db.Column(db.Integer, ForeignKey('gender.id_gender'))
 
 
     pet_colors = db.relationship('RelationShipPetColor', lazy=True)
@@ -275,13 +317,14 @@ class Pet(db.Model):
     
     
 
-    def __init__(self, name, birth_date, size, weight,id_shelter,image_path):
+    def __init__(self, name, birth_date, size, weight,id_shelter,image_path, id_gender):
         self.name = name
         self.birth_date = birth_date
         self.id_size = size
         self.weight = weight
         self.id_shelter = id_shelter
         self.image_path = image_path
+        self.id_gender = id_gender
 
     def __repr__(self):
         return f'{self.name}'
@@ -295,7 +338,8 @@ class Pet(db.Model):
             'size' : self.pet_size.title.title(),
             'weight' : self.weight,
             'id_shelter':self.id_shelter,
-            'image_path' : self.image_path
+            'image_path' : self.image_path,
+            'id_gender' : self.id_gender
         }
 
 # caracteristicas de las mascotas:
