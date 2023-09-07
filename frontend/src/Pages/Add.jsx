@@ -51,6 +51,7 @@ const Add = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log('Submit button clicked.'); // Agrega este log
     console.log(JSON.stringify(values, null, 2));
+    alert(JSON.stringify(values, null, 2));
     const dataToSend = values;
     try {
       const response = await axios.put('http://localhost:5000/pet', dataToSend);
@@ -111,6 +112,7 @@ const Add = () => {
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
+              name="size"
               value={age}
               onChange={handleChange}
               label="Tamaño"  
@@ -128,27 +130,28 @@ const Add = () => {
           <div style={{ marginBottom: '60px' }}>
             <TextField
               required
-              id="size"
-              name="size"
+              type='number'
+              id="weight"
+              name="weight"
               label="Peso"
               placeholder="123..."
               multiline
               variant="standard"
             />
-            <ErrorMessage name="size" component="div" />
+            <ErrorMessage name="weight" component="div" />
           </div>
 
           <div style={{ marginBottom: '60px' }}>
             <TextField
               required
-              id="size"
-              name="size"
+              id="image_path"
+              name="image_path"
               label="Imagen"
               placeholder="perro.jpg..."
               multiline
               variant="standard"
             />
-            <ErrorMessage name="size" component="div" />
+            <ErrorMessage name="image_path" component="div" />
           </div>
 
           <div>
@@ -166,6 +169,7 @@ const Add = () => {
                           id="demo-simple-select-standard"
                           value={age}
                           onChange={handleChange}
+                          name='color'
                           label="Color"  
                         >
                           <MenuItem value="">
@@ -181,6 +185,7 @@ const Add = () => {
                     <AgregarEliminar type="button" onClick={() => remove(index)} sx={{ marginBottom: 20 }}>
                       Eliminar Color
                     </AgregarEliminar>
+                    <ErrorMessage name="color" component="div" />
                   </div>
                 ))}
                 <button type="button" onClick={() => push('')}>
@@ -206,6 +211,7 @@ const Add = () => {
                           labelId="demo-simple-select-standard-label"
                           id="demo-simple-select-standard"
                           value={age}
+                          name='characterisitcs'
                           onChange={handleChange}
                           label="Caracteristica"  
                         >
@@ -222,6 +228,7 @@ const Add = () => {
                     <AgregarEliminar type="button" onClick={() => remove(index)}>
                       Eliminar Característica
                     </AgregarEliminar>
+                    <ErrorMessage name="characterisitcs" component="div" />
                   </div>
                 ))}
                 <button type="button" onClick={() => push('')}>
