@@ -10,23 +10,6 @@ import NavBar from '../components/NavBar/Navbar';
 import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
-{/*
-var data = [
-  {
-      'id':1,
-      'color':'red'
-  },
-  {
-      'id':2,
-      'color':'blue'
-  },
-  {
-      'id':3,
-      'color':'green'
-  },
-]
-*/}
-
 const Dogs = () => {
   const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
@@ -76,7 +59,7 @@ const Dogs = () => {
             <Zoom>
               <Cards
                 id={`${item.id}`}
-                foto='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg'
+                foto={`${item.image_path}`}
                 nombre={`${item.name}`}
                 titulo={`${item.name} es un perro muy feliz :D`}
                 descripcion={`${item.name} nació el ${item.birth_date}.`}

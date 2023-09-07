@@ -2,23 +2,32 @@ import React from 'react'
 import { styled } from 'styled-components'
 import Fade from 'react-reveal/Fade';
 
-
-
 function Post() {
   return (
-    <Background>
-        <Link href='/add'>
-            <Container>
-                <Fade top><Image src="Images/agregar-huella-2.png"></Image></Fade>
-                <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
-            </Container>
-        </Link>
-    </Background>
+    <>
+        <Volver href='/dogs'>volver</Volver>
+        <Background>
+            <Link href='/add'>
+                <Container>
+                    <Fade top><Image src="Images/agregar-huella-2.png"></Image></Fade>
+                    <Fade bottom><Title>¡Agregá un perrito para que pueda ser adoptado!</Title></Fade>
+                </Container>
+            </Link>
+        </Background>
+    </>
   )
 }
 
-
 export default Post
+
+const Volver = styled.a`
+    position: absolute;
+    padding: 5px 10px;
+    border: 2px solid black;
+    border-radius: 8px;
+    top: 20px;
+    left: 20px;
+`;
 
 const Background = styled.div`
     background-color: aliceblue;

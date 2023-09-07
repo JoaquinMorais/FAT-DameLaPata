@@ -39,13 +39,15 @@ const BigCards = () => {
         <SwiperSlide key={item.id}>
           <Carta>
             <ImagenContainer>
-              <Imagen src='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg' alt="" />
-              <Abajo>
+              <Imagen src={`${item.image_path}`} alt="" />
+              <Arriba>
                 <Texto>
                   <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${item.date_of_birth}`}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
                 </Texto>
+              </Arriba>
+              <Abajo>
                 <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
                   <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
@@ -54,42 +56,40 @@ const BigCards = () => {
 
             </ImagenContainer>
             <Container>
+              <Fade>
+                <Div1>
+                  <Titulo2>Descripcion</Titulo2>
+                  <Caracteristicas>hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola </Caracteristicas>
+                </Div1>
+              </Fade>
+                
+              <Fade>
+                <Div2>
+                  <Titulo2>Apodos</Titulo2>
+                  <Caracteristicas>a a a a a</Caracteristicas>
+                </Div2>
+              </Fade>
 
-            <Fade>
-              <Div1>
-                <Titulo2>Descripcion</Titulo2>
-                <Caracteristicas>hola hola hola hola hola</Caracteristicas>
-              </Div1>
-            </Fade>
+              <Fade>
+                <Div3>
+                  <Titulo2>Edad</Titulo2>
+                  <Caracteristicas>Fecha: {`${item.date_of_birth}`}</Caracteristicas>
+                </Div3>
+              </Fade>
               
-            <Fade>
-              <Div2>
-                <Titulo2>Apodos</Titulo2>
-                <Caracteristicas>a a a a a</Caracteristicas>
-              </Div2>
-            </Fade>
-
-            <Fade>
-              <Div3>
-                <Titulo2>Edad</Titulo2>
-                <Caracteristicas>Fecha: {`${item.date_of_birth}`}</Caracteristicas>
-              </Div3>
-            </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Tamaño</Titulo2>
-                <Caracteristicas>Es un perro de tamaño Grande</Caracteristicas>
-              </Div4>
-            </Fade>
-              
-            <Fade>
-              <Div5>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Todas</Caracteristicas>
-              </Div5>
-            </Fade>
-              
+              <Fade>
+                <Div4>
+                  <Titulo2>Tamaño</Titulo2>
+                  <Caracteristicas>Es un perro de tamaño Grande</Caracteristicas>
+                </Div4>
+              </Fade>
+                
+              <Fade>
+                <Div5>
+                  <Titulo2>Vacunas</Titulo2>
+                  <Caracteristicas>Todas</Caracteristicas>
+                </Div5>
+              </Fade> 
             </Container>
           </Carta>
         </SwiperSlide>
@@ -128,21 +128,42 @@ const Abajo = styled.div`
     bottom: 8.5%;
     width: 100%;
     height: 150px;
+    display: flex;
+    flex-direction: row;
+`;
+
+const Arriba = styled.div`
+    position: absolute;
+    bottom: 70%;
+    width: 100%;
+    height: 150px;
     background: linear-gradient(to right, rgba(0,0,0,0.8), transparent 30%);
     display: flex;
     flex-direction: row;
 `;
 
+
 const Texto = styled.div`   
-    position: absolute;
-    width: 100%;
     text-align: left;
     width: 100%;
     height: 100%;
     color: white;
-    padding: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 10px;
+`;
+
+const Titulo = styled.h1`
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 15px;
+`;
+
+const Subtitulo = styled.p`
+    color: white;
+    font-size: 20px;
 `;
 
 const Botones = styled.div`
@@ -155,18 +176,6 @@ const Botones = styled.div`
     align-items: center;
 `;
 
-const Titulo = styled.h1`
-    color: white;
-    text-transform: uppercase;
-    font-style: italic;
-`;
-
-const Subtitulo = styled.p`
-    color: white;
-    margin-top: 10px;
-    font-size: 20px;
-`;
-
 const No = styled.button`
     width: 125px;
     height: 125px;
@@ -174,7 +183,7 @@ const No = styled.button`
     border: 2px solid black;
     background: inherit;
     backdrop-filter: blur(20px);
-    margin: 0 50px;
+    margin: 0 35px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -189,7 +198,7 @@ const Si = styled.button`
     border: 2px solid black;
     background: inherit;
     backdrop-filter: blur(20px);
-    margin: 0 50px;
+    margin: 0 35px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -220,24 +229,23 @@ const PerroSi = styled.img`
 const Container = styled.div`
     width: 100%;
     text-align: left;
-    color: white;
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
+    margin: 0;
 `;
 
 const Titulo2 = styled.h2`
     color: black;
     text-transform: uppercase;
     font-style: italic;
-    padding: 20px 15px 0 15px;
-    margin-bottom: 10px;
+    padding-top: 15px;
 `;
 
 const Caracteristicas = styled.p`
     font-size: 18px;
     color: black;
-    padding: 0px 15px 20px 15px;
     word-wrap: break-word;
 `;
 

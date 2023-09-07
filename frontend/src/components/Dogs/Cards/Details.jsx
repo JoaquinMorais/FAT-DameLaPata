@@ -52,17 +52,17 @@ const Details = () => {
         <SwiperSlide key={responseData?.response.id}>
           <Carta>
             <ImagenContainer>
-              <Imagen src='https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg' alt="" />
+              <Imagen src={`${responseData?.response.image_path}`} alt="" />
               <Abajo>
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
                 </Texto>
-                <Botones>
+                {/* <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
                   <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
-                </Botones>
+                </Botones> */}
               </Abajo>
 
             </ImagenContainer>
@@ -111,7 +111,7 @@ const Details = () => {
   )
 }
 
-export default Details;
+export default Details
 
 const Carta = styled.div`
     width: 100%;
@@ -147,15 +147,26 @@ const Abajo = styled.div`
 `;
 
 const Texto = styled.div`   
-    position: absolute;
-    width: 100%;
     text-align: left;
     width: 100%;
     height: 100%;
     color: white;
-    padding: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin: 0;
+`;
+
+const Titulo = styled.h1`
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 15px;
+`;
+
+const Subtitulo = styled.p`
+    color: white;
+    font-size: 20px;
 `;
 
 const Botones = styled.div`
@@ -166,18 +177,6 @@ const Botones = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-`;
-
-const Titulo = styled.h1`
-    color: white;
-    text-transform: uppercase;
-    font-style: italic;
-`;
-
-const Subtitulo = styled.p`
-    color: white;
-    margin-top: 10px;
-    font-size: 20px;
 `;
 
 const No = styled.button`

@@ -27,13 +27,15 @@ def getPet(id):
 
 
 @OnePet.route("/pet",methods=['PUT'])
-@login_is_required(session)
+#@login_is_required(session)
 def putPet():
     data = {
         **RequestList('colors','characteristics'),
         **Request('name','size','weight','birthdate','image_path')
     }
+
     id_shelter = Request('id_shelter')
+    """
     if not id_shelter:
         user = User.query.get(session['user_id'])
         if not user:
@@ -47,6 +49,7 @@ def putPet():
                 404
             )
         id_shelter = user.id_user
+        """
         
     for x in data:
         if data[x] == None:
