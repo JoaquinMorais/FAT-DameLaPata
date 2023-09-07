@@ -36,8 +36,8 @@ def populate():
     db.session.commit()'''
 
     db.session.add(DocumentType('dni','soy un dni'))
-    db.session.add(Status('Activo', 'Lorem ipsum'))
-    db.session.add(Status('Inactivo', 'Lorem ipsum2'))
+    db.session.add(State('Activo', 'Lorem ipsum'))
+    db.session.add(State('Inactivo', 'Lorem ipsum2'))
     db.session.add(DocumentType('A', 'a'))
     db.session.add(Address('a', 'a', 'a', 'a', 'a'))
     
