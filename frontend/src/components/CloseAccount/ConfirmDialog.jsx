@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import Modal from 'react-modal';
 import { styled } from 'styled-components';
-
+import Button from '@mui/material/Button';
 
 const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
     return (
@@ -10,7 +10,8 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
             onRequestClose={onClose}
             style={{
                 content: {
-                    width: '300px',
+                    maxWidth: '400px', // Ajusta el ancho máximo
+                    maxHeight: '200px', // Ajusta la altura máxima
                     margin: 'auto',
                     borderRadius: '8px',
                     padding: '20px',
@@ -20,8 +21,8 @@ const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
         >
             <h2>Confirmación</h2>
             <p>¿Estás seguro de que deseas borrar tu cuenta?</p>
-            <button onClick={onConfirm}>Sí, borrar cuenta</button>
-            <button onClick={onClose}>Cancelar</button>
+            <Button onClick={onConfirm} variant="contained" color="success">Sí, borrar cuenta</Button>
+            <Button onClick={onClose} variant="outlined" color="error">Cancelar</Button>
         </Modal>
     );
 };
