@@ -373,6 +373,14 @@ class State(db.Model):
 
     def __repr__(self):
         return f'{self.name}'
+    
+    def json(self):
+        return {
+            'id_state' : self.id_state,
+            'name':self.name,
+            'description' : self.description
+            
+        }
 
 class RequestPetAdopter(db.Model):
     id_request = db.Column(db.Integer, primary_key=True)
@@ -391,12 +399,16 @@ class RequestPetAdopter(db.Model):
         self.id_pet = id_pet
     
     def json(self):
+        pet = Pet.query.get(self.id_pet)
+        adopter = Adopter.query.get(self.id_user)
+        state = State.query.get(self.id_state)
         return {
-            'id_adopter' : self.id_user,
-            'id_pet':self.id_pet,
-            'id_state':self.id_state,
+            'adopter' : adopter.json(),
+            'pet':pet.json(),
+            'state':state.json(),
             'request_date':self.request_date.isoformat(),
-            'edition_date':self.edition_date.isoformat()
+            'edition_date':self.edition_date.isoformat(),
+            
         }
 
 class Image(db.Model):

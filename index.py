@@ -25,6 +25,7 @@ from routes.pets.info.characteristics import PetInfoCharacteristics
 from routes.user.login import Login
 from routes.user.logout import Logout
 from routes.user.profile import Profile
+from routes.user.request import UserRequest
 
 
 
@@ -47,6 +48,7 @@ app.register_blueprint(PetInfoCharacteristics)
 app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
+app.register_blueprint(UserRequest)
 
 
 if __name__ == '__main__':
