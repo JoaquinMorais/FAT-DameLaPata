@@ -144,6 +144,7 @@ def sizes():
     
     
     
+    
     #pelaje
     db.session.add(Characteristics('Pelaje liso', 'Pelaje suave y corto que se adhiere al cuerpo', 1))
     db.session.add(Characteristics('Pelaje largo', 'Pelaje suave y largo que puede requerir más cuidado', 1))
