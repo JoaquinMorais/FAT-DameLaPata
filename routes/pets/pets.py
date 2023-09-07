@@ -3,7 +3,7 @@ from models.models import *
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request, RequestList
-from sqlalchemy import or_
+from sqlalchemy import or_,and_
 
 Pets = Blueprint("Pets",__name__)
 
@@ -89,8 +89,8 @@ def getPetsFilterby():
         else:
 
             id_filters = [Pet.id_pet != id for id in data['not_id_pet']]
-            pets = pets.filter(*id_filters)  # Aplicar condiciones OR
-    
+            pets = pets.filter(*id_filters) 
+            
     if data['id_shelter']:
         if len(data['id_shelter']) == 1:
             pets = pets.filter(
