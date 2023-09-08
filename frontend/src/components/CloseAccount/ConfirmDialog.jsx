@@ -3,10 +3,12 @@ import Modal from 'react-modal';
 import { styled } from 'styled-components';
 import Button from '@mui/material/Button';
 
+// Boton
 const buttonStyle = {
     marginRight: '10px', // Separación entre botones
 };
 
+// Modal, elemento ya definido
 const modalStyle = {
     content: {
         maxWidth: '400px', // Ajusta el ancho máximo
@@ -19,6 +21,7 @@ const modalStyle = {
     },
 };
 
+// Ventanita
 const ConfirmDialog = ({ isOpen, onClose, onConfirm }) => {
     return (
         <Modal
