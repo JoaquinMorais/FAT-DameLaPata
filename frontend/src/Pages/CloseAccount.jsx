@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
 
@@ -14,15 +15,15 @@ const CloseAccount = () => {
         setIsConfirmationOpen(false);
     };
 
-    const handleDeleteAccount = () => {
-        // Agregar la lógica para borrar la cuenta aquí.
-        // Puedes usar axios u otra librería para hacer la solicitud DELETE.
-        // Cuando la cuenta se haya eliminado con éxito, cambia el estado isAccountDeleted a true.
-        // Por ejemplo:
-        // Realizar la eliminación de la cuenta...
-        // Después de la eliminación, cambiar el estado isAccountDeleted a true.
-        setIsAccountDeleted(true);
-        closeConfirmation();
+    const handleDeleteAccount = async () => {
+        try {
+            // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+            await axios.post(`/closeaccount/123`); // Reemplazar 123 con el ID de usuario adecuado
+            setIsAccountDeleted(true);
+            closeConfirmation();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const closeSuccessDialog = () => {
