@@ -11,12 +11,6 @@ import { styled } from 'styled-components';
 export default function CardTeam() {
   useEffect(() => {
     new Swiper('.swiper-container', {
-      slidesPerView: 1, 
-      spaceBetween: 20, 
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true, 
@@ -24,6 +18,10 @@ export default function CardTeam() {
       scrollbar: {
         el: '.swiper-scrollbar',
       },
+      autoplay: {
+        delay: 2500,
+      }
+      
     });
   }, []);
 
@@ -31,7 +29,7 @@ export default function CardTeam() {
   return (
     <Container>
       <Text>ESTE GRUPO ESTA COMPUESTO POR:</Text>
-        <div class="swiper" style={{ height: '500px', width:'500px'}}>
+      <div class="swiper" style={{ height: '500px', width:'500px'}}>
         <div class="swiper-wrapper">
         <CartaInd name={'Yaco Babiachuck'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
         <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />
@@ -43,12 +41,10 @@ export default function CardTeam() {
         <CartaInd name={'Agustin Jose Salonia'} img={'https://i.postimg.cc/3R6Ny0tw/salo.jpg'} />
 
     </div>
-    <div class="swiper-pagination"></div>
   
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-prev" ></div>
     <div class="swiper-button-next"></div>
   
-    <div class="swiper-scrollbar"></div>
   </div>
 
     </Container>

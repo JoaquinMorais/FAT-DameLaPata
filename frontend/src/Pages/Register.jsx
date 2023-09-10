@@ -1,90 +1,52 @@
-import React from "react";
-import styled from "styled-components";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import ShelterRegister from "../components/Register/RegisterShelter";
 import AdopterRegister from "../components/Register/RegisterAdopter";
-import Navbar from '../components/NavBar/Navbar';
-import axios from 'axios';
+import Navbar from "../components/NavBar/Navbar";
 
 function Register() {
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    <Container>
+    <>
       <Navbar />
-      <h1>¿Cómo te quieres registrar?</h1>
-      <StyledTabs>
-        <StyledTabList>
-          <StyledTab>Adoptante</StyledTab>
-          <StyledTab>Refugio - Home adopter</StyledTab>
-        </StyledTabList>
-        <StyledTabPanel>
-          <AdopterRegister />
-        </StyledTabPanel>
-        <StyledTabPanel>
-          <ShelterRegister />
-        </StyledTabPanel>
-      </StyledTabs>
-    </Container>
+      <div
+        style={{
+          backgroundImage: 'url("https://media.diariouno.com.ar/p/f54249878a58173518d1bc7ec8f5814e/adjuntos/298/imagenes/008/806/0008806731/1200x0/smart/perro-callejerojpg.jpg")', // Establece la imagen de fondo mediante un enlace
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
+      >
+        <Box sx={{ width: '100%', maxWidth: '600px', typography: 'body1', backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '20px' }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleChange} aria-label="lab API tabs example" sx={{ justifyContent: 'space-around' }}>
+                <Tab label="Fundacion" value="1" sx={{ flex: 1, textAlign: 'center', fontSize:'20px' }} />
+                <Tab label="Adoptante" value="2" sx={{ flex: 1, textAlign: 'center', fontSize:'20px' }} />
+              </TabList>
+            </Box>
+            <TabPanel value="1" sx={{ height: '100%' }}><ShelterRegister /></TabPanel>
+            <TabPanel value="2" sx={{ height: '100%' }}><AdopterRegister /></TabPanel>
+          </TabContext>
+        </Box>
+      </div>
+    </>
   );
+
 }
 
 export default Register;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-top: 50px;
-  padding: 20px;
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-`;
-
-const StyledTabs = styled(Tabs)`
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-`;
-
-const StyledTabList = styled(TabList)`
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #11111111;
-  color: #ffffff;
-  border-radius: 5px 5px 0 0;
-`;
-
-const StyledTab = styled(Tab)`
-  flex: 1;
-  padding: 10px 20px;
-  text-align: center;
-  cursor: pointer;
-  color: #555;
-  font-weight: bold;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #e0e0e0;
-    color: #333333;
-
-  }
-
-  &.react-tabs__tab--selected {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-bottom: none;
-  }
-`;
-
-const StyledTabPanel = styled(TabPanel)`
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 0 0 5px 5px;
-`;
