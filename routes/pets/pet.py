@@ -31,7 +31,7 @@ def getPet(id):
 def putPet():
     data = {
         **RequestList('colors','characteristics'),
-        **Request('name','size','weight','birthdate','image_path',)#'gender')
+        **Request('name','size','weight','birthdate','image_path','gender')#'gender')
     }
 
     id_shelter = Request('id_shelter')
@@ -65,7 +65,7 @@ def putPet():
             404
         )
     
-    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],1)
+    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['gender'])
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
@@ -209,7 +209,7 @@ def sizes():
 
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',1))
+    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',1, 1))
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
