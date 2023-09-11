@@ -10,7 +10,8 @@ import Post from './Pages/Post';
 import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import UserProfile from './Pages/ProfileAdopter';
+import ShelterProfile from './Pages/ProfileShelter';
+import AdopterProfile from './Pages/ProfileAdopter';
 const App = () => {
 
 
@@ -59,7 +60,8 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<ShelterProfile />} />
+          <Route path="/profile2" element={<AdopterProfile />} />
 
         </Routes>
       </BrowserRouter>
