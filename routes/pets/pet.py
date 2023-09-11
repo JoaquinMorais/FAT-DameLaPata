@@ -27,13 +27,15 @@ def getPet(id):
 
 
 @OnePet.route("/pet",methods=['PUT'])
-@login_is_required(session)
+#@login_is_required(session)
 def putPet():
     data = {
         **RequestList('colors','characteristics'),
-        **Request('name','size','weight','birthdate','image_path')
+        **Request('name','size','weight','birthdate','image_path','category','gender')
     }
+
     id_shelter = Request('id_shelter')
+    """
     if not id_shelter:
         user = User.query.get(session['user_id'])
         if not user:
@@ -47,6 +49,7 @@ def putPet():
                 404
             )
         id_shelter = user.id_user
+        """
         
     for x in data:
         if data[x] == None:
@@ -115,25 +118,11 @@ def sizes():
     db.session.add(Size('Mediano',3,4))
     db.session.add(Size('Grande',3,4))
 
-    db.session.add(Color('Marron', 'color marron'))
-    db.session.add(Color('Negro', 'color negro'))
-    db.session.add(Color('Blanco', 'color blanco'))
-    db.session.add(Color('Dorado', 'color dorado'))
 
-    db.session.add(Characteristics('bonito', 'bonito uwu'))
-    db.session.add(Characteristics('castrado', 'pobrecito'))
-    db.session.add(Characteristics('discapacitado', 'pobre :('))
-    db.session.commit()
-    
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg'))
-    db.session.commit()
-    
-    db.session.add(RelationShipPetColor(1, 1))
-    db.session.add(RelationShipPetColor(1, 2))
-    db.session.add(RelationShipPetColor(1, 3))
-    db.session.add(RelationShipPetCharacteristics(1, 1))
-    db.session.add(RelationShipPetCharacteristics(1, 2))
-    db.session.commit()
+
+
+    db.session.commit() 
+        
 
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.add(DocumentType('cuit','soy un cuit'))

@@ -8,7 +8,7 @@ SECRET_KEY='MyUltraDupaSecretKey'
 
 
 cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
-
+from routes.home import Home
 #adopter
 from routes.adopter.register import AdopterRegister
 from routes.adopter.request import AdopterRequest
@@ -31,7 +31,7 @@ from routes.user.request import UserRequest
 
 with app.app_context():
     db.create_all()
-
+app.register_blueprint(Home)
 #adopter
 app.register_blueprint(AdopterRegister)
 app.register_blueprint(AdopterRequest)
