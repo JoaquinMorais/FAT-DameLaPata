@@ -10,7 +10,7 @@ import Post from './Pages/Post';
 import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import ProfileAdopter from './Pages/ProfileAdopter';
+import UserProfile from './Pages/ProfileAdopter';
 const App = () => {
 
 
@@ -50,7 +50,7 @@ const App = () => {
     <div className='App'>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/dogs" element={<Dogs />} />
           <Route path="/pet/details/:id" element={<ShowMore />} />
           <Route path="/pinder" element={<Pinder />} />
@@ -59,7 +59,7 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<ProfileAdopter />} />
+          <Route path="/profile" element={<UserProfile />} />
 
         </Routes>
       </BrowserRouter>
