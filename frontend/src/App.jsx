@@ -10,6 +10,7 @@ import Post from './Pages/Post';
 import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import Successful from './Pages/Successful';
 const App = () => {
 
 
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/successful" element={<Successful />} />
 
         </Routes>
       </BrowserRouter>
