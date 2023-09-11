@@ -52,6 +52,7 @@ def putPet():
         """
         
     for x in data:
+        print(data)
         if data[x] == None:
             return Response(
 
@@ -80,6 +81,7 @@ def putPet():
         db.session.add(pet_color)
 
     for characteristic in data['characteristics']:
+        print(characteristic)
         pet_characteristic  = RelationShipPetCharacteristics(pet.id_pet,characteristic)
         db.session.add(pet_characteristic)
 

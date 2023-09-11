@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; 
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
 import * as Yup from 'yup';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -34,7 +34,7 @@ function Add() {
   };
   const validationSchema = Yup.object({
     name: Yup.string().required('El nombre es obligatorio.'),
-    gender: Yup.number().required('El género es obligatorio.'),
+    name: Yup.string().required('El género es obligatorio.'),
     birthdate: Yup.date().required('La fecha de nacimiento es obligatoria.'),
     size: Yup.number().required('El tamaño es obligatorio.'),
     weight: Yup.number().required('El peso es obligatorio.'),
@@ -54,6 +54,7 @@ function Add() {
       .put('http://localhost:5000/pet', dataToSend)
       .then((response) => {
         console.log('Response:', response.data);
+        // Redirigir a la página "/successful" después del éxito
         navigate('/successful');
       })
       .catch((error) => {
@@ -61,8 +62,7 @@ function Add() {
       });
   
     setSubmitting(false);
-  };
-
+  };  
 
   return (
     <>
@@ -93,7 +93,7 @@ function Add() {
                       placeholder="Firulais..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }} 
+                      sx={{ width: '100%' }} // Aquí puedes agregar estilos personalizados
                     />
                     <ErrorMessage name="name" component="div" />
                   </>
@@ -104,7 +104,7 @@ function Add() {
             <div style={{ marginBottom: '60px' }}>
               <Field
                 id="demo-simple-select-standard"
-                name="size"
+                name="gender"
               >
                 {({ field }) => (
                   <>
@@ -114,7 +114,7 @@ function Add() {
                         {...field}
                         labelId="demo-simple-select-standard-label"
                         label="Género"
-                        sx={{ width: '100%' }} 
+                        sx={{ width: '100%' }}
                       >
                         <MenuItem value="">
                           <em>Quitar</em>
@@ -144,7 +144,7 @@ function Add() {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                      sx={{ width: 220 }} 
+                      sx={{ width: 220 }} // Estilos personalizados aquí
                     />
                     <ErrorMessage name="birthdate" component="div" />
                   </>
@@ -165,7 +165,7 @@ function Add() {
                         {...field}
                         labelId="demo-simple-select-standard-label"
                         label="Tamaño"
-                        sx={{ width: '100%' }} 
+                        sx={{ width: '100%' }} // Estilos personalizados aquí
                       >
                         <MenuItem value="">
                           <em>Quitar</em>
@@ -194,7 +194,7 @@ function Add() {
                       placeholder="123..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }}
+                      sx={{ width: '100%' }} // Estilos personalizados aquí
                     />
                     <ErrorMessage name="weight" component="div" />
                   </>
@@ -215,7 +215,7 @@ function Add() {
                       placeholder="perro.jpg..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }} 
+                      sx={{ width: '100%' }} // Estilos personalizados aquí
                     />
                     <ErrorMessage name="image_path" component="div" />
                   </>
@@ -242,7 +242,7 @@ function Add() {
                                   {...field}
                                   labelId={`color-label[${index}]`}
                                   label="Color"
-                                  sx={{ width: '100%' }} 
+                                  sx={{ width: '100%' }} // Estilos personalizados aquí
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>
@@ -291,7 +291,7 @@ function Add() {
                                   {...field}
                                   labelId={`characteristics-label[${index}]`}
                                   label="Caracteristica"
-                                  sx={{ width: '100%' }} 
+                                  sx={{ width: '100%' }} // Estilos personalizados aquí
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>

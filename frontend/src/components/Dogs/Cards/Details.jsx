@@ -57,7 +57,7 @@ const Details = () => {
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
                 </Texto>
                 {/* <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
