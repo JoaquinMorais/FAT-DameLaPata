@@ -4,6 +4,7 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
 from methods.response import Response
+import requests
 
 Developing = Blueprint("Developing",__name__)
 
@@ -49,3 +50,24 @@ def populate():
     return 'a'
 
 
+@Developing.route("/addpet/>",methods=['GET'])
+def addpet():
+    data = {
+      "name": "LOL",
+      "birthdate": "2023-09-22",
+      "size": 2,
+      "weight": 12,
+      "image_path": "https://images.ecestaticos.com/h34TvzTFVdrau9Un4Wdmwhed_e4=/0x115:2265x1390/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F8ec%2F08c%2F85c%2F8ec08c85c866ccb70c4f1c36492d890f.jpg",
+      "characteristics": [
+        1,
+        2
+      ],
+      "colors": [
+        1,
+        2
+      ],
+      "id_shelter" : 1,
+      'id_gender' : 1
+    }
+    response = requests.put('http://127.0.0.1:5000/pet', json=data)
+    return 'hecho'
