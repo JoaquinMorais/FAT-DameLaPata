@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; 
 import * as Yup from 'yup';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
@@ -54,7 +54,6 @@ function Add() {
       .put('http://localhost:5000/pet', dataToSend)
       .then((response) => {
         console.log('Response:', response.data);
-        // Redirigir a la página "/successful" después del éxito
         navigate('/successful');
       })
       .catch((error) => {
@@ -94,7 +93,7 @@ function Add() {
                       placeholder="Firulais..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }} // Aquí puedes agregar estilos personalizados
+                      sx={{ width: '100%' }} 
                     />
                     <ErrorMessage name="name" component="div" />
                   </>
@@ -115,7 +114,7 @@ function Add() {
                         {...field}
                         labelId="demo-simple-select-standard-label"
                         label="Género"
-                        sx={{ width: '100%' }} // Estilos personalizados aquí
+                        sx={{ width: '100%' }} 
                       >
                         <MenuItem value="">
                           <em>Quitar</em>
@@ -145,7 +144,7 @@ function Add() {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                      sx={{ width: 220 }} // Estilos personalizados aquí
+                      sx={{ width: 220 }} 
                     />
                     <ErrorMessage name="birthdate" component="div" />
                   </>
@@ -166,7 +165,7 @@ function Add() {
                         {...field}
                         labelId="demo-simple-select-standard-label"
                         label="Tamaño"
-                        sx={{ width: '100%' }} // Estilos personalizados aquí
+                        sx={{ width: '100%' }} 
                       >
                         <MenuItem value="">
                           <em>Quitar</em>
@@ -195,7 +194,7 @@ function Add() {
                       placeholder="123..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }} // Estilos personalizados aquí
+                      sx={{ width: '100%' }}
                     />
                     <ErrorMessage name="weight" component="div" />
                   </>
@@ -216,7 +215,7 @@ function Add() {
                       placeholder="perro.jpg..."
                       multiline
                       variant="standard"
-                      sx={{ width: '100%' }} // Estilos personalizados aquí
+                      sx={{ width: '100%' }} 
                     />
                     <ErrorMessage name="image_path" component="div" />
                   </>
@@ -243,7 +242,7 @@ function Add() {
                                   {...field}
                                   labelId={`color-label[${index}]`}
                                   label="Color"
-                                  sx={{ width: '100%' }} // Estilos personalizados aquí
+                                  sx={{ width: '100%' }} 
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>
@@ -292,7 +291,7 @@ function Add() {
                                   {...field}
                                   labelId={`characteristics-label[${index}]`}
                                   label="Caracteristica"
-                                  sx={{ width: '100%' }} // Estilos personalizados aquí
+                                  sx={{ width: '100%' }} 
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>
