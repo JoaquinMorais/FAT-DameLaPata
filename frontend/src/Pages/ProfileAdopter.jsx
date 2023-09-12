@@ -17,7 +17,6 @@ const BackgroundImage = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -28,7 +27,7 @@ const CenteredContainer = styled(Container)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-height: 100vh;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 80px;
   border-radius: 10px;
@@ -61,23 +60,28 @@ const UserProfileAvatar = styled(Avatar)`
   margin-left: 25px;
 `;
 
-const EditButton = styled(Button)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+const RoundButton = styled(Button)`
+  border-radius: 50% !important; 
+  width: 40px !important; 
+  height: 55px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EditButton = styled(RoundButton)`
+  margin-top: -150px !important;
+  margin-left: -30px !important;
   background-color: #007bff;
   color: white;
 `;
 
-const DeleteButton = styled(Button)`
-  position: absolute;
-  right: 10px;
-  bottom: -10px;
-  z-index: 1;
-  background-color: #ff0000;
-  color: white;
+const DeleteButton = styled(RoundButton)`
+    && {
+        background-color: #ff0000;
+        color: white;
+    }
 `;
-
 const ContactInfoContainer = styled.div`
   display: flex;
   align-items: center;
@@ -96,19 +100,44 @@ const StyledHr = styled.hr`
   margin: 20px 0;
 `;
 
+const PreferencesContainer = styled.div`
+  margin-top: 20px;
+  text-align: left;
+`;
+
+const EditPreferencesButton = styled(Button)`
+  margin-top: 10px;
+`;
+
 function AdopterProfile() {
   const user = {
-    name: 'John Doe',
-    username: 'johndoe123',
-    surname: 'Doe',
-    email: 'johndoe@example.com',
-    city: 'City',
+    name: 'Emma',
+    username: 'emma_gfm',
+    surname: 'Myers',
+    email: 'emma_gfm@example.com',
+    city: 'LA',
     province: 'Province',
     district: 'District',
-    birthdate: '01/01/1990',
+    birthdate: '02/04/2002',
     phone_number: '+1234567890',
-    Type_document: 'Document Type',
-    Edad: '30',
+    Type_document: '1',
+    Edad: '21',
+  };
+
+  // Datos de preferencias del usuario
+  const preferences = {
+    preferencia1: 'Perros',
+    preferencia2: 'Negros bien negros',
+    preferencia3: 'Machos',
+    preferencia4: 'Grandes',
+    preferencia5: 'De 1 a 13 años',
+    preferencia6: '* Adicionales *',
+
+  };
+
+  // Función para manejar la edición de preferencias
+  const handleEditPreferences = () => {
+    // Agrega aquí la lógica para editar las preferencias del usuario.
   };
 
   return (
@@ -117,10 +146,8 @@ function AdopterProfile() {
       <BackgroundImage>
         <CenteredContainer maxWidth="md">
           <CenteredGrid container spacing={3}>
-            <Grid item xs={12} md={4}>
-              <DeleteButton variant="contained" color="secondary">
-                <DeleteIcon />
-              </DeleteButton>
+          <Grid item xs={12} md={4}>
+
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
@@ -130,22 +157,26 @@ function AdopterProfile() {
                   <EditIcon />
                 </EditButton>
               </UserProfileAvatarContainer>
+              <DeleteButton variant="contained" color="secondary">
+                <DeleteIcon />
+              </DeleteButton>
             </Grid>
+
             <Grid item xs={12} md={8}>
-              <Typography variant="h4">Bienvenido {user.name}</Typography>
+              <Typography variant="h4">Bienvenido <strong>{user.name}</strong></Typography>
               <StyledHr />
               <Typography variant="h4">DATOS DE USUARIO</Typography>
               <StyledHr />
-              <Typography variant="body1">Username: {user.username}</Typography>
-              <Typography variant="body1">Name: {user.name}</Typography>
-              <Typography variant="body1">Surname: {user.surname}</Typography>
-              <Typography variant="body1">Email: {user.email}</Typography>
+              <Typography variant="body1"><strong>Username:</strong> {user.username}</Typography>
+              <Typography variant="body1"><strong>Name:</strong> {user.name}</Typography>
+              <Typography variant="body1"><strong>Surname:</strong> {user.surname}</Typography>
+              <Typography variant="body1"><strong>Email:</strong> {user.email}</Typography>
               <Typography variant="body1">
-                Location: {user.city}, {user.province}, {user.district}
+                <strong>Location:</strong> {user.city}, {user.province}, {user.district}
               </Typography>
-              <Typography variant="body1">Birthdate: {user.birthdate}</Typography>
-              <Typography variant="body1">Type Document: {user.Type_document}</Typography>
-              <Typography variant="body1">Edad: {user.Edad}</Typography>
+              <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
+              <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
+              <Typography variant="body1"><strong>Edad:</strong> {user.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>
@@ -154,14 +185,30 @@ function AdopterProfile() {
                 <ContactIcon>
                   <PhoneIcon />
                 </ContactIcon>
-                <Typography variant="body1">Phone Number: {user.phone_number}</Typography>
+                <Typography variant="body1"><strong>Phone Number:</strong> {user.phone_number}</Typography>
               </ContactInfoContainer>
               <ContactInfoContainer>
                 <ContactIcon>
                   <EmailIcon />
                 </ContactIcon>
-                <Typography variant="body1">Email: {user.email}</Typography>
+                <Typography variant="body1"><strong>Email:</strong> {user.email}</Typography>
               </ContactInfoContainer>
+              
+              <StyledHr />
+              <PreferencesContainer>
+                <Typography variant="h4">PREFERENCIAS</Typography>
+                <Typography variant="body1"><strong>Animal:</strong> {preferences.preferencia1}</Typography>
+                <Typography variant="body1"><strong>Color:</strong> {preferences.preferencia2}</Typography>
+                <Typography variant="body1"><strong>Sexo:</strong> {preferences.preferencia3}</Typography>
+                <Typography variant="body1"><strong>Tamaño:</strong> {preferences.preferencia4}</Typography>
+                <Typography variant="body1"><strong>Edad:</strong> {preferences.preferencia5}</Typography>
+                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong> {preferences.preferencia6}</Typography>
+
+
+                <EditPreferencesButton variant="contained" color="primary" onClick={handleEditPreferences}>
+                  Editar Preferencias
+                </EditPreferencesButton>
+              </PreferencesContainer>
             </Grid>
           </CenteredGrid>
         </CenteredContainer>

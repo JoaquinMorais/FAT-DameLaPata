@@ -17,7 +17,7 @@ const BackgroundImage = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -55,29 +55,34 @@ const UserProfileAvatarContainer = styled.div`
   }
 `;
 
+const RoundButton = styled(Button)`
+  border-radius: 50% !important; 
+  width: 40px !important; 
+  height: 55px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const UserProfileAvatar = styled(Avatar)`
   width: 240px !important; 
   height: 240px !important;
   margin-left: 25px;
 `;
 
-const EditButton = styled(Button)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+const EditButton = styled(RoundButton)`
+  margin-top: -150px !important;
+  margin-left: -30px !important;
   background-color: #007bff;
   color: white;
 `;
 
-const DeleteButton = styled(Button)`
-  position: absolute;
-  right: 10px;
-  bottom: -10px;
-  z-index: 1;
-  background-color: #ff0000;
-  color: white;
+const DeleteButton = styled(RoundButton)`
+    && {
+        background-color: #ff0000;
+        color: white;
+    }
 `;
-
 const ContactInfoContainer = styled.div`
   display: flex;
   align-items: center;
@@ -118,34 +123,35 @@ function ShelterProfile() {
         <CenteredContainer maxWidth="md">
           <CenteredGrid container spacing={3}>
             <Grid item xs={12} md={4}>
-              <DeleteButton variant="contained" color="secondary">
-                <DeleteIcon /> 
-              </DeleteButton>
+
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
-                  src="https://assets.popbuzz.com/2022/48/is-emma-myers-related-to-maddie-ziegler-1669656275-view-0.jpg"
+                  src="https://i.pinimg.com/474x/c9/b0/78/c9b0782d841f83673f58d851c89a6e48.jpg"
                 />
                 <EditButton variant="contained" color="primary">
                   <EditIcon /> 
                 </EditButton>
               </UserProfileAvatarContainer>
+              <DeleteButton variant="contained" color="secondary">
+                <DeleteIcon /> 
+              </DeleteButton>
             </Grid>
             <Grid item xs={12} md={8}>
-              <Typography variant="h4">Bienvenido {shelter.name}</Typography>
+              <Typography variant="h4">Bienvenido <strong>{shelter.name}</strong></Typography>
               <StyledHr />
               <Typography variant="h4">DATOS DE USUARIO</Typography>
               <StyledHr />
-              <Typography variant="body1">Username: {shelter.username}</Typography>
-              <Typography variant="body1">Name: {shelter.name}</Typography>
-              <Typography variant="body1">Surname: {shelter.surname}</Typography>
-              <Typography variant="body1">Email: {shelter.email}</Typography>
+              <Typography variant="body1"><strong>Username:</strong> {shelter.username}</Typography>
+              <Typography variant="body1"><strong>Name:</strong> {shelter.name}</Typography>
+              <Typography variant="body1"><strong>Surname:</strong> {shelter.surname}</Typography>
+              <Typography variant="body1"><strong>Email:</strong> {shelter.email}</Typography>
               <Typography variant="body1">
-                Location: {shelter.city}, {shelter.province}, {shelter.district}
+                <strong>Location:</strong> {shelter.city}, {shelter.province}, {shelter.district}
               </Typography>
-              <Typography variant="body1">Birthdate: {shelter.birthdate}</Typography>
-              <Typography variant="body1">Type Document: {shelter.Type_document}</Typography>
-              <Typography variant="body1">Edad: {shelter.Edad}</Typography>
+              <Typography variant="body1"><strong>Birthdate:</strong> {shelter.birthdate}</Typography>
+              <Typography variant="body1"><strong>Type Document:</strong> {shelter.Type_document}</Typography>
+              <Typography variant="body1"><strong>Edad:</strong> {shelter.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>
@@ -154,13 +160,13 @@ function ShelterProfile() {
                 <ContactIcon>
                   <PhoneIcon />
                 </ContactIcon>
-                <Typography variant="body1">Phone Number: {shelter.phone_number}</Typography>
+                <Typography variant="body1"><strong>Phone Number:</strong> {shelter.phone_number}</Typography>
               </ContactInfoContainer>
               <ContactInfoContainer>
                 <ContactIcon>
                   <EmailIcon />
                 </ContactIcon>
-                <Typography variant="body1">Email: {shelter.email}</Typography>
+                <Typography variant="body1"><strong>Email:</strong> {shelter.email}</Typography>
               </ContactInfoContainer>
             </Grid>
           </CenteredGrid>
