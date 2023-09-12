@@ -10,27 +10,10 @@ function Login() {
 
   const handleSubmit = (values) => {
     delete values.repeatPassword;
-
     console.log(JSON.stringify(values, null, 2));
+
   };
 
-  const validate = (values) => {
-    const errors = {};
-
-    if (!/(?=.*[A-Z])/.test(values.password)) {
-      errors.password = 'La contraseña debe contener al menos una mayúscula';
-    }
-
-    if (!/(?=.*\d)/.test(values.password)) {
-      errors.password = 'La contraseña debe contener al menos un número';
-    }
-
-    if (values.password.length < 8) {
-      errors.password = 'La contraseña debe tener al menos 8 caracteres';
-    }
-
-    return errors;
-  };
 
   return (
     <>
@@ -44,7 +27,6 @@ function Login() {
             password: '',
           }}
           onSubmit={handleSubmit}
-          validate={validate}
         >
           {() => (
             <Form>
