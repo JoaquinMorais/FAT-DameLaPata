@@ -9,13 +9,13 @@ import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
 const Details = () => {
-    const { id } = useParams();
+    const { id_pet } = useParams();
     const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await axios.get(`http://localhost:5000/pet/${id}`);
+            const response = await axios.get(`http://localhost:5000/pet/${id_pet}`);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
@@ -49,7 +49,7 @@ const Details = () => {
   return (
     <>
         {
-        <SwiperSlide key={responseData?.response.id}>
+        <SwiperSlide key={responseData?.response.id_pet}>
           <Carta>
             <ImagenContainer>
               <Imagen src={`${responseData?.response.image_path}`} alt="" />

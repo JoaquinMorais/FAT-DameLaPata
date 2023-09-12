@@ -44,7 +44,7 @@ const BigCards = () => {
                 <Texto>
                   <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${item.birth_date}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>{`${item.id_gender}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${item.gender}`}</Subtitulo></Zoom>
                 </Texto>
               </Arriba>
               <Abajo>

@@ -35,7 +35,7 @@ function Add() {
   };
   const validationSchema = Yup.object({
     name: Yup.string().required('El nombre es obligatorio.'),
-    name: Yup.string().required('El género es obligatorio.'),
+    gender: Yup.number().required('El género es obligatorio.'),
     birthdate: Yup.date().required('La fecha de nacimiento es obligatoria.'),
     size: Yup.number().required('El tamaño es obligatorio.'),
     weight: Yup.number().required('El peso es obligatorio.'),

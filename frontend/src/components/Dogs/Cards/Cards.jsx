@@ -28,7 +28,7 @@ function Cards(props) {
         </CardContent>
         <CardActions>
           <Button size="small">
-            <a href={`/pet/details/${props.id}`}>Ver mas</a>
+            <a href={`/pet/details/${props.id_pet}`}>Ver mas</a>
           </Button>
           <button class="btn">
             <svg viewBox="0 0 17.503 15.625" height="20.625" width="20.503" xmlns="http://www.w3.org/2000/svg" class="icon">
