@@ -57,7 +57,7 @@ const Details = () => {
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${responseData?.response.id_gender}`}</Subtitulo></Zoom>
                 </Texto>
                 {/* <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
@@ -78,21 +78,21 @@ const Details = () => {
             <Fade>
               <Div2>
                 <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
+                <Caracteristicas>{`${responseData?.response.birth_date}`}</Caracteristicas>
               </Div2>
             </Fade>
 
             <Fade>
               <Div3>
-                <Titulo2>Tamaño</Titulo2>
-                <Caracteristicas>{`${responseData?.response.size}`}</Caracteristicas>
+                <Titulo2>Tamaño y peso</Titulo2>
+                <Caracteristicas>{`${responseData?.response.size}`} - {`${responseData?.response.weight}`}kg</Caracteristicas>
               </Div3>
             </Fade>
             
             <Fade>
               <Div4>
-                <Titulo2>Peso</Titulo2>
-                <Caracteristicas>{`${responseData?.response.weight}`}</Caracteristicas>
+                <Titulo2>Colores</Titulo2>
+                <Caracteristicas>{`${responseData?.response.id_colors}`}</Caracteristicas>
               </Div4>
             </Fade>
               

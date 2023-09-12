@@ -43,8 +43,8 @@ const BigCards = () => {
               <Arriba>
                 <Texto>
                   <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{`${item.date_of_birth}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>Masculino</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${item.birth_date}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${item.id_gender}`}</Subtitulo></Zoom>
                 </Texto>
               </Arriba>
               <Abajo>
@@ -56,7 +56,7 @@ const BigCards = () => {
 
             </ImagenContainer>
             <Container>
-              <Fade>
+              {/* <Fade>
                 <Div1>
                   <Titulo2>Descripcion</Titulo2>
                   <Caracteristicas>hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola </Caracteristicas>
@@ -89,7 +89,42 @@ const BigCards = () => {
                   <Titulo2>Vacunas</Titulo2>
                   <Caracteristicas>Todas</Caracteristicas>
                 </Div5>
-              </Fade> 
+              </Fade>  */}
+
+<Fade>
+              <Div1>
+                <Titulo2>Nombre</Titulo2>
+                <Caracteristicas>{`${item.name}`}</Caracteristicas>
+              </Div1>
+            </Fade>
+              
+            <Fade>
+              <Div2>
+                <Titulo2>Nacimiento</Titulo2>
+                <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
+              </Div2>
+            </Fade>
+
+            <Fade>
+              <Div3>
+                <Titulo2>Tamaño</Titulo2>
+                <Caracteristicas>{`${item.size}`}</Caracteristicas>
+              </Div3>
+            </Fade>
+            
+            <Fade>
+              <Div4>
+                <Titulo2>Peso</Titulo2>
+                <Caracteristicas>{`${item.weight}`}</Caracteristicas>
+              </Div4>
+            </Fade>
+              
+            <Fade>
+              <Div5>
+                <Titulo2>Vacunas</Titulo2>
+                <Caracteristicas>Consultar</Caracteristicas>
+              </Div5>
+            </Fade>
             </Container>
           </Carta>
         </SwiperSlide>
