@@ -219,4 +219,5 @@ const Avatar = styled.img`
 //   @media (max-width: 899px) {
 //     display: flex;
 //   }
-// 
+// `;
+
