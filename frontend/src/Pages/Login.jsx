@@ -17,10 +17,6 @@ function Login() {
   const validate = (values) => {
     const errors = {};
 
-    if (values.password !== values.repeatPassword) {
-      errors.repeatPassword = 'Las contraseñas no coinciden';
-    }
-
     if (!/(?=.*[A-Z])/.test(values.password)) {
       errors.password = 'La contraseña debe contener al menos una mayúscula';
     }
@@ -46,7 +42,6 @@ function Login() {
           initialValues={{
             email: '',
             password: '',
-            repeatPassword: '',
           }}
           onSubmit={handleSubmit}
           validate={validate}
@@ -62,11 +57,7 @@ function Login() {
                 <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
                 <ErrorMessage name="password" component="div" className="error" />
               </div>
-              <div className="form-group">
-                <label htmlFor="repeatPassword">Repetir contraseña</label>
-                <Field type="password" id="repeatPassword" name="repeatPassword" placeholder="Repite la contraseña" />
-                <ErrorMessage name="repeatPassword" component="div" className="error" />
-              </div>
+
               <button type="submit">Enviar</button>
             </Form>
           )}
