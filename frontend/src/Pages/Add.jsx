@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import NavBar from '../components/NavBar/Navbar';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
@@ -14,6 +14,20 @@ import Select from '@mui/material/Select';
 
 
 function Add() {
+
+  const [characteristicsData, setCharacteristicsData] = useState([]);
+
+  useEffect(() => {
+    // Realiza una solicitud HTTP para obtener las características desde tu servidor
+    axios.get('http://localhost:3000/pets/info/characteristics')
+      .then((response) => {
+        setCharacteristicsData(response.data); // Actualiza el estado con los datos obtenidos
+      })
+      .catch((error) => {
+        console.error('Error al obtener características:', error);
+      });
+  }, []);
+
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
@@ -296,10 +310,11 @@ function Add() {
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  <MenuItem value={1}>Juguetón</MenuItem>
-                                  <MenuItem value={2}>Tranquilo</MenuItem>
-                                  <MenuItem value={3}>Comilón</MenuItem>
-                                  <MenuItem value={4}>Dormilón</MenuItem>
+                                  {characteristicsData.map((characteristicOption) => (
+                                    <MenuItem key={characteristicOption.id} value={characteristicOption.id}>
+                                      {characteristicOption.name}
+                                    </MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
                               <ErrorMessage name={`characteristics[${index}]`} component="div" />
