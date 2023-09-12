@@ -11,7 +11,7 @@ cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
 
 #adopter
 from routes.adopter.register import AdopterRegister
-from routes.adopter.match import AdopterMatch
+from routes.adopter.request import AdopterRequest
 #shelter
 from routes.shelter.register import ShelterRegister
 #pet
@@ -26,8 +26,11 @@ from routes.user.login import Login
 from routes.user.logout import Logout
 from routes.user.profile import Profile
 from routes.user.close_account import Close_account
+from routes.user.request import UserRequest
+
 #developing
 from routes.developing.developing import Developing
+
 
 
 with app.app_context():
@@ -35,7 +38,7 @@ with app.app_context():
 
 #adopter
 app.register_blueprint(AdopterRegister)
-app.register_blueprint(AdopterMatch)
+app.register_blueprint(AdopterRequest)
 #shelter
 app.register_blueprint(ShelterRegister)
 #pet
@@ -49,9 +52,8 @@ app.register_blueprint(PetInfoCharacteristics)
 app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
-app.register_blueprint(Close_account)
-#developing
-app.register_blueprint(Developing)
+app.register_blueprint(UserRequest)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
