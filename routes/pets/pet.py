@@ -203,15 +203,41 @@ def sizes():
     db.session.add(Characteristics('Programado para vacunas', 'El perro está en un programa de vacunación y recibirá sus vacunas en el futuro', 6))
     db.session.add(Characteristics('Vacunación parcial', 'El perro ha recibido algunas vacunas pero no todas', 6))
     db.session.add(Characteristics('Reacciones a las vacunas', 'El perro ha experimentado reacciones adversas a vacunas en el pasado', 6))
+    db.session.commit()
 
-
-    
-    
-
-
+    db.session.add(
+        Address(
+            'cordoba',
+            'cordoba',
+            '5151',
+            12,
+            12
+        )
+    )
     db.session.commit()
     
-    db.session.add(Pet('muchi',  datetime.strptime('7/11/2011', '%m/%d/%Y'), 3,11,1,'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',1, 1))
+
+    db.session.add(
+        Shelter(
+            'RefugioGarra',
+            'garra@gmail.com',
+            1,
+            'garra'
+        )
+    )
+    db.session.commit()
+    
+    db.session.add(
+        Pet(
+            'Pancho',
+            '2019-03-10',
+            1,
+            1,
+            1,
+            'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',
+            1
+        )
+    )
     db.session.commit()
     
     db.session.add(RelationShipPetColor(1, 1))
