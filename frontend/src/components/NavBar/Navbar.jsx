@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import axios from 'axios';
 
 const pages = ['Inicio', 'Quienes somos'];
 const settings = ['Inciar Sesion'];
@@ -25,7 +26,6 @@ function Navbar() {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -196,6 +196,7 @@ function Navbar() {
     </AppBar>
   );
 }
+}
 
 export default Navbar;
 
@@ -218,4 +219,4 @@ const Avatar = styled.img`
 //   @media (max-width: 899px) {
 //     display: flex;
 //   }
-// `;
+// 
