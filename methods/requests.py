@@ -1,6 +1,6 @@
 from flask import Blueprint, session, abort, redirect, request,url_for,jsonify
 
-def Request(*args):
+def Request(*args, nullable=False):
     response = {}
     if len(args) == 1:
         arg = args[0]
@@ -15,10 +15,15 @@ def Request(*args):
         for arg in args:
             try:
                 response[f'{arg}'] =  request.json[arg]
+                
             except:
                 try:
                     response[f'{arg}'] =  request.args.get(arg)
+                    if nullable and response[f'{arg}'] == None:
+                        return None
                 except:
+                    if nullable:
+                        return None
                     response[f'{arg}'] = None
     return response
     

@@ -11,6 +11,8 @@ import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Successful from './Pages/Successful';
+import ShelterProfile from './Pages/ProfileShelter';
+import AdopterProfile from './Pages/ProfileAdopter';
 const App = () => {
 
 
@@ -50,7 +52,7 @@ const App = () => {
     <div className='App'>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/dogs" element={<Dogs />} />
           <Route path="/pet/details/:id" element={<ShowMore />} />
           <Route path="/pinder" element={<Pinder />} />
@@ -60,6 +62,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/successful" element={<Successful />} />
+          <Route path="/profile" element={<ShelterProfile />} />
+          <Route path="/profile2" element={<AdopterProfile />} />
 
         </Routes>
       </BrowserRouter>

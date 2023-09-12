@@ -1,15 +1,35 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Swiper from 'swiper';
 import 'swiper/css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 import CartaInd from './CartaInd';
 import { styled } from 'styled-components';
 
 export default function CardTeam() {
-  
+  useEffect(() => {
+    new Swiper('.swiper-container', {
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true, 
+      },
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+      autoplay: {
+        delay: 2500,
+      }
+      
+    });
+  }, []);
+
+
   return (
     <Container>
       <Text>ESTE GRUPO ESTA COMPUESTO POR:</Text>
-        <div class="swiper" style={{ height: '500px', width:'500px'}}>
+      <div class="swiper" style={{ height: '500px', width:'500px'}}>
         <div class="swiper-wrapper">
         <CartaInd name={'Yaco Babiachuck'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
         <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />
@@ -21,12 +41,10 @@ export default function CardTeam() {
         <CartaInd name={'Agustin Jose Salonia'} img={'https://i.postimg.cc/3R6Ny0tw/salo.jpg'} />
 
     </div>
-    <div class="swiper-pagination"></div>
   
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-prev" ></div>
     <div class="swiper-button-next"></div>
   
-    <div class="swiper-scrollbar"></div>
   </div>
 
     </Container>
