@@ -58,7 +58,7 @@ const Dogs = () => {
           <Container key={item.id}>
             <Zoom>
               <Cards
-                id={`${item.id}`}
+                id_pet={`${item.id_pet}`}
                 foto={`${item.image_path}`}
                 nombre={`${item.name}`}
                 titulo={`${item.name} es un perro muy feliz :D`}

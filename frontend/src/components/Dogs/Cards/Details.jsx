@@ -9,13 +9,13 @@ import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
 const Details = () => {
-    const { id_pet } = useParams();
+    const { id } = useParams();
     const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
     useEffect(() => {
         async function fetchData() {
         try {
-            const response = await axios.get(`http://localhost:5000/pet/${id_pet}`);
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
