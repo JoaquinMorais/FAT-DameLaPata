@@ -31,7 +31,7 @@ def getPet(id):
 def putPet():
     data = {
         **RequestList('colors','characteristics'),
-        **Request('name','size','weight','birthdate','image_path','gender')#'gender')
+        **Request('name','size','weight','birthdate','image_path','id_gender')#'gender')
     }
 
     id_shelter = Request('id_shelter')
@@ -66,7 +66,7 @@ def putPet():
             404
         )
     
-    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['gender'])
+    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['id_gender'])
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
@@ -133,8 +133,8 @@ def sizes():
     db.session.add(Color('Azul', 'tono de gris diluido'))
     db.session.add(Color('Sable', 'mezcla de colores con puntas más oscuras'))
     
-    db.session.add(Gender('Masculino', 'tiene pene'))
-    db.session.add(Gender('Femenino', 'no tiene pene'))
+    db.session.add(Gender('Masculino', 'macho'))
+    db.session.add(Gender('Femenino', 'hembra'))
     
     
     db.session.add(Category('pelaje', 'tipo de pelo'))
