@@ -144,7 +144,12 @@ def sizes():
     db.session.add(Category('comportamiento social', 'como se conducta con los demas seres vivos y humanos'))
     db.session.add(Category('Vacunacion', 'estado de vacunacion'))
     
-    
+    db.session.add(State('adoptado','¡match completado!'))
+    db.session.add(State('aceptado','¡match!'))
+    db.session.add(State('pendiente','estado pendiente'))
+    db.session.add(State('rechazado','estado rechazado'))
+    db.session.add(State('cancelado','estado cancelado'))
+
     
     
     
