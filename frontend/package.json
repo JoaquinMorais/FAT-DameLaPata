@@ -9,15 +9,9 @@
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.16",
     "@mantine/carousel": "^6.0.18",
-<<<<<<< HEAD
-    "@mui/icons-material": "^5.14.1",
-    "@mui/material": "^5.14.8",
-    "@mui/styled-engine-sc": "^5.14.8",
-=======
     "@mui/icons-material": "^5.14.8",
     "@mui/lab": "^5.0.0-alpha.143",
     "@mui/material": "^5.14.8",
->>>>>>> DLP_remakeRegister
     "@nextui-org/react": "^2.0.22",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
