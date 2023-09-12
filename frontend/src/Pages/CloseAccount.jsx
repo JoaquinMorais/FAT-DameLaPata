@@ -18,7 +18,7 @@ const CloseAccount = () => {
     const handleDeleteAccount = async () => {
         try {
             // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
-            await axios.post(`/closeaccount/123`); // Reemplaza 123 con el ID de usuario adecuado
+            await axios.post(`/closeaccount/1`); 
             setIsAccountDeleted(true);
             closeConfirmation();
         } catch (error) {
