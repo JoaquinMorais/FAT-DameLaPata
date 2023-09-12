@@ -12,9 +12,9 @@ function Successful() {
         <Container>
             <Bounce top><Imagen src="./Images/tickVerde.png" /></Bounce>
             <Fade><Texto>¡GRACIAS!</Texto></Fade>
-            <Fade><SubTexto>Este perrito está en el camino a ser y hacer feliz.</SubTexto></Fade>
+            <Fade><SubTexto>ACCION REALIZADA.</SubTexto></Fade>
             <Hr></Hr>
-            <Zoom><Boton href="/dogs">Ver perros</Boton></Zoom>
+            <Zoom><Boton href="/">Volver</Boton></Zoom>
         </Container>   
     </>
     

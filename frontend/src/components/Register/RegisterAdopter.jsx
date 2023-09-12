@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import axios from 'axios';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -39,14 +39,25 @@ const initialValues = {
   document: '',
 };
 
+async function SendAdopter(values) {
+  try {
+    const response = await axios.put('http://localhost:5000/adopter/register', values );
+    window.location.href="/successful";
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+}
+
 function AdopterRegister() {
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      SendAdopter(values)
       console.log(values);
     },
   });
+
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -187,7 +198,7 @@ function AdopterRegister() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <p>Tipo de documento de identidad (del 1 al 5)</p>
+          <p>Tipo de documento de identidad </p>
           <RadioGroup
             row
             aria-label="Tipo de documento de identidad"
@@ -202,21 +213,6 @@ function AdopterRegister() {
             />
             <FormControlLabel
               value={2}
-              control={<Radio />}
-              label="LIBRETA DE ENROLAMIENTO"
-            />
-            <FormControlLabel
-              value={3}
-              control={<Radio />}
-              label="DNI LIBRETA VERDE"
-            />
-            <FormControlLabel
-              value={4}
-              control={<Radio />}
-              label="DNI LIBRETA CELESTE"
-            />
-            <FormControlLabel
-              value={5}
               control={<Radio />}
               label="DNI TARJETA"
             />

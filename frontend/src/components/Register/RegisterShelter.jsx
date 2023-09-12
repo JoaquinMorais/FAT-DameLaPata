@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import axios from 'axios';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -31,14 +32,26 @@ const initialValues = {
   phone_number: '',
 };
 
+
+async function SendShelter(values) {
+  try {
+    const response = await axios.put('http://localhost:5000/shelter/register', values );
+    window.location.href="/successful";
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+}
+
 function ShelterRegister() {
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
+      SendShelter(values)
       console.log(values);
     },
   });
+
 
   return (
     <form onSubmit={formik.handleSubmit}>
