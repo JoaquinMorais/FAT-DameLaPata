@@ -6,8 +6,4 @@ react-reveal
 react-router-dom
 react-router
 swiper
-<<<<<<< HEAD
 color-thief-react
-=======
-color-thief-react
->>>>>>> 0460a2b45a69211635ac3c57b0aea0c5e9212f52
