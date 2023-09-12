@@ -57,7 +57,7 @@ const Details = () => {
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
                   <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>{`${responseData?.response.id_gender}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
                 </Texto>
                 {/* <Botones>
                   <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
@@ -91,8 +91,8 @@ const Details = () => {
             
             <Fade>
               <Div4>
-                <Titulo2>Colores</Titulo2>
-                <Caracteristicas>{`${responseData?.response.id_colors}`}</Caracteristicas>
+                <Titulo2>Color</Titulo2>
+                <Caracteristicas>Proximamente...</Caracteristicas>
               </Div4>
             </Fade>
               
