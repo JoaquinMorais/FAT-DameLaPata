@@ -31,7 +31,7 @@ def getPet(id):
 def putPet():
     data = {
         **RequestList('colors','characteristics'),
-        **Request('name','size','weight','birthdate','image_path','id_gender')#'gender')
+        **Request('name','size','weight','birthdate','image_path','gender')#'gender')
     }
 
     id_shelter = Request('id_shelter')
@@ -66,7 +66,7 @@ def putPet():
             404
         )
     
-    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['id_gender'])
+    pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['gender'])
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
