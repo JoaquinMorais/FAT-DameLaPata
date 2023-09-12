@@ -16,8 +16,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Inicio', 'Adoptar', 'Quienes somos', 'Publicar', 'Mis mascotas'];
-const settings = ['Perfil', 'Cerrar sesion'];
+const pages = ['Inicio', 'Quienes somos'];
+const settings = ['Inciar Sesion'];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -162,7 +162,7 @@ function Navbar() {
             <Tooltip title="Open settings">
             <Link to={getSettingsLink(settings)} />
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src='https://pbs.twimg.com/profile_images/1501988258078674950/_5xMT_RA_400x400.jpg' />
+                <Avatar src='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' />
               </IconButton>
             </Tooltip>
             <Menu
