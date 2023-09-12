@@ -330,6 +330,7 @@ class Pet(db.Model):
         return f'{self.name}'
     
     def json(self):
+        gender = Gender.query.get(self.id_gender)
         return {
             'id_pet':self.id_pet,
             'name':self.name.title(),
@@ -339,7 +340,7 @@ class Pet(db.Model):
             'weight' : self.weight,
             'id_shelter':self.id_shelter,
             'image_path' : self.image_path,
-            'id_gender' : self.id_gender
+            'gender' : gender.title
         }
 
 # caracteristicas de las mascotas:
