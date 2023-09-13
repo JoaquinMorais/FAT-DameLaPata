@@ -188,18 +188,25 @@ function AdopterProfile() {
                   <EditIcon />
                 </EditButton>
               </UserProfileAvatarContainer>
+
+
               <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
                 <DeleteIcon />
               </DeleteButton>
-            </Grid>
-
-            {isConfirmationOpen && (
+              {isConfirmationOpen && !isAccountDeleted && (
                 <ConfirmDialog
                     isOpen={isConfirmationOpen}
                     onClose={closeConfirmation}
                     onConfirm={handleDeleteAccount}
-                />  
-            )}
+                />
+              )}
+              {isAccountDeleted && (
+                <SuccessDialog
+                    isOpen={isAccountDeleted}
+                    onClose={closeSuccessDialog}
+                />
+              )}
+            </Grid>
 
             <Grid item xs={12} md={8}>
               <Typography variant="h4">Bienvenido <strong>{user.name}</strong></Typography>
