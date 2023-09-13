@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+// import colors from "../components/Add/colors"
+
 
 function Add() {
 
@@ -343,8 +345,8 @@ function Add() {
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  {responseDataCharacteristics?.response.map((item) => ( 
-                                    <MenuItem value={item.id_characterisitcs}>{item.title}</MenuItem>
+                                  {responseDataCharacteristics?.response.map((item2) => ( 
+                                    <MenuItem value={item2.id_characterisitcs}>{item2.title}</MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>
@@ -366,6 +368,8 @@ function Add() {
             </FieldArray>
             <ErrorMessage name="characteristics" component="div" />
           </div>
+
+
 
 
             <Boton type="submit">PUBLICAR</Boton>
