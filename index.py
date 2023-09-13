@@ -14,6 +14,7 @@ from routes.adopter.register import AdopterRegister
 from routes.adopter.request import AdopterRequest
 #shelter
 from routes.shelter.register import ShelterRegister
+from routes.shelter.close_shelter import Close_shelter
 #pet
 from routes.pets.pet import OnePet
 from routes.pets.pets import Pets

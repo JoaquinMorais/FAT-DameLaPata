@@ -1,20 +1,21 @@
 from flask import Blueprint
-from models.models import User
+from models.models import Shelter
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
 from methods.encrypt import Encrypt
 from methods.response import Response
 
-Close_account = Blueprint("Close_account",__name__)
+Close_shelter = Blueprint("Close_shelter",__name__)
 
-@Close_account.route("/closeaccount/<int:id_user>",methods=['POST'])
+@Close_shelter.route("/closeshelter/<int:id_shelter>",methods=['POST'])
 #@login_is_required(session)
-def close_account(id_user):
-    user = User.query.filter(User.id_user == id_user).first()
-    if user: 
-        if user.id_status != 2:
-            user.id_status = 2
+
+def close_shelter(id_shelter):
+    shelter = User.query.filter(Shelter.id_shelter == id_shelter).first()
+    if shelter: 
+        if shelter.id_status != 2:
+            shelter.id_status = 2
             db.session.commit()
             return 'sos el mas dou'
         else:
@@ -24,4 +25,3 @@ def close_account(id_user):
             'Error: bad Request',
             400
         )
-    
