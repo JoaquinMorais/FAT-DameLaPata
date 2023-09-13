@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-// import colors from "../components/Add/colors"
+import Colors from "../components/Add/Colors"
 
 
 function Add() {
@@ -273,6 +273,10 @@ function Add() {
             </div>
 
             <div style={{ marginBottom: '60px' }}>
+              <InputCB type="checkbox" />
+            </div>
+
+            {/* <div style={{ marginBottom: '60px' }}>
             <FieldArray name="colors">
               {({ push, remove }) => (
                 <>
@@ -319,43 +323,43 @@ function Add() {
               )}
             </FieldArray>
             <ErrorMessage name="colors" component="div" />
-          </div>
+          </div> */}
 
           <div style={{ marginBottom: '60px' }}>
             <FieldArray name="characteristics">
               {({ push, remove }) => (
                 <>
-                  {values.characteristics.map((characteristic, index) => (
-                    <div key={index}>
+                  {values.characteristics.map((characteristics, index2) => (
+                    <div key={index2}>
                       <div style={{ marginBottom: '60px' }}>
                         <Field
-                          id={`characteristics[${index}]`}
-                          name={`characteristics[${index}]`}
+                          id={`characteristics[${index2}]`}
+                          name={`characteristics[${index2}]`}
                         >
                           {({ field }) => (
                             <>
                               <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                                <InputLabel id={`characteristics-label[${index}]`}>Caracteristica</InputLabel>
+                                <InputLabel id={`characteristics-label[${index2}]`}>Caracteristica</InputLabel>
                                 <Select
                                   {...field}
-                                  labelId={`characteristics-label[${index}]`}
-                                  label="Caracteristica"
+                                  labelId={`characteristics-label[${index2}]`}
+                                  label="Caracteristicas"
                                   sx={{ width: '100%' }} // Estilos personalizados aquí
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
                                   {responseDataCharacteristics?.response.map((item2) => ( 
-                                    <MenuItem value={item2.id_characterisitcs}>{item2.title}</MenuItem>
+                                    <MenuItem value={item2.id_characteristic}>{item2.title}</MenuItem>
                                   ))}
                                 </Select>
                               </FormControl>
-                              <ErrorMessage name={`characteristics[${index}]`} component="div" />
+                              <ErrorMessage name={`characteristics[${index2}]`} component="div" />
                             </>
                           )}
                         </Field>
                       </div>
-                      <AgregarEliminar type="button" onClick={() => remove(index)}>
+                      <AgregarEliminar type="button" onClick={() => remove(index2)}>
                         Eliminar Característica
                       </AgregarEliminar>
                     </div>
@@ -437,5 +441,9 @@ const Boton = styled.button`
 `;
 
 const AgregarEliminar = styled.button`
+
+`;
+
+const InputCB = styled.input`
 
 `;
