@@ -1,5 +1,5 @@
 from flask import Blueprint
-from models.models import User
+from models.models import User, Adopter, Shelter
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
@@ -9,7 +9,8 @@ from methods.response import Response
 Close_account = Blueprint("Close_account",__name__)
 
 @Close_account.route("/closeaccount/<int:id_user>",methods=['POST'])
-#@login_is_required(session)
+@login_is_required(session, accepted_users=['adopter','shelter','volunteer'])
+
 def close_account(id_user):
     user = User.query.filter(User.id_user == id_user).first()
     if user: 
