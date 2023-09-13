@@ -1,6 +1,6 @@
 // NAVBAR SHELTER
 
-import * as React from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -15,9 +15,25 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import axios from 'axios';
 
-const pages = ['Inicio', 'Adoptar', 'Quienes somos', 'Publicar', 'Mis mascotas'];
-const settings = ['Perfil', 'Cerrar sesion'];
+const pages = ['Inicio', 'Quienes somos'];
+const settings = ['Cerrar sesion'];
+
+
+async function SendAdopter() {
+  try {
+    const response = await axios.post('http://localhost:5000/profile', '' );
+    if(response.data['status'] == 402){
+      console.log('deberia cambiar')
+      const settings = ['Iniciar sesion'];
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+};
+
+
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -64,6 +80,9 @@ function Navbar() {
   }
 
   return (
+    useEffect(() => {
+      SendAdopter()
+    }, []);
     <AppBar position="static" sx={{ backgroundColor: '#FF5722', position: 'fixed', zIndex: '9998', height: '50px', justifyContent: 'center' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
