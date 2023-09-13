@@ -291,10 +291,12 @@ class Characteristics(db.Model):
         return f'{self.title}'
     
     def json(self):
+        category = Category.query.get(self.id_category)
         return {
             'id_characteristic':self.id_characteristics,
             'title':self.title,
             'max_height':self.description,
+            'category': category.json()
             
         }
 
