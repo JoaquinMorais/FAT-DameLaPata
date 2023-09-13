@@ -43,14 +43,8 @@ function Navbar() {
     switch (page) {
       case 'Inicio':
         return '/';
-      case 'Adoptar':
-        return '/dogs';
       case 'Quienes somos':
         return '/about';
-      case 'Publicar':
-        return '/post';
-      case 'Mis mascotas':
-        return '/TODAVIA-NO-BRO';
     }
   }
 
