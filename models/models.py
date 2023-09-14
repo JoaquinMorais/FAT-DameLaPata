@@ -262,12 +262,24 @@ class Category(db.Model):
     def __repr__(self):
         return f'{self.title}'
 
-    def json(self):
+    def category_json(self):
         return {
             'id_category':self.id_category,
             'title':self.title,
             'description':self.description,
+        }
 
+    def json(self):
+        characteristics = Characteristics.query.filter(
+            Characteristics.id_category == self.id_category
+        ).all()
+        return {
+            'id_category':self.id_category,
+            'title':self.title,
+            'description':self.description,
+            'characteristics' : [
+                characteristic.characteristic_json() for characteristic in characteristics
+            ]
         }
 
 
@@ -290,14 +302,20 @@ class Characteristics(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
+    def characteristic_json(self):
+        return {
+            'id_characteristic':self.id_characteristics,
+            'title':self.title,
+            'max_height':self.description,
+        }
+
     def json(self):
         category = Category.query.get(self.id_category)
         return {
             'id_characteristic':self.id_characteristics,
             'title':self.title,
             'max_height':self.description,
-            'category': category.json()
-            
+            'category': category.category_json()
         }
 
 class Pet(db.Model):
@@ -342,7 +360,9 @@ class Pet(db.Model):
             'weight' : self.weight,
             'id_shelter':self.id_shelter,
             'image_path' : self.image_path,
-            'gender' : gender.title
+            'gender' : gender.title,
+            'colors': [color.color_json() for color in self.pet_colors],
+            'characteristics': [characteristic.characteristic_json() for characteristic in self.pet_characteristics],
         }
 
 # caracteristicas de las mascotas:
@@ -363,6 +383,9 @@ class RelationShipPetColor(db.Model):
     def getTitleColor(self):
         return self.color_value.title
 
+    def color_json(self):
+        return self.color_value.json()
+
 
 class RelationShipPetCharacteristics(db.Model):
     __tablename__ = 'relationshippetcharacteristics'
@@ -382,6 +405,9 @@ class RelationShipPetCharacteristics(db.Model):
     
     def getDescriptionCharacteristics(self):
         return self.characteristics_value.description
+    
+    def characteristic_json(self):
+        return self.characteristics_value.json()
 # caracteristicas deseadas de la persona:
 
 class RelationShipUserColor(db.Model):
@@ -395,6 +421,18 @@ class RelationShipUserColor(db.Model):
         self.id_user = user
         self.id_color = color
 
+    def json(self):
+        color = Color.query.get(self.id_color)
+        adopter = Adopter.query.get(self.id_user)
+        return {
+            'id_relationship':self.id_relationship,
+            'color':color.json(),
+            'adopter':adopter.json()
+        }
+
+    def color(self):
+        color = Color.query.get(self.id_color)
+        return color.json()
 
 class RelationShipUserSize(db.Model):
     __tablename__ = 'relationship_adopter_size'
@@ -406,6 +444,11 @@ class RelationShipUserSize(db.Model):
     def __init__(self, user, size):
         self.id_user = user
         self.id_size = size
+    
+    def size(self):
+        size = Size.query.get(self.id_size)
+        return size.json()
+        
 
 # Peticion
 
