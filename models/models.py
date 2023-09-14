@@ -59,19 +59,24 @@ class User(db.Model):
     type = Column(String(150))
 
     id_address = Column(Integer, ForeignKey('address.id_address', onupdate='CASCADE'))
+    id_status = Column(Integer, ForeignKey('status.id_status', onupdate='CASCADE'))
 
     __mapper_args__ = {
         'polymorphic_identity': 'user',
         'polymorphic_on': type,
     }
 
-    def __init__(self, username, email, id_address):
+    def __init__(self, username, email, id_address, id_status):
         self.username = username
         self.email = email
         self.id_address = id_address
+        self.id_status = id_status
 
     def getId(self):
         return self.id_user
+
+    def getStatus(self):
+        return self.id_status
 
     def this_type(self):
         return type(self).__name__
@@ -456,6 +461,17 @@ class RequestPetAdopter(db.Model):
             'edition_date':self.edition_date.isoformat(),
             
         }
+
+
+class Status(db.Model):
+    __tablename__ = 'status'
+    id_status = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable = False)
+
+    def __init__(self,titulo):
+        self.titulo = titulo
+
+
 
 class Image(db.Model):
     id_image = db.Column(db.Integer, primary_key=True)

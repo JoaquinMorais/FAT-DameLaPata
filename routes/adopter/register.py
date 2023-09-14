@@ -17,7 +17,7 @@ AdopterRegister = Blueprint("AdopterRegister",__name__)
 def register_adopter():
     session.pop('user_id',None)
     
-    data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
+    data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document', 'id_status')
     for x in data:
         print({x: data[x]})
         if data[x] == None:
@@ -37,7 +37,7 @@ def register_adopter():
     db.session.add(address)
     db.session.commit()
     
-    user = Adopter(data['username'],data["email"],address.id_address,data["name"],data["surname"],data["birthdate"],data["phone_number"],data["id_document_type"],data["document"])
+    user = Adopter(data['username'],data["email"],address.id_address,data["name"],data["surname"],data["birthdate"],data["phone_number"],data["id_document_type"],data["document"], data['id_status'])
     
     db.session.add(user)
     db.session.commit()

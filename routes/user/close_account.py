@@ -3,10 +3,12 @@ from models.models import User, Adopter
 from utils.db import db
 from methods.response import Response
 
-# Crea un Blueprint llamado "close_account"
-close_account = Blueprint("close_account", __name__)
+# Crea un Blueprint
+Close_account = Blueprint("Close_account", __name__)
 
-@close_account.route("/closeaccount/<int:id_user>", methods=['POST'])
+@Close_account.route("/closeaccount/<int:id_user>", methods=['POST'])
+#@login_is_required(session, accepted_users=['adopter','shelter','volunteer'])
+
 def close_account(id_user):
     try:
         # Obtén el usuario con el ID proporcionado
