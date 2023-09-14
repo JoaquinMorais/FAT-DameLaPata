@@ -17,27 +17,19 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 
-const pages = ['Inicio', 'Quienes somos'];
-const settings = ['Cerrar sesion'];
-
-
-async function SendAdopter() {
-  try {
-    const response = await axios.post('http://localhost:5000/profile', '' );
-    if(response.data['status'] == 402){
-      console.log('deberia cambiar')
-      const settings = ['Iniciar sesion'];
-    }
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
-  }
-};
 
 
 
-function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+function Navbar({pages_array, settings_array}) {
+  console.log(extra_value)
+  const pages = pages_array;
+  const settings = settings_array;
+
+  settings.push(extra_value)
+  
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -80,9 +72,6 @@ function Navbar() {
   }
 
   return (
-    useEffect(() => {
-      SendAdopter()
-    }, []);
     <AppBar position="static" sx={{ backgroundColor: '#FF5722', position: 'fixed', zIndex: '9998', height: '50px', justifyContent: 'center' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
