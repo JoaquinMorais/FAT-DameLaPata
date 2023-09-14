@@ -17,6 +17,7 @@ import Colors from "../components/Add/Colors"
 
 function Add() {
 
+  const [selectedColors, setSelectedColors] = useState([]);
 
 
   const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
@@ -55,6 +56,15 @@ function Add() {
 
 
   
+  const handleCheckboxChange = (event) => {
+    const value = parseInt(event.target.value, 10); // Convierte el valor en un número
+    if (event.target.checked) {
+      setSelectedColors([...selectedColors, value]);
+    } else {
+      setSelectedColors(selectedColors.filter((color) => color !== value));
+    }
+  };
+
 
 
   
@@ -273,7 +283,18 @@ function Add() {
             </div>
 
             <div style={{ marginBottom: '60px' }}>
-              <InputCB type="checkbox" />
+              {responseDataColors?.response.map((item) => (
+                <label key={item.id_color}>
+                  <input
+                    type="checkbox"
+                    value={item.id_color}
+                    onChange={handleCheckboxChange}
+                    checked={selectedColors.includes(item.id_color)}
+                  />
+                  {item.color_name}
+                </label>
+              ))}
+              {/* <div>Valores seleccionados: {selectedColors.join(', ')}</div> */}
             </div>
 
             {/* <div style={{ marginBottom: '60px' }}>
