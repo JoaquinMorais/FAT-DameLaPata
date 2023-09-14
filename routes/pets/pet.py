@@ -116,7 +116,9 @@ def deletePet(id):
 
 @OnePet.route("/db/populate",methods=['GET','POST'])
 def sizes():
-    
+    db.session.add(Status('Activado'))
+    db.session.add(Status('Desactivado'))
+
     db.session.add(Size('Chico',3,4))
     db.session.add(Size('Mediano',3,4))
     db.session.add(Size('Grande',3,4))

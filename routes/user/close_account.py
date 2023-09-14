@@ -6,13 +6,13 @@ from methods.response import Response
 # Crea un Blueprint
 Close_account = Blueprint("Close_account", __name__)
 
-@Close_account.route("/closeaccount/<int:id_user>", methods=['POST'])
+@Close_account.route("/closeaccount/<id_user>", methods=['POST'])
 #@login_is_required(session, accepted_users=['adopter','shelter','volunteer'])
 
 def close_account(id_user):
     try:
         # Obtén el usuario con el ID proporcionado
-        user = User.query.filter_by(id_user=id_user).first()
+        user = User.query.filter(User.id_user==int(id_user)).first()
 
         if user:
             # Verifica si el usuario ya tiene el estado 2 (cuenta cerrada)
