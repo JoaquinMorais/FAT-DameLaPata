@@ -56,7 +56,7 @@ const Text = styled.p`
   font-size: 22px;
   text-align: justify;
   margin-top: 30px;
-  margin-right: 60px;
+  margin-right: 50px;
   text-align: right;
 
   @media (max-width: 1024px) {

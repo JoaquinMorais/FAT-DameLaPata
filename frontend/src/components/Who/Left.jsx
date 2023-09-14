@@ -52,7 +52,7 @@ const Txt = styled.p`
   text-align: justify;
   margin-left: 30px;
   margin-top: 30px;
-  font-size: 22px;
+  font-size: 2px;
 
   @media(max-width: 1024px){
     margin-top: -60px;
