@@ -53,7 +53,7 @@ app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
 app.register_blueprint(UserRequest)
-
+app.register_blueprint(Close_account)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
