@@ -53,9 +53,10 @@ const Wrap = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 25px;
+  font-size: 22px;
   text-align: justify;
   margin-top: 30px;
+  margin-right: 60px;
   text-align: right;
 
   @media (max-width: 1024px) {

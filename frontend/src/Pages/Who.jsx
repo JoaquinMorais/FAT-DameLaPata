@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar/Navbar';
 
 function Who() {
   return (
-    <>
+    <>  
     <NavBar/>
         <TitleFile/>
         <Left
