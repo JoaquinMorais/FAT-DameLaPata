@@ -1,5 +1,5 @@
 from flask import Blueprint,json,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adopter, RelationShipPetColor, RelationShipPetCharacteristics, Pet, RequestPetAdopter
+from models.models import User,State, Adopter, RelationShipPetColor, RelationShipPetCharacteristics, Pet, RequestPetAdopter
 from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request
@@ -25,6 +25,24 @@ def register_adopter():
             'Bad Request',
             400
         )
+    
+
+    pet = Pet.query.get(data['id_pet'])
+
+    if not pet:
+        return Response(
+            'Bad Request pet doesnt exists',
+            400
+        )
+    
+    state = State.query.get(data['id_state'])
+
+    if not state:
+        return Response(
+            'Bad Request state doesnt exists',
+            400
+        )
+    
 
     actual_hour = datetime.now(pytz.timezone('America/Argentina/Buenos_Aires'))
     

@@ -12,8 +12,51 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+// import colors from "../components/Add/colors"
+
 
 function Add() {
+
+
+
+  const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  ////
+
+  const [responseDataCharacteristics, setresponseDataCharacteristics] = useState(null); // Agrega el estado para la respuesta de axios
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/characteristics'); 
+        setresponseDataCharacteristics(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  ////
+
+
+  
+
+
   
   const [age, setAge] = React.useState('');
 
@@ -65,7 +108,12 @@ function Add() {
     setSubmitting(false);
   };  
 
+  
+  responseDataColors?.response.forEach(element => {
+    console.log(element)
+  });
   return (
+
     <>
       <NavBar />
       <Formik
@@ -228,6 +276,7 @@ function Add() {
             <FieldArray name="colors">
               {({ push, remove }) => (
                 <>
+
                   {values.colors.map((color, index) => (
                     <div key={index}>
                       <div style={{ marginBottom: '60px' }}>
@@ -248,10 +297,9 @@ function Add() {
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  <MenuItem value={1}>Blanco</MenuItem>
-                                  <MenuItem value={2}>Negro</MenuItem>
-                                  <MenuItem value={3}>Dorado</MenuItem>
-                                  <MenuItem value={4}>Marrón</MenuItem>
+                                  {responseDataColors?.response.map((item) => ( 
+                                    <MenuItem value={item.id_color}>{item.title}</MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
                               <ErrorMessage name={`colors[${index}]`} component="div" />
@@ -297,10 +345,9 @@ function Add() {
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  <MenuItem value={1}>Juguetón</MenuItem>
-                                  <MenuItem value={2}>Tranquilo</MenuItem>
-                                  <MenuItem value={3}>Comilón</MenuItem>
-                                  <MenuItem value={4}>Dormilón</MenuItem>
+                                  {responseDataCharacteristics?.response.map((item2) => ( 
+                                    <MenuItem value={item2.id_characterisitcs}>{item2.title}</MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
                               <ErrorMessage name={`characteristics[${index}]`} component="div" />
@@ -321,6 +368,8 @@ function Add() {
             </FieldArray>
             <ErrorMessage name="characteristics" component="div" />
           </div>
+
+
 
 
             <Boton type="submit">PUBLICAR</Boton>
