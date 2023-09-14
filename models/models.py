@@ -66,11 +66,11 @@ class User(db.Model):
         'polymorphic_on': type,
     }
 
-    def __init__(self, username, email, id_address, id_status):
+    def __init__(self, username, email, id_address):
         self.username = username
         self.email = email
         self.id_address = id_address
-        self.id_status = id_status
+        self.id_status = 1
 
     def getId(self):
         return self.id_user
