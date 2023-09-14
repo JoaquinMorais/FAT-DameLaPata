@@ -126,6 +126,8 @@ function AdopterProfile() {
     };
 
     const handleDeleteAccount = async () => {
+      // inicio de flag
+      // iniciar loder
       try {
           // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
           await axios.post(`/closeaccount/1`); 
@@ -134,6 +136,8 @@ function AdopterProfile() {
       } catch (error) {
           console.error(error);
       }
+      // flag down
+      // cerrar loder
   };
 
   const closeSuccessDialog = () => {

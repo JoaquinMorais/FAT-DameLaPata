@@ -1,28 +1,29 @@
-from flask import Blueprint,render_template,redirect,url_for,request,session,g,abort,flash, jsonify
-from models.models import User, Adopter, Shelter, Address, Credencial
+from flask import Blueprint, jsonify, request
+from models.models import User, Adopter
 from utils.db import db
-from decorators.flask_decorators import * 
-from methods.requests import Request
-from methods.encrypt import Encrypt
 from methods.response import Response
 
-Close_account = Blueprint("Close_account",__name__)
+# Crea un Blueprint llamado "close_account"
+close_account = Blueprint("close_account", __name__)
 
-@Close_account.route("/closeaccount/<id_user>",methods=['POST'])
-#@login_is_required(session, accepted_users=['adopter','shelter','volunteer'])
-
+@close_account.route("/closeaccount/<int:id_user>", methods=['POST'])
 def close_account(id_user):
-    user = User.query.filter(User.id_user == int(id_user)).first()
-    if user: 
-        if user.id_status != 2:
+    try:
+        # Obtén el usuario con el ID proporcionado
+        user = User.query.filter_by(id_user=id_user).first()
+
+        if user:
+            # Verifica si el usuario ya tiene el estado 2 (cuenta cerrada)
+            if user.id_status == 2:
+                return Response('La cuenta ya ha sido cerrada anteriormente.', 400)
+
+            # Actualiza el estado del usuario a 2 (cuenta cerrada)
             user.id_status = 2
             db.session.commit()
-            return 'sos el mas dou'
+
+            return Response('La cuenta ha sido cerrada exitosamente.', 200)
         else:
-            return 'La cuenta ya ha sido cerrada...'
-    else:
-        return Response(
-            'Error: bad Request',
-            400
-        )
-    
+            return Response('El usuario no fue encontrado.', 404)
+    except Exception as e:
+        # Maneja cualquier excepción que pueda ocurrir durante la operación
+        return Response(f'Error: {str(e)}', 500)
