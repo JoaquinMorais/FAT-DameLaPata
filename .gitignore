@@ -1,4 +1,4 @@
-*.py[cod]
 *$py.class
+node_modules
 node_modules
 node_modules
