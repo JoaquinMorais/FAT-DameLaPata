@@ -235,10 +235,12 @@ class Color(db.Model):
     id_color = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
-    
-    def __init__(self, title, description):
+    color_hash = db.Column(db.String(10), nullable = False)
+
+    def __init__(self, title, description,color_hash):
         self.title = title
         self.description = description
+        self.color_hash = color_hash
 
     def __repr__(self):
         return f'{self.title}'
