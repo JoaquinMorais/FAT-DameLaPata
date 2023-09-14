@@ -282,7 +282,7 @@ function Add() {
               </Field>
             </div>
 
-            <div style={{ marginBottom: '60px' }}>
+            {/* <div style={{ marginBottom: '60px' }}>
               {responseDataColors?.response.map((item) => (
                 <label key={item.id_color}>
                   <input
@@ -294,10 +294,10 @@ function Add() {
                   {item.color_name}
                 </label>
               ))}
-              {/* <div>Valores seleccionados: {selectedColors.join(', ')}</div> */}
-            </div>
+              <div>Valores seleccionados: {selectedColors.join(', ')}</div>
+            </div> */}
 
-            {/* <div style={{ marginBottom: '60px' }}>
+            <div style={{ marginBottom: '60px' }}>
             <FieldArray name="colors">
               {({ push, remove }) => (
                 <>
@@ -344,7 +344,7 @@ function Add() {
               )}
             </FieldArray>
             <ErrorMessage name="colors" component="div" />
-          </div> */}
+          </div>
 
           <div style={{ marginBottom: '60px' }}>
             <FieldArray name="characteristics">
