@@ -215,8 +215,27 @@ def sizes():
             'cordoba',
             'cordoba',
             '5151',
-            12,
+            52,
             12
+        )
+    )
+    
+    db.session.add(
+        Address(
+            'Buenos aires',
+            'venezuela',
+            '5221',
+            12,
+            22
+        )
+    )
+    db.session.add(
+        Address(
+            'formoza',
+            'LALAAL',
+            '521',
+            2,
+            6
         )
     )
     db.session.commit()
@@ -224,32 +243,144 @@ def sizes():
 
     db.session.add(
         Shelter(
-            'RefugioGarra',
+            'GARRA',
             'garra@gmail.com',
             1,
             'garra'
+        )
+    )
+    
+    db.session.add(
+        Shelter(
+            'GUARDERIA',
+            'guarderia@gmail.com',
+            2,
+            'guarderia'
+        )
+    )
+      
+    db.session.add(
+        Shelter(
+            'PERRERIA',
+            'perrera@gmail.com',
+            3,
+            'perrera'
         )
     )
     db.session.commit()
     
     db.session.add(
         Pet(
-            'Pancho',
-            '2019-03-10',
-            1,
-            1,
+            'muchi',
+            '2011-07-11',
+            3,
+            11,
             1,
             'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',
             1
         )
     )
+    
+    
+    
+    db.session.add(
+        Pet(
+            'BLANCA',
+            '2021-01-01',
+            2,
+            15,
+            3,
+            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
+            2
+        )
+    )   
+    
+    
+    db.session.add(
+        Pet(
+            'MARRON',
+            '2022-01-01',
+            1,
+            40,
+            2,
+            'https://unamglobal.unam.mx/wp-content/uploads/2023/03/estresperros.jpg',
+            1
+        )
+     )
+        
+        
+    db.session.add(
+        Pet(
+            'frida',
+            '2019-01-01',
+            1,
+            90,
+            2,
+            'https://http2.mlstatic.com/D_NQ_NP_600435-MLA47876221938_102021-O.webp',
+            2
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'negra',
+            '2019-01-01',
+            3,
+            120,
+            2,
+            'https://images.ecestaticos.com/lifexbg6yiaK4ecV_i_ok4QF5E4=/0x0:1000x750/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F4b9%2F6f9%2Fb7e%2F4b96f9b7eeaba9a22f864fe7ad663f58.jpg',
+            1
+        )
+     )
+    
+    db.session.add(
+        Pet(
+            'no color',
+            '2019-01-01',
+            3,
+            25,
+            1,
+            'https://imagenes.elpais.com/resizer/iTvj-2_NqCqbV8Q8KxaC7uafCB0=/1960x1470/cloudfront-eu-central-1.images.arcpublishing.com/prisa/ZM2ZBNP5XUKH63E4MNQDBLV3SI.jpg',
+            2
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    
+        
     db.session.commit()
     
-    db.session.add(RelationShipPetColor(1, 1))
-    db.session.add(RelationShipPetColor(1, 2))
-    db.session.add(RelationShipPetColor(1, 3))
-    db.session.add(RelationShipPetCharacteristics(1, 1))
-    db.session.add(RelationShipPetCharacteristics(1, 2))
+    db.session.add(RelationShipPetColor(3, 3))
+    db.session.add(RelationShipPetColor(8, 4))
+    db.session.add(RelationShipPetColor(5, 2))
+    db.session.add(RelationShipPetColor(7, 2))
+    db.session.add(RelationShipPetColor(7, 3))
+    db.session.add(RelationShipPetColor(10, 1))
+    db.session.add(RelationShipPetColor(10, 2))
+    db.session.add(RelationShipPetColor(10, 3))
+    
+    
+    
+    db.session.add(RelationShipPetCharacteristics(3, 2))
+    db.session.add(RelationShipPetCharacteristics(5, 3))
+    db.session.add(RelationShipPetCharacteristics(7, 4))
+    db.session.add(RelationShipPetCharacteristics(8, 2))
+    db.session.add(RelationShipPetCharacteristics(10, 2))
+    db.session.add(RelationShipPetCharacteristics(10, 3))
     db.session.commit()
 
     db.session.add(DocumentType('dni','soy un dni'))
