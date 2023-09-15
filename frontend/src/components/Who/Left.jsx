@@ -1,22 +1,16 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import Subtitle from './Subtitle';
 import Fade from 'react-reveal/Fade';
 
-
-const LeftContent = ({ text, imageUrl}) => {
+const LeftContent = ({ text, imageUrl }) => {
   return (
     <Wrap>
       <Fade bottom>
-
-      <Container>
-        <TPart>
+        <Container>
+          <ImgPart src={imageUrl} />
           <Txt>{text}</Txt>
-        </TPart>
-        <ImgPart src={imageUrl} />
-      </Container>
+        </Container>
       </Fade>
-
     </Wrap>
   );
 };
@@ -25,58 +19,37 @@ export default LeftContent;
 
 const Wrap = styled.div`
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide en dos columnas en pantallas grandes */
+  gap: 20px;
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr; /* Cambia a una sola columna en pantallas pequeñas */
+  }
 `;
 
 const Container = styled.div`
   display: flex;
-  height: 40vh;
-  flex-direction: row;
-  @media(max-width: 1024px){
-    flex-direction: column;
-    height: 100vh;
-  }
-`;
-
-const TPart = styled.div`
-  width: 50%;
-  @media(max-width: 1024px){
-    width: 100%;
-  }
-
-
-
+  flex-direction: column;
 `;
 
 const Txt = styled.p`
-  float: left;
+  font-size: 22px;
   text-align: justify;
-  margin-left: 30px;
   margin-top: 30px;
-  font-size: 2px;
-
-  @media(max-width: 1024px){
-    margin-top: -60px;
-    text-align:center;
+  @media (max-width: 1024px) {
+    text-align: center;
+    margin-top: 0;
   }
-
 `;
 
 const ImgPart = styled.img`
   object-fit: cover;
   height: auto;
-  width: 50%;
-  clip-path: polygon(43% 0, 100% 0, 100% 100%, 0 100%);
-
-  @media(max-width: 1024px){
+  @media (max-width: 1024px) {
     width: 100%;
     height: 200px;
-    clip-path: polygon(0% 0, 100% 0, 100% 150%, 0 150%);
-
   }
-
-  @media(max-width: 425px){
-
+  @media (max-width: 425px) {
+    min-height: 350px;
   }
-
 `;
-
