@@ -27,7 +27,7 @@ export default function CardTeam() {
   return (
     <Container>
       <Text>ESTE GRUPO ESTÁ COMPUESTO POR:</Text>
-      <div className="swiper-container" style={{ height: '500px', width: '500px' }}>
+      <div className="swiper-container">
         <div className="swiper-wrapper">
           <CartaInd name={'Yaco Babiachuck'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'} />
           <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />

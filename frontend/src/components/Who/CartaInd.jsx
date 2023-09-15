@@ -44,4 +44,4 @@ function CartaInd({name , img, swiperInstance}) {
 )
 }
 
-export default CartaInd
+export default CartaInd;

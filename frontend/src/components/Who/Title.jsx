@@ -25,5 +25,13 @@ const Wrap = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 60px;
+  font-size: 60px; /* Tamaño original de la fuente del título */
+  margin-top: 20px; /* Ajusta el margen superior del título para evitar superposición */
+  transition: font-size 0.5s; /* Transición suave para cambiar el tamaño de fuente */
+  
+  @media (max-width: 425px) {
+    font-size: 30px; /* Tamaño más pequeño de la fuente en pantallas pequeñas */
+    margin-top: 60px; /* Ajusta el margen superior en pantallas pequeñas */
+    margin-bottom: 20px;
+  }
 `;
