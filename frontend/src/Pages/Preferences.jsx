@@ -1,111 +1,180 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Slider } from '@mui/material';
+import React, { useState } from 'react';
+import Select from 'react-select';
+import {
+  Slider,
+  Button,
+  Grid,
+  Container,
+  Box,
+  TextField,
+} from '@mui/material';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  padding: theme.spacing(2),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const options = [
+  { value: 'Pequeño', label: 'Pequeño' },
+  { value: 'Mediano', label: 'Mediano' },
+  { value: 'Grande', label: 'Grande' },
+];
 
-function FormRow() {
-    const [tamanio, setTamanio] = React.useState(''); // Variable de estado para el primer menú
-    const [colores, setColores] = React.useState(''); // Variable de estado para el segundo menú
+const comportamientoOptions = [
+  { value: 'Amigable', label: 'Amigable' },
+  { value: 'Tímido', label: 'Tímido' },
+  { value: 'Agresivo', label: 'Agresivo' },
+];
 
-    const handleTamanioChange = (event) => { // Función de manejo de cambios para el primer menú
-      setTamanio(event.target.value);
-    };
-    
-    const handleColoresChange = (event) => { // Función de manejo de cambios para el segundo menú
-      setColores(event.target.value);
-    };
-  
-    return (
-      <React.Fragment>
-        <Grid item xs={2}>
-        <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="tamanio-label">Tamanio</InputLabel>
-          <Select
-            labelId="tamanio-label"
-            id="tamanio-select"
-            value={tamanio}
-            onChange={handleTamanioChange}
-          >
-            <MenuItem value={10}>Chico</MenuItem>
-            <MenuItem value={20}>Medio</MenuItem>
-            <MenuItem value={30}>Grande</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-        </Grid>
-        <Grid item xs={2}>
-        <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="colores-label">Colores</InputLabel>
-          <Select
-            labelId="colores-label"
-            id="colores-select"
-            value={colores}
-            onChange={handleColoresChange}
-          >
-            <MenuItem value={1}>Negro</MenuItem>
-            <MenuItem value={2}>Blanco</MenuItem>
-            <MenuItem value={3}>Gris</MenuItem>
-            <MenuItem value={4}>Amarillo</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-        </Grid>
-        <Grid item xs={2}>
-        <Slider
-            disabled={false}
-            marks
-            max={20}
-            min={0}
-            size="big"
-            valueLabelDisplay="on"
-          />
-        </Grid>
-      </React.Fragment>
-    );
-  }
+const colorOptions = [
+  { value: 'Blanco', label: 'Blanco' },
+  { value: 'Negro', label: 'Negro' },
+  { value: 'Marrón', label: 'Marrón' },
+];
 
-function Aditional() {
-    return (
-      <React.Fragment>
-        <Grid item xs={2}>
-          <Item>Salud</Item>
-        </Grid>
-        <Grid item xs={2}>
-          <Item>Comportamiento</Item>
-        </Grid>
-        <Grid item xs={2}>
-          <Item>Apariencia</Item>
-        </Grid>
-      </React.Fragment>
-    );
-  }
+const saludOptions = [
+  { value: 'Buena', label: 'Buena' },
+  { value: 'Regular', label: 'Regular' },
+  { value: 'Mala', label: 'Mala' },
+];
 
-export default function Preferences() {
+const Formulario = () => {
+  const [parametros, setParametros] = useState({
+    tamaño: [],
+    comportamiento: '',
+    edad: 0,
+    color: [],
+    salud: '',
+    adicionales: '',
+  });
+
+  const handleParamChange = (name, value) => {
+    setParametros({
+      ...parametros,
+      [name]: value,
+    });
+  };
+
+  const handleSliderChange = (event, newValue) => {
+    handleParamChange('edad', newValue);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(parametros);
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
-        <Grid container item spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item spacing={3}>
-          <Aditional />
-        </Grid>
-      </Grid>
-    </Box>
+    <>
+        <h1>REGISTRAR PREFERENCIAS</h1>
+    <Container maxWidth="xs">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+      >
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <label htmlFor="tamaño">Tamaño</label>
+              <Select
+                id="tamaño"
+                options={options}
+                isMulti
+                value={options.filter((option) =>
+                  parametros.tamaño.includes(option.value)
+                )}
+                onChange={(selectedOptions) =>
+                  handleParamChange(
+                    'tamaño',
+                    selectedOptions.map((option) => option.value)
+                  )
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <label htmlFor="comportamiento">Comportamiento</label>
+              <Select
+                id="comportamiento"
+                options={comportamientoOptions}
+                value={
+                  comportamientoOptions.find(
+                    (option) => option.value === parametros.comportamiento
+                  ) || null
+                }
+                onChange={(selectedOption) =>
+                  handleParamChange(
+                    'comportamiento',
+                    selectedOption ? selectedOption.value : ''
+                  )
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <label>Edad: {parametros.edad}</label>
+              <Slider
+                name="edad"
+                value={parametros.edad}
+                min={0}
+                max={100}
+                onChange={handleSliderChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <label htmlFor="color">Color</label>
+              <Select
+                id="color"
+                options={colorOptions}
+                isMulti
+                value={colorOptions.filter((option) =>
+                  parametros.color.includes(option.value)
+                )}
+                onChange={(selectedOptions) =>
+                  handleParamChange(
+                    'color',
+                    selectedOptions.map((option) => option.value)
+                  )
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <label htmlFor="salud">Salud</label>
+              <Select
+                id="salud"
+                options={saludOptions}
+                value={
+                  saludOptions.find(
+                    (option) => option.value === parametros.salud
+                  ) || null
+                }
+                onChange={(selectedOption) =>
+                  handleParamChange(
+                    'salud',
+                    selectedOption ? selectedOption.value : ''
+                  )
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name="adicionales"
+                label="Adicionales (separados por comas)"
+                value={parametros.adicionales}
+                onChange={(event) =>
+                  handleParamChange('adicionales', event.target.value)
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" color="primary">
+                Enviar
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Container>
+
+    </>
   );
-}
+};
+
+export default Formulario;
