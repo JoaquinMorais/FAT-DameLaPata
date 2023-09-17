@@ -8,6 +8,7 @@ import {
   Box,
   TextField,
 } from '@mui/material';
+import Navbar from '../components/NavBar/Navbar';
 
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
@@ -54,6 +55,12 @@ const Formulario = () => {
     handleParamChange('edad', newValue);
   };
 
+  const handleSelectChange = (name, selectedOptions) => {
+    if (selectedOptions.length <= 2) {
+      handleParamChange(name, selectedOptions.map((option) => option.value));
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(parametros);
@@ -61,117 +68,169 @@ const Formulario = () => {
 
   return (
     <>
-        <h1>REGISTRAR PREFERENCIAS</h1>
-    <Container maxWidth="xs">
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="100vh"
+      <Navbar />
+      <div
+        style={{
+          backgroundImage:
+            'url(https://www.publico.es/yo-animal/wp-content/uploads/2022/10/perros-callejeros-3-1024x683.jpg)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          minHeight: '100vh',
+        }}
       >
-        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <label htmlFor="tamaño">Tamaño</label>
-              <Select
-                id="tamaño"
-                options={options}
-                isMulti
-                value={options.filter((option) =>
-                  parametros.tamaño.includes(option.value)
-                )}
-                onChange={(selectedOptions) =>
-                  handleParamChange(
-                    'tamaño',
-                    selectedOptions.map((option) => option.value)
-                  )
-                }
-              />
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 1, 
+          }}
+        >
+          <Container maxWidth="sm">
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              minHeight="100vh"
+              sx={{
+                backgroundColor: 'rgba(241, 152, 133, 0.5)',
+                paddingLeft: '30px',
+                paddingRight: '30px',
+                backdropFilter: 'blur(10px)',
+              }}
+            >
+              <h1
+                style={{
+                  textAlign: 'center',
+                  fontSize: '36px',
+                  marginBottom: '100px',
+                  fontWeight: 'bold',
+                  fontFamily: 'Patrick Hand',
+                  letterSpacing: '5px',
+                }}
+              >
+                REGISTRAR PREFERENCIAS
+              </h1>
+
+          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <label htmlFor="tamaño">Tamaño</label>
+                <Select
+                  id="tamaño"
+                  options={options}
+                  isMulti
+                  value={options.filter((option) =>
+                    parametros.tamaño.includes(option.value)
+                  )}
+                  onChange={(selectedOptions) =>
+                    handleSelectChange(
+                      'tamaño',
+                      selectedOptions
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <label htmlFor="comportamiento">Comportamiento</label>
+                <Select
+                  id="comportamiento"
+                  options={comportamientoOptions}
+                  value={
+                    comportamientoOptions.find(
+                      (option) => option.value === parametros.comportamiento
+                    ) || null
+                  }
+                  onChange={(selectedOption) =>
+                    handleParamChange(
+                      'comportamiento',
+                      selectedOption ? selectedOption.value : ''
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <label>Edad: {parametros.edad}</label>
+                <Slider
+                  name="edad"
+                  value={parametros.edad}
+                  min={0}
+                  max={20}
+                  marks
+                  onChange={handleSliderChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <label htmlFor="color">Color</label>
+                <Select
+                  id="color"
+                  options={colorOptions}
+                  isMulti
+                  value={colorOptions.filter((option) =>
+                    parametros.color.includes(option.value)
+                  )}
+                  onChange={(selectedOptions) =>
+                    handleSelectChange(
+                      'color',
+                      selectedOptions
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <label htmlFor="salud">Salud</label>
+                <Select
+                  id="salud"
+                  options={saludOptions}
+                  value={
+                    saludOptions.find(
+                      (option) => option.value === parametros.salud
+                    ) || null
+                  }
+                  onChange={(selectedOption) =>
+                    handleParamChange(
+                      'salud',
+                      selectedOption ? selectedOption.value : ''
+                    )
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  name="adicionales"
+                  label="Adicionales (separados por comas)"
+                  value={parametros.adicionales}
+                  onChange={(event) =>
+                    handleParamChange('adicionales', event.target.value)
+                  }
+                  InputProps={{
+                    style: { backgroundColor: 'lightgray' }, // Cambiar el color de fondo a gris claro
+                  }}
+  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button                 type="submit"
+                variant="contained"
+                sx={{
+                  width: '100%',
+                  backgroundColor: 'orange',
+                  '&:hover': {
+                    backgroundColor: 'darkorange',
+                  },
+                }}
+>
+                  Enviar
+                  
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <label htmlFor="comportamiento">Comportamiento</label>
-              <Select
-                id="comportamiento"
-                options={comportamientoOptions}
-                value={
-                  comportamientoOptions.find(
-                    (option) => option.value === parametros.comportamiento
-                  ) || null
-                }
-                onChange={(selectedOption) =>
-                  handleParamChange(
-                    'comportamiento',
-                    selectedOption ? selectedOption.value : ''
-                  )
-                }
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <label>Edad: {parametros.edad}</label>
-              <Slider
-                name="edad"
-                value={parametros.edad}
-                min={0}
-                max={100}
-                onChange={handleSliderChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <label htmlFor="color">Color</label>
-              <Select
-                id="color"
-                options={colorOptions}
-                isMulti
-                value={colorOptions.filter((option) =>
-                  parametros.color.includes(option.value)
-                )}
-                onChange={(selectedOptions) =>
-                  handleParamChange(
-                    'color',
-                    selectedOptions.map((option) => option.value)
-                  )
-                }
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <label htmlFor="salud">Salud</label>
-              <Select
-                id="salud"
-                options={saludOptions}
-                value={
-                  saludOptions.find(
-                    (option) => option.value === parametros.salud
-                  ) || null
-                }
-                onChange={(selectedOption) =>
-                  handleParamChange(
-                    'salud',
-                    selectedOption ? selectedOption.value : ''
-                  )
-                }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                name="adicionales"
-                label="Adicionales (separados por comas)"
-                value={parametros.adicionales}
-                onChange={(event) =>
-                  handleParamChange('adicionales', event.target.value)
-                }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button type="submit" variant="contained" color="primary">
-                Enviar
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Container>
+          </form>
+        </Box>
+      </Container>
+      </div>
+    </div>
 
     </>
   );
