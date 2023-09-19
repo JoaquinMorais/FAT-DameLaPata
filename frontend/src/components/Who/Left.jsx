@@ -8,8 +8,10 @@ const LeftContent = ({ text, imageUrl }) => {
       <Fade bottom>
         <Container>
           <Txt>{text}</Txt>
-          <ImgPart src={imageUrl} />
         </Container>
+        <ImageContainer>
+          <ImgPart src={imageUrl} />
+        </ImageContainer>
       </Fade>
     </Wrap>
   );
@@ -25,48 +27,51 @@ const Wrap = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%; /* Ajusta el ancho del contenedor según tus preferencias */
-  margin: 0 auto; /* Centra el contenido horizontalmente */
+  width: 50%;
+  padding-right: 20px;
 
   @media (max-width: 1024px) {
-    flex-direction: column; /* Cambia a una columna en pantallas más pequeñas */
-    align-items: flex-start;
-  }
-
-  @media (min-width: 1024px) {
-    padding: 0 20px; /* Reduce el espacio en los costados en pantallas más grandes */
+    width: 100%;
+    padding: 0;
   }
 `;
 
 const Txt = styled.p`
   font-size: 22px;
   text-align: justify;
-  margin-top: 40px;
-  margin-bottom: 20px; /* Agrega más margen inferior en pantallas grandes */
-  flex: 1; /* El texto ocupará todo el ancho disponible en pantallas más pequeñas */
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   @media (min-width: 1024px) {
-    font-size: 28px; /* Aumenta el tamaño de la fuente en pantallas más grandes */
+    font-size: 28px;
+    margin-right: 40px; /* Margen a la derecha solo en pantallas más grandes */
   }
 
   @media (max-width: 1024px) {
     text-align: center;
     font-size: 20px;
-    margin-right: 0; /* Elimina el espacio entre el texto y la imagen en pantallas más pequeñas */
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+
+  @media (max-width: 1024px) {
+    display: none; /* Oculta la imagen en pantallas pequeñas */
   }
 `;
 
 const ImgPart = styled.img`
   object-fit: cover;
-  max-width: 50%; /* La imagen ocupará el 50% del ancho disponible en pantallas grandes */
-  height: auto;
+  width: 100%;
+  max-height: 600px;
 
   @media (min-width: 1024px) {
-    max-height: 600px; /* Aumenta la altura máxima de la imagen en pantallas más grandes */
-    width: 100%; /* Hace que la imagen ocupe todo el ancho disponible */
+    max-width: 100%; /* Ajusta el ancho de la imagen en pantallas más grandes */
+    height: auto; /* Ajusta la altura automáticamente para que la imagen sea más grande */
   }
 
   @media (max-width: 425px) {
