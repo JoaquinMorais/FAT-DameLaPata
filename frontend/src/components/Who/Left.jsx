@@ -22,46 +22,33 @@ export default LeftContent;
 const Wrap = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Cambia la dirección del flexbox a columna */
+  align-items: center; /* Centra los elementos horizontalmente */
 `;
 
 const Container = styled.div`
-  width: 50%;
-  padding-right: 20px;
+  width: 100%; /* Cambia el ancho al 100% para ocupar todo el espacio disponible */
+  padding: 20px; /* Añade espaciado alrededor del texto */
 
-  @media (max-width: 1024px) {
-    width: 100%;
-    padding: 0;
+  @media (min-width: 1024px) {
+    width: 50%; /* Vuelve a establecer el ancho al 50% en pantallas más grandes */
+    padding-right: 20px;
   }
 `;
 
 const Txt = styled.p`
   font-size: 22px;
   text-align: justify;
-  margin-top: 20px;
   margin-bottom: 20px;
 
   @media (min-width: 1024px) {
     font-size: 28px;
-    margin-right: 40px; /* Margen a la derecha solo en pantallas más grandes */
-  }
-
-  @media (max-width: 1024px) {
-    text-align: center;
-    font-size: 20px;
+    margin-right: 40px;
   }
 `;
 
 const ImageContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 50%;
-
-  @media (max-width: 1024px) {
-    display: none; /* Oculta la imagen en pantallas pequeñas */
-  }
+  width: 100%; /* Cambia el ancho al 100% para ocupar todo el espacio disponible */
 `;
 
 const ImgPart = styled.img`
@@ -70,11 +57,7 @@ const ImgPart = styled.img`
   max-height: 600px;
 
   @media (min-width: 1024px) {
-    max-width: 100%; /* Ajusta el ancho de la imagen en pantallas más grandes */
-    height: auto; /* Ajusta la altura automáticamente para que la imagen sea más grande */
-  }
-
-  @media (max-width: 425px) {
-    min-height: 350px;
+    max-width: 100%;
+    height: auto;
   }
 `;
