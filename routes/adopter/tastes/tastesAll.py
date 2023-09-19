@@ -4,9 +4,10 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request, RequestList
 from methods.response import Response
+from utils.requests_flask import requests_flask
 import requests
-AdopterTastesAll = Blueprint("AdopterTastesAll",__name__)
 
+AdopterTastesAll = Blueprint("AdopterTastesAll",__name__)
 
 @AdopterTastesAll.route("/session",methods=['GET'],endpoint = 'getSession')
 def getSession():
@@ -19,6 +20,8 @@ def getSession():
 @AdopterTastesAll.route("/adopter/tastes",methods=['GET'],endpoint = 'getTaste')
 @login_is_required(session)
 def getTaste():
+    session_requests = requests.Session()
+
     tastesSizes = RelationShipUserSize.query.filter(
         RelationShipUserSize.id_user == session['user_id']
     )
@@ -30,28 +33,31 @@ def getTaste():
             _external=True             
         )
     )"""
-    responseColors = requests.get(url_for(
+    responseColors = session_requests.get(
+        url_for(
             'AdopterTastesColors.getTasteColors',
-            _external=True   
-        )
+            _external=True
+        ), cookies=request.cookies
     ).json()
     
-    responseSizes = requests.get(url_for(
-            'AdopterTastesSizes.getTasteSizes',   
-            _external=True        
-        )
+    responseSizes = session_requests.get(
+        url_for(
+            'AdopterTastesSizes.getTasteSizes',
+            _external=True
+        ), cookies=request.cookies
     ).json()
-    #tastes = list(set(responseColors.json()['response'] + responseSizes.json()['response']))
+
     if responseColors['status'] != 200 or responseSizes['status'] != 200:
         return Response(
             f"error {responseColors['status']} or {responseSizes['status']}",
             404
         )
-    tastes = responseColors['response'] + responseSizes['response']
-
 
     return Response(
-        tastes,
+        {
+            'colors':responseColors['response'],
+            'sizes':responseSizes['response']
+        },
         200
     )
 
