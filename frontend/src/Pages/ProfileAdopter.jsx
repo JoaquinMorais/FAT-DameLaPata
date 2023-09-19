@@ -16,7 +16,8 @@ const BackgroundImage = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  width: 100%;
+  width:100%;
+  min-height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -124,15 +125,6 @@ function AdopterProfile() {
     Edad: '21',
   };
 
-  const preferences = {
-    preferencia1: 'Perros',
-    preferencia2: 'Negros bien negros',
-    preferencia3: 'Machos',
-    preferencia4: 'Grandes',
-    preferencia5: 'De 1 a 13 años',
-    preferencia6: '* Adicionales *',
-
-  };
 
   return (
     <>
@@ -191,16 +183,16 @@ function AdopterProfile() {
               <StyledHr />
               <PreferencesContainer>
                 <Typography variant="h4">PREFERENCIAS</Typography>
-                <Typography variant="body1"><strong>Animal:</strong> {preferences.preferencia1}</Typography>
-                <Typography variant="body1"><strong>Color:</strong> {preferences.preferencia2}</Typography>
-                <Typography variant="body1"><strong>Sexo:</strong> {preferences.preferencia3}</Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong> {preferences.preferencia4}</Typography>
-                <Typography variant="body1"><strong>Edad:</strong> {preferences.preferencia5}</Typography>
-                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong> {preferences.preferencia6}</Typography>
+                <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
+                <Typography variant="body1"><strong>Color:</strong> </Typography>
+                <Typography variant="body1"><strong>Sexo:</strong></Typography>
+                <Typography variant="body1"><strong>Tamaño:</strong></Typography>
+                <Typography variant="body1"><strong>Edad:</strong> </Typography>
+                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
 
 
                 <EditPreferencesButton variant="contained" color="primary">
-                  Editar Preferencias
+                  <a href="/preferences" style={{color:'white'}}>Editar Preferencias</a>
                 </EditPreferencesButton>
               </PreferencesContainer>
             </Grid>
