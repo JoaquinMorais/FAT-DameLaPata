@@ -111,6 +111,7 @@ const EditPreferencesButton = styled(Button)`
 `;
 
 function AdopterProfile() {
+  
   const user = {
     name: 'Emma',
     username: 'emma_gfm',
@@ -162,7 +163,7 @@ function AdopterProfile() {
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
               <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad:</strong> {user.Edad}</Typography>
+              <Typography variant="body1"><strong>Edad minima:</strong> {user.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>

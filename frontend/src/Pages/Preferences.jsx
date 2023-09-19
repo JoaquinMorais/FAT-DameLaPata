@@ -150,7 +150,7 @@ const Formulario = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <label>Edad: {parametros.edad}</label>
+                <label>Edad minima: {parametros.edad}</label>
                 <Slider
                   name="edad"
                   value={parametros.edad}
