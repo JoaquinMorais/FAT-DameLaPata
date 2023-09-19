@@ -1,80 +1,87 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/NavBar/Navbar';
-
-// Enlace de la imagen de fondo
-const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
+import { styled } from 'styled-components';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom';
+import LoaderComp from '../components/Loader/Loader';
+import IsLogged from '../my_methods/session_methods';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Ingresa un email válido').required('El email es requerido'),
   password: Yup.string().required('La contraseña es requerida'),
 });
 
-const Login = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema,
-    onSubmit: (values) => {
-      console.log('Valores enviados:', values);
-    },
-  });
+function Login() {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages_array, setPagesArray] = useState([]);
+  const [settings_array, setSettingsArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loggedResponse = await IsLogged();
+        console.log(loggedResponse);
+        setPagesArray(loggedResponse.pages_array);
+        setSettingsArray(loggedResponse.setting_array);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that might occur during the API call
+        console.error(error);
+        setIsLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  const handleSubmit = (values) => {
+    delete values.repeatPassword;
+    console.log(JSON.stringify(values, null, 2));
+
+  };
+
 
   return (
     <>
-      <Navbar />
-      <BackgroundImage>
-        <CenteredContainer >
-          <Paper elevation={10} style={{ padding: '20px', textAlign: 'center' }}>
-            <h1 style={{ marginBottom: '20px' }}>INICIA SESIÓN</h1>
-            <form onSubmit={formik.handleSubmit}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} >
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    variant="outlined"
-                    id="email"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Contraseña"
-                    variant="outlined"
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={formik.touched.password && Boolean(formik.errors.password)}
-                    helperText={formik.touched.password && formik.errors.password}
-                  />
-                </Grid>
-              </Grid>
-              <p style={{ marginTop: '10px' }}><a href="/register">¿No tienes una cuenta? Regístrate</a></p>
-              <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '10px'}}>
-                Enviar
-              </Button>
-            </form>
-          </Paper>
-        </CenteredContainer>
-      </BackgroundImage>
+    {isLoading ? (
+      <LoaderComp/>
+    ) : (
+    <>
+    
+      <Navbar pages_array={pages_array} settings_array={settings_array} />
+      <StyledLogin>
+        <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
+        <h3>INICIA SESION</h3>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          onSubmit={handleSubmit}
+        >
+          {() => (
+            <Form>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <Field type="email" id="email" name="email" placeholder="Ingresa nombre de usuario" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Contraseña</label>
+                <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
+                <ErrorMessage name="password" component="div" className="error" />
+              </div>
+
+              <button type="submit">Enviar</button>
+            </Form>
+          )}
+        </Formik>
+        <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
+      </StyledLogin>
     </>
+  )}
+  </>
   );
 };
 
