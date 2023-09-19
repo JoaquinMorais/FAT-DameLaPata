@@ -275,6 +275,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            1,
             'muchi',
             '2011-07-11',
             3,
@@ -289,6 +290,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            3,
             'BLANCA',
             '2021-01-01',
             2,
@@ -302,6 +304,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            5,
             'MARRON',
             '2022-01-01',
             1,
@@ -315,6 +318,7 @@ def sizes():
         
     db.session.add(
         Pet(
+            7,
             'frida',
             '2019-01-01',
             1,
@@ -328,6 +332,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            8,
             'negra',
             '2019-01-01',
             3,
@@ -340,6 +345,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            9,
             'no color',
             '2019-01-01',
             3,
@@ -353,6 +359,7 @@ def sizes():
     
     db.session.add(
         Pet(
+            10,
             'mucho color',
             '2014-01-01',
             1,
@@ -363,29 +370,6 @@ def sizes():
         )
      )
     
-    
-    
-        
-    db.session.commit()
-    
-    db.session.add(RelationShipPetColor(3, 3))
-    db.session.add(RelationShipPetColor(8, 4))
-    db.session.add(RelationShipPetColor(5, 2))
-    db.session.add(RelationShipPetColor(7, 2))
-    db.session.add(RelationShipPetColor(7, 3))
-    db.session.add(RelationShipPetColor(10, 1))
-    db.session.add(RelationShipPetColor(10, 2))
-    db.session.add(RelationShipPetColor(10, 3))
-    
-    
-    
-    db.session.add(RelationShipPetCharacteristics(3, 2))
-    db.session.add(RelationShipPetCharacteristics(5, 3))
-    db.session.add(RelationShipPetCharacteristics(7, 4))
-    db.session.add(RelationShipPetCharacteristics(8, 2))
-    db.session.add(RelationShipPetCharacteristics(10, 2))
-    db.session.add(RelationShipPetCharacteristics(10, 3))
-   
     db.session.commit()
 
     db.session.add(DocumentType('dni','soy un dni'))
