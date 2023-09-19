@@ -15,18 +15,14 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import axios from 'axios';
 
 
 
 
 
 function Navbar({pages_array, settings_array}) {
-  console.log(extra_value)
   const pages = pages_array;
   const settings = settings_array;
-
-  settings.push(extra_value)
   
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -66,6 +62,8 @@ function Navbar({pages_array, settings_array}) {
     switch (settings) {
       case 'Perfil':
         return '/profile';
+      case 'iniciar sesion':
+        return '/login';
       case 'Cerrar sesion':
         return '/TODAVIA-NO-BRO';
     }
