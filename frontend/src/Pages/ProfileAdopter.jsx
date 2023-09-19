@@ -124,7 +124,6 @@ function AdopterProfile() {
     Edad: '21',
   };
 
-  // Datos de preferencias del usuario
   const preferences = {
     preferencia1: 'Perros',
     preferencia2: 'Negros bien negros',
@@ -135,16 +134,11 @@ function AdopterProfile() {
 
   };
 
-  // Función para manejar la edición de preferencias
-  const handleEditPreferences = () => {
-    // Agrega aquí la lógica para editar las preferencias del usuario.
-  };
-
   return (
     <>
       <Navbar />
       <BackgroundImage>
-        <CenteredContainer maxWidth="md">
+        <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
           <Grid item xs={12} md={4}>
 
@@ -205,7 +199,7 @@ function AdopterProfile() {
                 <Typography variant="body1"><strong>Caracteristicas adicionales:</strong> {preferences.preferencia6}</Typography>
 
 
-                <EditPreferencesButton variant="contained" color="primary" onClick={handleEditPreferences}>
+                <EditPreferencesButton variant="contained" color="primary">
                   Editar Preferencias
                 </EditPreferencesButton>
               </PreferencesContainer>
