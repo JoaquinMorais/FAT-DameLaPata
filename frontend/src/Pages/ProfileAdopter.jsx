@@ -19,7 +19,7 @@ const BackgroundImage = styled.div`
   width:100%;
   min-height: 100vh;
   position: absolute;
-  top: 0;
+  top: 0; 
   left: 0;
 `;
 
