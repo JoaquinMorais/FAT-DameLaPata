@@ -15,6 +15,7 @@ from routes.adopter.request import AdopterRequest
 #adopter/tastes
 from routes.adopter.tastes.tastesColors import AdopterTastesColors
 from routes.adopter.tastes.tastesSizes import AdopterTastesSizes
+from routes.adopter.tastes.tastesAll import AdopterTastesAll
 #shelter
 from routes.shelter.register import ShelterRegister
 #pet
@@ -45,6 +46,7 @@ app.register_blueprint(AdopterRequest)
 #adopter/tastes
 app.register_blueprint(AdopterTastesColors)
 app.register_blueprint(AdopterTastesSizes)
+app.register_blueprint(AdopterTastesAll)
 #shelter
 app.register_blueprint(ShelterRegister)
 #pet

@@ -4,17 +4,26 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request, RequestList
 from methods.response import Response
-
+import requests
 AdopterTastesColors = Blueprint("AdopterTastesColors",__name__)
 
 
 
 @AdopterTastesColors.route("/adopter/tastes/colors",methods=['GET'],endpoint = 'getTasteColors')
-@login_is_required(session)
+#@login_is_required(session)
 def getTasteColors():
+    mysession =  requests.get(url_for(
+            'AdopterTastesAll.getSession',
+            _external=True   
+        )
+    ).json()
+    return {'status':{
+        x:mysession[x] for x in mysession
+    }}
     tastesColors = RelationShipUserColor.query.filter(
         RelationShipUserColor.id_user == session['user_id']
     )
+    
     
     return Response(
         [tasteColor.color() for tasteColor in tastesColors],
