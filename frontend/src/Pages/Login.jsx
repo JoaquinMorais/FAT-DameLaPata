@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/NavBar/Navbar';
 import { styled } from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
-
+import LoaderComp from '../components/Loader/Loader';
+import IsLogged from '../my_methods/session_methods';
 
 
 function Login() {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages_array, setPagesArray] = useState([]);
+  const [settings_array, setSettingsArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loggedResponse = await IsLogged();
+        console.log(loggedResponse);
+        setPagesArray(loggedResponse.pages_array);
+        setSettingsArray(loggedResponse.setting_array);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that might occur during the API call
+        console.error(error);
+        setIsLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   const handleSubmit = (values) => {
     delete values.repeatPassword;
@@ -17,7 +41,12 @@ function Login() {
 
   return (
     <>
-      <Navbar />
+    {isLoading ? (
+      <LoaderComp/>
+    ) : (
+    <>
+    
+      <Navbar pages_array={pages_array} settings_array={settings_array} />
       <StyledLogin>
         <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
         <h3>INICIA SESION</h3>
@@ -47,6 +76,8 @@ function Login() {
         <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
       </StyledLogin>
     </>
+  )}
+  </>
   );
 }
 
