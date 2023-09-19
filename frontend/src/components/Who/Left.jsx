@@ -38,7 +38,7 @@ const Container = styled.div`
 
 const Txt = styled.p`
   font-size: 22px;
-  text-align: justify;
+  text-align: center; /* Cambia la alineación del texto a "center" para pantallas grandes */
   margin-bottom: 20px;
 
   @media (min-width: 1024px) {
@@ -57,7 +57,7 @@ const ImgPart = styled.img`
   max-height: 600px;
 
   @media (min-width: 1024px) {
-    max-width: 100%;
+    max-width: 70%;
     height: auto;
   }
 `;
