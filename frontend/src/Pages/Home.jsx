@@ -6,6 +6,7 @@ import Section_3 from '../components/Home/Section/Section3/Section_3';
 import Sponsor from '../components/Home/Section/Section4/Sponsor';
 import NavBar from '../components/NavBar/Navbar';
 import IsLogged from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,10 +34,7 @@ function Home() {
   return (
     <>
       {isLoading ? (
-        // Render a loader while loading
-        <LoaderContainer>
-          <Loader />
-        </LoaderContainer>
+        <LoaderComp/>
       ) : (
         // Render the content once loading is complete
         <>
@@ -53,27 +51,3 @@ function Home() {
 
 export default Home;
 
-const LoaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const Loader = styled.div`
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
