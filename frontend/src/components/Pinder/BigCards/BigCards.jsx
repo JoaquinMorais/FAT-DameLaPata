@@ -28,6 +28,25 @@ const BigCards = () => {
     fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
+/* -------------------------- */
+const [idState, setIdState] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/adopter/match');
+        setResponseData(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+  
+
+
+
   return (
     <Swiper
       spaceBetween={5}
@@ -48,83 +67,63 @@ const BigCards = () => {
                 </Texto>
               </Arriba>
               <Abajo>
-                <Botones>
-                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
-                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
+                <Botones >
+                  <Zoom>
+                    <No onClick={() => {
+                      setIdState(4);
+                      console.log(idState);
+                    }}>
+                      <PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo>
+                    </No>
+                  </Zoom>
+                  <Zoom>
+                    <Si onClick={() => {
+                      setIdState(3);
+                      console.log(idState);
+                    }}>
+                      <PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi>
+                    </Si>
+                  </Zoom>
                 </Botones>
               </Abajo>
 
+
             </ImagenContainer>
             <Container>
-              {/* <Fade>
+              <Fade>
                 <Div1>
-                  <Titulo2>Descripcion</Titulo2>
-                  <Caracteristicas>hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola </Caracteristicas>
+                  <Titulo2>Nombre</Titulo2>
+                  <Caracteristicas>{`${item.name}`}</Caracteristicas>
                 </Div1>
               </Fade>
                 
               <Fade>
                 <Div2>
-                  <Titulo2>Apodos</Titulo2>
-                  <Caracteristicas>a a a a a</Caracteristicas>
+                  <Titulo2>Nacimiento</Titulo2>
+                  <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
                 </Div2>
               </Fade>
 
               <Fade>
                 <Div3>
-                  <Titulo2>Edad</Titulo2>
-                  <Caracteristicas>Fecha: {`${item.date_of_birth}`}</Caracteristicas>
+                  <Titulo2>Tamaño</Titulo2>
+                  <Caracteristicas>{`${item.size}`}</Caracteristicas>
                 </Div3>
               </Fade>
               
               <Fade>
                 <Div4>
-                  <Titulo2>Tamaño</Titulo2>
-                  <Caracteristicas>Es un perro de tamaño Grande</Caracteristicas>
+                  <Titulo2>Peso</Titulo2>
+                  <Caracteristicas>{`${item.weight}`}</Caracteristicas>
                 </Div4>
               </Fade>
                 
               <Fade>
                 <Div5>
                   <Titulo2>Vacunas</Titulo2>
-                  <Caracteristicas>Todas</Caracteristicas>
+                  <Caracteristicas>Consultar</Caracteristicas>
                 </Div5>
-              </Fade>  */}
-
-<Fade>
-              <Div1>
-                <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${item.name}`}</Caracteristicas>
-              </Div1>
-            </Fade>
-              
-            <Fade>
-              <Div2>
-                <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
-              </Div2>
-            </Fade>
-
-            <Fade>
-              <Div3>
-                <Titulo2>Tamaño</Titulo2>
-                <Caracteristicas>{`${item.size}`}</Caracteristicas>
-              </Div3>
-            </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Peso</Titulo2>
-                <Caracteristicas>{`${item.weight}`}</Caracteristicas>
-              </Div4>
-            </Fade>
-              
-            <Fade>
-              <Div5>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
-              </Div5>
-            </Fade>
+              </Fade>
             </Container>
           </Carta>
         </SwiperSlide>
