@@ -98,11 +98,13 @@ const StyledTitle = styled(Typography)`
 
 const StyledText = styled(Typography)`
   font-size: 24px !important; /* Ajusta el tamaño de la fuente para el texto */
+  text-align: center; /* Centra el texto en pantallas pequeñas */
 `;
 
 const Container = styled.div`
   width: 100%;
   padding: 20px;
+  text-align: center; /* Centra el contenido en pantallas pequeñas */
 `;
 
 const ImageContainer = styled.div`
