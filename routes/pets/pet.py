@@ -398,14 +398,14 @@ def sizes():
     db.session.add(RelationShipPetCharacteristics(3, 10))
     db.session.add(RelationShipPetCharacteristics(3, 22))
     db.session.add(RelationShipPetCharacteristics(3, 12))
-    db.session.add(RelationShipPetCharacteristics(5, 54))
+    db.session.add(RelationShipPetCharacteristics(5, 44))
     db.session.add(RelationShipPetCharacteristics(5, 12))
     db.session.add(RelationShipPetCharacteristics(5, 17))
     db.session.add(RelationShipPetCharacteristics(5, 5))
     db.session.add(RelationShipPetCharacteristics(7, 16))
     db.session.add(RelationShipPetCharacteristics(7, 43))
     db.session.add(RelationShipPetCharacteristics(7, 24))
-    db.session.add(RelationShipPetCharacteristics(7, 53))
+    db.session.add(RelationShipPetCharacteristics(7, 43))
     db.session.add(RelationShipPetCharacteristics(8, 34))
     db.session.add(RelationShipPetCharacteristics(8, 45))
     db.session.add(RelationShipPetCharacteristics(9, 23))
@@ -436,9 +436,9 @@ def sizes():
 
 
 
+'''
 
-
-@OnePet.route("/db/populate2",methods=['GET','POST'])
+@OnePet2.route("/db/populate2",methods=['GET','POST'])
 def sizes():
     
     db.session.add(Size('Chico',3,4))
@@ -806,3 +806,5 @@ def sizes():
     db.session.add(State('cancelado','estado cancelado'))
 
     return 'a'
+    
+    '''
