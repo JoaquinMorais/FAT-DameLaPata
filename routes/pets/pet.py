@@ -116,22 +116,26 @@ def deletePet(id):
 
 @OnePet.route("/db/populate",methods=['GET','POST'])
 def sizes():
-    
+    db.session.add(Status('Activado'))
+    db.session.add(Status('Desactivado'))
+
     db.session.add(Size('Chico',3,4))
     db.session.add(Size('Mediano',3,4))
     db.session.add(Size('Grande',3,4))
 
-    db.session.add(Color('Negro', 'color negro'))
-    db.session.add(Color('Blanco', 'color blanco'))
-    db.session.add(Color('Marrón', 'color marrón'))
-    db.session.add(Color('Gris', 'color gris'))
-    db.session.add(Color('Amarillo', 'color amarillo'))
-    db.session.add(Color('Rojo', 'color rojo'))
-    db.session.add(Color('Crema', 'color crema'))
-    db.session.add(Color('Tricolor', 'combinación de negro, blanco y marrón'))
-    db.session.add(Color('Merle', 'patrón moteado con varios colores'))
-    db.session.add(Color('Azul', 'tono de gris diluido'))
-    db.session.add(Color('Sable', 'mezcla de colores con puntas más oscuras'))
+    db.session.add(Color('Negro', 'color negro', '#000000'))
+    db.session.add(Color('Blanco', 'color blanco', '#ffffff'))
+    db.session.add(Color('Marrón', 'color marrón', '#882f00'))
+    db.session.add(Color('Gris claro', 'color gris', '#acacac'))
+    db.session.add(Color('Gris oscuro', 'color gris', '#585858'))
+    db.session.add(Color('Amarillo', 'color amarillo', '#ffff0c'))
+    db.session.add(Color('Naranja', 'color naranja', '#ff6e29'))
+    db.session.add(Color('Rojo', 'color rojo', '#ff0a06'))
+    db.session.add(Color('Azul', 'color azul', '#1500fe'))
+    db.session.add(Color('Celeste', 'color celeste', '#22fff6'))
+    db.session.add(Color('Violeta', 'color violeta', '#1500fe'))
+    db.session.add(Color('Verde', 'color verde', '#1500fe'))
+    db.session.add(Color('Crema', 'color crema', '#ffe38f'))
     
     db.session.add(Gender('Masculino', 'macho'))
     db.session.add(Gender('Femenino', 'hembra'))
@@ -210,48 +214,7 @@ def sizes():
     db.session.add(Characteristics('Reacciones a las vacunas', 'El perro ha experimentado reacciones adversas a vacunas en el pasado', 6))
     db.session.commit()
 
-    db.session.add(
-        Address(
-            'cordoba',
-            'cordoba',
-            '5151',
-            12,
-            12
-        )
-    )
-    db.session.commit()
     
-
-    db.session.add(
-        Shelter(
-            'RefugioGarra',
-            'garra@gmail.com',
-            1,
-            'garra'
-        )
-    )
-    db.session.commit()
-    
-    db.session.add(
-        Pet(
-            'Pancho',
-            '2019-03-10',
-            1,
-            1,
-            1,
-            'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',
-            1
-        )
-    )
-    db.session.commit()
-    
-    db.session.add(RelationShipPetColor(1, 1))
-    db.session.add(RelationShipPetColor(1, 2))
-    db.session.add(RelationShipPetColor(1, 3))
-    db.session.add(RelationShipPetCharacteristics(1, 1))
-    db.session.add(RelationShipPetCharacteristics(1, 2))
-    db.session.commit()
-
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.add(DocumentType('cuit','soy un cuit'))
     db.session.commit()

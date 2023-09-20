@@ -56,7 +56,7 @@ def login_is_required(SESSION,accepted_users = ['user','adopter','shelter','volu
                     )
             else:
                 return Response(
-                    'Error: Unauthorized',
+                    'Error: Unauthorized (user-id doesnt exists)',
                     402
                 )
         return wrapper

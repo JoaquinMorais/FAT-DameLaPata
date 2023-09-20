@@ -2,7 +2,9 @@ import axios from "axios";
 
 async function GetPreference() {
     try {
-      const response = await axios.post('http://localhost:5000/profile', '' );
+      const response_color = await axios.post('http://localhost:5000/adopter/tastes/colors', '' );
+      const response_size = await axios.post('http://localhost:5000/adopter/tastes/adopter/tastes/sizes', '' );
+
       if (response.data['status'] === 402){
         pages_array = ['Inicio', '¿Quienes Somos?']
         setting_array = ['Iniciar Sesion', 'Crear Cuenta']

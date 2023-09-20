@@ -12,6 +12,10 @@ cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
 #adopter
 from routes.adopter.register import AdopterRegister
 from routes.adopter.request import AdopterRequest
+#adopter/tastes
+from routes.adopter.tastes.tastesColors import AdopterTastesColors
+from routes.adopter.tastes.tastesSizes import AdopterTastesSizes
+from routes.adopter.tastes.tastesAll import AdopterTastesAll
 #shelter
 from routes.shelter.register import ShelterRegister
 #pet
@@ -39,6 +43,10 @@ with app.app_context():
 #adopter
 app.register_blueprint(AdopterRegister)
 app.register_blueprint(AdopterRequest)
+#adopter/tastes
+app.register_blueprint(AdopterTastesColors)
+app.register_blueprint(AdopterTastesSizes)
+app.register_blueprint(AdopterTastesAll)
 #shelter
 app.register_blueprint(ShelterRegister)
 #pet
@@ -53,7 +61,7 @@ app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
 app.register_blueprint(UserRequest)
-
+app.register_blueprint(Close_account)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

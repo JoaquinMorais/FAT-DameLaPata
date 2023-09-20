@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -10,9 +11,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Navbar from '../components/NavBar/Navbar';
-import IsLogged from '../my_methods/session_methods';
-
-
+import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
+import SuccessDialog from '../components/CloseAccount/SuccessDialog';
 
 const BackgroundImage = styled.div`
   background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
@@ -114,29 +114,36 @@ const EditPreferencesButton = styled(Button)`
 `;
 
 function AdopterProfile() {
+  // Conexion con componenete y etc
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAccountDeleted, setIsAccountDeleted] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [pages_array, setPagesArray] = useState([]);
-  const [settings_array, setSettingsArray] = useState([]);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const loggedResponse = await IsLogged();
-        console.log(loggedResponse);
-        setPagesArray(loggedResponse.pages_array);
-        setSettingsArray(loggedResponse.setting_array);
-        setIsLoading(false);
-      } catch (error) {
-        // Handle any errors that might occur during the API call
-        console.error(error);
-        setIsLoading(false); // Set loading to false in case of an error
-      }
+    const openConfirmation = () => {
+        setIsConfirmationOpen(true);
     };
 
-    fetchData();
-  }, []);
+    const closeConfirmation = () => {
+        setIsConfirmationOpen(false);
+    };
+
+    const handleDeleteAccount = async () => {
+      // inicio de flag
+      // iniciar loder
+      try {
+          // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+          await axios.post(`/closeaccount/1`); 
+          setIsAccountDeleted(true);
+          closeConfirmation();
+      } catch (error) {
+          console.error(error);
+      }
+      // flag down
+      // cerrar loder
+  };
+
+  const closeSuccessDialog = () => {
+      setIsAccountDeleted(false);
+  };
 
 
   const user = {
@@ -171,9 +178,24 @@ function AdopterProfile() {
                   <EditIcon />
                 </EditButton>
               </UserProfileAvatarContainer>
-              <DeleteButton variant="contained" color="secondary">
+
+
+              <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
                 <DeleteIcon />
               </DeleteButton>
+              {isConfirmationOpen && !isAccountDeleted && (
+                <ConfirmDialog
+                    isOpen={isConfirmationOpen}
+                    onClose={closeConfirmation}
+                    onConfirm={handleDeleteAccount}
+                />
+              )}
+              {isAccountDeleted && (
+                <SuccessDialog
+                    isOpen={isAccountDeleted}
+                    onClose={closeSuccessDialog}
+                />
+              )}
             </Grid>
 
             <Grid item xs={12} md={8}>
