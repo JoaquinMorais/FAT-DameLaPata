@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import {
   Slider,
@@ -8,7 +8,9 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import Navbar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/Navbar';
+import IsLogged from '../my_methods/session_methods';
+
 
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
@@ -34,7 +36,31 @@ const saludOptions = [
   { value: 'Mala', label: 'Mala' },
 ];
 
+
 const Formulario = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages_array, setPagesArray] = useState([]);
+  const [settings_array, setSettingsArray] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loggedResponse = await IsLogged();
+        console.log(loggedResponse);
+        setPagesArray(loggedResponse.pages_array);
+        setSettingsArray(loggedResponse.setting_array);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that might occur during the API call
+        console.error(error);
+        setIsLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   const [parametros, setParametros] = useState({
     tamaño: [],
     comportamiento: '',
@@ -68,7 +94,7 @@ const Formulario = () => {
 
   return (
     <>
-      <Navbar />
+      <NavBar pages_array={pages_array} settings_array={settings_array} />
       <div
         style={{
           backgroundImage:
@@ -222,7 +248,6 @@ const Formulario = () => {
                 }}
 >
                   Enviar
-                  
                 </Button>
               </Grid>
             </Grid>

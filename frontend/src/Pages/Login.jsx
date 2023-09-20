@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/NavBar/Navbar';
 import { styled } from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom';
 import LoaderComp from '../components/Loader/Loader';
 import IsLogged from '../my_methods/session_methods';
+import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Ingresa un email válido').required('El email es requerido'),
@@ -45,63 +45,47 @@ function Login() {
 
   return (
     <>
-    {isLoading ? (
-      <LoaderComp/>
-    ) : (
-    <>
-    
-      <Navbar pages_array={pages_array} settings_array={settings_array} />
-      <StyledLogin>
-        <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
-        <h3>INICIA SESION</h3>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={handleSubmit}
-        >
-          {() => (
-            <Form>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Field type="email" id="email" name="email" placeholder="Ingresa nombre de usuario" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Contraseña</label>
-                <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
-                <ErrorMessage name="password" component="div" className="error" />
-              </div>
+      {isLoading ? (
+        <LoaderComp/>
+      ) : (
+        <>
+          <Navbar pages_array={pages_array} settings_array={settings_array} />
+          <StyledLogin>
+            <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
+            <h3>INICIA SESION</h3>
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              onSubmit={handleSubmit}
+            >
+              {() => (
+                <Form>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <Field type="email" id="email" name="email" placeholder="Ingresa nombre de usuario" />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">Contraseña</label>
+                    <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
+                    <ErrorMessage name="password" component="div" className="error" />
+                  </div>
 
-              <button type="submit">Enviar</button>
-            </Form>
-          )}
-        </Formik>
-        <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
-      </StyledLogin>
+                  <button type="submit">Enviar</button>
+                </Form>
+              )}
+            </Formik>
+            <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
+          </StyledLogin>
+        </>
+      )}
     </>
-  )}
-  </>
   );
-};
+}
 
 export default Login;
 
-const BackgroundImage = styled.div`
-  background-image: url(${backgroundImageUrl});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const CenteredContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 600px !important; 
-`;
+const LogoImage = styled.img``
+const StyledLogin = styled.div``
+const RegisterLink = styled.div``
