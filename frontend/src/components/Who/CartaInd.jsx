@@ -1,47 +1,36 @@
-import * as React from 'react';
+import React from 'react';
 import Swiper from 'swiper';
 import 'swiper/css';
+import styled from 'styled-components';
 
+const StyledCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 24px;
+  padding-bottom: 20px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  font-weight: bold;
+  padding: 20px;
+  width: 100%;
+`;
 
-function CartaInd({name , img, swiperInstance}) {
-
-    const swiper = new Swiper('.swiper', {
-        loop: true,
-     
-       pagination: {
-         el: '.swiper-pagination',
-       },
-     
-       navigation: {
-         nextEl: '.swiper-button-next',
-         prevEl: '.swiper-button-prev',
-       },
-     
-       scrollbar: {
-         el: '.swiper-scrollbar',
-       },
-     });
-   
+export default function CartaInd({ name, img, swiperInstance }) {
   return (
-    <div class="swiper-slide" style={{             
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        fontSize: '30px',
-        paddingBottom: '20px',
-        backgroundImage: `url(${img})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center', 
-        color:'white',
-        fontWeight:'bold',
-        padding: '20px',
-        width: '100%', 
-
-  
-
-    }}>{name}</div>
-)
+    <div className="swiper-slide" style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      fontSize: '30px',
+      paddingBottom: '20px',
+      width: '100%',
+    }}>
+      <img src={img} alt={name} style={{ width: '50%', height: 'auto' }} /> {/* Ajusta el ancho aquí */}
+      <div className="name">{name}</div>
+    </div>
+  );
 }
-
-export default CartaInd;
