@@ -17,15 +17,23 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 
-
-
-
 function Navbar({pages_array, settings_array}) {
-  const pages = pages_array;
-  const settings = settings_array;
   
+  const [pages, SetPagesArray] = useState(['Inicio', '¿Quienes Somos?']);
+  const [settings, SetSettingsArray] = useState(['Login', 'Crear Cuenta']);
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (get_session){
+        pass
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

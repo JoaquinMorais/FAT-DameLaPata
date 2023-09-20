@@ -1,11 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import styled from 'styled-components';
 import Navbar from '../components/NavBar/Navbar';
-import { styled } from 'styled-components';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Link } from 'react-router-dom';
 import LoaderComp from '../components/Loader/Loader';
-import IsLogged from '../my_methods/session_methods';
+import IsLogged from '../my_methods/session_methods'
 
+// Enlace de la imagen de fondo
+const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
+
+const validationSchema = Yup.object({
+  email: Yup.string().email('Ingresa un email válido').required('El email es requerido'),
+  password: Yup.string().required('La contraseña es requerida'),
+});
 
 function Login() {
 
@@ -22,9 +34,8 @@ function Login() {
         setSettingsArray(loggedResponse.setting_array);
         setIsLoading(false);
       } catch (error) {
-        // Handle any errors that might occur during the API call
         console.error(error);
-        setIsLoading(false); // Set loading to false in case of an error
+        setIsLoading(false);
       }
     };
 
@@ -38,6 +49,16 @@ function Login() {
 
   };
 
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log('Valores enviados:', values);
+    },
+  });
 
   return (
     <>
@@ -47,121 +68,72 @@ function Login() {
     <>
     
       <Navbar pages_array={pages_array} settings_array={settings_array} />
-      <StyledLogin>
-        <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
-        <h3>INICIA SESION</h3>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={handleSubmit}
-        >
-          {() => (
-            <Form>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Field type="email" id="email" name="email" placeholder="Ingresa nombre de usuario" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Contraseña</label>
-                <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
-                <ErrorMessage name="password" component="div" className="error" />
-              </div>
-
-              <button type="submit">Enviar</button>
-            </Form>
-          )}
-        </Formik>
-        <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
-      </StyledLogin>
+      
+      <BackgroundImage>
+        <CenteredContainer >
+          <Paper elevation={10} style={{ padding: '20px', textAlign: 'center' }}>
+            <h1 style={{ marginBottom: '20px' }}>INICIA SESIÓN</h1>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} >
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    variant="outlined"
+                    id="email"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Contraseña"
+                    variant="outlined"
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                  />
+                </Grid>
+              </Grid>
+              <p style={{ marginTop: '10px' }}><a href="/register">¿No tienes una cuenta? Regístrate</a></p>
+              <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '10px'}}>
+                Enviar
+              </Button>
+            </form>
+          </Paper>
+        </CenteredContainer>
+      </BackgroundImage>
     </>
   )}
   </>
   );
-}
+};
 
 export default Login;
 
+const BackgroundImage = styled.div`
+  background-image: url(${backgroundImageUrl});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-const StyledLogin = styled.div`
+const CenteredContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 30px;
-  width: 80%; 
-  max-width: 300px; 
-  border: 2px solid gray;
-  border-radius: 8px;
-  background-color: white;
-
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  label {
-    font-weight: bold;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-  }
-
-  .error {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-
-  button {
-    width: 100%;
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
-
-  @media (max-width: 768px) {
-    width: 90%; 
-  }
-`;
-
-const LogoImage = styled.img`
-  width: 100px;
-  height: auto;
-  margin-bottom: 1rem;
-  filter: blur(5px);
-`;
-
-const RegisterLink = styled(Link)`
-  margin-top: 1rem;
-  text-align: center;
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #0056b3;
-  }
+  max-width: 600px !important; 
 `;

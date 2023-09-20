@@ -9,7 +9,7 @@ async function IsLogged() {
       const response = await axios.post('http://localhost:5000/profile', '' );
       if (response.data['status'] === 402){
         pages_array = ['Inicio', '¿Quienes Somos?']
-        setting_array = ['Iniciar Sesion', 'Crear Cuenta']
+        setting_array = ['Login', 'Crear Cuenta']
       }
       else if(response.data['status'] === 200){
         if (response.data['type'] === 'shelter')

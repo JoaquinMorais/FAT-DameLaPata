@@ -16,9 +16,10 @@ const BackgroundImage = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  width: 100%;
+  width:100%;
+  min-height: 100vh;
   position: absolute;
-  top: 0;
+  top: 0; 
   left: 0;
 `;
 
@@ -110,6 +111,7 @@ const EditPreferencesButton = styled(Button)`
 `;
 
 function AdopterProfile() {
+  
   const user = {
     name: 'Emma',
     username: 'emma_gfm',
@@ -124,27 +126,12 @@ function AdopterProfile() {
     Edad: '21',
   };
 
-  // Datos de preferencias del usuario
-  const preferences = {
-    preferencia1: 'Perros',
-    preferencia2: 'Negros bien negros',
-    preferencia3: 'Machos',
-    preferencia4: 'Grandes',
-    preferencia5: 'De 1 a 13 años',
-    preferencia6: '* Adicionales *',
-
-  };
-
-  // Función para manejar la edición de preferencias
-  const handleEditPreferences = () => {
-    // Agrega aquí la lógica para editar las preferencias del usuario.
-  };
 
   return (
     <>
       <Navbar />
       <BackgroundImage>
-        <CenteredContainer maxWidth="md">
+        <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
           <Grid item xs={12} md={4}>
 
@@ -176,7 +163,7 @@ function AdopterProfile() {
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
               <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad:</strong> {user.Edad}</Typography>
+              <Typography variant="body1"><strong>Edad minima:</strong> {user.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>
@@ -197,16 +184,16 @@ function AdopterProfile() {
               <StyledHr />
               <PreferencesContainer>
                 <Typography variant="h4">PREFERENCIAS</Typography>
-                <Typography variant="body1"><strong>Animal:</strong> {preferences.preferencia1}</Typography>
-                <Typography variant="body1"><strong>Color:</strong> {preferences.preferencia2}</Typography>
-                <Typography variant="body1"><strong>Sexo:</strong> {preferences.preferencia3}</Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong> {preferences.preferencia4}</Typography>
-                <Typography variant="body1"><strong>Edad:</strong> {preferences.preferencia5}</Typography>
-                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong> {preferences.preferencia6}</Typography>
+                <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
+                <Typography variant="body1"><strong>Color:</strong> </Typography>
+                <Typography variant="body1"><strong>Sexo:</strong></Typography>
+                <Typography variant="body1"><strong>Tamaño:</strong></Typography>
+                <Typography variant="body1"><strong>Edad:</strong> </Typography>
+                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
 
 
-                <EditPreferencesButton variant="contained" color="primary" onClick={handleEditPreferences}>
-                  Editar Preferencias
+                <EditPreferencesButton variant="contained" color="primary">
+                  <a href="/preferences" style={{color:'white'}}>Editar Preferencias</a>
                 </EditPreferencesButton>
               </PreferencesContainer>
             </Grid>

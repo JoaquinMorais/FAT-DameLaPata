@@ -36,6 +36,7 @@ const CenteredContainer = styled(Container)`
 
   @media (max-width: 768px) {
     padding: 40px;
+    min-height: 120vh;
   }
 `;
 
@@ -120,7 +121,7 @@ function ShelterProfile() {
     <>
       <Navbar />
       <BackgroundImage>
-        <CenteredContainer maxWidth="md">
+        <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
             <Grid item xs={12} md={4}>
 
