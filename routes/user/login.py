@@ -25,7 +25,7 @@ def login_user():
         
     if user_password.campo != Encrypt(data['password']): 
         return Response(
-            'Error: Unauthorized',
+            f"Error: Unauthorized {user_password.campo} != {Encrypt(data['password'])}",
             401
         )
     
