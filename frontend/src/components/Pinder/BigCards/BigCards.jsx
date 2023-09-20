@@ -29,22 +29,23 @@ const BigCards = () => {
   }, []);
 
 /* -------------------------- */
-const [idState, setIdState] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/adopter/match');
-        setResponseData(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
-  }, []);
-  
+const handleSubmit = (values, { setSubmitting }) => {
+  console.log(JSON.stringify(values, null, 2));
+  const dataToSend = values;
+  axios
+    .put('http://localhost:5000/adopter/match', dataToSend)
+    .then((response) => {
+      console.log('Response:', response.data);
+      // Redirigir a la página "/successful" después del éxito
+      // navigate('/successful');
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 
+  setSubmitting(false);
+}; 
 
 
   return (
@@ -67,25 +68,25 @@ const [idState, setIdState] = useState(null);
                 </Texto>
               </Arriba>
               <Abajo>
-                <Botones >
-                  <Zoom>
-                    <No onClick={() => {
-                      setIdState(4);
-                      console.log(idState);
-                    }}>
-                      <PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo>
-                    </No>
-                  </Zoom>
-                  <Zoom>
-                    <Si onClick={() => {
-                      setIdState(3);
-                      console.log(idState);
-                    }}>
-                      <PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi>
-                    </Si>
-                  </Zoom>
-                </Botones>
-              </Abajo>
+              <Botones>
+                <Zoom>
+                  <No>
+                    <PerroNo
+                      src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
+                      
+                    ></PerroNo>
+                  </No>
+                </Zoom>
+                <Zoom>
+                  <Si>
+                    <PerroSi
+                      src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
+                      
+                    ></PerroSi>
+                  </Si>
+                </Zoom>
+              </Botones>
+            </Abajo>
 
 
             </ImagenContainer>
