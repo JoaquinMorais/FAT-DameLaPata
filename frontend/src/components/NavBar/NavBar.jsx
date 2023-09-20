@@ -1,6 +1,6 @@
 // NAVBAR SHELTER
 
-import * as React from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -16,12 +16,16 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Inicio', 'Adoptar', 'Quienes somos', 'Publicar', 'Mis mascotas'];
-const settings = ['Perfil', 'Cerrar sesion'];
 
-function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+
+
+function Navbar({pages_array, settings_array}) {
+  const pages = pages_array;
+  const settings = settings_array;
+  
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -58,6 +62,8 @@ function Navbar() {
     switch (settings) {
       case 'Perfil':
         return '/profile';
+      case 'iniciar sesion':
+        return '/login';
       case 'Cerrar sesion':
         return '/TODAVIA-NO-BRO';
     }

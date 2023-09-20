@@ -3,7 +3,7 @@ import TitleFile from '../components/Who/Title'
 import Left from '../components/Who/Left'
 import Card from '../components/Who/Card'
 import History from '../components/Who/History'
-import NavBar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
 
 
 function Who() {

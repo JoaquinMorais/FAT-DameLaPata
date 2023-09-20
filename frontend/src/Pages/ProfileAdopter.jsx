@@ -10,7 +10,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../components/NavBar/Navbar';
+import Navbar from '../components/NavBar/NavBar';
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
 

@@ -6,11 +6,42 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
-import NavBar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
+import IsLogged from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
+
 import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
 const Dogs = () => {
+  // ALEJO PARTE
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages_array, setPagesArray] = useState([]);
+  const [settings_array, setSettingsArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loggedResponse = await IsLogged();
+        console.log(loggedResponse);
+        setPagesArray(loggedResponse.pages_array);
+        setSettingsArray(loggedResponse.setting_array);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that might occur during the API call
+        console.error(error);
+        setIsLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, []);
+  //////////////
+
+
+
+
+
   const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
   useEffect(() => {
@@ -30,7 +61,7 @@ const Dogs = () => {
   
   return (
     <>
-      <NavBar />
+      <NavBar pages_array={pages_array} settings_array={settings_array} />
       <Principio>
         <Lamina>
           <Flip top>
