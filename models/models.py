@@ -59,6 +59,7 @@ class User(db.Model):
     type = Column(String(150))
 
     id_address = Column(Integer, ForeignKey('address.id_address', onupdate='CASCADE'))
+    id_status = Column(Integer, ForeignKey('status.id_status', onupdate='CASCADE'))
 
     __mapper_args__ = {
         'polymorphic_identity': 'user',
@@ -69,9 +70,13 @@ class User(db.Model):
         self.username = username
         self.email = email
         self.id_address = id_address
+        self.id_status = 1
 
     def getId(self):
         return self.id_user
+
+    def getStatus(self):
+        return self.id_status
 
     def this_type(self):
         return type(self).__name__
@@ -235,10 +240,12 @@ class Color(db.Model):
     id_color = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
-    
-    def __init__(self, title, description):
+    color_hash = db.Column(db.String(10), nullable = False)
+
+    def __init__(self, title, description,color_hash):
         self.title = title
         self.description = description
+        self.color_hash = color_hash
 
     def __repr__(self):
         return f'{self.title}'
@@ -502,6 +509,17 @@ class RequestPetAdopter(db.Model):
             'edition_date':self.edition_date.isoformat(),
             
         }
+
+
+class Status(db.Model):
+    __tablename__ = 'status'
+    id_status = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable = False)
+
+    def __init__(self,titulo):
+        self.titulo = titulo
+
+
 
 class Image(db.Model):
     id_image = db.Column(db.Integer, primary_key=True)

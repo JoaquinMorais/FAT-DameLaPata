@@ -25,6 +25,45 @@ const Details = () => {
         fetchData();
     }, []);
 
+
+
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+
+    useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  const ifGuion = (mylist,element) => {
+    if(mylist[mylist.length - 1] === element){
+      return ''
+    }
+    return ' - '
+  }
+
+
+  const calcularEdad = () => {
+    if (responseData?.response.birth_date) {
+        const fechaNacimiento = new Date(responseData.response.birth_date);
+        const fechaHoy = new Date();
+        const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
+        const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
+        return `${edadPerro} años`;
+    }
+    return '';
+};
+
+
+
     // const { id } = useParams();
     // const [responseData, setResponseData] = useState(); // Agrega el estado para la respuesta de axios
   
@@ -56,7 +95,7 @@ const Details = () => {
               <Abajo>
                 <Texto>
                   <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
+                  <Zoom left><Subtitulo>{calcularEdad()}</Subtitulo></Zoom>
                   <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
                 </Texto>
                 {/* <Botones>
@@ -91,16 +130,32 @@ const Details = () => {
             
             <Fade>
               <Div4>
-                <Titulo2>Color</Titulo2>
-                <Caracteristicas>Proximamente...</Caracteristicas>
+                <Titulo2>Color/es</Titulo2>
+                <Caracteristicas>
+                  {responseData?.response.colors.map(color => (
+                    <span key={color.id_color}>{color.title} {ifGuion(responseData?.response.colors,color)}</span>
+
+                  ))}
+                </Caracteristicas>
               </Div4>
+            </Fade>
+
+            <Fade>
+              <Div5>
+                <Titulo2>Caracteristica/s</Titulo2>
+                <Caracteristicas>
+                  {responseData?.response.characteristics.map(carac => (
+                    <span key={carac.id_category}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span>
+                  ))}
+                </Caracteristicas>
+              </Div5>
             </Fade>
               
             <Fade>
-              <Div5>
+              <Div6>
                 <Titulo2>Vacunas</Titulo2>
                 <Caracteristicas>Consultar</Caracteristicas>
-              </Div5>
+              </Div6>
             </Fade>
               
             </Container>
@@ -258,7 +313,7 @@ const Div1 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffe778;
+    background-color: #ffffff;
 `;
 
 const Div2 = styled.div`
@@ -266,7 +321,7 @@ const Div2 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #eacf5f;
+    background-color: #fafafa;
 `;
 
 const Div3 = styled.div`
@@ -274,7 +329,7 @@ const Div3 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #d5b745;
+    background-color: #f5f5f5;
 `;
 
 const Div4 = styled.div`
@@ -282,7 +337,7 @@ const Div4 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #bf9e2c;
+    background-color: #f0f0f0;
 `;
 
 const Div5 = styled.div`
@@ -290,5 +345,13 @@ const Div5 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #aa8612;
+    background-color: #ebebeb;
+`;
+
+const Div6 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
 `;

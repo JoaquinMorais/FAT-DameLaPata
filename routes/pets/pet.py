@@ -116,22 +116,26 @@ def deletePet(id):
 
 @OnePet.route("/db/populate",methods=['GET','POST'])
 def sizes():
-    
+    db.session.add(Status('Activado'))
+    db.session.add(Status('Desactivado'))
+
     db.session.add(Size('Chico',3,4))
     db.session.add(Size('Mediano',3,4))
     db.session.add(Size('Grande',3,4))
 
-    db.session.add(Color('Negro', 'color negro'))
-    db.session.add(Color('Blanco', 'color blanco'))
-    db.session.add(Color('Marrón', 'color marrón'))
-    db.session.add(Color('Gris', 'color gris'))
-    db.session.add(Color('Amarillo', 'color amarillo'))
-    db.session.add(Color('Rojo', 'color rojo'))
-    db.session.add(Color('Crema', 'color crema'))
-    db.session.add(Color('Tricolor', 'combinación de negro, blanco y marrón'))
-    db.session.add(Color('Merle', 'patrón moteado con varios colores'))
-    db.session.add(Color('Azul', 'tono de gris diluido'))
-    db.session.add(Color('Sable', 'mezcla de colores con puntas más oscuras'))
+    db.session.add(Color('Negro', 'color negro', '#000000'))
+    db.session.add(Color('Blanco', 'color blanco', '#ffffff'))
+    db.session.add(Color('Marrón', 'color marrón', '#882f00'))
+    db.session.add(Color('Gris claro', 'color gris', '#acacac'))
+    db.session.add(Color('Gris oscuro', 'color gris', '#585858'))
+    db.session.add(Color('Amarillo', 'color amarillo', '#ffff0c'))
+    db.session.add(Color('Naranja', 'color naranja', '#ff6e29'))
+    db.session.add(Color('Rojo', 'color rojo', '#ff0a06'))
+    db.session.add(Color('Azul', 'color azul', '#1500fe'))
+    db.session.add(Color('Celeste', 'color celeste', '#22fff6'))
+    db.session.add(Color('Violeta', 'color violeta', '#1500fe'))
+    db.session.add(Color('Verde', 'color verde', '#1500fe'))
+    db.session.add(Color('Crema', 'color crema', '#ffe38f'))
     
     db.session.add(Gender('Masculino', 'macho'))
     db.session.add(Gender('Femenino', 'hembra'))
