@@ -1,101 +1,113 @@
-import React from 'react'
-import { styled } from 'styled-components'
-import Bounce from 'react-reveal/Bounce';
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
+import Roll from 'react-reveal/Roll';
 import { Fade } from 'react-reveal';
 
-function Section_2() {
+function Section_2({ onClick }) {
+  const [showText, setShowText] = useState(false);
+
+  const toggleText = () => {
+    setShowText(!showText);
+  };
+
   return (
-  <>
-  <Fade top>
-    <Title>¡ESTAMOS AQUI POR UNA MISION!</Title>
-    <SubTitle>Un hogar, una pata a la vez: Adopta y cambia una vida perruna hoy</SubTitle>
-  </Fade>
-  
-  <Bounce right>
-    <RightPart>
-      <RightImage src="/Images/perro.jpg" alt="" />
-      <ColumnText>
-        <RightText>En nuestra página de adopción, nuestra misión es clara y apasionada: promover la adopción responsable, crear conciencia sobre el abandono de perros y ofrecer recursos para el cuidado adecuado de estas adorables mascotas. Creemos que al unirnos como una comunidad de amantes de los animales, podemos hacer una verdadera diferencia en la vida de estos compañeros peludos que tanto lo necesitan.</RightText>
-        <RightText>A través de nuestra página y campañas en redes sociales, nos esforzamos por crear conciencia sobre el problema del abandono de perros y sus efectos devastadores. Compartimos historias inspiradoras de perros rescatados y cómo han encontrado una nueva oportunidad en una familia amorosa. También trabajamos en colaboración con otras organizaciones y refugios para prevenir el abandono y educar sobre la importancia de la tenencia responsable de mascotas.</RightText>
-      </ColumnText>
-    </RightPart>
-  </Bounce>
-  </>
-  )
+    <Roll left>
+      <Container>
+        <Wrap blurBackground={showText}>
+          <TopTitle>
+            <TopText>CUAL ES</TopText>
+          </TopTitle>
+          <CenteredContent>
+            <UpArrow
+              src="../Images/expand-less.png"
+              onClick={toggleText}
+            />
+          </CenteredContent>
+          <DownTitle>
+            <DownText>NUESTRA MISION?</DownText>
+          </DownTitle>
+        </Wrap>
+        {showText && (
+          <TextBox>
+            <p>
+            En nuestra página de adopción, nuestra misión es clara y apasionada: promover la adopción responsable, crear conciencia sobre el abandono de perros y ofrecer recursos para el cuidado adecuado de estas adorables mascotas. Creemos que al unirnos como una comunidad de amantes de los animales, podemos hacer una verdadera diferencia en la vida de estos compañeros peludos que tanto lo necesitan.
+            A través de nuestra página y campañas en redes sociales, nos esforzamos por crear conciencia sobre el problema del abandono de perros y sus efectos devastadores. Compartimos historias inspiradoras de perros rescatados y cómo han encontrado una nueva oportunidad en una familia amorosa. También trabajamos en colaboración con otras organizaciones y refugios para prevenir el abandono y educar sobre la importancia de la tenencia responsable de mascotas.
+            </p>
+          </TextBox>
+        )}
+      </Container>
+    </Roll>
+  );
 }
 
-export default Section_2
+export default Section_2;
 
-const Title = styled.h1`
-margin-top: 100px;
-font-size: 60px;
-text-align: center;
+const TextBox = styled.div`
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 50%; /* Centra verticalmente */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra horizontal y verticalmente */
+  z-index: 1;
+  p{
+    font-family: 'Lexend', sans-serif;
+  }
+`;
 
-@media (max-width: 768px) {
-  font-size: 55px;
-  text-align: center;
-}
-`
-
-const SubTitle = styled.p`
-margin-top: 30px;
-font-size: 30px;
-font-family: 'Grape Nuts', cursive;
-text-align: center;
-
-@media (max-width: 768px) {
-  font-size: 25px;
-
-}
-
-`
-
-const RightPart = styled.div`
+const Container = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
-  flex-direction: row; 
-  align-items: center; 
-  
-  @media(max-width: 768px){
-    flex-direction: column; 
-
-  }
-`
-
-const RightImage = styled.img`
-  margin: 100px;
-  float: left;
-  height: 650px;
-  width: auto;
-
-  @media(max-width: 768px){
-    height: 400px;    
-  }
-
-  @media (max-width: 375px) {
-    height: 300px;    
-
-  }
-  
-`
-
-const RightText = styled.p`
-  float: top;
-  font-size: 30px;
-  margin-top: 30px;
-  @media(max-width: 768px){
-    font-size: 25px;
-  }
-`
-
-const ColumnText = styled.div`
-  display: flex;
-  text-align: justify;
   flex-direction: column;
-  margin-right: 40px;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  @media(max-width: 768px){
-    margin-right:20px;
-    margin-left:20px;
+const Wrap = styled.div`
+  background-image: url('../Images/paw_prints.gif');
+  width: 100%;
+  flex: 1;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10vh;
+  filter: ${(props) => (props.blurBackground ? 'blur(10px)' : 'none')};
+  transition: filter 0.5s ease;
+`;
 
-  }
-`
+const TopTitle = styled.div`
+  align-self: flex-start;
+`;
+
+const DownTitle = styled.div`
+  align-self: flex-end;
+`;
+
+const TopText = styled.h1`
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 40px;
+`;
+
+const DownText = styled.h1`
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 40px;
+`;
+
+const CenteredContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 5vh;
+`;
+
+const UpArrow = styled.img`
+  cursor: pointer;
+  animation: animateUp infinite 1.5s;
+`;
