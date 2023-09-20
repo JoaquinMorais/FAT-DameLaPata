@@ -41,7 +41,7 @@ function Pinder() {
   axiosTest()
   return (
     <> 
-      <NavBar />
+      <NavBar pages_array={pages_array} settings_array={settings_array} />
       <BigCards />
     </>
   )
