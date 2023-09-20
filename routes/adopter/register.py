@@ -16,6 +16,7 @@ AdopterRegister = Blueprint("AdopterRegister",__name__)
 @AdopterRegister.route("/adopter/register",methods=['PUT'],endpoint = 'register_adopter')
 def register_adopter():
     session.pop('user_id',None)
+    session.pop('user_type',None)
     
     data = Request('username','password','province','city','district','email','name','surname','birthdate','phone_number','id_document_type','document')
     for x in data:
@@ -48,6 +49,7 @@ def register_adopter():
     db.session.commit()
 
     session['user_id'] = user.getId()
+    session['user_type'] = user.this_type()
     
     return Response(
         user.json(),

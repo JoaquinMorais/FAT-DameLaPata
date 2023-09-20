@@ -11,6 +11,7 @@ Login = Blueprint("Login",__name__)
 @Login.route("/login",methods=['POST'])
 def login_user():
     session.pop('user_id',None)
+    session.pop('user_type',None)
     data = Request('username','password')
 
     user = User.query.filter_by(username = data['username']).first()
@@ -30,6 +31,7 @@ def login_user():
         )
     
     session['user_id'] = user.id_user
+    session['user_type'] = user.this_type()
     return Response(
         user.json(),
         200
