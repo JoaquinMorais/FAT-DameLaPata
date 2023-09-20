@@ -214,48 +214,7 @@ def sizes():
     db.session.add(Characteristics('Reacciones a las vacunas', 'El perro ha experimentado reacciones adversas a vacunas en el pasado', 6))
     db.session.commit()
 
-    db.session.add(
-        Address(
-            'cordoba',
-            'cordoba',
-            '5151',
-            12,
-            12
-        )
-    )
-    db.session.commit()
     
-
-    db.session.add(
-        Shelter(
-            'RefugioGarra',
-            'garra@gmail.com',
-            1,
-            'garra'
-        )
-    )
-    db.session.commit()
-    
-    db.session.add(
-        Pet(
-            'Pancho',
-            '2019-03-10',
-            1,
-            1,
-            1,
-            'https://img.freepik.com/vector-gratis/lindo-personaje-dibujos-animados-perro-sentado_1308-135528.jpg',
-            1
-        )
-    )
-    db.session.commit()
-    
-    db.session.add(RelationShipPetColor(1, 1))
-    db.session.add(RelationShipPetColor(1, 2))
-    db.session.add(RelationShipPetColor(1, 3))
-    db.session.add(RelationShipPetCharacteristics(1, 1))
-    db.session.add(RelationShipPetCharacteristics(1, 2))
-    db.session.commit()
-
     db.session.add(DocumentType('dni','soy un dni'))
     db.session.add(DocumentType('cuit','soy un cuit'))
     db.session.commit()
