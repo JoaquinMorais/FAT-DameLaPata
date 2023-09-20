@@ -86,30 +86,46 @@ def putTaste():
 @AdopterTastesAll.route("/adopter/tastes",methods=['DELETE'],endpoint = 'deleteTaste')
 @login_is_required(session)
 def deleteTaste():
-    id_size = Request('id_size')
+    id_colors = RequestList('id_color')
+    id_sizes = RequestList('id_size')
     
-    size = Size.query.get(id_size)
-    if not size:
-        return Response(
-            'Bad Request size not found',
-            400
-        )
-    
-    tasteSize = RelationShipUserSize.query.filter(
-        RelationShipUserSize.id_size == id_size,
-        RelationShipUserSize.id_user == session['user_id']
-    ).first()
+    response = []
 
-    if not tasteSize:
-        return Response(
-            'Bad Request. This taste doesnt exists',
-            400
-        )
-    
-    db.session.delete(tasteSize)
-    db.session.commit()
+    for id_color in id_colors:
 
+        responseColors = getRequestSession().delete(
+            url_for(
+                'AdopterTastesColors.deleteTasteColors',
+                id_color = id_color,
+                _external=True
+            ), cookies=request.cookies
+        ).json()
+
+
+        response.append({
+            'id_color': int(id_color),
+            'response':responseColors['response'],
+            'status':responseColors['status']
+        })
+
+    for id_size in id_sizes:
+        responseSizes = getRequestSession().delete(
+            url_for(
+                'AdopterTastesSizes.deleteTasteSizes',
+                id_size = id_size,
+                _external=True
+            ), cookies=request.cookies
+        ).json()
+
+
+        response.append({
+            'id_size': int(id_size),
+            'response':responseSizes['response'],
+            'status':responseSizes['status']
+        })
     return Response(
-        'Successful',
+        [x for x in response],
         200
     )
+    
+    
