@@ -29,45 +29,49 @@ def getTasteColors():
 @login_is_required(session)
 def putTasteColors():
     id_colors = RequestList('id_color')
-    
-    if not id_colors:
-        return Response(
-                'Bad Request color not found',
-                400
-            )
-    
-    if len(id_colors) == 1:
-        id_colors = [id_colors]
-    response = [
 
-    ]
+    goodResponse = []
+    badResponse = []
+
+    
+    
     for id_color in id_colors:
         color = Color.query.get(id_color)
         if not color:
-            
-            response.append(f'Bad Request color not found {id_color}')
-            
+            badResponse.append(f'Bad Request color {id_color} not found ')
+            continue
     
         before_tasteColor = RelationShipUserColor.query.filter(
             RelationShipUserColor.id_color == id_color,
             RelationShipUserColor.id_user == session['user_id']
         ).first()
         if before_tasteColor:
-            response.append('This color had already been added previously ')
+            badResponse.append(f'Color {id_color} had already been added previously ')
+            continue
         
         tasteColor = RelationShipUserColor(session['user_id'],id_color)
         if not tasteColor:
-            response.append('Bad Request cant create taste color')
+            badResponse.append(f'Bad Request cant create taste color {id_color}')
+            continue
+        
         db.session.add(
             tasteColor
         )
+        goodResponse.append(f"Color {id_color} added succesfully")
+        goodResponse.append(tasteColor.color())
+        
     db.session.commit()
 
-
+    if badResponse!=[]:
+        return Response(
+            [x for x in badResponse+goodResponse],
+            400
+        )
     return Response(
-        tasteColor.json(),
-        200
-    )
+            [x for x in goodResponse],
+            400
+        )
+    
 
 @AdopterTastesColors.route("/adopter/tastes/colors",methods=['DELETE'],endpoint = 'deleteTasteColors')
 @login_is_required(session)

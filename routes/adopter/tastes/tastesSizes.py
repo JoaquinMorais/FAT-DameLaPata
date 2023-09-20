@@ -25,41 +25,49 @@ def getTasteSizes():
 @AdopterTastesSizes.route("/adopter/tastes/sizes",methods=['PUT'],endpoint = 'putTasteSizes')
 @login_is_required(session)
 def putTasteSizes():
-    id_size = Request('id_size')
+    id_sizes = RequestList('id_size')
+
+    goodResponse = []
+    badResponse = []
+
     
-    size = Size.query.get(id_size)
-    if not size:
-        return Response(
-            'Bad Request size not found',
-            400
-        )
     
-    before_tasteSize = RelationShipUserSize.query.filter(
-        RelationShipUserSize.id_size == id_size,
-        RelationShipUserSize.id_user == session['user_id']
-    ).first()
-    if before_tasteSize:
-        return Response(
-            'This size had already been added previously ',
-            200
-        )
+    for id_size in id_sizes:
+        size = Size.query.get(id_size)
+        if not size:
+            badResponse.append(f'Bad Request size {id_size} not found ')
+            continue
     
-    tasteSize = RelationShipUserSize(session['user_id'],id_size)
-    if not tasteSize:
-        return Response(
-            'Bad Request cant create taste size',
-            404
+        before_tasteSize = RelationShipUserSize.query.filter(
+            RelationShipUserSize.id_size == id_size,
+            RelationShipUserSize.id_user == session['user_id']
+        ).first()
+        if before_tasteSize:
+            badResponse.append(f'Size {id_size} had already been added previously ')
+            continue
+        
+        tasteSize = RelationShipUserSize(session['user_id'],id_size)
+        if not tasteSize:
+            badResponse.append(f'Bad Request cant create taste size {id_size}')
+            continue
+        
+        db.session.add(
+            tasteSize
         )
-    db.session.add(
-        tasteSize
-    )
+        goodResponse.append(f"Size {id_size} added succesfully")
+        goodResponse.append(tasteSize.size())
+        
     db.session.commit()
 
-
+    if badResponse!=[]:
+        return Response(
+            [x for x in badResponse+goodResponse],
+            400
+        )
     return Response(
-        tasteSize.size(),
-        200
-    )
+            [x for x in goodResponse],
+            400
+        )
 
 @AdopterTastesSizes.route("/adopter/tastes/sizes",methods=['DELETE'],endpoint = 'deleteTasteSizes')
 @login_is_required(session)

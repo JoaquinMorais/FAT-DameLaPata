@@ -2,9 +2,8 @@ from flask import Blueprint,render_template,redirect,url_for,request,session,g,a
 from models.models import *
 from utils.db import db
 from decorators.flask_decorators import * 
-from methods.requests import Request, RequestList
+from methods.requests import Request, RequestList, getRequestSession
 from methods.response import Response
-from utils.requests_flask import requests_flask
 import requests
 
 AdopterTastesAll = Blueprint("AdopterTastesAll",__name__)
@@ -25,14 +24,6 @@ def getTaste():
     tastesSizes = RelationShipUserSize.query.filter(
         RelationShipUserSize.id_user == session['user_id']
     )
-    """
-    response = requests.get(url_for(
-            'Pets.getPetsFilterby', 
-            **data,
-            id_only = 'true',
-            _external=True             
-        )
-    )"""
     responseColors = session_requests.get(
         url_for(
             'AdopterTastesColors.getTasteColors',
@@ -65,40 +56,31 @@ def getTaste():
 @AdopterTastesAll.route("/adopter/tastes",methods=['PUT'],endpoint = 'putTaste')
 @login_is_required(session)
 def putTaste():
-    id_size = Request('id_size')
+    id_sizes = RequestList('id_size')
+    id_colors = RequestList('id_color')
     
-    size = Size.query.get(id_size)
-    if not size:
-        return Response(
-            'Bad Request size not found',
-            400
-        )
+    responseColors = getRequestSession().put(
+        url_for(
+            'AdopterTastesColors.putTasteColors',
+            id_color = id_colors,
+            _external=True
+        ), cookies=request.cookies
+    ).json()
     
-    before_tasteSize = RelationShipUserSize.query.filter(
-        RelationShipUserSize.id_size == id_size,
-        RelationShipUserSize.id_user == session['user_id']
-    ).first()
-    if before_tasteSize:
-        return Response(
-            'This size had already been added previously ',
-            200
-        )
-    
-    tasteSize = RelationShipUserSize(session['user_id'],id_size)
-    if not tasteSize:
-        return Response(
-            'Bad Request cant create taste size',
-            404
-        )
-    db.session.add(
-        tasteSize
-    )
-    db.session.commit()
-
+    responseSizes = getRequestSession().put(
+        url_for(
+            'AdopterTastesSizes.putTasteSizes',
+            id_size = id_sizes,
+            _external=True
+        ), cookies=request.cookies
+    ).json()
 
     return Response(
-        tasteSize.size(),
-        200
+        {
+            "colors":responseColors['response'],
+            "sizes":responseSizes['response']
+        },
+        max(responseColors['status'],responseSizes['status'])
     )
 
 @AdopterTastesAll.route("/adopter/tastes",methods=['DELETE'],endpoint = 'deleteTaste')
