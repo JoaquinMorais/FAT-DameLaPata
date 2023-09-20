@@ -6,9 +6,7 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-
-import CardTeam from '../components/Who/CardTeam';
-import History from '../components/Who/History'; // Agregamos la importación del componente History
+import CardTeam from '../components/Who/CardTeam'; // Cambia el nombre del componente
 import NavBar from '../components/NavBar/Navbar';
 
 function Who() {
@@ -41,7 +39,23 @@ function Who() {
           </ImageContainer>
         </Fade>
       </Wrap>
-      <History /> 
+      {/* Contenido del componente History integrado */}
+      <Container>
+        <Typography variant="h4">Un poco de nuestra historia</Typography>
+        <CardMedia
+          component="img"
+          alt="Imagen de muestra"
+          height="400"
+          image="https://cdn.wikiwiki.jp/to/w/becomnextbot/Wenomechainsama/::attach/Wenomechainsama.png?rev=08e3f8c3e8252bc599d086a85d402b2d&t=20221226165443"
+        />
+        <Typography variant="body1">
+          Todo comenzó a principios de este año, donde teníamos que realizar una página sin fines de lucro. Después de una lluvia de ideas, nos decidimos por hacer un proyecto que ayude y facilite la adopción de perros. Así nació: Dame La Pata
+        </Typography>
+        <Typography variant="body1">
+          La idea surgió al ver la triste realidad de muchos perros abandonados y maltratados en nuestra comunidad. Queríamos marcar una diferencia y contribuir a mejorar sus vidas. Así que nos pusimos manos a la obra y creamos "Dame La Pata", un espacio en línea donde los refugios y protectoras de animales pueden publicar perfiles de los perros disponibles para adopción, y las personas interesadas en adoptar pueden buscar y filtrar perros según sus preferencias y ubicación.
+        </Typography>
+      </Container>
+      {/* Fin del contenido del componente History integrado */}
       <CardTeam />
     </>
   );
