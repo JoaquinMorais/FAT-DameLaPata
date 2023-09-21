@@ -70,8 +70,10 @@ function Navbar() {
   // Function to get the corresponding settings routes
   function getSettingsLink(setting) {
     switch (setting) {
-      case 'Perfil':
-        return '/profile';
+      case 'Mi Perfil':
+        return '/profile/adopter';
+      case 'Perfil del refugio':
+        return '/profile/shelter';
       case 'Iniciar Sesion':
         return '/login';
       case 'Cerrar sesion':

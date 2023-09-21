@@ -13,6 +13,8 @@ Profile = Blueprint("Profile",__name__)
 @Profile.route("/profile",methods=['POST'], endpoint = 'profile')
 @login_is_required(session)
 def profile():
+    print('inprofile')
+    print(session['user_id'])
     user = User.query.get(session['user_id'])
     
     if not user:

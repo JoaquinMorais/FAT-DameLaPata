@@ -12,7 +12,6 @@ Login = Blueprint("Login",__name__)
 def login_user():
     session.pop('user_id',None)
     data = Request('username','password')
-    print(data)
     user = User.query.filter_by(username = data['username']).first()
 
     if not user:

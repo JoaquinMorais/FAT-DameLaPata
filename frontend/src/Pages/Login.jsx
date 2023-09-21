@@ -9,9 +9,11 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import Navbar from '../components/NavBar/Navbar';
 import LoaderComp from '../components/Loader/Loader';
-import { SendLogin, FetchNavbarItems } from '../my_methods/session_methods';
+import { SendLogin } from '../my_methods/session_methods';
+import { Alert } from '@mui/material';
 
 // Enlace de la imagen de fondo
+
 const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
 
 const validationSchema = Yup.object({
@@ -21,8 +23,11 @@ const validationSchema = Yup.object({
 function Login() {
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
+    localStorage.removeItem('id');
+    localStorage.removeItem('type');
     setIsLoading(false);
   }, []);
 
@@ -40,7 +45,17 @@ function Login() {
     },
     validationSchema,
     onSubmit: async (values) => {
-      let holis = await SendLogin(values);
+      let is_logged = await SendLogin(values);
+      if (is_logged === true) {
+        if (localStorage.getItem('type') === 'adopter'){
+          window.location.href = "/profile/adopter";
+        }
+        else if (localStorage.getItem('type') === 'shelter'){
+          window.location.href = "/profile/shelter";
+        }
+      } else {
+        setIsDialogOpen(true);
+      }
     },
   });
 
@@ -55,6 +70,10 @@ function Login() {
       
       <BackgroundImage>
         <CenteredContainer >
+        {isDialogOpen && (
+          <Alert severity="error">Las credenciales no son correctas — ¡vuelve a intentarlo!</Alert>
+        )}
+
           <Paper elevation={10} style={{ padding: '20px', textAlign: 'center' }}>
             <h1 style={{ marginBottom: '20px' }}>INICIA SESIÓN</h1>
             <form onSubmit={formik.handleSubmit}>
