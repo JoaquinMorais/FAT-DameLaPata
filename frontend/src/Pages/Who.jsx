@@ -8,6 +8,10 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CardTeam from '../components/Who/CardTeam';
 import NavBar from '../components/NavBar/Navbar';
+import TitleFile from '../components/Who/Title'
+import Left from '../components/Who/Left'
+import Card from '../components/Who/Card'
+import History from '../components/Who/History'
 
 function Who() {
   return (

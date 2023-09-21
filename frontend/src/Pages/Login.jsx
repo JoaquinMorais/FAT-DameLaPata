@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/NavBar/Navbar';
+import Navbar from '../components/NavBar/NavBar';
 import { styled } from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import LoaderComp from '../components/Loader/Loader';

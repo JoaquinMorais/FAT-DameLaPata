@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import NavBar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -12,10 +12,35 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import Colors from "../components/Add/Colors"
+import IsLogged from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
 
 
 function Add() {
+
+  // ALEJO PARTE
+  const [isLoading, setIsLoading] = useState(true);
+  const [pages_array, setPagesArray] = useState([]);
+  const [settings_array, setSettingsArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loggedResponse = await IsLogged();
+        console.log(loggedResponse);
+        setPagesArray(loggedResponse.pages_array);
+        setSettingsArray(loggedResponse.setting_array);
+        setIsLoading(false);
+      } catch (error) {
+        // Handle any errors that might occur during the API call
+        console.error(error);
+        setIsLoading(false); // Set loading to false in case of an error
+      }
+    };
+
+    fetchData();
+  }, []);
+  //////////////
 
   const [selectedColors, setSelectedColors] = useState([]);
 
@@ -125,7 +150,7 @@ function Add() {
   return (
 
     <>
-      <NavBar />
+      <NavBar pages_array={pages_array} settings_array={settings_array} />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
