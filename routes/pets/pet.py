@@ -4,7 +4,7 @@ from utils.db import db
 from decorators.flask_decorators import * 
 from methods.requests import Request, RequestList
 from methods.response import Response
-
+from methods.encrypt import Encrypt
 OnePet = Blueprint("OnePet",__name__)
 
     
@@ -276,7 +276,80 @@ def sizes():
         )
     )
     db.session.commit()
+    db.session.add(
+        Credencial('password',Encrypt("1234") ,'shelter',1)
+    )
+    db.session.add(
+        Credencial('password',Encrypt("1234") ,'shelter',2)
+    )
+    db.session.add(
+        Credencial('password',Encrypt("1234") ,'shelter',3)
+    )
     
+    db.session.commit()
+    
+    db.session.add(DocumentType('dni','soy un dni'))
+    db.session.add(DocumentType('cuit','soy un cuit'))
+    db.session.commit()
+    
+    db.session.add(
+        Adopter(
+            'salonia',
+            'salonia@gmail.com',
+            1,
+            'AGUSTIN',
+            'SALONIA',
+            '2005-02-27',
+            '3513513511',
+            1,
+            '46146146'
+        )
+    )
+    
+    
+    db.session.add(
+        Adopter(
+            'fini',
+            'fini@gmail.com',
+            2,
+            'MARCO',
+            'FINI',
+            '2005-03-27',
+            '3513513511',
+            1,
+            '46146146'
+        )
+    )
+    
+    
+    db.session.add(
+        Adopter(
+            'alejo',
+            'alejo@gmail.com',
+            3,
+            'ALEJO',
+            'DIAZ',
+            '2005-04-27',
+            '3513513511',
+            1,
+            "46146146"
+        )
+    )
+    
+    db.session.commit()
+    
+    db.session.add(
+        Credencial('password',Encrypt('1234') ,'adopter',1)
+    )
+    db.session.add(
+        Credencial('password',Encrypt('1234') ,'adopter',2)
+    )
+    db.session.add(
+        Credencial('password',Encrypt('1234') ,'adopter',3)
+    )
+    
+    db.session.commit()
+     
     db.session.add(
         Pet(
             1,
@@ -420,10 +493,6 @@ def sizes():
 
     db.session.commit()
 
-
-    db.session.add(DocumentType('dni','soy un dni'))
-    db.session.add(DocumentType('cuit','soy un cuit'))
-    db.session.commit()
 
     db.session.add(State('adoptado','¡match completado!'))
     db.session.add(State('aceptado','¡match!'))

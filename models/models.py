@@ -107,6 +107,9 @@ class Adopter(User):
 
     def __init__(self, username, email, id_address, name, surname, birth_date, phone_number, id_document_type, document):
         super().__init__(username, email, id_address)
+        self.username = username
+        self.email = email
+        self.id_address = id_address
         self.name = name
         self.surname = surname
         self.birth_date = birth_date
