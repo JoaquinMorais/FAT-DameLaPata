@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,15 +13,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Navbar from '../components/NavBar/Navbar';
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
+import GetPreference from '../my_methods/query_methods';
+
+
 
 const BackgroundImage = styled.div`
   background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  width: 100%;
+  width:100%;
+  min-height: 100vh;
   position: absolute;
-  top: 0;
+  top: 0; 
   left: 0;
 `;
 
@@ -117,13 +121,29 @@ function AdopterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
 
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
     const openConfirmation = () => {
         setIsConfirmationOpen(true);
+
     };
 
     const closeConfirmation = () => {
         setIsConfirmationOpen(false);
     };
+
+    useEffect(() => {
+      async function fetchPreferences() {
+        const preferences = await GetPreference();
+        if (preferences) {
+          setColors(preferences.colors_array);
+          setSizes(preferences.sizes_array);
+        }
+      }
+      fetchPreferences();
+    }, []);
+  
 
     const handleDeleteAccount = async () => {
       // inicio de flag
@@ -159,27 +179,12 @@ function AdopterProfile() {
     Edad: '21',
   };
 
-  // Datos de preferencias del usuario
-  const preferences = {
-    preferencia1: 'Perros',
-    preferencia2: 'Negros bien negros',
-    preferencia3: 'Machos',
-    preferencia4: 'Grandes',
-    preferencia5: 'De 1 a 13 años',
-    preferencia6: '* Adicionales *',
-
-  };
-
-  // Función para manejar la edición de preferencias
-  const handleEditPreferences = () => {
-    // Agrega aquí la lógica para editar las preferencias del usuario.
-  };
 
   return (
     <>
       <Navbar />
       <BackgroundImage>
-        <CenteredContainer maxWidth="md">
+        <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
           <Grid item xs={12} md={4}>
 
@@ -247,16 +252,16 @@ function AdopterProfile() {
               <StyledHr />
               <PreferencesContainer>
                 <Typography variant="h4">PREFERENCIAS</Typography>
-                <Typography variant="body1"><strong>Animal:</strong> {preferences.preferencia1}</Typography>
-                <Typography variant="body1"><strong>Color:</strong> {preferences.preferencia2}</Typography>
-                <Typography variant="body1"><strong>Sexo:</strong> {preferences.preferencia3}</Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong> {preferences.preferencia4}</Typography>
-                <Typography variant="body1"><strong>Edad:</strong> {preferences.preferencia5}</Typography>
-                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong> {preferences.preferencia6}</Typography>
+                <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
+                <Typography variant="body1"><strong>Color:</strong>  {colors.join(', ')}</Typography>
+                <Typography variant="body1"><strong>Sexo:</strong></Typography>
+                <Typography variant="body1"><strong>Tamaño:</strong> {sizes.join(', ')}</Typography>
+                <Typography variant="body1"><strong>Edad minima:</strong> </Typography>
+                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
 
 
-                <EditPreferencesButton variant="contained" color="primary" onClick={handleEditPreferences}>
-                  Editar Preferencias
+                <EditPreferencesButton variant="contained" color="primary">
+                  <a href="/preferences" style={{color:'white'}}>Editar Preferencias</a>
                 </EditPreferencesButton>
               </PreferencesContainer>
             </Grid>

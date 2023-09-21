@@ -14,6 +14,9 @@ const validationSchema = Yup.object({
   name: Yup.string().required('Campo requerido'),
   surname: Yup.string().required('Campo requerido'),
   password: Yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('Campo requerido'),
+  repeatPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir')
+    .required('Campo requerido'),
   province: Yup.string().required('Campo requerido'),
   city: Yup.string().required('Campo requerido'),
   district: Yup.string().required('Campo requerido'),
@@ -29,6 +32,7 @@ const initialValues = {
   name: '',
   surname: '',
   password: '',
+  repeatPassword: '',
   province: '',
   city: '',
   district: '',
@@ -113,6 +117,20 @@ function AdopterRegister() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            id="repeatPassword"
+            name="repeatPassword"
+            type="password"
+            label="Repetir Contraseña"
+            value={formik.values.repeatPassword}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+            helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
