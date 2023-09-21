@@ -11,7 +11,6 @@ import {
 import NavBar from '../components/NavBar/Navbar';
 import IsLogged from '../my_methods/session_methods';
 
-
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
   { value: 'Mediano', label: 'Mediano' },
@@ -25,9 +24,9 @@ const comportamientoOptions = [
 ];
 
 const colorOptions = [
-  { value: 'Blanco', label: 'Blanco' },
-  { value: 'Negro', label: 'Negro' },
-  { value: 'Marrón', label: 'Marrón' },
+  { value: 1, label: 'Blanco' },
+  { value: 2, label: 'Negro' },
+  { value: 3, label: 'Marrón' },
 ];
 
 const saludOptions = [
@@ -41,7 +40,7 @@ const Formulario = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pages_array, setPagesArray] = useState([]);
   const [settings_array, setSettingsArray] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {

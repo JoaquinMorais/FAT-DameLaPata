@@ -1,27 +1,46 @@
 import axios from "axios";
+import { Navigate } from "react-router";
+
+
+
+let colors_array = ['']
+let sizes_array = ['']
 
 async function GetPreference() {
     try {
-      const response_color = await axios.post('http://localhost:5000/adopter/tastes/colors', '' );
-      const response_size = await axios.post('http://localhost:5000/adopter/tastes/adopter/tastes/sizes', '' );
+      const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
+      const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
 
-      if (response.data['status'] === 402){
-        pages_array = ['Inicio', '¿Quienes Somos?']
-        setting_array = ['Iniciar Sesion', 'Crear Cuenta']
+      if (response_color.data['status'] === 402){
+        console.log(response_color);
+        <Navigate path='/error'/>
       }
-      else if(response.data['status'] === 200){
-        if (response.data['type'] === 'shelter')
-          pages_array = ['Inicio', '¿Quienes Somos?','Mis Mascotas', 'Publica', 'Peticiones']
-          setting_array = ['Administrar Cuenta', 'Cerrar Sesion']
+      else if(response_color.data['status'] === 200){
+        colors_array = response_color.data.colors;
+        response_color = console.log(response_color);
+        console.log(response_color);
+
       }
+      if (response_size.data['status'] === 402){
+        console.log(response_size);
+        <Navigate path='/error'/>
+      }
+      else if(response_size.data['status'] === 200){
+        sizes_array = response_size.data.sizes;
+        response_size = console.log(response_size);
+        console.log(response_size);
+
+      }
+    } 
     
-    } catch (error) {
+    catch (error) {
       console.error('Error al realizar la solicitud:', error.message);
     }
+
     return{
-      pages_array: pages_array,
-      setting_array: setting_array,
+      colors_array: colors_array,
+      sizes_array: sizes_array
     }
-  }
+}
 
 export default GetPreference

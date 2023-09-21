@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,6 +13,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Navbar from '../components/NavBar/Navbar';
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
+import GetPreference from '../my_methods/query_methods';
+
+
 
 const BackgroundImage = styled.div`
   background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
@@ -118,13 +121,29 @@ function AdopterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
 
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
     const openConfirmation = () => {
         setIsConfirmationOpen(true);
+
     };
 
     const closeConfirmation = () => {
         setIsConfirmationOpen(false);
     };
+
+    useEffect(() => {
+      async function fetchPreferences() {
+        const preferences = await GetPreference();
+        if (preferences) {
+          setColors(preferences.colors_array);
+          setSizes(preferences.sizes_array);
+        }
+      }
+      fetchPreferences();
+    }, []);
+  
 
     const handleDeleteAccount = async () => {
       // inicio de flag
@@ -212,7 +231,7 @@ function AdopterProfile() {
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
               <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad minima:</strong> {user.Edad}</Typography>
+              <Typography variant="body1"><strong>Edad:</strong> {user.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>
@@ -234,10 +253,10 @@ function AdopterProfile() {
               <PreferencesContainer>
                 <Typography variant="h4">PREFERENCIAS</Typography>
                 <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
-                <Typography variant="body1"><strong>Color:</strong> </Typography>
+                <Typography variant="body1"><strong>Color:</strong>  {colors.join(', ')}</Typography>
                 <Typography variant="body1"><strong>Sexo:</strong></Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong></Typography>
-                <Typography variant="body1"><strong>Edad:</strong> </Typography>
+                <Typography variant="body1"><strong>Tamaño:</strong> {sizes.join(', ')}</Typography>
+                <Typography variant="body1"><strong>Edad minima:</strong> </Typography>
                 <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
 
 
