@@ -90,7 +90,7 @@ const Wrap = styled.div`
 
 const StyledTitle = styled(Typography)`
   /* Anular el margin predeterminado de Material UI */
-  margin: 20px 0 !important; /* Agregar margen arriba y abajo */
+  margin: 40px 0 !important; /* Agregar margen arriba y abajo */
   font-size: 54px !important; /* Ajusta el tamaño de la fuente para títulos */
   font-weight: bold !important; /* Hacer que los títulos estén en negrita */
   text-align: center; /* Centrar el texto */

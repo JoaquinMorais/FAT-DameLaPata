@@ -18,6 +18,16 @@ const StyledCard = styled.div`
   width: 100%;
 `;
 
+const StyledImage = styled.img`
+  width: 30%; /* Tamaño predeterminado de la imagen */
+  height: auto;
+
+  /* Media query para pantallas más pequeñas */
+  @media (max-width: 768px) {
+    width: 70%; /* Cambia el tamaño de la imagen en pantallas más pequeñas */
+  }
+`;
+
 export default function CartaInd({ name, img, swiperInstance }) {
   return (
     <div className="swiper-slide" style={{
@@ -29,7 +39,7 @@ export default function CartaInd({ name, img, swiperInstance }) {
       paddingBottom: '20px',
       width: '100%',
     }}>
-      <img src={img} alt={name} style={{ width: '50%', height: 'auto' }} /> {/* Ajusta el ancho aquí */}
+      <StyledImage src={img} alt={name} />
       <div className="name">{name}</div>
     </div>
   );

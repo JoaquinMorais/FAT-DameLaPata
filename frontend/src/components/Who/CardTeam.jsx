@@ -14,10 +14,12 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledTitle = styled(Typography)`
+  margin: 40px 0 !important;
   font-size: 32px !important; /* Ajusta el tamaño de la fuente para el título */
   font-weight: bold !important; /* Hace que el título esté en negrita */
   text-align: center; /* Centra el texto */
 `;
+
 export default function CardTeam() {
   const [swiperInitialized, setSwiperInitialized] = useState(false);
   let swiper; // Declara una variable para la instancia de Swiper
