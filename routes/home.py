@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify,render_template,redirect,url_for
+from flask import Blueprint, jsonify,render_template,redirect,url_for,session
 from utils.db import db
 from flask import send_from_directory
 import os
@@ -58,8 +58,9 @@ def traer():
 
 @Home.route('/api/data')
 def api_data():
+    print(session)
     data = {
-        'message': 'fds'
+        'message': session['user_id']
     }
     return jsonify(data)
 

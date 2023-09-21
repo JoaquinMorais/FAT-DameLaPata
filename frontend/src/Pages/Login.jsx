@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import Navbar from '../components/NavBar/Navbar';
 import LoaderComp from '../components/Loader/Loader';
-import IsLogged from '../my_methods/session_methods'
 
 // Enlace de la imagen de fondo
 const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
@@ -22,24 +21,9 @@ const validationSchema = Yup.object({
 function Login() {
 
   const [isLoading, setIsLoading] = useState(true);
-  const [pages_array, setPagesArray] = useState([]);
-  const [settings_array, setSettingsArray] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const loggedResponse = await IsLogged();
-        console.log(loggedResponse);
-        setPagesArray(loggedResponse.pages_array);
-        setSettingsArray(loggedResponse.setting_array);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+    setIsLoading(false);
   }, []);
 
 
@@ -67,7 +51,7 @@ function Login() {
     ) : (
     <>
     
-      <Navbar pages_array={pages_array} settings_array={settings_array} />
+      <Navbar />
       
       <BackgroundImage>
         <CenteredContainer >

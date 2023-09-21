@@ -27,6 +27,7 @@ from routes.user.logout import Logout
 from routes.user.profile import Profile
 from routes.user.close_account import Close_account
 from routes.user.request import UserRequest
+from routes.home import Home
 
 #developing
 from routes.developing.developing import Developing
@@ -53,6 +54,7 @@ app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
 app.register_blueprint(UserRequest)
+app.register_blueprint(Home)
 
 
 if __name__ == '__main__':

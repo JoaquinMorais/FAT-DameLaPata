@@ -1,6 +1,4 @@
-// NAVBAR SHELTER
-
-import {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -11,25 +9,25 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
+// Import your FetchNavbarItems function here
+import { FetchNavbarItems } from '../../my_methods/session_methods';
 
-function Navbar({pages_array, settings_array}) {
-  
-  const [pages, SetPagesArray] = useState(['Inicio', '¿Quienes Somos?']);
-  const [settings, SetSettingsArray] = useState(['Login', 'Crear Cuenta']);
+function Navbar() {
+  const [pages, setPagesArray] = useState([]);
+  const [settings, setSettingsArray] = useState([]);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (get_session){
-        pass
-      }
+      const navbarItems = await FetchNavbarItems();
+      setPagesArray(navbarItems.pages_array);
+      setSettingsArray(navbarItems.setting_array);
     };
 
     fetchData();
@@ -38,6 +36,7 @@ function Navbar({pages_array, settings_array}) {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -50,7 +49,7 @@ function Navbar({pages_array, settings_array}) {
     setAnchorElUser(null);
   };
 
-  // Función para obtener las rutas correspondientes a las páginas
+  // Function to get the corresponding page routes
   function getPageLink(page) {
     switch (page) {
       case 'Inicio':
@@ -63,25 +62,43 @@ function Navbar({pages_array, settings_array}) {
         return '/post';
       case 'Mis mascotas':
         return '/TODAVIA-NO-BRO';
+      default:
+        return '/';
     }
   }
 
-  function getSettingsLink(settings) {
-    switch (settings) {
+  // Function to get the corresponding settings routes
+  function getSettingsLink(setting) {
+    switch (setting) {
       case 'Perfil':
         return '/profile';
-      case 'iniciar sesion':
+      case 'Iniciar Sesion':
         return '/login';
       case 'Cerrar sesion':
         return '/TODAVIA-NO-BRO';
+      case 'Crear Cuenta':
+        return '/TODAVIA-NO-BRO';
+      default:
+        return '/';
     }
   }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#FF5722', position: 'fixed', zIndex: '9998', height: '50px', justifyContent: 'center' }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: '#FF5722',
+        position: 'fixed',
+        zIndex: '9998',
+        height: '50px',
+        justifyContent: 'center',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <a href='/'><Imagen1 src='/Images/dame_logo.png' alt="Logo" style={{ width: '40px', marginRight: '16px'}} /></a>
+          <a href="/">
+            <Imagen1 src="/Images/dame_logo.png" alt="Logo" style={{ width: '40px', marginRight: '16px' }} />
+          </a>
           <Typography
             variant="h6"
             noWrap
@@ -97,7 +114,7 @@ function Navbar({pages_array, settings_array}) {
               textDecoration: 'none',
             }}
           >
-            
+            {/* Your page title */}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', zIndex: '9998' } }}>
@@ -129,19 +146,20 @@ function Navbar({pages_array, settings_array}) {
                 display: { xs: 'block', md: 'none', zIndex: '9998' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  component={Link}
-                  to={getPageLink(page)} // Navegar a la ruta correspondiente
-                >
-                  {page}
-                </MenuItem>
-              ))}
+              {pages.length > 0 &&
+                pages.map((page) => (
+                  <MenuItem
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={getPageLink(page)} // Navigate to the corresponding route
+                  >
+                    {page}
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
-          {/* <a href='/'><Imagen2 src='/Images/dame_logo.png' alt="Logo" style={{ width: '40px', marginRight: '16px'}} /></a> */}
+
           <Typography
             variant="h5"
             noWrap
@@ -158,25 +176,24 @@ function Navbar({pages_array, settings_array}) {
               textDecoration: 'none',
             }}
           >
-            
+            {/* Your mobile page title */}
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page} to={getPageLink(page)}>
-                <Button
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              </Link>
-            ))}
+            {pages.length > 0 &&
+              pages.map((page) => (
+                <Link key={page} to={getPageLink(page)}>
+                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>{page}</Button>
+                </Link>
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0, zIndex: '9999' }}>
             <Tooltip title="Open settings">
-            <Link to={getSettingsLink(settings)} />
+              <Link to={getSettingsLink(settings[0])} />
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src='https://pbs.twimg.com/profile_images/1501988258078674950/_5xMT_RA_400x400.jpg' />
+                {/* Replace the src with your user avatar */}
+                <Avatar src="https://pbs.twimg.com/profile_images/1501988258078674950/_5xMT_RA_400x400.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -195,14 +212,17 @@ function Navbar({pages_array, settings_array}) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                {/* Utiliza Link para redirigir */}
-                <Link to={getSettingsLink(setting)}>
-                  <Typography textAlign="center" color='#212529'>{setting}</Typography>
-                </Link>
-              </MenuItem>
-              ))}
+              {settings.length > 0 &&
+                settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    {/* Use Link to redirect */}
+                    <Link to={getSettingsLink(setting)}>
+                      <Typography textAlign="center" color="#212529">
+                        {setting}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
         </Toolbar>

@@ -8,10 +8,6 @@ from methods.response import Response
 from methods.requests import Request
 
 AdopterRegister = Blueprint("AdopterRegister",__name__)
-
-
-
-
   
 @AdopterRegister.route("/adopter/register",methods=['PUT'],endpoint = 'register_adopter')
 def register_adopter():
@@ -50,6 +46,7 @@ def register_adopter():
 
     session['user_id'] = user.getId()
     session['user_type'] = user.this_type()
+    print(session['user_id'])
     
     return Response(
         user.json(),
