@@ -9,12 +9,12 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import Navbar from '../components/NavBar/Navbar';
 import LoaderComp from '../components/Loader/Loader';
+import { SendLogin, FetchNavbarItems } from '../my_methods/session_methods';
 
 // Enlace de la imagen de fondo
 const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('Ingresa un email válido').required('El email es requerido'),
   password: Yup.string().required('La contraseña es requerida'),
 });
 
@@ -35,12 +35,12 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log('Valores enviados:', values);
+    onSubmit: async (values) => {
+      let holis = await SendLogin(values);
     },
   });
 
@@ -62,14 +62,14 @@ function Login() {
                 <Grid item xs={12} >
                   <TextField
                     fullWidth
-                    label="Email"
+                    label="Usuario"
                     variant="outlined"
-                    id="email"
-                    name="email"
-                    value={formik.values.email}
+                    id="username"
+                    name="username"
+                    value={formik.values.username}
                     onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
+                    error={formik.touched.username && Boolean(formik.errors.username)}
+                    helperText={formik.touched.username && formik.errors.username}
                   />
                 </Grid>
                 <Grid item xs={12}>
