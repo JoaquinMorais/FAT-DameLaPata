@@ -10,10 +10,10 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar'; // Remove the duplicate import here
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
-import Navbar from '../components/NavBar/NavBar';
+
 
 const BackgroundImage = styled.div`
   background-image: url('https://img.freepik.com/vector-premium/marca-fondo-huellas-animales-patron-senderos-pata-costura-vectorial_566075-514.jpg?w=740');
@@ -154,7 +154,7 @@ function ShelterProfile() {
 
   return (
     <>
-      <Navbar />
+      <NavBar />
       <BackgroundImage>
         <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>

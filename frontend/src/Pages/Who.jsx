@@ -2,16 +2,12 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
-import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CardTeam from '../components/Who/CardTeam';
-import NavBar from '../components/NavBar/Navbar';
-import TitleFile from '../components/Who/Title'
-import Left from '../components/Who/Left'
-import Card from '../components/Who/Card'
-import History from '../components/Who/History'
+import NavBar from '../components/NavBar/NavBar';
+
 
 function Who() {
   return (

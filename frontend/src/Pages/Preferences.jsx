@@ -8,8 +8,10 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import NavBar from '../components/NavBar/Navbar';
+
+
 import IsLogged from '../my_methods/session_methods';
+import Navbar from '../components/NavBar/NavBar';
 
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
@@ -93,7 +95,7 @@ const Formulario = () => {
 
   return (
     <>
-      <NavBar pages_array={pages_array} settings_array={settings_array} />
+      <Navbar pages_array={pages_array} settings_array={settings_array} />
       <div
         style={{
           backgroundImage:
