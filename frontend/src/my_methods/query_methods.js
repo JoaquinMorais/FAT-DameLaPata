@@ -29,7 +29,6 @@ async function GetPreference() {
         sizes_array = response_size.data.sizes;
         response_size = console.log(response_size);
         console.log(response_size);
-
       }
     } 
     
