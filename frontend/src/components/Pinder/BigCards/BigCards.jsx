@@ -29,22 +29,23 @@ const Details = () => {
 /* -------------------------- */
 
 
-const handleSubmit = (values, { setSubmitting }) => {
-  console.log(JSON.stringify(values, null, 2));
-  const dataToSend = values;
-  axios
-    .put('http://localhost:5000/adopter/match', dataToSend)
-    .then((response) => {
-      console.log('Response:', response.data);
-      // Redirigir a la página "/successful" después del éxito
-      // navigate('/successful');
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+useEffect(() => {
+  const estado = {
+    id_pet: '',
+    id_status: '',
+  };
 
-  setSubmitting(false);
-}; 
+  axios.put('https://localhost:5000/adopter/match', estado)
+    .then(response => {
+      console.log('Respuesta del servidor:', response.data);
+      console.log('Estado actualizado con éxito.');
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error.message);
+    });
+}, []); 
+
+
 
 
 /* -------------------------- */
@@ -102,17 +103,22 @@ const handleSubmit = (values, { setSubmitting }) => {
 
 
   return (
-    <>
-        {
-        <SwiperSlide key={responseData?.response.id_pet}>
+        <Swiper
+          spaceBetween={5}
+          slidesPerView={1}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+        {responseData?.response.map((item) => ( 
+          <SwiperSlide key={item.id}>
           <Carta>
             <ImagenContainer>
-              <Imagen src={`${responseData?.response.image_path}`} alt="" />
+              <Imagen src={`${item.image_path}`} alt="" />
                 <Arriba>
                   <Texto>
-                    <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
-                    <Zoom left><Subtitulo>{`${responseData?.response.birth_date}`}</Subtitulo></Zoom>
-                    <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
+                    <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
+                    <Zoom left><Subtitulo>{`${item.birth_date}`}</Subtitulo></Zoom>
+                    <Zoom left><Subtitulo>{`${item.gender}`}</Subtitulo></Zoom>
                   </Texto>
                 </Arriba>
                 <Abajo>
@@ -135,62 +141,47 @@ const handleSubmit = (values, { setSubmitting }) => {
                   </Zoom>
                 </Botones>
               </Abajo>
-            </ImagenContainer>
+              </ImagenContainer>
             <Container>
               <Fade>
                 <Div1>
                   <Titulo2>Nombre</Titulo2>
-                  <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
+                  <Caracteristicas>{`${item.name}`}</Caracteristicas>
                 </Div1>
               </Fade>
-                
+
               <Fade>
                 <Div2>
                   <Titulo2>Nacimiento</Titulo2>
-                  <Caracteristicas>{`${responseData?.response.birth_date}`}</Caracteristicas>
+                  <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
                 </Div2>
               </Fade>
 
               <Fade>
                 <Div3>
-                  <Titulo2>Tamaño y peso</Titulo2>
-                  <Caracteristicas>{`${responseData?.response.size}`} - {`${responseData?.response.weight}`}kg</Caracteristicas>
+                  <Titulo2>Tamaño</Titulo2>
+                  <Caracteristicas>{`${item.size}`}</Caracteristicas>
                 </Div3>
-              </Fade>
-              
-              <Fade>
-                <Div4>
-                  <Titulo2>Color/es</Titulo2>
-                  <Caracteristicas>
-                  {responseData?.response?.colors && responseData.response.colors.map(color => (
-                    <span key={color.id_color}>{color.title} {ifGuion(responseData.response.colors, color)}</span>
-                  ))}
-                </Caracteristicas>
-                </Div4>
               </Fade>
 
               <Fade>
-                <Div5>
-                  <Titulo2>Caracteristica/s</Titulo2>
-                  <Caracteristicas>
-                    {responseData?.response?.characteristics && responseData.response.characteristics.map(carac => (
-                      <span key={carac.id_category}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span>
-                    ))}
-                  </Caracteristicas>
-                </Div5>
+                <Div4>
+                  <Titulo2>Peso</Titulo2>
+                  <Caracteristicas>{`${item.weight}`}</Caracteristicas>
+                </Div4>
               </Fade>
                 
               <Fade>
-                <Div6>
+                <Div5>
                   <Titulo2>Vacunas</Titulo2>
                   <Caracteristicas>Consultar</Caracteristicas>
-                </Div6>
+                </Div5>
               </Fade>
             </Container>
           </Carta>
         </SwiperSlide>
-        }
-    </>
+    ))}
+    </Swiper>
   )
 }
 

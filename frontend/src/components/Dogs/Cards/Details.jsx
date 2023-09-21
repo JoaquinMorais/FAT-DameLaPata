@@ -64,47 +64,74 @@ const Details = () => {
 
 
 
-    // const { id } = useParams();
-    // const [responseData, setResponseData] = useState(); // Agrega el estado para la respuesta de axios
-  
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     try {
-    //       const response = await axios.get(`http://localhost:5000/pet/${id}`)
-    //       setResponseData(response.data);
-    //       console.log(response.data);
-  
-    //       // Coloca aquí cualquier código que dependa de responseData
-    //       console.log(response.data?.response.id); // Esto estará bien aquí
-  
-    //     } catch (error) {
-    //       console.error('Error al realizar la solicitud:', error.message);
-    //     }
-    //   }
-  
-    //   fetchData(); // Llama a la función fetchData para obtener los datos
-    // }, [id]); // Debes incluir 'id' en la lista de dependencias para que useEffect se ejecute cuando 'id' cambie
+const handlePerroSiClick = async () => {
+  try {
+    const estado = {
+      id_pet: responseData?.response.id_pet, // El ID de la mascota que deseas actualizar
+      id_status: 3, // Nuevo valor para id_status
+    };
+
+    const response = await axios.put('https://localhost:5000/adopter/match', estado);
+    console.log('Respuesta del servidor:', response.data);
+
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+};
+
+
+const handlePerroNoClick = async () => {
+  try {
+    const estado = {
+      id_pet: responseData?.response.id_pet, // El ID de la mascota que deseas actualizar
+      id_status: 4, // Nuevo valor para id_status
+    };
+
+    const response = await axios.put('http://localhost:5000/adopter/match', estado);
+    console.log('Respuesta del servidor:', response.data);
+
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+};
+
+
 
   return (
     <>
         {
         <SwiperSlide key={responseData?.response.id_pet}>
           <Carta>
-            <ImagenContainer>
+          <ImagenContainer>
               <Imagen src={`${responseData?.response.image_path}`} alt="" />
-              <Abajo>
-                <Texto>
-                  <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{calcularEdad()}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
-                </Texto>
-                {/* <Botones>
-                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
-                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
-                </Botones> */}
+                <Arriba>
+                  <Texto>
+                    <Flip top><Titulo>{`${responseData?.response.name}`}</Titulo></Flip>
+                    <Zoom left><Subtitulo>{calcularEdad()}</Subtitulo></Zoom>
+                    <Zoom left><Subtitulo>{`${responseData?.response.gender}`}</Subtitulo></Zoom>
+                  </Texto>
+                </Arriba>
+                <Abajo>
+                <Botones>
+                  <Zoom>
+                    <No>
+                      <PerroNo
+                        src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
+                        onClick={handlePerroNoClick}
+                      ></PerroNo>
+                    </No>
+                  </Zoom>
+                  <Zoom>
+                    <Si>
+                      <PerroSi
+                        src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
+                        onClick={handlePerroSiClick}
+                      ></PerroSi>
+                    </Si>
+                  </Zoom>
+                </Botones>
               </Abajo>
-
-            </ImagenContainer>
+              </ImagenContainer>
             <Container>
 
             <Fade>
@@ -196,10 +223,20 @@ const Abajo = styled.div`
     bottom: 8.5%;
     width: 100%;
     height: 150px;
+    display: flex;
+    flex-direction: row;
+`;
+
+const Arriba = styled.div`
+    position: absolute;
+    bottom: 70%;
+    width: 100%;
+    height: 150px;
     background: linear-gradient(to right, rgba(0,0,0,0.8), transparent 30%);
     display: flex;
     flex-direction: row;
 `;
+
 
 const Texto = styled.div`   
     text-align: left;
@@ -209,7 +246,7 @@ const Texto = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0;
+    margin: 0 0 0 10px;
 `;
 
 const Titulo = styled.h1`
@@ -241,7 +278,7 @@ const No = styled.button`
     border: 2px solid black;
     background: inherit;
     backdrop-filter: blur(20px);
-    margin: 0 50px;
+    margin: 0 35px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
@@ -256,7 +293,7 @@ const Si = styled.button`
     border: 2px solid black;
     background: inherit;
     backdrop-filter: blur(20px);
-    margin: 0 50px;
+    margin: 0 35px;
     cursor: pointer;
     transition: transform 0.3s ease;
 
