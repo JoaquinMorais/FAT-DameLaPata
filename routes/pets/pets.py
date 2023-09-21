@@ -160,7 +160,7 @@ def getPetsFilterby():
     if data['limit']:
         pets = pets.limit(int(data['limit']))
     
-    if data['id_only'] == 'true':
+    if data['id_only']:
         return Response(
             [pet.id_pet for pet in pets.all()],
             200
@@ -171,11 +171,12 @@ def getPetsFilterby():
     )
 
 
-@Pets.route("/pets",methods=['GET'])
+@Pets.route("/pets",methods=['GET'],endpoint = 'getPets')
 @login_is_required(session)
 def getPets():
     limit = Request('limit')
     id_user_developer = Request('id_user_developer')
+    id_only = Request('id_only')
 
     id_user = session['user_id']
     if id_user_developer is not None:
@@ -270,10 +271,15 @@ def getPets():
             401
         )
 
+    if id_only:
+        return Response(
+            [pet.id_pet for pet in pets],
+            200
+        )
     return Response(
-        [pet.json() for pet in pets],
-        200
-    )
+            [pet.json() for pet in pets],
+            200
+        )
 
     
 

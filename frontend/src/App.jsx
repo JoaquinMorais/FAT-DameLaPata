@@ -13,6 +13,7 @@ import Register from './Pages/Register';
 import Successful from './Pages/Successful';
 import ShelterProfile from './Pages/ProfileShelter';
 import AdopterProfile from './Pages/ProfileAdopter';
+import Preferences from './Pages/Preferences';
 const App = () => {
 
 
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/successful" element={<Successful />} />
           <Route path="/profile" element={<ShelterProfile />} />
           <Route path="/profile2" element={<AdopterProfile />} />
+          <Route path="/preferences" element={<Preferences />} />
 
         </Routes>
       </BrowserRouter>
@@ -72,4 +74,5 @@ const App = () => {
 };
 
 export default App;
+
 

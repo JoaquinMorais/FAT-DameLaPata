@@ -1,6 +1,7 @@
 from utils.db import db
 from sqlalchemy import Column, Integer, String, Date, func, ForeignKey
 from datetime import datetime
+from sqlalchemy import or_,and_, extract, func
 
 class Gender(db.Model):
     __tablename__ = 'gender'
@@ -376,6 +377,111 @@ class Pet(db.Model):
             'characteristics': [characteristic.characteristic_json() for characteristic in self.pet_characteristics],
         }
 
+    def requests(self,data = {}):
+        pet_requests = RequestPetAdopter.query.filter(
+            RequestPetAdopter.id_pet == self.id_pet
+        )
+    
+
+        if data['id_adopter']:
+            if len(data['id_adopter']) == 1:
+                pet_requests = pet_requests.filter(
+                    RequestPetAdopter.id_user == data['adopter']
+                )
+            else:
+                id_filters = [RequestPetAdopter.id_user == id for id in data['adopter']]
+                pet_requests = pet_requests.filter(or_(*id_filters))  # Aplicar condiciones OR
+        
+        if data['not_id_adopter']:
+            if len(data['not_id_adopter']) == 1:
+                pet_requests = pet_requests.filter(
+                    RequestPetAdopter.id_user != data['not_id_adopter']
+                )
+            else:
+                id_filters = [RequestPetAdopter.id_user != id for id in data['not_id_adopter']]
+                pet_requests = pet_requests.filter(*id_filters)  # Aplicar condiciones OR
+
+        if data['id_state']:
+            if len(data['id_state']) == 1:
+                pet_requests = pet_requests.filter(
+                    RequestPetAdopter.id_state == data['id_state']
+                )
+            else:
+                id_filters = [RequestPetAdopter.id_state == id for id in data['id_state']]
+                pet_requests = pet_requests.filter(or_(*id_filters))  # Aplicar condiciones OR
+        
+        if data['not_id_state']:
+            if len(data['not_id_state']) == 1:
+                pet_requests = pet_requests.filter(
+                    RequestPetAdopter.id_state != data['not_id_state']
+                )
+            else:
+                id_filters = [RequestPetAdopter.id_state != id for id in data['not_id_state']]
+                pet_requests = pet_requests.filter(*id_filters)  # Aplicar condiciones OR
+
+        if data['request_date']:
+            date = data['request_date']
+            if len(data['request_date']) == 1:
+                pet_requests = pet_requests.filter(
+                    func.date(RequestPetAdopter.request_date) == data['request_date']
+                )
+            else:
+                dates = [func.date(RequestPetAdopter.request_date) == date for date in data['request_date']]
+                pet_requests = pet_requests.filter(or_(*dates))  # Aplicar condiciones OR
+        
+
+        if data['more_request_date']:
+            pet_requests = pet_requests.filter(
+                func.date(RequestPetAdopter.request_date) >= data['more_request_date']
+            )
+        
+        if data['less_request_date']:
+            pet_requests = pet_requests.filter(
+                func.date(RequestPetAdopter.request_date) <= data['less_request_date']
+            )
+        
+
+        
+        if data['edition_date']:
+            date = data['edition_date']
+            if len(data['edition_date']) == 1:
+                pet_requests = pet_requests.filter(
+                    func.date(RequestPetAdopter.edition_date) == data['edition_date']
+                )
+            else:
+                dates = [func.date(RequestPetAdopter.edition_date) == date for date in data['edition_date']]
+                pet_requests = pet_requests.filter(or_(*dates))  # Aplicar condiciones OR
+        
+
+        if data['more_edition_date']:
+            pet_requests = pet_requests.filter(
+                func.date(RequestPetAdopter.edition_date) >= data['more_edition_date']
+            )
+        
+        if data['less_edition_date']:
+            pet_requests = pet_requests.filter(
+                func.date(RequestPetAdopter.edition_date) <= data['less_edition_date']
+            )
+
+        if data['id_only']:
+            return {
+            'id_pet':self.id_pet,
+            'id_requests' : [
+                x.id_request
+                for x in pet_requests
+            ]
+            }
+        return  {
+            'pet':self.json(),
+            'requests' : [
+                x.request()
+                for x in pet_requests
+            ]
+        }
+        
+        
+        
+
 # caracteristicas de las mascotas:
 
 class RelationShipPetColor(db.Model):
@@ -508,6 +614,17 @@ class RequestPetAdopter(db.Model):
             'adopter' : adopter.json(),
             'pet':pet.json(),
             'state':state.json(),
+            'request_date':self.request_date.isoformat(),
+            'edition_date':self.edition_date.isoformat(),
+            
+        }
+    
+    def request(self):
+        state = State.query.get(self.id_state)
+        adopter = Adopter.query.get(self.id_user)
+        return {
+            'state':state.json(),
+            'adopter':adopter.json(),
             'request_date':self.request_date.isoformat(),
             'edition_date':self.edition_date.isoformat(),
             
