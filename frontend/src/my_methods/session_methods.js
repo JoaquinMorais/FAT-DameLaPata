@@ -7,12 +7,12 @@ export async function FetchNavbarItems() {
     console.log(localStorage.getItem('type'))
     if(localStorage.getItem('id') !== null){
       if (localStorage.getItem('type') === 'adopter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Pinder']
-        setting_array = ['Mi Perfil', 'Cerrar Session']
+        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar']
+        setting_array = ['Mi Perfil']//'Cerrar Session'
       }
       else if (localStorage.getItem('type') === 'shelter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Pinder']
-        setting_array = ['Perfil del Refugio', 'Cerrar Session']
+        pages_array = ['Inicio', 'Quienes Somos', 'Publicar']
+        setting_array = ['Perfil del Refugio'] 
       }
     }   
     else{

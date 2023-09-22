@@ -76,11 +76,13 @@ function Navbar() {
         return '/profile/shelter';
       case 'Iniciar Sesion':
         return '/login';
+    /*
       case 'Cerrar sesion':
         return '/TODAVIA-NO-BRO';
       case 'Crear Cuenta':
         return '/TODAVIA-NO-BRO';
-      default:
+      */
+        default:
         return '/';
     }
   }
