@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -9,7 +10,10 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar'; // Remove the duplicate import here
+import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
+import SuccessDialog from '../components/CloseAccount/SuccessDialog';
+
 
 const BackgroundImage = styled.div`
   background-image: url('https://img.freepik.com/vector-premium/marca-fondo-huellas-animales-patron-senderos-pata-costura-vectorial_566075-514.jpg?w=740');
@@ -36,6 +40,7 @@ const CenteredContainer = styled(Container)`
 
   @media (max-width: 768px) {
     padding: 40px;
+    min-height: 120vh;
   }
 `;
 
@@ -102,6 +107,37 @@ const StyledHr = styled.hr`
 `;
 
 function ShelterProfile() {
+  // Conexion con componenete y etc
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  const openConfirmation = () => {
+    setIsConfirmationOpen(true);
+  };
+
+  const closeConfirmation = () => {
+    setIsConfirmationOpen(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    // inicio de flag
+    // iniciar loder
+    try {
+        // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+        await axios.post(`/closeaccount/1`); 
+        setIsAccountDeleted(true);
+        closeConfirmation();
+    } catch (error) {
+        console.error(error);
+    }
+    // flag down
+    // cerrar loder
+  };
+
+  const closeSuccessDialog = () => {
+      setIsAccountDeleted(false);
+  };
+
   const shelter = {
     name: 'Nombre del Refugio',
     username: 'nombre_refugio123',
@@ -118,9 +154,9 @@ function ShelterProfile() {
 
   return (
     <>
-      <Navbar />
+      <NavBar />
       <BackgroundImage>
-        <CenteredContainer maxWidth="md">
+        <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
             <Grid item xs={12} md={4}>
 
@@ -133,9 +169,24 @@ function ShelterProfile() {
                   <EditIcon /> 
                 </EditButton>
               </UserProfileAvatarContainer>
-              <DeleteButton variant="contained" color="secondary">
+              
+              <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
                 <DeleteIcon /> 
               </DeleteButton>
+              {isConfirmationOpen && !isAccountDeleted && (
+                <ConfirmDialog
+                    isOpen={isConfirmationOpen}
+                    onClose={closeConfirmation}
+                    onConfirm={handleDeleteAccount}
+                />
+              )}
+              {isAccountDeleted && (
+                <SuccessDialog
+                    isOpen={isAccountDeleted}
+                    onClose={closeSuccessDialog}
+                />
+              )}
+
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="h4">Bienvenido <strong>{shelter.name}</strong></Typography>

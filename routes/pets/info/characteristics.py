@@ -22,3 +22,18 @@ def getCharacteristics():
         [characteristic.json() for characteristic in characteristics],
         200
     )
+
+@PetInfoCharacteristics.route("/pets/info/category-characteristics",methods=['GET'])
+def getCategoryCharacteristics():
+    categories_characterisitcs = Category.query.all()
+    
+    if not categories_characterisitcs:
+        return Response(
+            'Error: Server Internal Error',
+            404
+        ) 
+    
+    return Response(
+        [category_characterisitcs.json() for category_characterisitcs in categories_characterisitcs],
+        200
+    )
