@@ -219,11 +219,13 @@ def getPets():
                     or_(
                         
                         RequestPetAdopter.id_state == 3,
+                        RequestPetAdopter.id_state == 4,
                         RequestPetAdopter.id_state == 5,
                     )
                 ),
                 RequestPetAdopter.id_state == 1,
                 RequestPetAdopter.id_state == 2,
+                
             )
             
         ).subquery()
