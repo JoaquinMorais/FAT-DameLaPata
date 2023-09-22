@@ -163,17 +163,17 @@ function ShelterProfile() {
           window.location.href = "/profile/adopter";
         }
         // Update the user state with the fetched data
-        setUser({
-          name: response.data.response['name'],
-          username: response.data.response['username'],
-          surname: response.data.response['surname'],
-          email: response.data.response['email'],
-          location: response.data.response.address['district'],
-          street: response.data.response.address['street'],
-          district: response.data.response.address['location'],
-          phone_number: response.data.response['phone_number'],
-        });
-        console.log(response);
+        // setUser({
+        //   name: response.data.response['name'],
+        //   username: response.data.response['username'],
+        //   surname: response.data.response['surname'],
+        //   email: response.data.response['email'],
+        //   location: response.data.response.address['district'],
+        //   street: response.data.response.address['street'],
+        //   district: response.data.response.address['location'],
+        //   phone_number: response.data.response['phone_number'],
+        // });
+        console.log(response.data.response['address']); 
       } catch (error) {
         console.error(error);
       }
@@ -194,16 +194,16 @@ function ShelterProfile() {
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
-                  src="https://i.pinimg.com/474x/c9/b0/78/c9b0782d841f83673f58d851c89a6e48.jpg"
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 />
-                <EditButton variant="contained" color="primary">
+                {/* <EditButton variant="contained" color="primary">
                   <EditIcon /> 
-                </EditButton>
+                </EditButton> */}
               </UserProfileAvatarContainer>
               
-              <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
+              {/* <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
                 <DeleteIcon /> 
-              </DeleteButton>
+              </DeleteButton> */}
               {isConfirmationOpen && !isAccountDeleted && (
                 <ConfirmDialog
                     isOpen={isConfirmationOpen}

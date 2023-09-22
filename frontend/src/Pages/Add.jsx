@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import IsLogged from '../my_methods/session_methods';
+import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 
 
@@ -26,6 +26,19 @@ function Add() {
 
   useEffect(() => {
     async function fetchData() {
+      try{
+        const user = await GetProfile()
+        if(user.data['status'] === 200){
+          if(user.data.response['type'] !== 'shelter'){
+            window.location.href = "/";
+          }
+        }
+      }
+      catch (error){
+        console.log("Error al obtener los datos del usuario:", error.message);
+        window.location.href = "/";
+      }
+    async function fetchData() {
       try {
         const response = await axios.get('http://localhost:5000/pets/info/colors'); 
         setresponseDataColors(response.data);
@@ -33,6 +46,7 @@ function Add() {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
+  }
     
     fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
