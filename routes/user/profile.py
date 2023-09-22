@@ -45,6 +45,6 @@ def profile():
         )
 
     return Response(
-        user.json(),
+        user.json_location(),
         200
     )
