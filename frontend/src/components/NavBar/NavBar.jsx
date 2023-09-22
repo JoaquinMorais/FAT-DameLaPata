@@ -61,7 +61,7 @@ function Navbar() {
       case 'Publicar':
         return '/post';
       case 'Mis mascotas':
-        return '/TODAVIA-NO-BRO';
+        return '/dogs';
       default:
         return '/';
     }
