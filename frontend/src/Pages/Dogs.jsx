@@ -17,18 +17,6 @@ const Dogs = () => {
 
   useEffect(() => {
     async function fetchData() {
-      try{
-        const user = await GetProfile()
-        if(user.data['status'] === 200){
-          if(user.data.response['type'] !== 'adopter'){
-            window.location.href = "/";
-          }
-        }
-      }
-      catch (error){
-        console.log("Error al obtener los datos del usuario:", error.message);
-        window.location.href = "/";
-      }
       try {
         
         const response = await axios.get('http://localhost:5000/pets');
