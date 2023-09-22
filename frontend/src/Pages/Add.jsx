@@ -38,7 +38,6 @@ function Add() {
         console.log("Error al obtener los datos del usuario:", error.message);
         window.location.href = "/";
       }
-    async function fetchData() {
       try {
         const response = await axios.get('http://localhost:5000/pets/info/colors'); 
         setresponseDataColors(response.data);
@@ -46,10 +45,11 @@ function Add() {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-  }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
+  
+    // Llama a la función fetchData para obtener los datos
+    fetchData();
   }, []);
+  
 
   ////
 
