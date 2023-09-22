@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -9,7 +10,11 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar'; // Remove the duplicate import here
+import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
+import SuccessDialog from '../components/CloseAccount/SuccessDialog';
+import {  GetProfile } from '../my_methods/session_methods';
+
 
 const BackgroundImage = styled.div`
   background-image: url('https://img.freepik.com/vector-premium/marca-fondo-huellas-animales-patron-senderos-pata-costura-vectorial_566075-514.jpg?w=740');
@@ -103,23 +108,84 @@ const StyledHr = styled.hr`
 `;
 
 function ShelterProfile() {
-  const shelter = {
-    name: 'Nombre del Refugio',
-    username: 'nombre_refugio123',
-    surname: 'Apellido del Refugio',
-    email: 'refugio@example.com',
-    city: 'Ciudad del Refugio',
-    province: 'Provincia del Refugio',
-    district: 'Distrito del Refugio',
-    birthdate: '01/01/1990',
-    phone_number: '+1234567890',
-    Type_document: 'Tipo de Documento del Refugio',
-    Edad: '30',
+  // Conexion con componenete y etc
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  const openConfirmation = () => {
+    setIsConfirmationOpen(true);
   };
+
+  const closeConfirmation = () => {
+    setIsConfirmationOpen(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    // inicio de flag
+    // iniciar loder
+    try {
+        // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+        await axios.post(`/closeaccount/1`); 
+        setIsAccountDeleted(true);
+        closeConfirmation();
+    } catch (error) {
+        console.error(error);
+    }
+    // flag down
+    // cerrar loder
+  };
+
+  const closeSuccessDialog = () => {
+      setIsAccountDeleted(false);
+  };
+
+
+  const [shelter, setUser] = useState({
+    name: '',
+    username: '',
+    surname: '',
+    email: '',
+    location: '',
+    street: '',
+    district: '',
+    phone_number: '',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GetProfile();
+
+        if (response.data['status'] !== 200){
+          window.location.href = "/login";
+        }
+        if (response.data.response['type'] !== 'shelter'){
+          window.location.href = "/profile/adopter";
+        }
+        // Update the user state with the fetched data
+        setUser({
+          name: response.data.response['name'],
+          username: response.data.response['username'],
+          surname: response.data.response['surname'],
+          email: response.data.response['email'],
+          location: response.data.response.address['district'],
+          street: response.data.response.address['street'],
+          district: response.data.response.address['location'],
+          phone_number: response.data.response['phone_number'],
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
 
   return (
     <>
-      <Navbar />
+      <NavBar />
       <BackgroundImage>
         <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>
@@ -134,9 +200,24 @@ function ShelterProfile() {
                   <EditIcon /> 
                 </EditButton>
               </UserProfileAvatarContainer>
-              <DeleteButton variant="contained" color="secondary">
+              
+              <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
                 <DeleteIcon /> 
               </DeleteButton>
+              {isConfirmationOpen && !isAccountDeleted && (
+                <ConfirmDialog
+                    isOpen={isConfirmationOpen}
+                    onClose={closeConfirmation}
+                    onConfirm={handleDeleteAccount}
+                />
+              )}
+              {isAccountDeleted && (
+                <SuccessDialog
+                    isOpen={isAccountDeleted}
+                    onClose={closeSuccessDialog}
+                />
+              )}
+
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="h4">Bienvenido <strong>{shelter.name}</strong></Typography>
@@ -148,11 +229,8 @@ function ShelterProfile() {
               <Typography variant="body1"><strong>Surname:</strong> {shelter.surname}</Typography>
               <Typography variant="body1"><strong>Email:</strong> {shelter.email}</Typography>
               <Typography variant="body1">
-                <strong>Location:</strong> {shelter.city}, {shelter.province}, {shelter.district}
+                <strong>Location:</strong> {shelter.street}, {shelter.location}, {shelter.district}
               </Typography>
-              <Typography variant="body1"><strong>Birthdate:</strong> {shelter.birthdate}</Typography>
-              <Typography variant="body1"><strong>Type Document:</strong> {shelter.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad:</strong> {shelter.Edad}</Typography>
               <Button variant="contained" color="primary">
                 Editar Perfil
               </Button>

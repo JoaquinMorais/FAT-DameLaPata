@@ -1,18 +1,21 @@
-import React from 'react';
-import NavBar from '../components/NavBar/Navbar';
+import React, {useState, useEffect} from 'react';
+import NavBar from '../components/NavBar/NavBar';
 import styled from 'styled-components';
 import Bounce from 'react-reveal/Bounce';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
+
+
 function Successful() {
+
   return (
     <>
         <NavBar />
         <Container>
             <Bounce top><Imagen src="./Images/tickVerde.png" /></Bounce>
             <Fade><Texto>¡GRACIAS!</Texto></Fade>
-            <Fade><SubTexto>ACCION REALIZADA.</SubTexto></Fade>
+            <Fade><SubTexto>Este es el primer paso para su nueva felicidad.</SubTexto></Fade>
             <Hr></Hr>
             <Zoom><Boton href="/">Volver</Boton></Zoom>
         </Container>   

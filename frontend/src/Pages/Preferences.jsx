@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import {
   Slider,
@@ -8,7 +8,9 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import Navbar from '../components/NavBar/Navbar';
+
+
+import NavBar from '../components/NavBar/NavBar';
 
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
@@ -23,9 +25,9 @@ const comportamientoOptions = [
 ];
 
 const colorOptions = [
-  { value: 'Blanco', label: 'Blanco' },
-  { value: 'Negro', label: 'Negro' },
-  { value: 'Marrón', label: 'Marrón' },
+  { value: 1, label: 'Blanco' },
+  { value: 2, label: 'Negro' },
+  { value: 3, label: 'Marrón' },
 ];
 
 const saludOptions = [
@@ -34,7 +36,9 @@ const saludOptions = [
   { value: 'Mala', label: 'Mala' },
 ];
 
+
 const Formulario = () => {
+
   const [parametros, setParametros] = useState({
     tamaño: [],
     comportamiento: '',
@@ -68,7 +72,7 @@ const Formulario = () => {
 
   return (
     <>
-      <Navbar />
+      <NavBar />
       <div
         style={{
           backgroundImage:
@@ -222,7 +226,6 @@ const Formulario = () => {
                 }}
 >
                   Enviar
-                  
                 </Button>
               </Grid>
             </Grid>

@@ -6,7 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import ShelterRegister from "../components/Register/RegisterShelter";
 import AdopterRegister from "../components/Register/RegisterAdopter";
-import Navbar from "../components/NavBar/Navbar";
+import Navbar from "../components/NavBar/NavBar";
 
 function Register() {
   const [value, setValue] = React.useState('1');

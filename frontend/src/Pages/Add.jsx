@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import NavBar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'; // Agrega FieldArray para manejar arrays
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -12,8 +12,63 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import IsLogged from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
+
 
 function Add() {
+
+
+  const [selectedColors, setSelectedColors] = useState([]);
+
+
+  const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  ////
+
+  const [responseDataCharacteristics, setresponseDataCharacteristics] = useState(null); // Agrega el estado para la respuesta de axios
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/characteristics'); 
+        setresponseDataCharacteristics(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  ////
+
+
+  
+  const handleCheckboxChange = (event) => {
+    const value = parseInt(event.target.value, 10); // Convierte el valor en un número
+    if (event.target.checked) {
+      setSelectedColors([...selectedColors, value]);
+    } else {
+      setSelectedColors(selectedColors.filter((color) => color !== value));
+    }
+  };
+
+
+
   
   const [age, setAge] = React.useState('');
 
@@ -65,7 +120,12 @@ function Add() {
     setSubmitting(false);
   };  
 
+  
+  responseDataColors?.response.forEach(element => {
+    console.log(element)
+  });
   return (
+
     <>
       <NavBar />
       <Formik
@@ -224,10 +284,26 @@ function Add() {
               </Field>
             </div>
 
+            {/* <div style={{ marginBottom: '60px' }}>
+              {responseDataColors?.response.map((item) => (
+                <label key={item.id_color}>
+                  <input
+                    type="checkbox"
+                    value={item.id_color}
+                    onChange={handleCheckboxChange}
+                    checked={selectedColors.includes(item.id_color)}
+                  />
+                  {item.color_name}
+                </label>
+              ))}
+              <div>Valores seleccionados: {selectedColors.join(', ')}</div>
+            </div> */}
+
             <div style={{ marginBottom: '60px' }}>
             <FieldArray name="colors">
               {({ push, remove }) => (
                 <>
+
                   {values.colors.map((color, index) => (
                     <div key={index}>
                       <div style={{ marginBottom: '60px' }}>
@@ -248,10 +324,9 @@ function Add() {
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  <MenuItem value={1}>Blanco</MenuItem>
-                                  <MenuItem value={2}>Negro</MenuItem>
-                                  <MenuItem value={3}>Dorado</MenuItem>
-                                  <MenuItem value={4}>Marrón</MenuItem>
+                                  {responseDataColors?.response.map((item) => ( 
+                                    <MenuItem value={item.id_color}>{item.title}</MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
                               <ErrorMessage name={`colors[${index}]`} component="div" />
@@ -277,38 +352,37 @@ function Add() {
             <FieldArray name="characteristics">
               {({ push, remove }) => (
                 <>
-                  {values.characteristics.map((characteristic, index) => (
-                    <div key={index}>
+                  {values.characteristics.map((characteristics, index2) => (
+                    <div key={index2}>
                       <div style={{ marginBottom: '60px' }}>
                         <Field
-                          id={`characteristics[${index}]`}
-                          name={`characteristics[${index}]`}
+                          id={`characteristics[${index2}]`}
+                          name={`characteristics[${index2}]`}
                         >
                           {({ field }) => (
                             <>
                               <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                                <InputLabel id={`characteristics-label[${index}]`}>Caracteristica</InputLabel>
+                                <InputLabel id={`characteristics-label[${index2}]`}>Caracteristica</InputLabel>
                                 <Select
                                   {...field}
-                                  labelId={`characteristics-label[${index}]`}
-                                  label="Caracteristica"
+                                  labelId={`characteristics-label[${index2}]`}
+                                  label="Caracteristicas"
                                   sx={{ width: '100%' }} // Estilos personalizados aquí
                                 >
                                   <MenuItem value="">
                                     <em>Quitar</em>
                                   </MenuItem>
-                                  <MenuItem value={1}>Juguetón</MenuItem>
-                                  <MenuItem value={2}>Tranquilo</MenuItem>
-                                  <MenuItem value={3}>Comilón</MenuItem>
-                                  <MenuItem value={4}>Dormilón</MenuItem>
+                                  {responseDataCharacteristics?.response.map((item2) => ( 
+                                    <MenuItem value={item2.id_characteristic}>{item2.title}</MenuItem>
+                                  ))}
                                 </Select>
                               </FormControl>
-                              <ErrorMessage name={`characteristics[${index}]`} component="div" />
+                              <ErrorMessage name={`characteristics[${index2}]`} component="div" />
                             </>
                           )}
                         </Field>
                       </div>
-                      <AgregarEliminar type="button" onClick={() => remove(index)}>
+                      <AgregarEliminar type="button" onClick={() => remove(index2)}>
                         Eliminar Característica
                       </AgregarEliminar>
                     </div>
@@ -321,6 +395,8 @@ function Add() {
             </FieldArray>
             <ErrorMessage name="characteristics" component="div" />
           </div>
+
+
 
 
             <Boton type="submit">PUBLICAR</Boton>
@@ -388,5 +464,9 @@ const Boton = styled.button`
 `;
 
 const AgregarEliminar = styled.button`
+
+`;
+
+const InputCB = styled.input`
 
 `;

@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
-import Navbar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
 import { SendLogin } from '../my_methods/session_methods';
 import { Alert } from '@mui/material';
@@ -66,7 +66,7 @@ function Login() {
     ) : (
     <>
     
-      <Navbar />
+      <NavBar />
       
       <BackgroundImage>
         <CenteredContainer >

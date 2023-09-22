@@ -9,10 +9,12 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../components/NavBar/Navbar';
 import {  GetProfile } from '../my_methods/session_methods';
-
-
+import Navbar from '../components/NavBar/NavBar';
+import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
+import SuccessDialog from '../components/CloseAccount/SuccessDialog';
+import GetPreference from '../my_methods/query_methods';
+import axios from 'axios';
 
 const BackgroundImage = styled.div`
   background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
@@ -114,6 +116,42 @@ const EditPreferencesButton = styled(Button)`
 `;
 
 function AdopterProfile() {
+  // Conexion con componenete y etc
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isAccountDeleted, setIsAccountDeleted] = useState(false);
+
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
+    const openConfirmation = () => {
+        setIsConfirmationOpen(true);
+
+    };
+
+    const closeConfirmation = () => {
+        setIsConfirmationOpen(false);
+    };  
+
+    const handleDeleteAccount = async () => {
+      // inicio de flag
+      // iniciar loder
+      try {
+          // Hacer una solicitud POST al servidor Flask para cerrar la cuenta
+          await axios.post(`/closeaccount/1`); 
+          setIsAccountDeleted(true);
+          closeConfirmation();
+      } catch (error) {
+          console.error(error);
+      }
+      // flag down
+      // cerrar loder
+  };
+
+  const closeSuccessDialog = () => {
+      setIsAccountDeleted(false);
+  };
+
+
   const [user, setUser] = useState({
     name: '',
     username: '',
@@ -135,6 +173,9 @@ function AdopterProfile() {
         if (response.data['status'] !== 200){
           window.location.href = "/login";
         }
+        if (response.data.response['type'] !== 'adopter'){
+          window.location.href = "/profile/shelter";
+        }
         // Update the user state with the fetched data
         setUser({
           name: response.data.response['name'],
@@ -154,7 +195,6 @@ function AdopterProfile() {
     };
     fetchData();
   }, []);
-
 
 
 
@@ -202,20 +242,6 @@ function AdopterProfile() {
               </ContactInfoContainer>
               
               <StyledHr />
-              <PreferencesContainer>
-                <Typography variant="h4">PREFERENCIAS</Typography>
-                <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
-                <Typography variant="body1"><strong>Color:</strong> </Typography>
-                <Typography variant="body1"><strong>Sexo:</strong></Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong></Typography>
-                <Typography variant="body1"><strong>Edad:</strong> </Typography>
-                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
-
-
-                <EditPreferencesButton variant="contained" color="primary">
-                  <a href="/preferences" style={{color:'white'}}>Editar Preferencias</a>
-                </EditPreferencesButton>
-              </PreferencesContainer>
             </Grid>
           </CenteredGrid>
         </CenteredContainer>

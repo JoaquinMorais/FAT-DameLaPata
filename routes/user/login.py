@@ -12,7 +12,6 @@ Login = Blueprint("Login",__name__)
 def login_user():
     data = Request('username','password', nullable=True)
     if not data:
-        print('in here')
         user = User.query.get(session['user_id'])
         if not user:
             return Response(
@@ -34,7 +33,7 @@ def login_user():
     user_password = Credencial.query.filter_by(id_user = user.getId()).first()
     if user_password.campo != Encrypt(data['password']): 
         return Response(
-            'Error: Unauthorized',
+            f"Error: Unauthorized {user_password.campo} != {Encrypt(data['password'])}",
             401
         )
     session['user_id'] = user.id_user

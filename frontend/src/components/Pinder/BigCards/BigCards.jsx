@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'; 
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
 import { styled } from 'styled-components'
-import 'swiper/css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 /* ANIMACIONES */
 import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
-
-const BigCards = () => {
-  const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+const Details = () => {
+    const { id } = useParams();
+    const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
   useEffect(() => {
     async function fetchData() {
@@ -28,103 +25,158 @@ const BigCards = () => {
     fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
+
+/* -------------------------- */
+
+
+useEffect(() => {
+  const estado = {
+    id_pet: '',
+    id_status: '',
+  };
+
+  axios.put('https://localhost:5000/adopter/match', estado)
+    .then(response => {
+      console.log('Respuesta del servidor:', response.data);
+      console.log('Estado actualizado con éxito.');
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error.message);
+    });
+}, []); 
+
+
+
+
+/* -------------------------- */
+
+
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
+            setResponseData(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error.message);
+        }
+        }
+        
+        fetchData();
+    }, []);
+
+
+
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+
+    useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+  }, []);
+
+  const ifGuion = (mylist,element) => {
+    if(mylist[mylist.length - 1] === element){
+      return ''
+    }
+    return ' - '
+  }
+
+
+  const calcularEdad = () => {
+    if (responseData?.response.birth_date) {
+        const fechaNacimiento = new Date(responseData.response.birth_date);
+        const fechaHoy = new Date();
+        const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
+        const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
+        return `${edadPerro} años`;
+    }
+    return '';
+};
+
+
   return (
-    <Swiper
-      spaceBetween={5}
-      slidesPerView={1}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-    {responseData?.response.map((item) => ( 
-        <SwiperSlide key={item.id}>
+        <Swiper
+          spaceBetween={5}
+          slidesPerView={1}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+        {responseData?.response.map((item) => ( 
+          <SwiperSlide key={item.id}>
           <Carta>
             <ImagenContainer>
               <Imagen src={`${item.image_path}`} alt="" />
-              <Arriba>
-                <Texto>
-                  <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
-                  <Zoom left><Subtitulo>{`${item.birth_date}`}</Subtitulo></Zoom>
-                  <Zoom left><Subtitulo>{`${item.gender}`}</Subtitulo></Zoom>
-                </Texto>
-              </Arriba>
-              <Abajo>
+                <Arriba>
+                  <Texto>
+                    <Flip top><Titulo>{`${item.name}`}</Titulo></Flip>
+                    <Zoom left><Subtitulo>{`${item.birth_date}`}</Subtitulo></Zoom>
+                    <Zoom left><Subtitulo>{`${item.gender}`}</Subtitulo></Zoom>
+                  </Texto>
+                </Arriba>
+                <Abajo>
                 <Botones>
-                  <Zoom><No><PerroNo src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}></PerroNo></No></Zoom>
-                  <Zoom><Si><PerroSi src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}></PerroSi></Si></Zoom>
+                  <Zoom>
+                    <No>
+                      <PerroNo
+                        src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
+                        
+                      ></PerroNo>
+                    </No>
+                  </Zoom>
+                  <Zoom>
+                    <Si>
+                      <PerroSi
+                        src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
+                        
+                      ></PerroSi>
+                    </Si>
+                  </Zoom>
                 </Botones>
               </Abajo>
-
-            </ImagenContainer>
+              </ImagenContainer>
             <Container>
-              {/* <Fade>
+              <Fade>
                 <Div1>
-                  <Titulo2>Descripcion</Titulo2>
-                  <Caracteristicas>hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola </Caracteristicas>
+                  <Titulo2>Nombre</Titulo2>
+                  <Caracteristicas>{`${item.name}`}</Caracteristicas>
                 </Div1>
               </Fade>
-                
+
               <Fade>
                 <Div2>
-                  <Titulo2>Apodos</Titulo2>
-                  <Caracteristicas>a a a a a</Caracteristicas>
+                  <Titulo2>Nacimiento</Titulo2>
+                  <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
                 </Div2>
               </Fade>
 
               <Fade>
                 <Div3>
-                  <Titulo2>Edad</Titulo2>
-                  <Caracteristicas>Fecha: {`${item.date_of_birth}`}</Caracteristicas>
+                  <Titulo2>Tamaño</Titulo2>
+                  <Caracteristicas>{`${item.size}`}</Caracteristicas>
                 </Div3>
               </Fade>
-              
+
               <Fade>
                 <Div4>
-                  <Titulo2>Tamaño</Titulo2>
-                  <Caracteristicas>Es un perro de tamaño Grande</Caracteristicas>
+                  <Titulo2>Peso</Titulo2>
+                  <Caracteristicas>{`${item.weight}`}</Caracteristicas>
                 </Div4>
               </Fade>
                 
               <Fade>
                 <Div5>
                   <Titulo2>Vacunas</Titulo2>
-                  <Caracteristicas>Todas</Caracteristicas>
+                  <Caracteristicas>Consultar</Caracteristicas>
                 </Div5>
-              </Fade>  */}
-
-<Fade>
-              <Div1>
-                <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${item.name}`}</Caracteristicas>
-              </Div1>
-            </Fade>
-              
-            <Fade>
-              <Div2>
-                <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${item.birth_date}`}</Caracteristicas>
-              </Div2>
-            </Fade>
-
-            <Fade>
-              <Div3>
-                <Titulo2>Tamaño</Titulo2>
-                <Caracteristicas>{`${item.size}`}</Caracteristicas>
-              </Div3>
-            </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Peso</Titulo2>
-                <Caracteristicas>{`${item.weight}`}</Caracteristicas>
-              </Div4>
-            </Fade>
-              
-            <Fade>
-              <Div5>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
-              </Div5>
-            </Fade>
+              </Fade>
             </Container>
           </Carta>
         </SwiperSlide>
@@ -133,7 +185,7 @@ const BigCards = () => {
   )
 }
 
-export default BigCards
+export default Details
 
 const Carta = styled.div`
     width: 100%;
@@ -284,12 +336,13 @@ const Caracteristicas = styled.p`
     word-wrap: break-word;
 `;
 
+
 const Div1 = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #ffe778;
+    background-color: #ffffff;
 `;
 
 const Div2 = styled.div`
@@ -297,7 +350,7 @@ const Div2 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #eacf5f;
+    background-color: #fafafa;
 `;
 
 const Div3 = styled.div`
@@ -305,7 +358,7 @@ const Div3 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #d5b745;
+    background-color: #f5f5f5;
 `;
 
 const Div4 = styled.div`
@@ -313,7 +366,7 @@ const Div4 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #bf9e2c;
+    background-color: #f0f0f0;
 `;
 
 const Div5 = styled.div`
@@ -321,5 +374,13 @@ const Div5 = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #aa8612;
+    background-color: #ebebeb;
+`;
+
+const Div6 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
 `;

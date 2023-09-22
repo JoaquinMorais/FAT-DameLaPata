@@ -6,7 +6,10 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
-import NavBar from '../components/NavBar/Navbar';
+import NavBar from '../components/NavBar/NavBar';
+import IsLogged from '../my_methods/session_methods';
+import LoaderComp from '../components/Loader/Loader';
+
 import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 

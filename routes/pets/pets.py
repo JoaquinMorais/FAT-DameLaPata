@@ -160,7 +160,7 @@ def getPetsFilterby():
     if data['limit']:
         pets = pets.limit(int(data['limit']))
     
-    if data['id_only'] == 'true':
+    if data['id_only']:
         return Response(
             [pet.id_pet for pet in pets.all()],
             200
@@ -171,11 +171,12 @@ def getPetsFilterby():
     )
 
 
-@Pets.route("/pets",methods=['GET'])
+@Pets.route("/pets",methods=['GET'],endpoint = 'getPets')
 @login_is_required(session)
 def getPets():
     limit = Request('limit')
     id_user_developer = Request('id_user_developer')
+    id_only = Request('id_only')
 
     id_user = session['user_id']
     if id_user_developer is not None:
@@ -192,21 +193,47 @@ def getPets():
     
     if user.this_type() == 'Adopter':
         text = 'No existe ningun perro en base a tus gustos'
-        taste_color = subquery = db.session.query(
+        
+        taste_color = db.session.query(
             RelationShipUserColor.id_color
         ).filter(
             RelationShipUserColor.id_user == user.id_user
         ).all()
 
-        taste_size = subquery = db.session.query(
+        taste_size = db.session.query(
             RelationShipUserSize.id_size
         ).filter(
             RelationShipUserSize.id_user == user.id_user
         ).all()
-        
-         
-        pets = Pet.query
+
         subqueries = []
+        
+        pets = Pet.query
+        
+        subquery = db.session.query(
+            RequestPetAdopter.id_pet
+        ).filter(
+            or_(
+                and_(
+                    RequestPetAdopter.id_user == user.id_user,
+                    or_(
+                        
+                        RequestPetAdopter.id_state == 3,
+                        RequestPetAdopter.id_state == 5,
+                    )
+                ),
+                RequestPetAdopter.id_state == 1,
+                RequestPetAdopter.id_state == 2,
+            )
+            
+        ).subquery()
+        pets = pets.filter(
+            ~Pet.id_pet.in_(subquery)
+        )
+
+
+        
+
         if taste_color:
             for color_id in taste_color:
                 subquery = db.session.query(
@@ -215,22 +242,19 @@ def getPets():
                     RelationShipPetColor.id_color == color_id[0]
                 ).subquery()
                 subqueries.append(subquery)
-
-
-        pets = pets.filter(
-            *[db.exists(subquery.select().where(subquery.c.id_pet == Pet.id_pet)) for subquery in subqueries],
-        )
-
+                
         if taste_size:
             for size_id in taste_size:
                 pets = pets.filter(
                     Pet.id_size == size_id[0]
                 )
 
-        """
+        pets = pets.filter(
+            *[db.exists(subquery.select().where(subquery.c.id_pet == Pet.id_pet)) for subquery in subqueries],
+        )
+
         
-        
-        )"""
+
     elif user.this_type() == 'Shelter':
         text = 'No tienes ningun perro'
         pets = Pet.query.filter(
@@ -247,10 +271,15 @@ def getPets():
             401
         )
 
+    if id_only:
+        return Response(
+            [pet.id_pet for pet in pets],
+            200
+        )
     return Response(
-        [pet.json() for pet in pets],
-        200
-    )
+            [pet.json() for pet in pets],
+            200
+        )
 
     
 

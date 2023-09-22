@@ -1,4 +1,5 @@
 from flask import Blueprint, session, abort, redirect, request,url_for,jsonify
+import requests
 
 def Request(*args, nullable=False):
     response = {}
@@ -48,4 +49,11 @@ def RequestList(*args):
                 except:
                     response[f'{arg}'] = None
     return response
-    
+
+
+session_requests = requests.Session()
+
+def getRequestSession():
+    global session_requests
+
+    return session_requests
