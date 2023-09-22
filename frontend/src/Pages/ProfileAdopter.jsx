@@ -173,9 +173,7 @@ function AdopterProfile() {
         if (response.data['status'] !== 200){
           window.location.href = "/login";
         }
-        if (response.data.response['type'] !== 'adopter'){
-          window.location.href = "/profile/shelter";
-        }
+        
         // Update the user state with the fetched data
         setUser({
           name: response.data.response['name'],

@@ -371,8 +371,7 @@ class Pet(db.Model):
     
     
 
-    def __init__(self,id_pet, name, birth_date, size, weight,id_shelter,image_path, id_gender):
-        self.id_pet =id_pet 
+    def __init__(self, name, birth_date, size, weight,id_shelter,image_path, id_gender):
         self.name = name
         self.birth_date = birth_date
         self.id_size = size

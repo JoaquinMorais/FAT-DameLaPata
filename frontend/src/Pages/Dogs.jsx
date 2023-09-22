@@ -19,8 +19,11 @@ const Dogs = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:5000/pets/all');
+        
+        const response = await axios.get('http://localhost:5000/pets');
         setResponseData(response.data);
+        console.log('response DAta')
+        console.log(responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
@@ -29,50 +32,86 @@ const Dogs = () => {
     fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
-
+  if(responseData?.status == 200){
+    return (
+      <>
+        <NavBar />
+        <Principio>
+          <Lamina>
+            <Flip top>
+              <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
+            </Flip>
+            <Fade>
+              <Subtitulo><Phrase /></Subtitulo>
+            </Fade>
+          </Lamina>
   
-  return (
-    <>
-      <NavBar />
-      <Principio>
-        <Lamina>
-          <Flip top>
-            <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
-          </Flip>
-          <Fade>
-            <Subtitulo><Phrase /></Subtitulo>
-          </Fade>
-        </Lamina>
-
-        <Slide bottom>
-          <Imagenes>
-            <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
-          </Imagenes>
-        </Slide>
-
-        <slide bottom>
-          <Filters>
-          </Filters>
-        </slide>
-      </Principio>
-
-      <Grid>
-        {responseData?.response.map((item) => ( 
-          <Container key={item.id}>
-            <Zoom>
-              <Cards
-                id_pet={`${item.id_pet}`}
-                foto={`${item.image_path}`}
-                nombre={`${item.name}`}
-                titulo={`${item.name} es un perro muy feliz :D`}
-                descripcion={`${item.name} nació el ${item.birth_date}.`}
-              />
-            </Zoom>
-          </Container>
-        ))}
-      </Grid>
-    </>
-  );
+          <Slide bottom>
+            <Imagenes>
+              <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
+            </Imagenes>
+          </Slide>
+  
+          <slide bottom>
+            <Filters>
+            </Filters>
+          </slide>
+        </Principio>
+  
+        <Grid>
+          
+          {responseData?.response.map((item) => ( 
+            <Container key={item.id}>
+              <Zoom>
+                <Cards
+                  id_pet={`${item.id_pet}`}
+                  foto={`${item.image_path}`}
+                  nombre={`${item.name}`}
+                  titulo={`${item.name} es un perro muy feliz :D`}
+                  descripcion={`${item.name} nació el ${item.birth_date}.`}
+                />
+              </Zoom>
+            </Container>
+          ))}
+        </Grid>
+      </>
+    );
+  }
+  else {
+    return (
+      <>
+        <NavBar />
+        <Principio>
+          <Lamina>
+            <Flip top>
+              <Titulo>DESCUBRÍ A TU MEJOR AMIGO</Titulo>
+            </Flip>
+            <Fade>
+              <Subtitulo><Phrase /></Subtitulo>
+            </Fade>
+          </Lamina>
+  
+          <Slide bottom>
+            <Imagenes>
+              <Imagen src="https://static.wixstatic.com/media/d33ee0_31664be5fc3541a8bb6405ff1f3e28c8~mv2.png/v1/fill/w_560,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/perritos%20asomados%202.png" alt="" />
+            </Imagenes>
+          </Slide>
+  
+          <slide bottom>
+            <Filters>
+            </Filters>
+          </slide>
+        </Principio>
+  
+        <Grid style={{textAlign:'center'}}>
+          
+          No hay perros que cumplan tus requisitos
+        </Grid>
+      </>
+    );
+  }
+  
+  
 
     // return (
   //   <div>

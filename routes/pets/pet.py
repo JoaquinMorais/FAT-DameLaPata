@@ -35,7 +35,7 @@ def putPet():
     }
 
     id_shelter = Request('id_shelter')
-    """
+    
     if not id_shelter:
         user = User.query.get(session['user_id'])
         if not user:
@@ -49,7 +49,7 @@ def putPet():
                 404
             )
         id_shelter = user.id_user
-        """
+        """"""
         
     for x in data:
         print(data)
@@ -67,6 +67,10 @@ def putPet():
         )
     
     pet = Pet(data['name'],data['birthdate'],int(data['size']),int(data['weight']),int(id_shelter),data['image_path'],data['gender'])
+    
+    
+    
+    
     if pet == None:
         return Response(
             'Error: Bad Request (Pet Not Found)',
