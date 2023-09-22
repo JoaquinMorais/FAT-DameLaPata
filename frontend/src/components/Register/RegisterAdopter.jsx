@@ -64,7 +64,7 @@ function AdopterRegister() {
 
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} >
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -232,7 +232,7 @@ function AdopterRegister() {
             <FormControlLabel
               value={2}
               control={<Radio />}
-              label="DNI TARJETA"
+              label="DNI"
             />
           </RadioGroup>
         </Grid>
@@ -250,7 +250,7 @@ function AdopterRegister() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" style={{width:'100%'}}>
             Registrarse
           </Button>
         </Grid>

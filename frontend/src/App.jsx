@@ -14,6 +14,8 @@ import Successful from './Pages/Successful';
 import ShelterProfile from './Pages/ProfileShelter';
 import AdopterProfile from './Pages/ProfileAdopter';
 import Preferences from './Pages/Preferences';
+import Error from './Pages/Error';
+
 const App = () => {
 
 
@@ -66,6 +68,7 @@ const App = () => {
           <Route path="/profile/shelter" element={<ShelterProfile />} />
           <Route path="/profile/adopter" element={<AdopterProfile />} />
           <Route path="/preferences" element={<Preferences />} />
+          <Route path="/error" element={<Error />} />
 
         </Routes>
       </BrowserRouter>
