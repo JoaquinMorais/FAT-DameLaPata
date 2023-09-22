@@ -95,7 +95,7 @@ const Details = () => {
 
 /* ------------------------------------ */
 
-// const navigate = useNavigate();
+const navigate = useNavigate();
 
 // const handlePerroSiClick = async () => {
 //   try {
@@ -127,7 +127,21 @@ const Details = () => {
 
 /* ------------------------------------ */
 
-// const handlePerroNoClick = async () => {
+const estado = {
+  id_pet: parseInt(id),
+  id_status: 4,
+}
+console.log(estado);
+
+const handlePerroNoClick = async () => {
+  try{
+    const response = axios.put('http://localhost:5000/adopter/match', estado);
+  }
+  catch{
+    alert("no");
+  }
+}
+
 //   try {
 //     if (availablePetIds.length === 0) {
 //       // No hay más perros disponibles para mostrar
@@ -195,7 +209,7 @@ const shelterContact = {
                     <No>
                       <PerroNo
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
-                        // onClick={handlePerroNoClick}
+                        onClick={handlePerroNoClick}
                       ></PerroNo>
                     </No>
                   </Zoom>

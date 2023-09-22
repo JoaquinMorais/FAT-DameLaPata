@@ -18,7 +18,6 @@ const Dogs = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        
         const response = await axios.get('http://localhost:5000/pets');
         setResponseData(response.data);
         console.log('response Data')
@@ -51,10 +50,10 @@ const Dogs = () => {
             </Imagenes>
           </Slide>
   
-          <slide bottom>
+          {/* <slide bottom>
             <Filters>
             </Filters>
-          </slide>
+          </slide> */}
         </Principio>
   
         <Grid>

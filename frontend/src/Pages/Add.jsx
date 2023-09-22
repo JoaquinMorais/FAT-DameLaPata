@@ -97,7 +97,6 @@ function Add() {
     birthdate: '',
     size: '',
     weight: '',
-    id_shelter: 1,
     image_path: '',
     characteristics: [],
     colors: [],
