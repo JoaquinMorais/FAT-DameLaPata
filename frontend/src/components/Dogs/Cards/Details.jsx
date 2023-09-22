@@ -8,9 +8,19 @@ import Flip from 'react-reveal/Flip';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
 const Details = () => {
     const { id } = useParams();
     const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+
 
     useEffect(() => {
         async function fetchData() {
@@ -85,68 +95,85 @@ const Details = () => {
 
 /* ------------------------------------ */
 
-const navigate = useNavigate();
+// const navigate = useNavigate();
 
-const handlePerroSiClick = async () => {
-  try {
-    if (availablePetIds.length === 0) {
-      // No hay más perros disponibles para mostrar
-      console.log('availablePetIds:', availablePetIds);
-      alert('No hay más perros disponibles.');
-      return;
-    }
+// const handlePerroSiClick = async () => {
+//   try {
+//     if (availablePetIds.length === 0) {
+//       // No hay más perros disponibles para mostrar
+//       console.log('availablePetIds:', availablePetIds);
+//       alert('No hay más perros disponibles.');
+//       return;
+//     }
 
-    // Generar un número aleatorio basado en la lista de IDs disponibles
-    const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-    const randomPetId = availablePetIds[randomIndex];
+//     // Generar un número aleatorio basado en la lista de IDs disponibles
+//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
+//     const randomPetId = availablePetIds[randomIndex];
 
-    const estado = {
-      id_pet: randomPetId,
-      id_status: 3,
-    };
+//     const estado = {
+//       id_pet: randomPetId,
+//       id_status: 3,
+//     };
 
-    const response = await axios.put('http://localhost:5000/adopter/match', estado);
-    console.log('Respuesta del servidor:', response.data);
+//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
+//     console.log('Respuesta del servidor:', response.data);
 
-    // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-    navigate(`/pet/details/${randomPetId}`);
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
-  }
+//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
+//     navigate(`/pet/details/${randomPetId}`);
+//   } catch (error) {
+//     console.error('Error al realizar la solicitud:', error.message);
+//   }
+// };
+
+/* ------------------------------------ */
+
+// const handlePerroNoClick = async () => {
+//   try {
+//     if (availablePetIds.length === 0) {
+//       // No hay más perros disponibles para mostrar
+//       console.log('availablePetIds:', availablePetIds);
+//       alert('No hay más perros disponibles.');
+//       return;
+//     }
+
+//     // Generar un número aleatorio basado en la lista de IDs disponibles
+//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
+//     const randomPetId = availablePetIds[randomIndex];
+
+//     const estado = {
+//       id_pet: randomPetId,
+//       id_status: 4,
+//     };
+
+//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
+//     console.log('Respuesta del servidor:', response.data);
+
+//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
+//     navigate(`/pet/details/${randomPetId}`);
+//   } catch (error) {
+//     console.error('Error al realizar la solicitud:', error.message);
+//   }
+// };
+
+/* ------------------------------------ */
+
+const [open, setOpen] = React.useState(false);
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
 };
 
 /* ------------------------------------ */
 
-const handlePerroNoClick = async () => {
-  try {
-    if (availablePetIds.length === 0) {
-      // No hay más perros disponibles para mostrar
-      console.log('availablePetIds:', availablePetIds);
-      alert('No hay más perros disponibles.');
-      return;
-    }
-
-    // Generar un número aleatorio basado en la lista de IDs disponibles
-    const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-    const randomPetId = availablePetIds[randomIndex];
-
-    const estado = {
-      id_pet: randomPetId,
-      id_status: 4,
-    };
-
-    const response = await axios.put('http://localhost:5000/adopter/match', estado);
-    console.log('Respuesta del servidor:', response.data);
-
-    // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-    navigate(`/pet/details/${randomPetId}`);
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
-  }
+const shelterContact = {
+  name: 'Refugio zona sur',
+  whatsapp: '+54 9 351 123-1234',
+  mail: 'refugio1@gmail.com',
 };
-
-
-
 
   return (
     <>
@@ -168,7 +195,7 @@ const handlePerroNoClick = async () => {
                     <No>
                       <PerroNo
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804047.png'}
-                        onClick={handlePerroNoClick}
+                        // onClick={handlePerroNoClick}
                       ></PerroNo>
                     </No>
                   </Zoom>
@@ -176,8 +203,31 @@ const handlePerroNoClick = async () => {
                     <Si>
                       <PerroSi
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
-                        onClick={handlePerroSiClick}
+                        // onClick={handlePerroSiClick}
+                        onClick={handleClickOpen}
                       ></PerroSi>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"DATOS DEL REFUGIO."}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            Refugio: {shelterContact.name}
+                            <br />
+                            Whatsapp: {shelterContact.whatsapp}
+                            <br />
+                            Mail: {shelterContact.mail}
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Continuar</Button>
+                        </DialogActions>
+                      </Dialog>
                     </Si>
                   </Zoom>
                 </Botones>
