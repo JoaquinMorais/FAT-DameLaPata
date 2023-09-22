@@ -10,27 +10,38 @@ Login = Blueprint("Login",__name__)
 
 @Login.route("/login",methods=['POST'])
 def login_user():
-    session.pop('user_id',None)
+    data = Request('username','password', nullable=True)
+    if not data:
+        print('in here')
+        user = User.query.get(session['user_id'])
+        if not user:
+            return Response(
+                'Error: User Not Found',
+                404
+            )
+        return Response(
+            user.json(),
+            200
+        ) 
+    
     data = Request('username','password')
     user = User.query.filter_by(username = data['username']).first()
-
     if not user:
         return Response(
             'Error: User Not Found',
             404
         )
-    
     user_password = Credencial.query.filter_by(id_user = user.getId()).first()
-        
     if user_password.campo != Encrypt(data['password']): 
         return Response(
             'Error: Unauthorized',
             401
         )
-    
     session['user_id'] = user.id_user
+    session.modified = True 
+    print(session)
     return Response(
         user.json(),
         200
-    )
+    )        
 

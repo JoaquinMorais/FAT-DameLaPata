@@ -14,12 +14,13 @@ function Home() {
 
   return (
     <>
+      <NavBar/>
+
       {isLoading ? (
         <LoaderComp/>
       ) : (
         // Render the content once loading is complete
         <>
-          <NavBar/>
           <Section />
           <Section_2 />
           <Section_3 />

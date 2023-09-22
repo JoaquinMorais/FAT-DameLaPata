@@ -7,8 +7,10 @@ SECRET_KEY='MyUltraDupaSecretKey'
 )
 
 
-cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
-
+CORS(app, supports_credentials=True, resources={
+    r"/*": {"origins": "*", "methods": ["GET", "POST", "PUT", "DELETE"]},
+    r"/login": {"origins": "http://localhost:3000", "methods": ["POST"]}
+});
 #adopter
 from routes.adopter.register import AdopterRegister
 from routes.adopter.request import AdopterRequest

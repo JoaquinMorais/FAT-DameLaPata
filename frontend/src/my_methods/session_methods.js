@@ -1,4 +1,5 @@
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 let pages_array = ['']
 let setting_array = ['']
 
@@ -26,17 +27,16 @@ export async function FetchNavbarItems() {
 
 
   export async function SendLogin(data_to_send) {
-    let response = null; // Initialize the response variable
+    let response = null;
     try {
       response = await axios.post('http://localhost:5000/login', data_to_send);
-      console.log(response)
-      if (response.data['status'] === 200){
+      console.log(response);
+      if (response.data['status'] === 200) {
         localStorage.setItem('id', response.data.response['id']);
         localStorage.setItem('type', response.data.response['type']);
-        console.log(localStorage.getItem('id'))
+        console.log(localStorage.getItem('id'));
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -44,7 +44,6 @@ export async function FetchNavbarItems() {
     }
     return false;
   }
-
   export async function IsUserLogged(){
     if (localStorage.getItem['type'] === 'adopter'){
       return true
@@ -53,7 +52,8 @@ export async function FetchNavbarItems() {
   }
 
   export async function GetProfile(){
-    var cosa = await axios.post('http://localhost:5000/profile', '');
-    console.log(cosa)
-    return cosa 
+    var cosa = await axios.post('http://localhost:5000/profile', {
+      address_is_requiered : true
+    });
+    return cosa
   }

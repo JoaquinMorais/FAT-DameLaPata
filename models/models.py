@@ -49,6 +49,14 @@ class Address(db.Model):
     def __repr__(self):
         return f'{self.title}'
     
+    def json(self):
+        return {
+
+                'location': self.location,
+                'district': self.district,
+                'street': self.street,
+            
+        }    
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -119,6 +127,21 @@ class Adopter(User):
                 'phone_number': self.phone_number,
                 'id_document_type': self.id_document_type,
                 'document': self.document,
+            },
+            
+        }
+    def json_location(self):
+        address = Address.query.get(self.id_address)
+        return {
+            **super().json(),
+            **{
+                'name': self.name,
+                'surname': self.surname,
+                'birth_date': self.birth_date.isoformat(),  # Convierte a formato ISO
+                'phone_number': self.phone_number,
+                'id_document_type': self.id_document_type,
+                'document': self.document,
+                'address': address.json()
             },
             
         }

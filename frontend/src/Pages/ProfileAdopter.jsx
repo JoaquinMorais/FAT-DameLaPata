@@ -10,7 +10,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Navbar from '../components/NavBar/Navbar';
-import { IsUserLogged, GetProfile } from '../my_methods/session_methods';
+import {  GetProfile } from '../my_methods/session_methods';
+
 
 
 const BackgroundImage = styled.div`
@@ -113,24 +114,48 @@ const EditPreferencesButton = styled(Button)`
 `;
 
 function AdopterProfile() {
-  
+  const [user, setUser] = useState({
+    name: '',
+    username: '',
+    surname: '',
+    email: '',
+    city: '',
+    province: '',
+    district: '',
+    birthdate: '',
+    phone_number: '',
+    Type_document: '',
+    Edad: '',
+  });
+
   useEffect(() => {
-    GetProfile()
+    const fetchData = async () => {
+      try {
+        const response = await GetProfile();
+        if (response.data['status'] !== 200){
+          window.location.href = "/login";
+        }
+        // Update the user state with the fetched data
+        setUser({
+          name: response.data.response['name'],
+          username: response.data.response['username'],
+          surname: response.data.response['surname'],
+          email: response.data.response['email'],
+          location: response.data.response.address['district'],
+          street: response.data.response.address['street'],
+          district: response.data.response.address['location'],
+          birthdate: response.data.response['birth_date'],
+          phone_number: response.data.response['phone_number'],
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
   }, []);
 
-  const user = {
-    name: 'Emma',
-    username: 'emma_gfm',
-    surname: 'Myers',
-    email: 'emma_gfm@example.com',
-    city: 'LA',
-    province: 'Province',
-    district: 'District',
-    birthdate: '02/04/2002',
-    phone_number: '+1234567890',
-    Type_document: '1',
-    Edad: '21',
-  };
+
 
 
   return (
@@ -144,15 +169,9 @@ function AdopterProfile() {
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
-                  src="https://assets.popbuzz.com/2022/48/is-emma-myers-related-to-maddie-ziegler-1669656275-view-0.jpg"
+                  src="https://cdn-icons-png.flaticon.com/512/666/666201.png"
                 />
-                <EditButton variant="contained" color="primary">
-                  <EditIcon />
-                </EditButton>
               </UserProfileAvatarContainer>
-              <DeleteButton variant="contained" color="secondary">
-                <DeleteIcon />
-              </DeleteButton>
             </Grid>
 
             <Grid item xs={12} md={8}>
@@ -165,14 +184,9 @@ function AdopterProfile() {
               <Typography variant="body1"><strong>Surname:</strong> {user.surname}</Typography>
               <Typography variant="body1"><strong>Email:</strong> {user.email}</Typography>
               <Typography variant="body1">
-                <strong>Location:</strong> {user.city}, {user.province}, {user.district}
+                <strong>Location:</strong> {user.location}, {user.district}, {user.street}
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
-              <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad minima:</strong> {user.Edad}</Typography>
-              <Button variant="contained" color="primary">
-                Editar Perfil
-              </Button>
               <StyledHr />
               <ContactInfoContainer>
                 <ContactIcon>
