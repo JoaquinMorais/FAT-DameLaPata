@@ -99,6 +99,14 @@ class User(db.Model):
             'type':self.type
         }
 
+    def json_public(self):
+        return {
+            'id': self.id_user,
+            'username': self.username,
+            'email': self.email,
+            'type':self.type
+        }
+
 class Adopter(User):
     __tablename__ = 'adopter'
     id_adopter = Column(Integer, ForeignKey('user.id_user', onupdate='CASCADE'), primary_key=True)
@@ -154,7 +162,16 @@ class Adopter(User):
             },
             
         }
-            
+
+    def json_public(self):
+        return {
+            **super().json_public(),
+            **{
+                'name': self.name,
+                'surname': self.surname,
+                'birth_date': self.birth_date.isoformat(),  # Convierte a formato ISO     
+            }
+        }
         
 
 class Shelter(User):
@@ -173,6 +190,15 @@ class Shelter(User):
     def json(self):
         return {
             **super().json(),
+            **{
+                'name': self.name,
+            },
+            
+        }
+    
+    def json_public(self):
+        return {
+            **super().json_public(),
             **{
                 'name': self.name,
             },

@@ -35,6 +35,7 @@ from routes.user.profile import Profile
 from routes.user.close_account import Close_account
 from routes.user.request import UserRequest
 from routes.home import Home
+from routes.user.user import AnotherUser
 
 #developing
 from routes.developing.developing import Developing
@@ -67,6 +68,7 @@ app.register_blueprint(Logout)
 app.register_blueprint(Profile)
 app.register_blueprint(UserRequest)
 app.register_blueprint(Home)
+app.register_blueprint(AnotherUser)
 
 app.register_blueprint(Close_account)
 

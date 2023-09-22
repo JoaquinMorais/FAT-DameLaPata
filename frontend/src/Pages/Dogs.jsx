@@ -21,7 +21,7 @@ const Dogs = () => {
         
         const response = await axios.get('http://localhost:5000/pets');
         setResponseData(response.data);
-        console.log('response DAta')
+        console.log('response Data')
         console.log(responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);

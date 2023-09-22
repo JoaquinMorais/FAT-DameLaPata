@@ -11,7 +11,7 @@ export async function FetchNavbarItems() {
         setting_array = ['Mi Perfil']//'Cerrar Session'
       }
       else if (localStorage.getItem('type') === 'shelter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Publicar']
+        pages_array = ['Inicio', 'Quienes Somos', 'Publicar', 'Mis mascotas']
         setting_array = ['Perfil del Refugio'] 
       }
     }   
