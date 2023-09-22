@@ -56,7 +56,7 @@ function Navbar() {
         return '/';
       case 'Adoptar':
         return '/dogs';
-      case 'Quienes somos':
+      case 'Quienes Somos':
         return '/about';
       case 'Publicar':
         return '/post';
