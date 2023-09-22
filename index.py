@@ -7,8 +7,10 @@ SECRET_KEY='MyUltraDupaSecretKey'
 )
 
 
-cors = CORS(app, supports_credentials=True,resources={r"/*": {"origins": "*"}})
-
+CORS(app, supports_credentials=True, resources={
+    r"/*": {"origins": "*", "methods": ["GET", "POST", "PUT", "DELETE"]},
+    r"/login": {"origins": "http://localhost:3000", "methods": ["POST"]}
+});
 #adopter
 from routes.adopter.register import AdopterRegister
 from routes.adopter.request import AdopterRequest
@@ -32,6 +34,7 @@ from routes.user.logout import Logout
 from routes.user.profile import Profile
 from routes.user.close_account import Close_account
 from routes.user.request import UserRequest
+from routes.home import Home
 
 #developing
 from routes.developing.developing import Developing
@@ -63,6 +66,8 @@ app.register_blueprint(Login)
 app.register_blueprint(Logout)
 app.register_blueprint(Profile)
 app.register_blueprint(UserRequest)
+app.register_blueprint(Home)
+
 app.register_blueprint(Close_account)
 
 if __name__ == '__main__':

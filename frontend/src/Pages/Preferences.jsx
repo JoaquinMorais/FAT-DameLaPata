@@ -10,8 +10,7 @@ import {
 } from '@mui/material';
 
 
-import IsLogged from '../my_methods/session_methods';
-import Navbar from '../components/NavBar/NavBar';
+import NavBar from '../components/NavBar/NavBar';
 
 const options = [
   { value: 'Pequeño', label: 'Pequeño' },
@@ -39,28 +38,6 @@ const saludOptions = [
 
 
 const Formulario = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [pages_array, setPagesArray] = useState([]);
-  const [settings_array, setSettingsArray] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const loggedResponse = await IsLogged();
-        console.log(loggedResponse);
-        setPagesArray(loggedResponse.pages_array);
-        setSettingsArray(loggedResponse.setting_array);
-        setIsLoading(false);
-      } catch (error) {
-        // Handle any errors that might occur during the API call
-        console.error(error);
-        setIsLoading(false); // Set loading to false in case of an error
-      }
-    };
-
-    fetchData();
-  }, []);
-
 
   const [parametros, setParametros] = useState({
     tamaño: [],
@@ -95,7 +72,7 @@ const Formulario = () => {
 
   return (
     <>
-      <Navbar pages_array={pages_array} settings_array={settings_array} />
+      <NavBar />
       <div
         style={{
           backgroundImage:

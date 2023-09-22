@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -10,12 +9,12 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {  GetProfile } from '../my_methods/session_methods';
 import Navbar from '../components/NavBar/NavBar';
 import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
 import SuccessDialog from '../components/CloseAccount/SuccessDialog';
 import GetPreference from '../my_methods/query_methods';
-
-
+import axios from 'axios';
 
 const BackgroundImage = styled.div`
   background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
@@ -131,19 +130,7 @@ function AdopterProfile() {
 
     const closeConfirmation = () => {
         setIsConfirmationOpen(false);
-    };
-
-    useEffect(() => {
-      async function fetchPreferences() {
-        const preferences = await GetPreference();
-        if (preferences) {
-          setColors(preferences.colors_array);
-          setSizes(preferences.sizes_array);
-        }
-      }
-      fetchPreferences();
-    }, []);
-  
+    };  
 
     const handleDeleteAccount = async () => {
       // inicio de flag
@@ -165,19 +152,48 @@ function AdopterProfile() {
   };
 
 
-  const user = {
-    name: 'Emma',
-    username: 'emma_gfm',
-    surname: 'Myers',
-    email: 'emma_gfm@example.com',
-    city: 'LA',
-    province: 'Province',
-    district: 'District',
-    birthdate: '02/04/2002',
-    phone_number: '+1234567890',
-    Type_document: '1',
-    Edad: '21',
-  };
+  const [user, setUser] = useState({
+    name: '',
+    username: '',
+    surname: '',
+    email: '',
+    city: '',
+    province: '',
+    district: '',
+    birthdate: '',
+    phone_number: '',
+    Type_document: '',
+    Edad: '',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GetProfile();
+        if (response.data['status'] !== 200){
+          window.location.href = "/login";
+        }
+        
+        // Update the user state with the fetched data
+        setUser({
+          name: response.data.response['name'],
+          username: response.data.response['username'],
+          surname: response.data.response['surname'],
+          email: response.data.response['email'],
+          location: response.data.response.address['district'],
+          street: response.data.response.address['street'],
+          district: response.data.response.address['location'],
+          birthdate: response.data.response['birth_date'],
+          phone_number: response.data.response['phone_number'],
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
 
 
   return (
@@ -191,30 +207,9 @@ function AdopterProfile() {
               <UserProfileAvatarContainer>
                 <UserProfileAvatar
                   alt="User Profile"
-                  src="https://assets.popbuzz.com/2022/48/is-emma-myers-related-to-maddie-ziegler-1669656275-view-0.jpg"
+                  src="https://cdn-icons-png.flaticon.com/512/666/666201.png"
                 />
-                <EditButton variant="contained" color="primary">
-                  <EditIcon />
-                </EditButton>
               </UserProfileAvatarContainer>
-
-
-              <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
-                <DeleteIcon />
-              </DeleteButton>
-              {isConfirmationOpen && !isAccountDeleted && (
-                <ConfirmDialog
-                    isOpen={isConfirmationOpen}
-                    onClose={closeConfirmation}
-                    onConfirm={handleDeleteAccount}
-                />
-              )}
-              {isAccountDeleted && (
-                <SuccessDialog
-                    isOpen={isAccountDeleted}
-                    onClose={closeSuccessDialog}
-                />
-              )}
             </Grid>
 
             <Grid item xs={12} md={8}>
@@ -227,14 +222,9 @@ function AdopterProfile() {
               <Typography variant="body1"><strong>Surname:</strong> {user.surname}</Typography>
               <Typography variant="body1"><strong>Email:</strong> {user.email}</Typography>
               <Typography variant="body1">
-                <strong>Location:</strong> {user.city}, {user.province}, {user.district}
+                <strong>Location:</strong> {user.location}, {user.district}, {user.street}
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
-              <Typography variant="body1"><strong>Type Document:</strong> {user.Type_document}</Typography>
-              <Typography variant="body1"><strong>Edad:</strong> {user.Edad}</Typography>
-              <Button variant="contained" color="primary">
-                Editar Perfil
-              </Button>
               <StyledHr />
               <ContactInfoContainer>
                 <ContactIcon>
@@ -250,20 +240,6 @@ function AdopterProfile() {
               </ContactInfoContainer>
               
               <StyledHr />
-              <PreferencesContainer>
-                <Typography variant="h4">PREFERENCIAS</Typography>
-                <Typography variant="body1"><strong>Animal:</strong> Perro / Gato / Loro / La perra de la mama de alejo </Typography>
-                <Typography variant="body1"><strong>Color:</strong>  {colors.join(', ')}</Typography>
-                <Typography variant="body1"><strong>Sexo:</strong></Typography>
-                <Typography variant="body1"><strong>Tamaño:</strong> {sizes.join(', ')}</Typography>
-                <Typography variant="body1"><strong>Edad minima:</strong> </Typography>
-                <Typography variant="body1"><strong>Caracteristicas adicionales:</strong></Typography>
-
-
-                <EditPreferencesButton variant="contained" color="primary">
-                  <a href="/preferences" style={{color:'white'}}>Editar Preferencias</a>
-                </EditPreferencesButton>
-              </PreferencesContainer>
             </Grid>
           </CenteredGrid>
         </CenteredContainer>

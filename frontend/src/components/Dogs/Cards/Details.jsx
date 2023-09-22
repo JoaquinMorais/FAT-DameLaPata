@@ -74,7 +74,7 @@ const Details = () => {
 
   const calcularEdad = () => {
     if (responseData?.response.birth_date) {
-        const fechaNacimiento = new Date(responseData.response.birth_date);
+        const fechaNacimiento = new Date(responseData?.response.birth_date);
         const fechaHoy = new Date();
         const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
         const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));

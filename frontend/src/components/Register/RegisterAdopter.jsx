@@ -46,7 +46,7 @@ const initialValues = {
 async function SendAdopter(values) {
   try {
     const response = await axios.put('http://localhost:5000/adopter/register', values );
-    window.location.href="/successful";
+    window.location.href="/profile/adopter";
   } catch (error) {
     console.error('Error al realizar la solicitud:', error.message);
   }
