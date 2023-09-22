@@ -40,6 +40,9 @@ def fuckIt(func):
 def login_is_required(SESSION,accepted_users = ['user','adopter','shelter','volunteer']):
     def decorator(function):
         def wrapper(*args, **kwargs):
+            print(session)
+            print([{x:SESSION[x]} for x in SESSION])
+            print("user_id" in SESSION)
             if "user_id" in SESSION:
                 user = User.query.get(SESSION['user_id'])
                 if not user:

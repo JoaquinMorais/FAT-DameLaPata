@@ -14,34 +14,6 @@ import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
 const Dogs = () => {
-  // ALEJO PARTE
-  const [isLoading, setIsLoading] = useState(true);
-  const [pages_array, setPagesArray] = useState([]);
-  const [settings_array, setSettingsArray] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const loggedResponse = await IsLogged();
-        console.log(loggedResponse);
-        setPagesArray(loggedResponse.pages_array);
-        setSettingsArray(loggedResponse.setting_array);
-        setIsLoading(false);
-      } catch (error) {
-        // Handle any errors that might occur during the API call
-        console.error(error);
-        setIsLoading(false); // Set loading to false in case of an error
-      }
-    };
-
-    fetchData();
-  }, []);
-  //////////////
-
-
-
-
-
   const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
 
   useEffect(() => {
@@ -61,7 +33,7 @@ const Dogs = () => {
   
   return (
     <>
-      <NavBar pages_array={pages_array} settings_array={settings_array} />
+      <NavBar />
       <Principio>
         <Lamina>
           <Flip top>

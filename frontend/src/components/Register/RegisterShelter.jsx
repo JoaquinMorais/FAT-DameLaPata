@@ -36,7 +36,7 @@ const initialValues = {
 async function SendShelter(values) {
   try {
     const response = await axios.put('http://localhost:5000/shelter/register', values );
-    window.location.href="/successful";
+    window.location.href="/profile/shelter";
   } catch (error) {
     console.error('Error al realizar la solicitud:', error.message);
   }

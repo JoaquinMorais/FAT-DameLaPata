@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../components/NavBar/NavBar';
-import { styled } from 'styled-components';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import LoaderComp from '../components/Loader/Loader';
-import IsLogged from '../my_methods/session_methods';
+import React, {useEffect, useState} from 'react';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import styled from 'styled-components';
+import NavBar from '../components/NavBar/NavBar';
+import LoaderComp from '../components/Loader/Loader';
+import { SendLogin } from '../my_methods/session_methods';
+import { Alert } from '@mui/material';
+
+// Enlace de la imagen de fondo
+
+const backgroundImageUrl = "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/PWEJPEIL7NFRBFEGPBTJSSNLAA.jpg";
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('Ingresa un email válido').required('El email es requerido'),
   password: Yup.string().required('La contraseña es requerida'),
 });
 
 function Login() {
 
   const [isLoading, setIsLoading] = useState(true);
-  const [pages_array, setPagesArray] = useState([]);
-  const [settings_array, setSettingsArray] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const loggedResponse = await IsLogged();
-        console.log(loggedResponse);
-        setPagesArray(loggedResponse.pages_array);
-        setSettingsArray(loggedResponse.setting_array);
-        setIsLoading(false);
-      } catch (error) {
-        // Handle any errors that might occur during the API call
-        console.error(error);
-        setIsLoading(false); // Set loading to false in case of an error
-      }
-    };
-
-    fetchData();
+    localStorage.removeItem('id');
+    localStorage.removeItem('type');
+    setIsLoading(false);
   }, []);
 
 
@@ -42,50 +38,105 @@ function Login() {
 
   };
 
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      let is_logged = await SendLogin(values);
+      if (is_logged === true) {
+        if (localStorage.getItem('type') === 'adopter'){
+          window.location.href = "/profile/adopter";
+        }
+        else if (localStorage.getItem('type') === 'shelter'){
+          window.location.href = "/profile/shelter";
+        }
+      } else {
+        setIsDialogOpen(true);
+      }
+    },
+  });
 
   return (
     <>
-      {isLoading ? (
-        <LoaderComp/>
-      ) : (
-        <>
-          <Navbar pages_array={pages_array} settings_array={settings_array} />
-          <StyledLogin>
-            <LogoImage src="https://i.postimg.cc/RhNwDbCV/logo.png" alt="Logo" />
-            <h3>INICIA SESION</h3>
-            <Formik
-              initialValues={{
-                email: '',
-                password: '',
-              }}
-              onSubmit={handleSubmit}
-            >
-              {() => (
-                <Form>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <Field type="email" id="email" name="email" placeholder="Ingresa nombre de usuario" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Contraseña</label>
-                    <Field type="password" id="password" name="password" placeholder="Ingresa una contraseña" />
-                    <ErrorMessage name="password" component="div" className="error" />
-                  </div>
+    {isLoading ? (
+      <LoaderComp/>
+    ) : (
+    <>
+    
+      <NavBar />
+      
+      <BackgroundImage>
+        <CenteredContainer >
+        {isDialogOpen && (
+          <Alert severity="error">Las credenciales no son correctas — ¡vuelve a intentarlo!</Alert>
+        )}
 
-                  <button type="submit">Enviar</button>
-                </Form>
-              )}
-            </Formik>
-            <RegisterLink to="/register">No tenes una cuenta, registrate</RegisterLink>
-          </StyledLogin>
-        </>
-      )}
+          <Paper elevation={10} style={{ padding: '20px', textAlign: 'center' }}>
+            <h1 style={{ marginBottom: '20px' }}>INICIA SESIÓN</h1>
+            <form onSubmit={formik.handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} >
+                  <TextField
+                    fullWidth
+                    label="Usuario"
+                    variant="outlined"
+                    id="username"
+                    name="username"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    error={formik.touched.username && Boolean(formik.errors.username)}
+                    helperText={formik.touched.username && formik.errors.username}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Contraseña"
+                    variant="outlined"
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                  />
+                </Grid>
+              </Grid>
+              <p style={{ marginTop: '10px' }}><a href="/register">¿No tienes una cuenta? Regístrate</a></p>
+              <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '10px'}}>
+                Enviar
+              </Button>
+            </form>
+          </Paper>
+        </CenteredContainer>
+      </BackgroundImage>
     </>
+  )}
+  </>
   );
-}
+};
 
 export default Login;
 
-const LogoImage = styled.img``
-const StyledLogin = styled.div``
-const RegisterLink = styled.div``
+const BackgroundImage = styled.div`
+  background-image: url(${backgroundImageUrl});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CenteredContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px !important; 
+`;
