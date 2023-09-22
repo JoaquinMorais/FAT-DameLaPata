@@ -197,7 +197,7 @@ function Navbar() {
               <Link to={getSettingsLink(settings[0])} />
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* Replace the src with your user avatar */}
-                <Avatar src="https://pbs.twimg.com/profile_images/1501988258078674950/_5xMT_RA_400x400.jpg" />
+                <Avatar src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
               </IconButton>
             </Tooltip>
             <Menu
