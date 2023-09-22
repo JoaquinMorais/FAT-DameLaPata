@@ -72,7 +72,7 @@ function Navbar() {
     switch (setting) {
       case 'Mi Perfil':
         return '/profile/adopter';
-      case 'Perfil del refugio':
+      case 'Perfil del Refugio':
         return '/profile/shelter';
       case 'Iniciar Sesion':
         return '/login';
