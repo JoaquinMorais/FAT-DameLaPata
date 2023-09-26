@@ -52,9 +52,21 @@ def register_adopter():
     ).first()
 
     if beforeRequest:
+        if beforeRequest.id_state == 2 and int(data['id_state']) != 3:
+            befores_requests = RequestPetAdopter.query.filter(
+                RequestPetAdopter.id_pet == int(data['id_pet']),
+                RequestPetAdopter.id_user != int(session['user_id']),
+                RequestPetAdopter.id_state == 6,
+            ).all()
+            for x in befores_requests:     
+                x.id_state = 3
+                x.edition_date = actual_hour
+            
+            
         beforeRequest.edition_date = actual_hour
         beforeRequest.id_state = data['id_state']
         request = beforeRequest
+        
     else:
         request = RequestPetAdopter(actual_hour,actual_hour,data['id_state'],session['user_id'],data['id_pet'])
 
@@ -67,6 +79,32 @@ def register_adopter():
 
     db.session.commit()
 
+    if int(data['id_state']) == 1:
+        befores_requests = RequestPetAdopter.query.filter(
+            RequestPetAdopter.id_pet == int(data['id_pet']),
+            RequestPetAdopter.id_user != int(session['user_id']),
+            or_(
+                RequestPetAdopter.id_state == 2,
+                RequestPetAdopter.id_state == 3,
+                RequestPetAdopter.id_state == 6,
+            )
+        ).all()
+        for x in befores_requests:     
+            x.id_state = 5
+            x.edition_date = actual_hour
+
+    elif int(data['id_state']) == 2:
+        befores_requests = RequestPetAdopter.query.filter(
+            RequestPetAdopter.id_pet == int(data['id_pet']),
+            RequestPetAdopter.id_user != int(session['user_id']),
+            RequestPetAdopter.id_state == 3
+        ).all()
+
+        for x in befores_requests:
+            x.id_state = 6
+            x.edition_date = actual_hour
+    
+    db.session.commit()
 
     return Response(
         request.json(),
