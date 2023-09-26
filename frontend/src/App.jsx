@@ -15,6 +15,7 @@ import ShelterProfile from './Pages/ProfileShelter';
 import AdopterProfile from './Pages/ProfileAdopter';
 import Preferences from './Pages/Preferences';
 import Error from './Pages/Error';
+import Peticiones from './Pages/Peticiones';
 
 const App = () => {
 
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/profile/adopter" element={<AdopterProfile />} />
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/error" element={<Error />} />
+          <Route path="/peticiones" element={<Peticiones />} />
 
         </Routes>
       </BrowserRouter>
