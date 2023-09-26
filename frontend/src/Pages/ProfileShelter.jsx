@@ -143,7 +143,6 @@ function ShelterProfile() {
   const [shelter, setUser] = useState({
     name: '',
     username: '',
-    surname: '',
     email: '',
     location: '',
     street: '',
@@ -163,16 +162,15 @@ function ShelterProfile() {
           window.location.href = "/profile/adopter";
         }
         // Update the user state with the fetched data
-        // setUser({
-        //   name: response.data.response['name'],
-        //   username: response.data.response['username'],
-        //   surname: response.data.response['surname'],
-        //   email: response.data.response['email'],
-        //   location: response.data.response.address['district'],
-        //   street: response.data.response.address['street'],
-        //   district: response.data.response.address['location'],
-        //   phone_number: response.data.response['phone_number'],
-        // });
+        setUser({
+          name: response.data.response['name'],
+          username: response.data.response['username'],
+          email: response.data.response['email'],
+          location: response.data.response.address['district'],
+          street: response.data.response.address['street'],
+          district: response.data.response.address['location'],
+          phone_number: response.data.response['phone_number'],
+        });
         console.log(response.data.response['address']); 
       } catch (error) {
         console.error(error);
@@ -226,7 +224,7 @@ function ShelterProfile() {
               <StyledHr />
               <Typography variant="body1"><strong>Username:</strong> {shelter.username}</Typography>
               <Typography variant="body1"><strong>Name:</strong> {shelter.name}</Typography>
-              <Typography variant="body1"><strong>Surname:</strong> {shelter.surname}</Typography>
+              
               <Typography variant="body1"><strong>Email:</strong> {shelter.email}</Typography>
               <Typography variant="body1">
                 <strong>Location:</strong> {shelter.street}, {shelter.location}, {shelter.district}

@@ -195,7 +195,17 @@ class Shelter(User):
             },
             
         }
-    
+    def json_location(self):
+        address = Address.query.get(self.id_address)
+        return {
+            **super().json(),
+            **{
+                'name': self.name,
+                'address': address.json()
+            },
+            
+        }
+
     def json_public(self):
         return {
             **super().json_public(),
