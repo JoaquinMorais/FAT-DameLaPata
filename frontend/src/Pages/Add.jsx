@@ -11,6 +11,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
@@ -311,55 +314,33 @@ function Add() {
               ))}
               <div>Valores seleccionados: {selectedColors.join(', ')}</div>
             </div> */}
-
             <div style={{ marginBottom: '60px' }}>
-            <FieldArray name="colors">
-              {({ push, remove }) => (
-                <>
-
-                  {values.colors.map((color, index) => (
-                    <div key={index}>
-                      <div style={{ marginBottom: '60px' }}>
-                        <Field
-                          id={`color[${index}]`}
+                <FormGroup>
+                  {responseDataColors?.response.map((color, index) => (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox
                           name={`colors[${index}]`}
-                        >
-                          {({ field }) => (
-                            <>
-                              <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                                <InputLabel id={`color-label[${index}]`}>Color</InputLabel>
-                                <Select
-                                  {...field}
-                                  labelId={`color-label[${index}]`}
-                                  label="Color"
-                                  sx={{ width: '100%' }} // Estilos personalizados aquí
-                                >
-                                  <MenuItem value="">
-                                    <em>Quitar</em>
-                                  </MenuItem>
-                                  {responseDataColors?.response.map((item) => ( 
-                                    <MenuItem value={item.id_color}>{item.title}</MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                              <ErrorMessage name={`colors[${index}]`} component="div" />
-                            </>
-                          )}
-                        </Field>
-                      </div>
-                      <AgregarEliminar type="button" onClick={() => remove(index)} sx={{ marginBottom: 20 }}>
-                        Eliminar Color
-                      </AgregarEliminar>
-                    </div>
+                          checked={values.colors.includes(color.id_color)}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            if (isChecked) {
+                              push(color.id_color);
+                            } else {
+                              remove(values.colors.indexOf(color.id_color));
+                            }
+                          }}
+                          style={{
+                            color: '#f76402', // Cambiar el color del checkbox a naranja
+                          }}
+                        />
+                      }
+                      label={color.title}
+                    />
                   ))}
-                  <button type="button" onClick={() => push('')}>
-                    Agregar Color
-                  </button>
-                </>
-              )}
-            </FieldArray>
-            <ErrorMessage name="colors" component="div" />
-          </div>
+                </FormGroup>
+              </div>
 
           <div style={{ marginBottom: '60px' }}>
             <FieldArray name="characteristics">
