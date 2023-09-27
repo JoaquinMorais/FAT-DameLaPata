@@ -15,6 +15,8 @@ import Preferences from './Pages/Preferences';
 import Error from './Pages/Error';
 import Mismascotas_Sh from './Pages/Mismascotas_Sh';
 import Profile from './Pages/Profile';
+import Solicitud from './Pages/Solicitud';
+
 
 const App = () => {
 
@@ -70,6 +72,7 @@ const App = () => {
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/error" element={<Error />} />
           <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
+          <Route path="/solicitud" element={<Solicitud />} />
 
         </Routes>
       </BrowserRouter>

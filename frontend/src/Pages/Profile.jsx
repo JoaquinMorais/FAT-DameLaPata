@@ -6,7 +6,7 @@ function Profile() {
   const [isAdopter, setIsAdopter] = useState(true);
 
   useEffect(() => {
-    const condition = /* condición aca */ None;
+    const condition = /* condición aca */ null;
     
     setIsAdopter(condition);
   }, []);
