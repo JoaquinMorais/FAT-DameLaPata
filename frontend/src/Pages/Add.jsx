@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
 
 import NavBar from '../components/NavBar/NavBar';
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
@@ -57,6 +58,7 @@ function Add() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [responseDataColors, setResponseDataColors] = useState(null);
   const [responseDataCharacteristics, setResponseDataCharacteristics] = useState(null);
+  const [colorsLoaded, setColorsLoaded] = useState(false);
   const [age, setAge] = useState('');
   const navigate = useNavigate();
 
@@ -74,11 +76,15 @@ function Add() {
         window.location.href = '/';
       }
 
-      try {
-        const response = await axios.get('http://localhost:5000/pets/info/colors');
-        setResponseDataColors(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud de colores:', error.message);
+      if (!colorsLoaded) {
+        // Solo realiza la solicitud de colores si no se han cargado antes
+        try {
+          const response = await axios.get('http://localhost:5000/pets/info/colors');
+          setResponseDataColors(response.data);
+          setColorsLoaded(true); // Marcar los colores como cargados
+        } catch (error) {
+          console.error('Error al realizar la solicitud de colores:', error.message);
+        }
       }
 
       try {
@@ -90,7 +96,7 @@ function Add() {
     }
 
     fetchData();
-  }, []);
+  }, [colorsLoaded]);
 
   const handleCheckboxChange = (event) => {
     const value = parseInt(event.target.value, 10);
@@ -299,34 +305,39 @@ function Add() {
               </div>
 
               <div style={{ marginBottom: '60px' }}>
-                <FormGroup>
-                  {responseDataColors?.response.map((color) => (
-                    <FormControlLabel
-                      key={color.id_color}
-                      control={
-                        <Checkbox
-                          name="colors"
-                          value={color.id_color}  
-                          checked={formik.values.colors.includes(color.id_color)}
-                          onChange={(e) => {
-                            const isChecked = e.target.checked;
-                            if (isChecked) {
-                              formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
-                            } else {
-                              formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
-                            }
-                          }}
-                          style={{
-                            color: '#f76402',
-                          }}
-                        />
-                      }
-                      label={color.title} // Agregar una etiqueta para cada checkbox
-                    />
-                  ))}
-                </FormGroup>
-                <ErrorMessage name="colors" component="div" />
-              </div>
+  <FormGroup>
+    <Grid container justifyContent="center" spacing={1}>
+      {responseDataColors?.response.map((color) => (
+        <Grid item key={color.id_color} xs={4}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="colors"
+                value={color.id_color}
+                checked={formik.values.colors.includes(color.id_color)}
+                onChange={(e) => {
+                  const isChecked = e.target.checked;
+                  if (isChecked) {
+                    formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
+                  } else {
+                    formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
+                  }
+                }}
+                style={{
+                  color: '#f76402',
+                }}
+              />
+            }
+            label={color.title}
+            sx={{ margin: '-20px' }}  
+          />
+        </Grid>
+      ))}
+    </Grid>
+    <ErrorMessage name="colors" component="div" />
+  </FormGroup>
+</div>
+
 
               <div style={{ marginBottom: '60px' }}>
                 <FieldArray name="characteristics">
