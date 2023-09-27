@@ -19,7 +19,6 @@ const Peticiones = () => {
     async function fetchData() {
       try {
         const response = await axios.get('http://localhost:5000/user/requests');
-        console.log('Respuesta de la API:', response.data);
         setResponseData(response.data);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
@@ -139,27 +138,11 @@ const Peticiones = () => {
         </Principio>
   
         <Grid style={{textAlign:'center'}}>
-          
           No hay perros que cumplan tus requisitos
         </Grid>
       </>
     );
   }
-  
-  
-
-    // return (
-  //   <div>
-  //     {loading ? (SPINNER) : (
-
-  //         {responseData.length > 0  responseData?.map((item) => (
-  //           item
-  //         ))}
-  //               )  }
-      
-  //   </div>
-  // );
-
 }
 
 export default Peticiones

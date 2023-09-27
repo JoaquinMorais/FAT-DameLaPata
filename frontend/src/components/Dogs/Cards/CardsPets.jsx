@@ -7,8 +7,28 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './Cards.css';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function CardsPets(props) {
+  const { id } = useParams();
+  const estado = {
+    id_pet: parseInt(id),
+    id_status: 5,
+  }
+  console.log(estado);
+  
+  const handlePerroEliminar = async () => {
+    try{
+      const response = axios.put('http://localhost:5000/user/requests', estado);
+    }
+    catch{
+      alert("a");
+    }
+  }
+
+  /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+
   return (
     <Content>
       <Card sx={{ width: 250, height: 350, borderRadius: 2 }}>
@@ -28,7 +48,7 @@ function CardsPets(props) {
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
           <Button size="small" sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}>
-            <a href={`/pet/details/${props.id_pet}`} style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Eliminar</a>
+            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Eliminar</a>
           </Button>
         </CardActions>
       </Card>
