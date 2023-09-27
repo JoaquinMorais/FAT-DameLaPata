@@ -47,12 +47,7 @@ function Login() {
     onSubmit: async (values) => {
       let is_logged = await SendLogin(values);
       if (is_logged === true) {
-        if (localStorage.getItem('type') === 'adopter'){
-          window.location.href = "/profile/adopter";
-        }
-        else if (localStorage.getItem('type') === 'shelter'){
-          window.location.href = "/profile/shelter";
-        }
+          window.location.href = "/profile";
       } else {
         setIsDialogOpen(true);
       }
