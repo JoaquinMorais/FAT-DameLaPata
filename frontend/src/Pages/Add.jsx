@@ -342,65 +342,42 @@ function Add() {
               </div>
 
 
-              <div style={{ marginBottom: '60px' }}>
-                <FieldArray name="characteristics">
-                  {(arrayHelpers) => (
-                    <>
-                      {formik.values.characteristics.map((_, index2) => (
-                        <div key={index2}>
-                          <div style={{ marginBottom: '60px' }}>
-                            <Field
-                              id={`characteristics[${index2}]`}
-                              name={`characteristics[${index2}]`}
-                            >
-                              {({ field }) => (
-                                <>
-                                  <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                                    <InputLabel id={`characteristics-label[${index2}]`}>Característica</InputLabel>
-                                    <Select
-                                      {...field}
-                                      labelId={`characteristics-label[${index2}]`}
-                                      label="Características"
-                                      sx={{ width: '100%' }}
-                                    >
-                                      <MenuItem value="">
-                                        <em>Quitar</em>
-                                      </MenuItem>
-                                      {responseDataCharacteristics?.response.map((item2) => (
-                                        <MenuItem key={item2.id_characteristic} value={item2.id_characteristic}>
-                                          {item2.title}
-                                        </MenuItem>
-                                      ))}
-                                    </Select>
-                                  </FormControl>
-                                  <ErrorMessage name={`characteristics[${index2}]`} component="div" />
-                                </>
-                              )}
-                            </Field>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              arrayHelpers.remove(index2);
-                            }}
-                          >
-                            Eliminar Característica
-                          </button>
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          arrayHelpers.push('');
-                        }}
-                      >
-                        Agregar Característica
-                      </button>
-                    </>
-                  )}
-                </FieldArray>
-                <ErrorMessage name="characteristics" component="div" />
-              </div>
+              <div style={{ marginBottom: '30px', textAlign: 'center' }}>
+  <h4>Características de la mascota</h4>
+  <FormGroup>
+    <Grid container spacing={1} justifyContent="center">
+      {responseDataCharacteristics?.response.map((item) => (
+        <Grid item key={item.id_characteristic} xs={4}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name={`characteristics[${item.id_characteristic}]`}
+                value={item.id_characteristic}
+                checked={formik.values.characteristics.includes(item.id_characteristic)}
+                onChange={(e) => {
+                  const isChecked = e.target.checked;
+                  if (isChecked) {
+                    formik.setFieldValue('characteristics', [...formik.values.characteristics, item.id_characteristic]);
+                  } else {
+                    formik.setFieldValue('characteristics', formik.values.characteristics.filter((c) => c !== item.id_characteristic));
+                  }
+                }}
+                style={{
+                  color: '#f76402',
+                }}
+              />
+            }
+            label={item.title}
+            style={{ fontSize: '12px', margin: '-10px' }}
+          />
+        </Grid>
+      ))}
+    </Grid>
+    <ErrorMessage name="characteristics" component="div" />
+  </FormGroup>
+</div>
+
+
 
               <Boton type="submit">PUBLICAR</Boton>
             </Container>
