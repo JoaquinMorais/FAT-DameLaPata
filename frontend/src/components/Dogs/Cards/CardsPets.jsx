@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled } from 'styled-components'
+import React, { useState } from 'react';
+import { styled } from 'styled-components';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,29 +12,29 @@ import { useParams } from 'react-router-dom';
 
 function CardsPets(props) {
   const { id } = useParams();
-  const estado = {
-    id_pet: parseInt(id),
-    id_status: 5,
-  }
-  console.log(estado);
-  
-  const handlePerroEliminar = async () => {
-    try{
-      const response = axios.put('http://localhost:5000/user/requests', estado);
-    }
-    catch{
-      alert("a");
-    }
-  }
+  const [isDeleting, setIsDeleting] = useState(false); // State para controlar si se está eliminando o no
 
-  /* --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- */
+  const estado = {
+    id_status: 5,
+  };
+
+  const handlePerroEliminar = async () => {
+    try {
+      setIsDeleting(true); // Cambiar el estado a true para indicar que se está eliminando
+      const response = await axios.put('http://localhost:5000/user/requests', estado);
+      // Realizar alguna lógica adicional si es necesario después de eliminar
+    } catch (error) {
+      alert("Hubo un error al eliminar el perro.", error.message);
+    } finally {
+      setIsDeleting(false); // Cambiar el estado de nuevo a false después de finalizar
+    }
+  };
 
   return (
     <Content>
       <Card sx={{ width: 250, height: 350, borderRadius: 2 }}>
-        
         <CardMedia
-          sx={{ height: 150}}
+          sx={{ height: 150 }}
           image={props.foto}
           title={props.titulo}
         />
@@ -47,16 +47,23 @@ function CardsPets(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
-          <Button size="small" sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}>
-            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>Eliminar</a>
+          <Button
+            size="small"
+            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
+            onClick={handlePerroEliminar}
+            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
+          >
+            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
+              {isDeleting ? 'Eliminando...' : 'Eliminar'}
+            </a>
           </Button>
         </CardActions>
       </Card>
     </Content>
-  )
+  );
 }
 
-export default CardsPets
+export default CardsPets;
 
 const Content = styled.div`
   width: 100%;
@@ -65,14 +72,4 @@ const Content = styled.div`
   align-content: center;
   margin-top: 15px;
   border-radius: 8px;
-`;
-
-const cardStyle = styled.button`
-    backgroundColor: red;
-    color: white;
-    fontWeight: bold;
-    display: flex;
-    justifyContent: center;
-    alignItems: center;
-    height: 100%;
 `;
