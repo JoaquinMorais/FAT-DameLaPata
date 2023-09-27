@@ -19,6 +19,40 @@ import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
+// Estilos
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+const Titulo = styled.h3`
+  text-align: center;
+  margin-top: 80px;
+`;
+const Subtitulo = styled.p`
+  text-align: center;
+`;
+const Hr = styled.hr`
+  width: 65%;
+  margin: 20px 0;
+`;
+const Boton = styled.button`
+  width: 100px;
+  height: 50px;
+  margin-top: 20px;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: transparent;
+  font-weight: bold;
+  margin-bottom: 30px;
+  &:hover {
+    background-color: #f76402;
+    cursor: pointer;
+  }
+`;
+
 function Add() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [responseDataColors, setResponseDataColors] = useState(null);
@@ -110,9 +144,9 @@ function Add() {
     <>
       <NavBar />
       <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
       >
         {(formik) => (
           <Form>
@@ -272,6 +306,7 @@ function Add() {
                       control={
                         <Checkbox
                           name="colors"
+                          value={color.id_color}  
                           checked={formik.values.colors.includes(color.id_color)}
                           onChange={(e) => {
                             const isChecked = e.target.checked;
@@ -286,7 +321,7 @@ function Add() {
                           }}
                         />
                       }
-                      label={color.color_name}
+                      label={color.title} // Agregar una etiqueta para cada checkbox
                     />
                   ))}
                 </FormGroup>
@@ -363,40 +398,3 @@ function Add() {
 }
 
 export default Add;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;
-const Titulo = styled.h3`
-  text-align: center;
-  margin-top: 80px;
-`;
-const Subtitulo = styled.p`
-  text-align: center;
-`;
-const Hr = styled.hr`
-  width: 65%;
-  margin: 20px 0;
-`;
-const Boton = styled.button`
-  width: 100px;
-  height: 50px;
-  margin-top: 20px;
-  border: 2px solid black;
-  border-radius: 8px;
-  background-color: transparent;
-  font-weight: bold;
-  margin-bottom: 30px;
-  &:hover {
-    background-color: #f76402;
-    cursor: pointer;
-  }
-`;
-
-const AgregarEliminar = styled.button``;
-
-const InputCB = styled.input``;
