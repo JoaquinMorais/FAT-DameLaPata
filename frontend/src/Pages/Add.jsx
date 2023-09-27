@@ -304,39 +304,42 @@ function Add() {
                 </Field>
               </div>
 
-              <div style={{ marginBottom: '60px' }}>
-  <FormGroup>
-    <Grid container justifyContent="center" spacing={1}>
-      {responseDataColors?.response.map((color) => (
-        <Grid item key={color.id_color} xs={4}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="colors"
-                value={color.id_color}
-                checked={formik.values.colors.includes(color.id_color)}
-                onChange={(e) => {
-                  const isChecked = e.target.checked;
-                  if (isChecked) {
-                    formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
-                  } else {
-                    formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
-                  }
-                }}
-                style={{
-                  color: '#f76402',
-                }}
-              />
-            }
-            label={color.title}
-            sx={{ margin: '-20px' }}  
-          />
-        </Grid>
-      ))}
-    </Grid>
-    <ErrorMessage name="colors" component="div" />
-  </FormGroup>
-</div>
+              <div style={{ marginBottom: '60px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'  }}>
+              <h4>Color de la mascota</h4>
+                <FormGroup>
+                  <Grid container justifyContent="left" spacing={1}>
+                    {responseDataColors?.response.map((color) => (
+                      <Grid item key={color.id_color} xs={4}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="colors"
+                              value={color.id_color}
+                              checked={formik.values.colors.includes(color.id_color)}
+                              onChange={(e) => {
+                                const isChecked = e.target.checked;
+                                if (isChecked) {
+                                  formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
+                                } else {
+                                  formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
+                                }
+                              }}
+                              style={{
+                                color: '#f76402',
+                              }}
+                            />
+                          }
+                          label={color.title}
+                          sx={{ margin: '-20px', 
+                                justifyContent: 'center', 
+                        }}  
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <ErrorMessage name="colors" component="div" />
+                </FormGroup>
+              </div>
 
 
               <div style={{ marginBottom: '60px' }}>
