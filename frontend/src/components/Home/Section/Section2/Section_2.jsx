@@ -121,7 +121,7 @@ const Container = styled.div`
 `;
 
 const Wrap = styled.div`
-  background-image: url('../Images/paw_prints.gif');
+  background-color: white; 
   width: 100%;
   flex: 1;
   background-size: cover;
