@@ -14,6 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 import NavBar from '../components/NavBar/NavBar';
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
@@ -21,37 +23,15 @@ import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
 // Estilos
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const Subtitulo = styled(Typography)`
   text-align: center;
-`;
-const Titulo = styled.h3`
-  text-align: center;
-  margin-top: 80px;
-`;
-const Subtitulo = styled.p`
-  text-align: center;
-`;
-const Hr = styled.hr`
-  width: 65%;
   margin: 20px 0;
 `;
-const Boton = styled.button`
-  width: 100px;
-  height: 50px;
+
+const Boton = styled(Button)`
   margin-top: 20px;
-  border: 2px solid black;
-  border-radius: 8px;
-  background-color: transparent;
   font-weight: bold;
   margin-bottom: 30px;
-  &:hover {
-    background-color: #f76402;
-    cursor: pointer;
-  }
 `;
 
 function Add() {
@@ -149,54 +129,40 @@ function Add() {
   return (
     <>
       <NavBar />
-      <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      >
-        {(formik) => (
-          <Form>
-            <Container>
-              <Titulo>Empezá a dibujar la felicidad de una persona.</Titulo>
-              <Subtitulo>¡Agregá un perrito a la lista de adopción!</Subtitulo>
-              <Hr></Hr>
-
-              <div style={{ marginBottom: '60px' }}>
-                <Field
-                  id="name"
-                  name="name"
-                >
-                  {({ field }) => (
-                    <>
+      <Container maxWidth="md">
+        <Typography variant="h3" align="center" gutterBottom>
+          Empezá a dibujar la felicidad de una persona.
+        </Typography>
+        <Subtitulo variant="subtitle1">¡Agregá un perrito a la lista de adopción!</Subtitulo>
+        <hr />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {(formik) => (
+            <Form>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Field name="name">
+                    {({ field }) => (
                       <TextField
                         {...field}
                         label="Nombre"
                         placeholder="Firulais..."
-                        multiline
+                        fullWidth
                         variant="standard"
-                        sx={{ width: '100%' }}
                       />
-                      <ErrorMessage name="name" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '60px' }}>
-                <Field
-                  id="demo-simple-select-standard"
-                  name="gender"
-                >
-                  {({ field }) => (
-                    <>
-                      <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Género</InputLabel>
-                        <Select
-                          {...field}
-                          labelId="demo-simple-select-standard-label"
-                          label="Género"
-                          sx={{ width: '100%' }}
-                        >
+                    )}
+                  </Field>
+                  <ErrorMessage name="name" component="div" />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field name="gender">
+                    {({ field }) => (
+                      <FormControl fullWidth variant="standard">
+                        <InputLabel>Género</InputLabel>
+                        <Select {...field} label="Género">
                           <MenuItem value="">
                             <em>Quitar</em>
                           </MenuItem>
@@ -204,19 +170,13 @@ function Add() {
                           <MenuItem value={2}>Hembra</MenuItem>
                         </Select>
                       </FormControl>
-                      <ErrorMessage name="gender" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '30px' }}>
-                <Field
-                  id="date"
-                  name="birthdate"
-                >
-                  {({ field }) => (
-                    <>
+                    )}
+                  </Field>
+                  <ErrorMessage name="gender" component="div" />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field name="birthdate">
+                    {({ field }) => (
                       <TextField
                         {...field}
                         label="Nacimiento"
@@ -225,29 +185,17 @@ function Add() {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        sx={{ width: 220 }}
                       />
-                      <ErrorMessage name="birthdate" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '60px' }}>
-                <Field
-                  id="demo-simple-select-standard"
-                  name="size"
-                >
-                  {({ field }) => (
-                    <>
-                      <FormControl variant="standard" sx={{ m: 1, minWidth: 220 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Tamaño</InputLabel>
-                        <Select
-                          {...field}
-                          labelId="demo-simple-select-standard-label"
-                          label="Tamaño"
-                          sx={{ width: '100%' }}
-                        >
+                    )}
+                  </Field>
+                  <ErrorMessage name="birthdate" component="div" />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field name="size">
+                    {({ field }) => (
+                      <FormControl fullWidth variant="standard">
+                        <InputLabel>Tamaño</InputLabel>
+                        <Select {...field} label="Tamaño">
                           <MenuItem value="">
                             <em>Quitar</em>
                           </MenuItem>
@@ -256,134 +204,112 @@ function Add() {
                           <MenuItem value={3}>Grande</MenuItem>
                         </Select>
                       </FormControl>
-                      <ErrorMessage name="size" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '60px' }}>
-                <Field
-                  id="weight"
-                  name="weight"
-                >
-                  {({ field }) => (
-                    <>
+                    )}
+                  </Field>
+                  <ErrorMessage name="size" component="div" />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field name="weight">
+                    {({ field }) => (
                       <TextField
                         {...field}
                         label="Peso"
                         placeholder="123..."
-                        multiline
+                        fullWidth
                         variant="standard"
-                        sx={{ width: '100%' }}
                       />
-                      <ErrorMessage name="weight" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '60px' }}>
-                <Field
-                  id="image_path"
-                  name="image_path"
-                >
-                  {({ field }) => (
-                    <>
+                    )}
+                  </Field>
+                  <ErrorMessage name="weight" component="div" />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field name="image_path">
+                    {({ field }) => (
                       <TextField
                         {...field}
                         label="Imagen"
                         placeholder="perro.jpg..."
-                        multiline
+                        fullWidth
                         variant="standard"
-                        sx={{ width: '100%' }}
                       />
-                      <ErrorMessage name="image_path" component="div" />
-                    </>
-                  )}
-                </Field>
-              </div>
-
-              <div style={{ marginBottom: '60px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'  }}>
-              <h4>Color de la mascota</h4>
-                <FormGroup>
-                  <Grid container justifyContent="left" spacing={1}>
-                    {responseDataColors?.response.map((color) => (
-                      <Grid item key={color.id_color} xs={4}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              name="colors"
-                              value={color.id_color}
-                              checked={formik.values.colors.includes(color.id_color)}
-                              onChange={(e) => {
-                                const isChecked = e.target.checked;
-                                if (isChecked) {
-                                  formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
-                                } else {
-                                  formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
-                                }
-                              }}
-                              style={{
-                                color: '#f76402',
-                              }}
-                            />
-                          }
-                          label={color.title}
-                          sx={{ margin: '-20px', 
-                                justifyContent: 'center', 
-                        }}  
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                  <ErrorMessage name="colors" component="div" />
-                </FormGroup>
-              </div>
-
-
-              <div style={{ marginBottom: '30px', textAlign: 'center' }}>
-  <h4>Características de la mascota</h4>
-  <FormGroup>
-    <Grid container spacing={1} justifyContent="center">
-      {responseDataCharacteristics?.response.map((item) => (
-        <Grid item key={item.id_characteristic} xs={4}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                name={`characteristics[${item.id_characteristic}]`}
-                value={item.id_characteristic}
-                checked={formik.values.characteristics.includes(item.id_characteristic)}
-                onChange={(e) => {
-                  const isChecked = e.target.checked;
-                  if (isChecked) {
-                    formik.setFieldValue('characteristics', [...formik.values.characteristics, item.id_characteristic]);
-                  } else {
-                    formik.setFieldValue('characteristics', formik.values.characteristics.filter((c) => c !== item.id_characteristic));
-                  }
-                }}
-                style={{
-                  color: '#f76402',
-                }}
-              />
-            }
-            label={item.title}
-            style={{ fontSize: '12px', margin: '-10px' }}
-          />
-        </Grid>
-      ))}
-    </Grid>
-    <ErrorMessage name="characteristics" component="div" />
-  </FormGroup>
-</div>
-
-
-
-              <Boton type="submit">PUBLICAR</Boton>
-            </Container>
-          </Form>
-        )}
-      </Formik>
+                    )}
+                  </Field>
+                  <ErrorMessage name="image_path" component="div" />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h4">Color de la mascota</Typography>
+                  <FormGroup>
+                    <Grid container spacing={2}>
+                      {responseDataColors?.response.map((color) => (
+                        <Grid item key={color.id_color} xs={4}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name="colors"
+                                value={color.id_color}
+                                checked={formik.values.colors.includes(color.id_color)}
+                                onChange={(e) => {
+                                  const isChecked = e.target.checked;
+                                  if (isChecked) {
+                                    formik.setFieldValue('colors', [...formik.values.colors, color.id_color]);
+                                  } else {
+                                    formik.setFieldValue('colors', formik.values.colors.filter((c) => c !== color.id_color));
+                                  }
+                                }}
+                                style={{
+                                  color: '#f76402',
+                                }}
+                              />
+                            }
+                            label={color.title}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                    <ErrorMessage name="colors" component="div" />
+                  </FormGroup>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h4">Características de la mascota</Typography>
+                  <FormGroup>
+                    <Grid container spacing={2}>
+                      {responseDataCharacteristics?.response.map((item) => (
+                        <Grid item key={item.id_characteristic} xs={4}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name={`characteristics[${item.id_characteristic}]`}
+                                value={item.id_characteristic}
+                                checked={formik.values.characteristics.includes(item.id_characteristic)}
+                                onChange={(e) => {
+                                  const isChecked = e.target.checked;
+                                  if (isChecked) {
+                                    formik.setFieldValue('characteristics', [...formik.values.characteristics, item.id_characteristic]);
+                                  } else {
+                                    formik.setFieldValue('characteristics', formik.values.characteristics.filter((c) => c !== item.id_characteristic));
+                                  }
+                                }}
+                                style={{
+                                  color: '#f76402',
+                                }}
+                              />
+                            }
+                            label={item.title}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                    <ErrorMessage name="characteristics" component="div" />
+                  </FormGroup>
+                </Grid>
+              </Grid>
+              <Boton type="submit" variant="contained" color="primary">
+                PUBLICAR
+              </Boton>
+            </Form>
+          )}
+        </Formik>
+      </Container>
     </>
   );
 }
