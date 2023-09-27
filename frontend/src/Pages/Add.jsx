@@ -17,15 +17,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import NavBar from '../components/NavBar/NavBar';
+import NavBar from '../components/NavBar/NavBar'; 
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
-// Estilos
 const Subtitulo = styled(Typography)`
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0; /* Añadir margen superior e inferior */
 `;
 
 const Boton = styled(Button)`
@@ -129,7 +128,7 @@ function Add() {
   return (
     <>
       <NavBar />
-      <Container maxWidth="md">
+      <Container maxWidth="md"><br/><br/><br/> {/* Ignoren los "BR", fue mi solucion al estres */}
         <Typography variant="h3" align="center" gutterBottom>
           Empezá a dibujar la felicidad de una persona.
         </Typography>
