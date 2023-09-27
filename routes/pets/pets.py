@@ -215,6 +215,7 @@ def getPets():
                         RequestPetAdopter.id_state == 3,
                         RequestPetAdopter.id_state == 4,
                         RequestPetAdopter.id_state == 5,
+                        RequestPetAdopter.id_state == 6,
                     )
                 ),
                 RequestPetAdopter.id_state == 1,
