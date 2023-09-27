@@ -666,12 +666,11 @@ class RequestPetAdopter(db.Model):
     
     def json(self):
         pet = Pet.query.get(self.id_pet)
-        adopter = Adopter.query.get(self.id_user)
-        state = State.query.get(self.id_state)
+        
         return {
-            'adopter' : adopter.json(),
+            'id_adopter' : self.id_user,
             'pet':pet.json(),
-            'state':state.json(),
+            'id_state':self.id_state,
             'request_date':self.request_date.isoformat(),
             'edition_date':self.edition_date.isoformat(),
             

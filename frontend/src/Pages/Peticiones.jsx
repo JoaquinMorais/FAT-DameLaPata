@@ -13,127 +13,115 @@ import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
 const Peticiones = () => {
-    const [responseData, setResponseData] = useState(null);
-    const [solicitadosData, setSolicitadosData] = useState([]);
-    const [matchData, setMatchData] = useState([]);
-    const [adoptadosData, setAdoptadosData] = useState([]);
-  
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const response = await axios.get('http://localhost:5000/pets/all');
-          setResponseData(response.data);
-        } catch (error) {
-          console.error('Error al realizar la solicitud:', error.message);
-        }
+  const [responseData, setResponseData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/user/requests');
+        console.log('Respuesta de la API:', response.data);
+        setResponseData(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
       }
-  
-      fetchData();
-    }, []);
-  
-    useEffect(() => {
-      if (responseData?.status === 200) {
-        // Filtrar los datos según el id_state
-        const solicitados = responseData.response.filter(
-          (item) => item.id_state === 3
-        );
-        const match = responseData.response.filter((item) => item.id_state === 2);
-        const adoptados = responseData.response.filter(
-          (item) => item.id_state === 1
-        );
-  
-        // Actualizar los estados con los datos filtrados
-        setSolicitadosData(solicitados);
-        setMatchData(match);
-        setAdoptadosData(adoptados);
-      }
-    }, [responseData]);
-  
+    }
+
+    fetchData();
+  }, []);
+
+  // Define funciones para filtrar los elementos según el id_state
+  const filterByState = (stateId) => {
+    return responseData?.response.filter(item => item.id_state === stateId);
+  }
+
+
 
   if(responseData?.status == 200){
     return (
     <>
-        <>
-            <NavBar />
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>SOLICITADOS</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
-    
-            <Grid>
-            {responseData?.response.map((item) => ( 
-                <Container key={item.id}>
-                <Zoom>
-                    <CardsPets
-                    id_pet={`${item.id_pet}`}
-                    foto={`${item.image_path}`}
-                    nombre={`${item.name}`}
-                    titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`${item.name} nació el ${item.birth_date}.`}
-                    />
-                </Zoom>
-                </Container>
-            ))}
-            </Grid>
-        </>
+      <>
+        <NavBar />
+        <Principio>
+        <Lamina>
+            <Flip top>
+            <Titulo>CON ¡MATCH!</Titulo>
+            </Flip>
+            <Hr />
+        </Lamina>
+        </Principio>
 
-            <>
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>CON ¡MATCH!</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
+        <Grid>
+        {filterByState(2).map((item) => (
+            <Container key={item.pet.id_pet}>
+            <Zoom>
+            <CardsPets
+                id_pet={`${item.id_pet}`}
+                foto={`${item.pet.image_path}`}
+                nombre={`${item.pet.name}`}
+                titulo={`${item.pet.name} es un perro muy feliz :D`}
+                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+              />
+            </Zoom>
+            </Container>
+        ))}
+        </Grid>
 
-            <Grid>
-            {responseData?.response.map((item) => ( 
-                <Container key={item.id}>
-                <Zoom>
-                    <CardsPets
-                    id_pet={`${item.id_pet}`}
-                    foto={`${item.image_path}`}
-                    nombre={`${item.name}`}
-                    titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`${item.name} nació el ${item.birth_date}.`}
-                    />
-                </Zoom>
-                </Container>
-            ))}
-            </Grid>
-            </>
 
-            <>
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>ADOPTADOS</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
+      <>
+        <Principio>
+        <Lamina>
+            <Flip top>
+            <Titulo>SOLICITADOS</Titulo>
+            </Flip>
+            <Hr />
+        </Lamina>
+        </Principio>
 
-            <Grid>
-            {responseData?.response.map((item) => ( 
-                <Container key={item.id}>
-                <Zoom>
-                    <CardsPets
-                    id_pet={`${item.id_pet}`}
-                    foto={`${item.image_path}`}
-                    nombre={`${item.name}`}
-                    titulo={`${item.name} es un perro muy feliz :D`}
-                    descripcion={`${item.name} nació el ${item.birth_date}.`}
-                    />
-                </Zoom>
-                </Container>
-            ))}
-            </Grid>
-        </>
+        <Grid>
+          {filterByState(3).map((item) => (
+              <Container key={item.pet.id_pet}>
+              <Zoom>
+                <CardsPets
+                  id_pet={`${item.pet.id_pet}`}
+                  foto={`${item.pet.image_path}`}
+                  nombre={`${item.pet.name}`}
+                  titulo={`${item.pet.name} es un perro muy feliz :D`}
+                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                />
+              </Zoom>
+              </Container>
+          ))}
+        </Grid>
+      </>
+
+
+      </>
+          <>
+          <Principio>
+          <Lamina>
+              <Flip top>
+              <Titulo>ADOPTADOS</Titulo>
+              </Flip>
+              <Hr />
+          </Lamina>
+          </Principio>
+
+          <Grid>
+          {filterByState(1).map((item) => (
+              <Container key={item.id}>
+              <Zoom>
+                <CardsPets
+                  id_pet={`${item.id_pet}`}
+                  foto={`${item.pet.image_path}`}
+                  nombre={`${item.pet.name}`}
+                  titulo={`${item.pet.name} es un perro muy feliz :D`}
+                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                />
+              </Zoom>
+              </Container>
+          ))}
+          </Grid>
+      </>
     </>
     );
   }
