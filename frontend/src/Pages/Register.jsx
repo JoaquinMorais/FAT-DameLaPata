@@ -23,7 +23,7 @@
 
     return (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <div
           style={{
             backgroundImage: 'url("https://media.diariouno.com.ar/p/f54249878a58173518d1bc7ec8f5814e/adjuntos/298/imagenes/008/806/0008806731/1200x0/smart/perro-callejerojpg.jpg")',

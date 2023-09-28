@@ -56,14 +56,14 @@ function Navbar() {
         return '/';
       case 'Adoptar':
         return '/dogs';
-      case 'Quienes somos':
+      case 'Quienes Somos':
         return '/about';
       case 'Publicar':
         return '/post';
-      case 'Mis mascotas':
-        return '/TODAVIA-NO-BRO';
-      default:
-        return '/';
+      case 'Peticiones':
+        return '/peticiones';
+      case 'Mis Mascotas':
+        return '/mis-mascotas-shelter';
     }
   }
 
@@ -71,14 +71,14 @@ function Navbar() {
   function getSettingsLink(setting) {
     switch (setting) {
       case 'Mi Perfil':
-        return '/profile/adopter';
-      case 'Perfil del refugio':
-        return '/profile/shelter';
+        return '/profile';
+      case 'Mi Refugio':
+        return '/profile';
       case 'Iniciar Sesion':
         return '/login';
-    /*
-      case 'Cerrar sesion':
-        return '/TODAVIA-NO-BRO';
+      case 'Cerrar Sesion':
+        return '/login';
+      /*
       case 'Crear Cuenta':
         return '/TODAVIA-NO-BRO';
       */
@@ -257,5 +257,6 @@ const Avatar = styled.img`
 //     display: flex;
 //   }
 // `;
+
 
 

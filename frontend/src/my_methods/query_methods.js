@@ -1,43 +1,91 @@
 import axios from "axios";
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router-dom";
 
-
-
-let colors_array = ['']
-let sizes_array = ['']
 
 export async function GetPreference() {
-    try {
-      const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
-      const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
+  const navigate = useNavigate();
+  let colors_array = [];
+  let sizes_array = [];
 
-      if (response_color.data['status'] === 402){
-        console.log(response_color);
-        <Navigate path='/error'/>
-      }
-      else if(response_color.data['status'] === 200){
-        colors_array = response_color.data.colors;
-        response_color = console.log(response_color);
-        console.log(response_color);
+  try {
+    const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
+    const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
 
-      }
-      if (response_size.data['status'] === 402){
-        console.log(response_size);
-        <Navigate path='/error'/>
-      }
-      else if(response_size.data['status'] === 200){
-        sizes_array = response_size.data.sizes;
-        response_size = console.log(response_size);
-        console.log(response_size);
-      }
-    } 
-    
-    catch (error) {
-      console.error('Error al realizar la solicitud:', error.message);
+    if (response_color.data.status === 402 || response_size.data.status === 402) {
+      // Manejar el error 402 y redirigir a la página de error
+      navigate('/error');
+      return { colors_array: [], sizes_array: [] };
     }
 
-    return{
-      colors_array: colors_array,
-      sizes_array: sizes_array
+    if (response_color.data.status === 200) {
+      const colors_array = response_color.data.colors;
+      console.log('Colores:', colors_array);
     }
+
+    if (response_size.data.status === 200) {
+      const sizes_array = response_size.data.sizes;
+      console.log('Tamaños:', sizes_array);
+    }
+
+    return {
+      colors_array: colors_array || [],
+      sizes_array: sizes_array || [],
+    };
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+    // Manejar otros errores si es necesario
+    navigate('/error');
+    return { colors_array: [], sizes_array: [] };
+  }
+}
+
+let dogs_array = ['']
+
+
+export async function GetPets() {
+  try {
+    const response_dogs = await axios.get('http://localhost:5000/pets ', '');
+
+    if (response_dogs.data['status'] === 402){
+      console.log(response_dogs);
+      <Navigate path='/error'/>
+    }
+    else if(response_dogs.data['status'] === 200){
+      dogs_array = response_dogs.data.colors;
+      response_dogs = console.log(response_dogs);
+      console.log(response_dogs);
+
+    }
+  } 
+  
+  catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+
+  return{
+    dogs_array: dogs_array,
+  }
+}
+
+
+// Trae los colores a la pagina de registrar mascota
+export async function getColors() {
+  try {
+    const response = await axios.get('http://localhost:5000/pets/info/colors');
+    return response.data;
+  } catch (error) {
+    console.error('Error al realizar la solicitud de colores:', error.message);
+    throw error; // Re-lanza el error para que el componente pueda manejarlo
+  }
+}
+
+// Trae las caracteristicas a la pagina de resgitrar la pagina
+export async function getCharacteristics() {
+  try {
+    const response = await axios.get('http://localhost:5000/pets/info/characteristics');
+    return response.data;
+  } catch (error) {
+    console.error('Error al realizar la solicitud de características:', error.message);
+    throw error; // Re-lanza el error para que el componente pueda manejarlo
+  }
 }
