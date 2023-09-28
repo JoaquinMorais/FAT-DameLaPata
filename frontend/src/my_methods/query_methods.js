@@ -6,7 +6,7 @@ import { Navigate } from "react-router";
 let colors_array = ['']
 let sizes_array = ['']
 
-async function GetPreference() {
+export async function GetPreference() {
     try {
       const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
       const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
@@ -41,5 +41,3 @@ async function GetPreference() {
       sizes_array: sizes_array
     }
 }
-
-export default GetPreference

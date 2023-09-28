@@ -14,7 +14,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { CreateRequest } from '../../../my_methods/dogs_methods';
+import { CreateRequest, GetSinglePet } from '../../../my_methods/dogs_methods';
+
+
 
 const Details = () => {
     const { id } = useParams();
@@ -27,28 +29,26 @@ const Details = () => {
       } 
         async function fetchData() {
         try {
-            const response = await axios.get(`http://localhost:5000/pet/${id}`);
+            var response = await GetSinglePet(id)
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
-        }
-        try {
-          const response = await axios.get('http://localhost:5000/pets/info/colors'); 
-          setresponseDataColors(response.data);
-        } catch (error) {
-          console.error('Error al realizar la solicitud:', error.message);
         }
       }
         
         fetchData();
     }, []);
 
-  /* ------------------------------------ */
-
-    const [selectedColors, setSelectedColors] = useState([]);
-    const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
-
-  /* ------------------------------------ */
+    const calcularEdad = () => {
+      if (responseData?.response.birth_date) {
+          const fechaNacimiento = new Date(responseData?.response.birth_date);
+          const fechaHoy = new Date();
+          const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
+          const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
+          return `${edadPerro} años`;
+      }
+      return '';
+    };
 
   const ifGuion = (mylist,element) => {
     if(mylist[mylist.length - 1] === element){
@@ -57,36 +57,7 @@ const Details = () => {
     return ' - '
   }
 
-  /* ------------------------------------ */
 
-  const [availablePetIds, setAvailablePetIds] = useState([]);
-
-  // Obtener lista de IDs disponibles (excluyendo el ID actual)
-  useEffect(() => {
-    async function fetchAvailablePetIds() {
-      try {
-        const response = await axios.get('http://localhost:5000/adopter/match');
-        const availableIds = response.data.filter((id_pet) => id_pet !== id);
-        setAvailablePetIds(availableIds);
-      } catch (error) {
-        console.error('Error al obtener los IDs disponibles:', error.message);
-      }
-    }
-    fetchAvailablePetIds();
-  }, [id]);
-
-  /* ------------------------------------ */
-
-  const calcularEdad = () => {
-    if (responseData?.response.birth_date) {
-        const fechaNacimiento = new Date(responseData?.response.birth_date);
-        const fechaHoy = new Date();
-        const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
-        const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
-        return `${edadPerro} años`;
-    }
-    return '';
-};
 
 /* ------------------------------------ */
 
@@ -106,10 +77,8 @@ const handlePerroNoClick = async () => {
 
 const handlePerroSiClick = async () => {
   try{
-    const response = CreateRequest(parseInt(id), 3)
-    if (response){
-      //window.location.href = "/dogs";
-    } 
+    const response = await CreateRequest(parseInt(id), 3)
+    window.location.href = "/dogs";
 
   }
   catch{

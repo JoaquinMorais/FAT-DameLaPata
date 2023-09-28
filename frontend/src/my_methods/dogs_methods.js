@@ -21,3 +21,8 @@ export async function CreateRequest(dog, state){
     console.log('error...')
   }
 }
+
+export async function GetSinglePet(id){
+  response = await axios.get(`http://localhost:5000/pet/${id}`);
+  return response 
+}
