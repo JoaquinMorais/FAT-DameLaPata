@@ -18,17 +18,24 @@ function CardsPets(props) {
     id_status: 5,
   };
 
-  const handlePerroEliminar = async () => {
+  const handlePerroEliminar = async (idPet) => { // Agrega idPet como argumento
     try {
-      setIsDeleting(true); // Cambiar el estado a true para indicar que se está eliminando
-      const response = await axios.put('http://localhost:5000/user/requests', estado);
-      // Realizar alguna lógica adicional si es necesario después de eliminar
+      setIsDeleting(true);
+  
+      // Actualiza el estado del perro con el ID proporcionado
+      const response = await axios.put(`http://localhost:5000/user/requests/${idPet}`, estado);
+      
+      // Luego puedes realizar otras acciones si es necesario, como actualizar la UI
     } catch (error) {
       alert("Hubo un error al eliminar el perro.", error.message);
     } finally {
-      setIsDeleting(false); // Cambiar el estado de nuevo a false después de finalizar
+      setIsDeleting(false);
     }
   };
+  
+  
+
+  
 
   return (
     <Content>
@@ -47,16 +54,16 @@ function CardsPets(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'center' }}>
-          <Button
-            size="small"
-            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
-            onClick={handlePerroEliminar}
-            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
-          >
-            <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
-              {isDeleting ? 'Eliminando...' : 'Eliminar'}
-            </a>
-          </Button>
+        <Button
+          size="small"
+          sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
+          disabled={isDeleting}
+          onClick={() => handlePerroEliminar(props.id_pet)} // Pasa props.id_pet al manejo de clic
+        >
+          <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
+            {isDeleting ? 'Eliminando...' : 'Eliminar'}
+          </a>
+        </Button>
         </CardActions>
       </Card>
     </Content>

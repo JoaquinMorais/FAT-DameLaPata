@@ -15,6 +15,7 @@ import axios from 'axios';
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
 
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -50,19 +51,20 @@ const Peticiones = () => {
         </Principio>
 
         <Grid>
-        {filterByState(2).map((item) => (
+          {filterByState(2).map((item) => (
             <Container key={item.pet.id_pet}>
-            <Zoom>
-            <CardsPets
-                id_pet={`${item.id_pet}`}
-                foto={`${item.pet.image_path}`}
-                nombre={`${item.pet.name}`}
-                titulo={`${item.pet.name} es un perro muy feliz :D`}
-                descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-              />
-            </Zoom>
+              <Zoom>
+                <CardsPets
+                  id_state={`${item.pet.id_state}`}
+                  id_pet={`${item.pet.id_pet}`}
+                  foto={`${item.pet.image_path}`}
+                  nombre={`${item.pet.name}`}
+                  titulo={`${item.pet.name} es un perro muy feliz :D`}
+                  descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
+                />
+              </Zoom>
             </Container>
-        ))}
+          ))}
         </Grid>
 
 
