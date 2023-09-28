@@ -22,6 +22,7 @@ import NavBar from '../components/NavBar/NavBar';
 import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
+import { PutDogs } from '../my_methods/dogs_methods';
 
 const Subtitulo = styled(Typography)`
   text-align: center;
@@ -115,14 +116,10 @@ function Add() {
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      const response = await axios.put('http://localhost:5000/pet', values);
-      console.log('Response:', response.data);
+    const response = PutDogs(values);
+    if (response){
       navigate('/successful');
-    } catch (error) {
-      console.error('Error:', error);
     }
-
     setSubmitting(false);
   };
 
