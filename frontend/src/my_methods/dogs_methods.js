@@ -10,3 +10,14 @@ export async function PutDogs(values) {
       }
       return response
   };
+
+export async function CreateRequest(dog, state){
+  response = await axios.put('http://localhost:5000/adopter/match', {'id_pet': dog, 'id_state': state})
+
+  try{
+    console.log(response)
+  }
+  catch{
+    console.log('error...')
+  }
+}

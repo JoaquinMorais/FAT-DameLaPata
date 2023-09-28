@@ -14,8 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
-
+import { CreateRequest } from '../../../my_methods/dogs_methods';
 
 const Details = () => {
     const { id } = useParams();
@@ -23,6 +22,9 @@ const Details = () => {
 
 
     useEffect(() => {
+      if(localStorage.getItem('type') !== 'adopter'){
+        window.location.href = "/profile";
+      } 
         async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:5000/pet/${id}`);
@@ -30,7 +32,13 @@ const Details = () => {
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
         }
+        try {
+          const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+          setresponseDataColors(response.data);
+        } catch (error) {
+          console.error('Error al realizar la solicitud:', error.message);
         }
+      }
         
         fetchData();
     }, []);
@@ -39,19 +47,6 @@ const Details = () => {
 
     const [selectedColors, setSelectedColors] = useState([]);
     const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
-
-    useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
-        setresponseDataColors(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
-  }, []);
 
   /* ------------------------------------ */
 
@@ -97,48 +92,28 @@ const Details = () => {
 
 const navigate = useNavigate();
 
-// const handlePerroSiClick = async () => {
-//   try {
-//     if (availablePetIds.length === 0) {
-//       // No hay más perros disponibles para mostrar
-//       console.log('availablePetIds:', availablePetIds);
-//       alert('No hay más perros disponibles.');
-//       return;
-//     }
-
-//     // Generar un número aleatorio basado en la lista de IDs disponibles
-//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
-//     const randomPetId = availablePetIds[randomIndex];
-
-//     const estado = {
-//       id_pet: randomPetId,
-//       id_status: 3,
-//     };
-
-//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
-//     console.log('Respuesta del servidor:', response.data);
-
-//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
-//     navigate(`/pet/details/${randomPetId}`);
-//   } catch (error) {
-//     console.error('Error al realizar la solicitud:', error.message);
-//   }
-// };
-
-/* ------------------------------------ */
-
-const estado = {
-  id_pet: parseInt(id),
-  id_status: 4,
-}
-console.log(estado);
-
 const handlePerroNoClick = async () => {
   try{
-    const response = axios.put('http://localhost:5000/adopter/match', estado);
+    const response = await CreateRequest(parseInt(id), 4)
+    
+    window.location.href = "/dogs";
+    
   }
   catch{
     alert("no");
+  }
+}
+
+const handlePerroSiClick = async () => {
+  try{
+    const response = CreateRequest(parseInt(id), 3)
+    if (response){
+      //window.location.href = "/dogs";
+    } 
+
+  }
+  catch{
+    alert("si");
   }
 }
 
@@ -168,27 +143,6 @@ const handlePerroNoClick = async () => {
 //     console.error('Error al realizar la solicitud:', error.message);
 //   }
 // };
-
-/* ------------------------------------ */
-
-const [open, setOpen] = React.useState(false);
-
-const handleClickOpen = () => {
-  setOpen(true);
-};
-
-const handleClose = () => {
-  setOpen(false);
-};
-
-/* ------------------------------------ */
-
-const shelterContact = {
-  name: 'Refugio zona sur',
-  whatsapp: '+54 9 351 123-1234',
-  mail: 'refugio1@gmail.com',
-};
-
   return (
     <>
         {
@@ -217,31 +171,8 @@ const shelterContact = {
                     <Si>
                       <PerroSi
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
-                        // onClick={handlePerroSiClick}
-                        onClick={handleClickOpen}
+                        onClick={handlePerroSiClick}
                       ></PerroSi>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle id="alert-dialog-title">
-                          {"DATOS DEL REFUGIO."}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            Refugio: {shelterContact.name}
-                            <br />
-                            Whatsapp: {shelterContact.whatsapp}
-                            <br />
-                            Mail: {shelterContact.mail}
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose}>Continuar</Button>
-                        </DialogActions>
-                      </Dialog>
                     </Si>
                   </Zoom>
                 </Botones>
