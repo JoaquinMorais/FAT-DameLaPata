@@ -39,3 +39,4 @@ urllib3==1.26.3
 Werkzeug==2.2.3
 zipp==3.13.0
 pytz==2023.3.post1
+Flask-Mail==0.9.1

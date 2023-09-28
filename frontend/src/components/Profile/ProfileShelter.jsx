@@ -10,10 +10,10 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import NavBar from '../components/NavBar/NavBar'; // Remove the duplicate import here
-import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
-import SuccessDialog from '../components/CloseAccount/SuccessDialog';
-import {  GetProfile } from '../my_methods/session_methods';
+import Navbar from '../NavBar/NavBar';
+import ConfirmDialog from '../CloseAccount/ConfirmDialog';
+import SuccessDialog from '../CloseAccount/SuccessDialog';
+import { GetProfile } from '../../my_methods/session_methods';
 
 
 const BackgroundImage = styled.div`
@@ -159,7 +159,7 @@ function ShelterProfile() {
           window.location.href = "/login";
         }
         if (response.data.response['type'] !== 'shelter'){
-          window.location.href = "/profile/adopter";
+          window.location.href = "/profile";
         }
         // Update the user state with the fetched data
         setUser({
@@ -183,7 +183,7 @@ function ShelterProfile() {
 
   return (
     <>
-      <NavBar />
+      <Navbar />
       <BackgroundImage>
         <CenteredContainer maxWidth="lg">
           <CenteredGrid container spacing={3}>

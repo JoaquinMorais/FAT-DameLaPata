@@ -121,7 +121,7 @@ const Container = styled.div`
 `;
 
 const Wrap = styled.div`
-  background-color: white; 
+  background-color: grey;
   width: 100%;
   flex: 1;
   background-size: cover;

@@ -7,10 +7,6 @@ from sqlalchemy import or_,and_
 
 Pets = Blueprint("Pets",__name__)
 
-
-
-
-
 @Pets.route("/pets/all",methods=['GET'])
 def getPetsAll():
     limit = Request('limit')
@@ -36,9 +32,7 @@ def getPetsFilterby():
         **Request('id_only','gender','more_id_pet','less_id_pet','more_birth_date','less_birth_date','more_weight','less_weight','limit')
     }
     
-    
     #return jsonify([{x:datam[x]} for x in datam])
-    
     
     subqueries = []
 
@@ -221,6 +215,7 @@ def getPets():
                         RequestPetAdopter.id_state == 3,
                         RequestPetAdopter.id_state == 4,
                         RequestPetAdopter.id_state == 5,
+                        RequestPetAdopter.id_state == 6,
                     )
                 ),
                 RequestPetAdopter.id_state == 1,
