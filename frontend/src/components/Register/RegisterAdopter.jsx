@@ -60,7 +60,7 @@ function AdopterRegister() {
         setDialogMessage('usuario creado')
         setDialogState('success')  
 
-        window.location.href="/profile/adopter";
+        window.location.href="/profile";
       }
       else{
         setIsDialogOpen(true)

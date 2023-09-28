@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import styled from 'styled-components';
 import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
-import { SendLogin } from '../my_methods/session_methods';
+import { SendLogin, LogOut } from '../my_methods/session_methods';
 import { Alert } from '@mui/material';
 
 // Enlace de la imagen de fondo
@@ -26,8 +26,7 @@ function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.removeItem('id');
-    localStorage.removeItem('type');
+    LogOut()
     setIsLoading(false);
   }, []);
 

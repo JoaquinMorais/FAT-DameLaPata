@@ -69,16 +69,19 @@ export async function FetchNavbarItems() {
     };
   }
 
-  export async function IsUserLogged(){
-    if (localStorage.getItem['type'] === 'adopter'){
-      return true
-    }
-    return false
-  }
-
   export async function GetProfile(){
     var cosa = await axios.post('http://localhost:5000/profile', {
       address_is_requiered : true
     });
     return cosa
+  }
+
+  export async function LogOut(){
+    try {
+      axios.post('http://localhost:5000/logout', []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    localStorage.setItem('id', null);
+    localStorage.setItem('type', null);
   }

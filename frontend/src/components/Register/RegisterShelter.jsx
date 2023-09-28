@@ -50,7 +50,7 @@ function ShelterRegister() {
         setDialogMessage('usuario creado')
         setDialogState('success')  
 
-        window.location.href="/profile/shelter";
+        window.location.href="/profile";
       }
       else{
         setIsDialogOpen(true)
@@ -79,7 +79,7 @@ function ShelterRegister() {
     <form onSubmit={formik.handleSubmit} >
       <CenteredContainer >
             {isDialogOpen && (
-              <Alert severity="error">{dialog_message}</Alert>
+              <Alert severity={dialog_state}>{dialog_message}</Alert>
             )}
       </CenteredContainer>
       <Grid container spacing={2}>

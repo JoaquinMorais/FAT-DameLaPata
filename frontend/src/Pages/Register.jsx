@@ -7,8 +7,14 @@
   import ShelterRegister from "../components/Register/RegisterShelter";
   import AdopterRegister from "../components/Register/RegisterAdopter";
   import Navbar from "../components/NavBar/NavBar";
+  import { useEffect } from 'react';
+  import { LogOut } from '../my_methods/session_methods';
 
   function Register() {
+    useEffect(() => {
+      LogOut()
+    }, []);
+
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
