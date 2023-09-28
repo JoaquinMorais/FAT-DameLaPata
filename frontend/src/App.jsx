@@ -16,6 +16,7 @@ import Error from './Pages/Error';
 import Mismascotas_Sh from './Pages/Mismascotas_Sh';
 import Profile from './Pages/Profile';
 import Solicitud from './Pages/Solicitud';
+import Peticiones from './Pages/Peticiones';
 
 const App = () => {
 
@@ -71,6 +72,7 @@ const App = () => {
           <Route path="/error" element={<Error />} />
           <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
           <Route path="/solicitud" element={<Solicitud />} />
+          <Route path="/peticiones" element={<Peticiones />} />
 
         </Routes>
       </BrowserRouter>
