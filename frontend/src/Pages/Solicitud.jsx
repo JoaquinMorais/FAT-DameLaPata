@@ -18,7 +18,6 @@ const Solicitud = () => {
         console.log('Respuesta de la API:', response.data);
         setResponseData(response.data);
 
-        // Filtrar los datos según el id_state igual a 3
         const matcheados = response.data.response.filter(
           (item) => item.state.id_state === 3
         );        
@@ -35,109 +34,64 @@ const Solicitud = () => {
 
   if(responseData?.status == 200){
     return (
-    <>
-        <>
-            <NavBar />
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>SOLICITADOS</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
-    
-            <Grid>
-            {responseData?.response.map((item) => ( 
-                <Container key={item.pet.id_pet}>
-                <Zoom>
-                  <CardPerson
-                    id_pet={`${item.pet.id_pet}`}
-                    foto={`${item.pet.image_path}`}
-                    nombre={`${item.pet.name}`}
-                    titulo={`${item.pet.name} es un perro muy feliz :D`}
-                    descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                  />
-                </Zoom>
-                </Container>
-            ))}
-            </Grid>
-        </>
+      <>
+      <NavBar />
+      <Principio>
+        <Lamina>
+          <Flip top>
+            <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
+          </Flip>
+          <Hr />
+        </Lamina>
+      </Principio>
 
-            <>
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>CON ¡MATCH!</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
+      <Grid>
+        <Zoom>
+          <Container>
+            <CardPerson
+              id_pet="1"
+              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
+              nombre="Kerry Copito"
+              titulo="¡Este es un perro muy feliz!"
+              district="Barrio Villa Allende."
+            />
+          </Container>
 
-            <Grid>
-            {matcheadosData.map((item) => ( 
-              <Container key={item.pet.id_pet}>
-                <Zoom>
-                  <CardPerson
-                    id_pet={`${item.pet.id_pet}`}
-                    foto={`${item.pet.image_path}`}
-                    nombre={`${item.pet.name}`}
-                    titulo={`${item.pet.name} es un perro muy feliz :D`}
-                    descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                  />
-                </Zoom>
-              </Container>
-            ))}
-            </Grid>
-            </>
+          <Container>
+            <CardPerson
+              id_pet="2"
+              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
+              nombre="Yaco miteaste???"
+              titulo="¡Este es un perro muy feliz!"
+              district="Barrio Gral Paz."
+            />
+          </Container>
 
-            <>
-            <Principio>
-            <Lamina>
-                <Flip top>
-                <Titulo>ADOPTADOS</Titulo>
-                </Flip>
-                <Hr />
-            </Lamina>
-            </Principio>
-
-            <Grid>
-            {responseData?.response.map((item) => ( 
-                <Container key={item.id}>
-                <Zoom>
-                  <CardPerson
-                    id_pet={`${item.id_pet}`}
-                    foto={`${item.pet.image_path}`}
-                    nombre={`${item.pet.name}`}
-                    titulo={`${item.pet.name} es un perro muy feliz :D`}
-                    descripcion={`${item.pet.name} nació el ${item.pet.birth_date}.`}
-                  />
-                </Zoom>
-                </Container>
-            ))}
-            </Grid>
-        </>
+          <Container>
+            <CardPerson
+              id_pet="3"
+              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
+              nombre="Ivan de pinerda"
+              titulo="¡Este es un perro muy feliz!"
+              district="Barrio Lanus."
+            />
+          </Container>
+        </Zoom>
+      </Grid>
     </>
+
     );
   }
   else {
     return (
-      <>
-        <NavBar />
-        <Principio>
-          <Lamina>
-            <Flip top>
-              <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
-            </Flip>
-            <Hr />
-          </Lamina>
-        </Principio>
-  
-        <Grid style={{textAlign:'center'}}>
-            ALEJO SE LA COMEEE
-        </Grid>
-      </>
-    );
+      <Principio>
+        <Lamina>
+          <Flip top>
+            <Titulo style={{color:'red'}}>HUBO UN ERROR EN EL PROCESAMIENTO</Titulo>
+          </Flip>
+        </Lamina>
+      </Principio>
+      );
   }
   
   
@@ -160,13 +114,14 @@ export default Solicitud
 
 const Principio = styled.div`
   width: 100%;
-  height: 40vh;
+  min-height: 40vh;
   background-position: top center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Lamina = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -179,7 +134,8 @@ const Titulo = styled.h1`
   font-weight: bold;
   margin: 7.5px auto;
   text-align: center;
-  @media(max-width: 360px){
+
+  @media (max-width: 768px) {
     font-size: 30px;
   }
 `;
@@ -189,53 +145,27 @@ const Hr = styled.hr`
   border-top: 3px solid black;
 `;
 
-const Imagenes = styled.div`
-  width: 100%;
-  margin-top: -128px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media(max-width: 425px){
-    height: auto;
-    width: 290px;
-  }
-`;
-
-const Imagen = styled.img`
-  @media(max-width: 570px){
-    width: 500px;
-    margin-top: 13px;
-  }
-
-  @media(max-width: 500px){
-    width: 400px;
-    margin-top: 36px;
-  }
-
-  @media(max-width: 400px){
-    width: 300px;
-    margin-top: 59px;
-  }
-
-  @media(max-width: 300px){
-    width: 200px;
-    margin-top: 82px;
-  }
-`;
-
 const Grid = styled.div`
-  width: 80%;
-  margin: -50px auto 150px auto;
+  width: 50%;
+  margin: 0 auto 150px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  height: 100vh;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    width: 100%;
+
+  }
 `;
 
 const Container = styled.div`
   width: 100%;
   transition: transform 0.2s ease-in-out;
-  &:hover{
-    transform: scale(0.97)
+
+  &:hover {
+    transform: scale(0.97);
   }
 `;
