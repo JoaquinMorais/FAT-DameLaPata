@@ -9,11 +9,11 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {  GetProfile } from '../my_methods/session_methods';
-import Navbar from '../components/NavBar/NavBar';
-import ConfirmDialog from '../components/CloseAccount/ConfirmDialog';
-import SuccessDialog from '../components/CloseAccount/SuccessDialog';
-import GetPreference from '../my_methods/query_methods';
+import {  GetProfile } from '../../my_methods/session_methods';
+import Navbar from '../NavBar/NavBar';
+import ConfirmDialog from '../CloseAccount/ConfirmDialog';
+import SuccessDialog from '../CloseAccount/SuccessDialog';
+import GetPreference from '../../my_methods/query_methods';
 import axios from 'axios';
 
 const BackgroundImage = styled.div`

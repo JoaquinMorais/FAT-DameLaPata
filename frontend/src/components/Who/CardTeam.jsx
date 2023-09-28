@@ -47,8 +47,8 @@ export default function CardTeam() {
     <StyledCard>
       <CardContent>
         <StyledTitle variant="h2">ESTE GRUPO ESTÁ COMPUESTO POR:</StyledTitle>
-        <div className="swiper-container">
-          <div className="swiper-wrapper">
+        <div className="swiper-container" >
+          <div className="swiper-wrapper" >
             <CartaInd name={'Yaco Babiachuck'} img={'https://i.postimg.cc/bvhQJWs5/yaco.jpg'}/>
             <CartaInd name={'Maximo Tomas Blazquez'} img={'https://i.postimg.cc/PJ9DkFg2/facha.jpg'} />
             <CartaInd name={'Alejo Diaz Broilo'} img={'https://i.postimg.cc/MTZV0B0b/alejo.jpg'} />
