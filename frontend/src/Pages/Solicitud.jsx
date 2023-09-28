@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
 import { styled } from 'styled-components';
-import Phrase from '../components/Dogs/Phrase/Phrase';
 import Flip from 'react-reveal/Flip';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
