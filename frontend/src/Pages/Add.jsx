@@ -184,6 +184,7 @@ function Add() {
                         InputLabelProps={{
                           shrink: true,
                         }}
+                        fullWidth
                       />
                     )}
                   </Field>
