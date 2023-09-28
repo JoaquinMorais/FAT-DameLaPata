@@ -24,7 +24,7 @@ const Solicitud = () => {
     fetchData(); 
   }, []);  
 
-  if(responseData?.status == 200){
+  if(responseData?.status === 200){
     return (
 
       <>
@@ -45,17 +45,20 @@ const Solicitud = () => {
       </Principio>
   
       <Grid>
-        {/* <Zoom>
+        <Zoom>
           <Container>
+          {responseData.response.map((item) => (
+
             <CardPerson
-              id_pet="1"
-              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
-              nombre="Kerry Copito"
-              titulo="¡Este es un perro muy feliz!"
-              district="Barrio Villa Allende."
+              nombre={`${item.name}`}
+              district={`${item.id_address}`}
+              phone={`${item.phone_number}`}
+
             />
+                      ))}
+
           </Container>
-        </Zoom> */}
+        </Zoom>
       </Grid>
       </>
   

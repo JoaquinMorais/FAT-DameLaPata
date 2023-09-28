@@ -59,9 +59,7 @@ function Login() {
       <LoaderComp/>
     ) : (
     <>
-    
-      <NavBar />
-      
+      {/* <NavBar /> */}
       <BackgroundImage>
         <CenteredContainer >
         {isDialogOpen && (

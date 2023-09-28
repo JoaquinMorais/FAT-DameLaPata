@@ -203,6 +203,7 @@ function ShelterRegister() {
           />
         </Grid>
         <Grid item xs={12}>
+        <p style={{ marginTop: '10px', textAlign: 'center' }}><a href="/login">¿Ya tienes una cuenta? Inicia sesión.</a></p>
           <Button variant="contained" color="primary" type="submit" style={{width:'100%'}}>
             Registrarse
           </Button>

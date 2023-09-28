@@ -52,13 +52,15 @@ function CardPerson(props) {
   return (
     <Content>
       <StyledCard>
-        <StyledCardMedia image={props.foto} title={props.titulo} />
         <StyledCardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ borderBottom: 1 }}>
             {props.nombre}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {props.district}
+            Barrio: {props.district}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Telefono: {props.phone}
           </Typography>
         </StyledCardContent>
         <StyledCardActions>
