@@ -6,6 +6,8 @@ from methods.requests import Request
 from methods.encrypt import Encrypt
 from methods.response import Response
 from methods.requests import Request, RequestList
+from flask_mail import Message
+from utils.mail import sendmessage
 from datetime import datetime
 import pytz
 import requests
@@ -43,6 +45,8 @@ def register_adopter():
             400
         )
     
+    user = User.query.get(session['user_id'])
+    shelter = Shelter.query.get(pet.id_shelter)
 
     actual_hour = datetime.now(pytz.timezone('America/Argentina/Buenos_Aires'))
     
@@ -52,9 +56,21 @@ def register_adopter():
     ).first()
 
     if beforeRequest:
+        if beforeRequest.id_state == 2 and int(data['id_state']) != 3:
+            befores_requests = RequestPetAdopter.query.filter(
+                RequestPetAdopter.id_pet == int(data['id_pet']),
+                RequestPetAdopter.id_user != int(session['user_id']),
+                RequestPetAdopter.id_state == 6,
+            ).all()
+            for x in befores_requests:     
+                x.id_state = 3
+                x.edition_date = actual_hour
+            
+            
         beforeRequest.edition_date = actual_hour
         beforeRequest.id_state = data['id_state']
         request = beforeRequest
+        
     else:
         request = RequestPetAdopter(actual_hour,actual_hour,data['id_state'],session['user_id'],data['id_pet'])
 
@@ -67,6 +83,53 @@ def register_adopter():
 
     db.session.commit()
 
+    if int(data['id_state']) == 1:
+        befores_requests = RequestPetAdopter.query.filter(
+            RequestPetAdopter.id_pet == int(data['id_pet']),
+            RequestPetAdopter.id_user != int(session['user_id']),
+            or_(
+                RequestPetAdopter.id_state == 2,
+                RequestPetAdopter.id_state == 3,
+                RequestPetAdopter.id_state == 6,
+            )
+        ).all()
+        for x in befores_requests:     
+            x.id_state = 5
+            x.edition_date = actual_hour
+        
+        message = Message(
+            '¡Mascota Adoptada!',
+            recipients = [
+                user.email,
+                shelter.email
+            ] 
+        )
+        message.body = '¡Mascota Adoptada!'
+        message.html = f"¡¡La mascota {pet.name} fue adoptada con exito!!"
+            
+        final_message = sendmessage(message)
+
+    elif int(data['id_state']) == 2:
+        befores_requests = RequestPetAdopter.query.filter(
+            RequestPetAdopter.id_pet == int(data['id_pet']),
+            RequestPetAdopter.id_user != int(session['user_id']),
+            RequestPetAdopter.id_state == 3
+        ).all()
+
+        for x in befores_requests:
+            x.id_state = 6
+            x.edition_date = actual_hour
+
+        message = Message(
+            '¡Tu solicitud de Mascota fue aceptada!',
+            recipients = [user.email] 
+        )
+        message.body = '¡Tu solicitud de Mascota fue aceptada!'
+        message.html = f"Fue aprobada la solicitud de la mascota {pet.name}. Estas a un paso de terminar la adopcion"
+            
+        final_message = sendmessage(message)
+
+    db.session.commit()
 
     return Response(
         request.json(),
