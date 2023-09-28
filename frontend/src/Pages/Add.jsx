@@ -23,6 +23,7 @@ import IsLogged, { GetProfile } from '../my_methods/session_methods';
 import LoaderComp from '../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { PutDogs } from '../my_methods/dogs_methods';
+import { getColors, getCharacteristics } from '../my_methods/query_methods';
 
 const Subtitulo = styled(Typography)`
   text-align: center;
@@ -58,19 +59,20 @@ function Add() {
       }
 
       if (!colorsLoaded) {
-        // Solo realiza la solicitud de colores si no se han cargado antes
         try {
-          const response = await axios.get('http://localhost:5000/pets/info/colors');
-          setResponseDataColors(response.data);
-          setColorsLoaded(true); // Marcar los colores como cargados
+          // Llama a la función para obtener colores
+          const colorsResponse = await getColors();
+          setResponseDataColors(colorsResponse);
+          setColorsLoaded(true);
         } catch (error) {
           console.error('Error al realizar la solicitud de colores:', error.message);
         }
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/pets/info/characteristics');
-        setResponseDataCharacteristics(response.data);
+        // Llama a la función para obtener características
+        const characteristicsResponse = await getCharacteristics();
+        setResponseDataCharacteristics(characteristicsResponse);
       } catch (error) {
         console.error('Error al realizar la solicitud de características:', error.message);
       }
@@ -78,6 +80,7 @@ function Add() {
 
     fetchData();
   }, [colorsLoaded]);
+
 
   const handleCheckboxChange = (event) => {
     const value = parseInt(event.target.value, 10);

@@ -1,34 +1,36 @@
 import axios from 'axios';
+
 axios.defaults.withCredentials = true;
-let pages_array = ['']
-let setting_array = ['']
+let pages_array = [];
+let setting_array = [];
+
+function setDefaultNavigationArrays() {
+  pages_array = ['Inicio', 'Quienes Somos'];
+  setting_array = ['Iniciar Sesion', 'Crear Cuenta'];
+}
 
 export async function FetchNavbarItems() {
-  try{
-    if(localStorage.getItem('id') !== null){
-      if (localStorage.getItem('type') === 'adopter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar', 'Peticiones']
-        setting_array = ['Mi Perfil', 'Log Out']
+  try {
+    if (localStorage.getItem('id') !== null) {
+      if (localStorage.getItem('type') === 'adopter') {
+        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar'];
+        setting_array = ['Mi Perfil']; //'Cerrar Session'
+      } else if (localStorage.getItem('type') === 'shelter') {
+        pages_array = ['Inicio', 'Quienes Somos', 'Publicar'];
+        setting_array = ['Perfil del Refugio'];
       }
-      else if (localStorage.getItem('type') === 'shelter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Publicar', 'Mis Mascotas']
-        setting_array = ['Perfil del Refugio', 'Log Out'] 
-      }
+    } else {
+      setDefaultNavigationArrays();
     }
-    else{
-      pages_array = ['Inicio', 'Quienes Somos']
-      setting_array = ['Iniciar Sesion', 'Crear Cuenta']
-    }
+  } catch {
+    setDefaultNavigationArrays();
   }
-  catch{
-    pages_array = ['Inicio', 'Quienes Somos']
-    setting_array = ['Iniciar Sesion', 'Crear Cuenta']
-  }
-  return{
+  return {
     pages_array: pages_array,
     setting_array: setting_array,
-  }
-};
+  };
+}
+
   export async function SendLogin(data_to_send) {
     let response = null;
     try {

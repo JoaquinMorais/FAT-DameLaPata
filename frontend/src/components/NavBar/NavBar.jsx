@@ -60,10 +60,17 @@ function Navbar() {
         return '/about';
       case 'Publicar':
         return '/post';
+<<<<<<< HEAD
       case 'Mis mascotas':
         return '/dogs';
       default:
         return '/';
+=======
+      case 'Peticiones':
+        return '/peticiones';
+      case 'Mis Mascotas':
+        return '/mis-mascotas-shelter';
+>>>>>>> develop
     }
   }
 
@@ -71,14 +78,20 @@ function Navbar() {
   function getSettingsLink(setting) {
     switch (setting) {
       case 'Mi Perfil':
+<<<<<<< HEAD
         return '/profile/adopter';
       case 'Perfil del Refugio':
         return '/profile/shelter';
+=======
+        return '/profile';
+      case 'Mi Refugio':
+        return '/profile';
+>>>>>>> develop
       case 'Iniciar Sesion':
         return '/login';
-    /*
-      case 'Cerrar sesion':
-        return '/TODAVIA-NO-BRO';
+      case 'Cerrar Sesion':
+        return '/login';
+      /*
       case 'Crear Cuenta':
         return '/TODAVIA-NO-BRO';
       */
