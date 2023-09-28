@@ -117,9 +117,8 @@ function Add() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const response = PutDogs(values);
-    if (response){
-      navigate('/successful');
-    }
+    console.log('a');
+    navigate('/successful');
     setSubmitting(false);
   };
 
