@@ -72,5 +72,5 @@ app.register_blueprint(AnotherUser)
 
 app.register_blueprint(Close_account)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
