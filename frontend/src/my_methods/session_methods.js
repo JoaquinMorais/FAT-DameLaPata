@@ -4,20 +4,26 @@ let pages_array = ['']
 let setting_array = ['']
 
 export async function FetchNavbarItems() {
-    if(localStorage.getItem('id') !== null){
-      if (localStorage.getItem('type') === 'adopter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar']
-        setting_array = ['Mi Perfil']//'Cerrar Session'
+    try{
+      if(localStorage.getItem('id') !== null){
+        if (localStorage.getItem('type') === 'adopter'){
+          pages_array = ['Inicio', 'Quienes Somos', 'Adoptar']
+          setting_array = ['Mi Perfil']//'Cerrar Session'
+        }
+        else if (localStorage.getItem('type') === 'shelter'){
+          pages_array = ['Inicio', 'Quienes Somos', 'Publicar']
+          setting_array = ['Perfil del Refugio'] 
+        }
+      }   
+      else{
+        pages_array = ['Inicio', 'Quienes Somos']
+        setting_array = ['Iniciar Sesion', 'Crear Cuenta']
       }
-      else if (localStorage.getItem('type') === 'shelter'){
-        pages_array = ['Inicio', 'Quienes Somos', 'Publicar']
-        setting_array = ['Perfil del Refugio'] 
-      }
-    }   
-    else{
+    }
+    catch{
       pages_array = ['Inicio', 'Quienes Somos']
       setting_array = ['Iniciar Sesion', 'Crear Cuenta']
-    }
+    }  
     return{
       pages_array: pages_array,
       setting_array: setting_array,
