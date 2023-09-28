@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
+import { SendRegister } from '../../my_methods/session_methods';
+import { Alert } from '@mui/material';
+import Container from '@mui/material/Container';
+import styled from 'styled-components';
 
 const validationSchema = Yup.object({
   username: Yup.string().required('Campo requerido'),
@@ -33,28 +36,52 @@ const initialValues = {
 };
 
 
-async function SendShelter(values) {
-  try {
-    const response = await axios.put('http://localhost:5000/shelter/register', values );
-    window.location.href="/profile/shelter";
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
-  }
-}
-
 function ShelterRegister() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialog_message , setDialogMessage] = useState('error inesperado');
+  const [dialog_state , setDialogState] = useState('error');
+
+  async function SendShelter(values) {
+    var response = await SendRegister(values, 'shelter');
+    console.log('i send shelter')
+    try {
+      if (response.status === 200){
+        setIsDialogOpen(true)
+        setDialogMessage('usuario creado')
+        setDialogState('success')  
+
+        window.location.href="/profile";
+      }
+      else{
+        setIsDialogOpen(true)
+        setDialogMessage('Ha ocurrido un error: ' + response['response'])
+        setDialogState('error')  
+      }
+
+    } catch (error) {
+      setIsDialogOpen(true)
+      setDialogMessage('Ha ocurrido un error: error interno')
+      setDialogState('error')
+
+    }
+  }
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
       SendShelter(values)
-      console.log(values);
     },
   });
 
 
   return (
     <form onSubmit={formik.handleSubmit} >
+      <CenteredContainer >
+            {isDialogOpen && (
+              <Alert severity={dialog_state}>{dialog_message}</Alert>
+            )}
+      </CenteredContainer>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -186,3 +213,11 @@ function ShelterRegister() {
 }
 
 export default ShelterRegister;
+
+const CenteredContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px !important; 
+`;
