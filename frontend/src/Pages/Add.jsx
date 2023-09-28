@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { green } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -154,7 +155,9 @@ function Add() {
                       />
                     )}
                   </Field>
-                  <ErrorMessage name="name" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={6}>
                   <Field name="gender">
@@ -171,7 +174,9 @@ function Add() {
                       </FormControl>
                     )}
                   </Field>
-                  <ErrorMessage name="gender" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={6}>
                   <Field name="birthdate">
@@ -188,7 +193,9 @@ function Add() {
                       />
                     )}
                   </Field>
-                  <ErrorMessage name="birthdate" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={6}>
                   <Field name="size">
@@ -206,7 +213,9 @@ function Add() {
                       </FormControl>
                     )}
                   </Field>
-                  <ErrorMessage name="size" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={6}>
                   <Field name="weight">
@@ -214,13 +223,15 @@ function Add() {
                       <TextField
                         {...field}
                         label="Peso"
-                        placeholder="123..."
+                        placeholder="123... kg"
                         fullWidth
                         variant="standard"
                       />
                     )}
                   </Field>
-                  <ErrorMessage name="weight" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Field name="image_path">
@@ -234,7 +245,9 @@ function Add() {
                       />
                     )}
                   </Field>
-                  <ErrorMessage name="image_path" component="div" />
+                  <Grid item xs={12}>
+                    <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+                  </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="h4">Color de la mascota</Typography>
@@ -303,9 +316,24 @@ function Add() {
                   </FormGroup>
                 </Grid>
               </Grid>
-              <Boton type="submit" variant="contained" color="primary">
-                PUBLICAR
-              </Boton>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: green[500], // Color de éxito
+                    color: '#fff', // Color del texto
+                    fontWeight: 'bold',
+                    float: 'right', // Para alinear a la derecha
+                    marginTop: '20px', // Ajusta el margen superior
+                    marginBottom: '70px', // Ajusta el margen inferior
+                    fontSize: '1.2rem', // Aumenta el tamaño de fuente (ajusta el valor según lo necesites)
+                    padding: '15px 30px', // Aumenta el espacio de relleno (ajusta el valor según lo necesites)
+                  }}
+                  type="submit"
+                >
+                  PUBLICAR
+                </Button>
+              </Grid>
             </Form>
           )}
         </Formik>
