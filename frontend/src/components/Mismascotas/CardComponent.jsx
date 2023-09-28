@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -9,6 +9,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function CardPets({title, imageUrl, descr }) {
   const [expanded, setExpanded] = useState(false);
@@ -58,4 +59,5 @@ export default function CardPets({title, imageUrl, descr }) {
       </Card>
     </div>
   );
-}
+  }
+

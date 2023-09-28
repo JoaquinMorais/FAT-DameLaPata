@@ -9,31 +9,24 @@ import CardPerson from '../components/Mismascotas/CardPersona';
 
 const Solicitud = () => {
   const [responseData, setResponseData] = useState(null);
-  const [matcheadosData, setMatcheadosData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get('http://localhost:5000/user/requests');
-        console.log('Respuesta de la API:', response.data);
         setResponseData(response.data);
-
-        const matcheados = response.data.response.filter(
-          (item) => item.state.id_state === 3
-        );        
-        setMatcheadosData(matcheados);
+        console.log('response Data:' + responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
       }
     }
-
-    fetchData();
-  }, []);
-
-  
+    
+    fetchData(); 
+  }, []);  
 
   if(responseData?.status == 200){
     return (
+
       <>
       <NavBar />
       <Principio>
@@ -42,11 +35,17 @@ const Solicitud = () => {
             <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
           </Flip>
           <Hr />
-        </Lamina>
-      </Principio>
+          {responseData.response.map((item) => (
 
+          <h1>EL PERRO TIENE <span style={{color:'orange', fontWeight:'bold'}}>{`${item.requests.length}`} </span>REQUESTS</h1>
+
+          ))}
+
+          </Lamina>
+      </Principio>
+  
       <Grid>
-        <Zoom>
+        {/* <Zoom>
           <Container>
             <CardPerson
               id_pet="1"
@@ -56,30 +55,10 @@ const Solicitud = () => {
               district="Barrio Villa Allende."
             />
           </Container>
-
-          <Container>
-            <CardPerson
-              id_pet="2"
-              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
-              nombre="Yaco miteaste???"
-              titulo="¡Este es un perro muy feliz!"
-              district="Barrio Gral Paz."
-            />
-          </Container>
-
-          <Container>
-            <CardPerson
-              id_pet="3"
-              foto="https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg"
-              nombre="Ivan de pinerda"
-              titulo="¡Este es un perro muy feliz!"
-              district="Barrio Lanus."
-            />
-          </Container>
-        </Zoom>
+        </Zoom> */}
       </Grid>
-    </>
-
+      </>
+  
     );
   }
   else {

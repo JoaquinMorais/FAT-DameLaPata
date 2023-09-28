@@ -6,7 +6,7 @@ import { Navigate } from "react-router";
 let colors_array = ['']
 let sizes_array = ['']
 
-async function GetPreference() {
+export async function GetPreference() {
     try {
       const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
       const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
@@ -42,4 +42,32 @@ async function GetPreference() {
     }
 }
 
-export default GetPreference
+let dogs_array = ['']
+
+
+export async function GetPets() {
+  try {
+    const response_dogs = await axios.get('http://localhost:5000/pets ', '');
+
+    if (response_dogs.data['status'] === 402){
+      console.log(response_dogs);
+      <Navigate path='/error'/>
+    }
+    else if(response_dogs.data['status'] === 200){
+      dogs_array = response_dogs.data.colors;
+      response_dogs = console.log(response_dogs);
+      console.log(response_dogs);
+
+    }
+  } 
+  
+  catch (error) {
+    console.error('Error al realizar la solicitud:', error.message);
+  }
+
+  return{
+    dogs_array: dogs_array,
+  }
+}
+
+

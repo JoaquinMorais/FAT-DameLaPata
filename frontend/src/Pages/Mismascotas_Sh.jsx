@@ -7,8 +7,24 @@ import axios from 'axios';
 import CardPets from '../components/Mismascotas/CardComponent';
 
 function Mismascotas_Sh() {
+  const [responseData, setResponseData] = useState(null);
 
-  return (
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets');
+        setResponseData(response.data);
+        console.log('response Data:' + responseData)
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+    
+    fetchData(); 
+  }, []);
+
+  if (responseData && responseData.response && responseData.response.length > 0) {
+    return (
     <>
     <NavBar />
     <Principio>
@@ -19,48 +35,67 @@ function Mismascotas_Sh() {
         <Hr />
       </Lamina>
     </Principio>
-
     <Grid>
       <Zoom>
-      <Container>
-          <CardPets 
-          title='aaa'
-          imageUrl='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnsqQ-Ta_dcvuSrZAsQJD_hwkxyCTlxQqmzw&usqp=CAU'
-          descr='hola'
-          />
-        </Container>
-        <Container>
-          <CardPets 
-          title='Este perro se llama Llama'
-          imageUrl='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnsqQ-Ta_dcvuSrZAsQJD_hwkxyCTlxQqmzw&usqp=CAU'
-          descr='hola'
-          />
-        </Container>
-        <Container>
-          <CardPets 
-          title='Dale Emma porfa'
-          imageUrl='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnsqQ-Ta_dcvuSrZAsQJD_hwkxyCTlxQqmzw&usqp=CAU'
-          descr='hola'
-          />
-        </Container>
+      <div>
+        {responseData.response.map((item) => (
+          <Container key={item.id}>
+            <div>
+              <div>
+                <CardPets
+                  imageUrl={`${item.image_path}`}
+                  title={`${item.name}`}
+                  descr={`${item.name} nació el ${item.birth_date}.`}
+                />
+              </div>
+            </div>
+          </Container>
+        ))}
+      </div>
       </Zoom>
-
-      
     </Grid>
+
+    <Medio>
+      <Lamina>
+        <Flip top>
+          <Titulo>MATCHEADO</Titulo>
+        </Flip>
+        <Hr />
+        <Container>
+          <CardPets 
+          title='EEOOOOOOOOOOOOOOO'
+          imageUrl='https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*'
+          descr='AGUANTE EL S23 GRANDE SAMSUNG'
+          />
+        </Container>
+      </Lamina>
+    </Medio>
   </>
 );
+  }
+  else{
+    return (<h1>Error 404</h1>);
+  }
 }
 
 export default Mismascotas_Sh;
 
 const Principio = styled.div`
   width: 100%;
-  min-height: 40vh;
-  background-position: top center;
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
+const Medio = styled.div`
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 
 const Lamina = styled.div`
   display: flex;
@@ -87,13 +122,13 @@ const Hr = styled.hr`
 `;
 
 const Grid = styled.div`
-  width: 50%;
-  margin: 0 auto 150px auto;
   display: grid;
-  height: 100vh;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  weight: 100%;
+  height: 70vh;
+  grid-template-columns: repeat(auto-fill, 1fr);
   gap: 20px;
   text-align: center;
+  justify-items: center;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
