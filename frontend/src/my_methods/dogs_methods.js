@@ -6,7 +6,6 @@ import axios from "axios";
  * @returns {Promise<object>} - Una promesa que resuelve en la respuesta del servidor.
  * Si hay un error, se rechaza con un objeto que contiene un mensaje de error.
  */
-
 export async function PutDogs(values) {
   try {
     const response = await axios.put('http://localhost:5000/pet', values);
