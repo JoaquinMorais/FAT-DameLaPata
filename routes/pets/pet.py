@@ -356,7 +356,6 @@ def sizes():
      
     db.session.add(
         Pet(
-            1,
             'muchi',
             '2011-07-11',
             3,
@@ -371,7 +370,6 @@ def sizes():
     
     db.session.add(
         Pet(
-            3,
             'BLANCA',
             '2021-01-01',
             2,
@@ -385,7 +383,6 @@ def sizes():
     
     db.session.add(
         Pet(
-            5,
             'MARRON',
             '2022-01-01',
             1,
@@ -399,7 +396,6 @@ def sizes():
         
     db.session.add(
         Pet(
-            7,
             'frida',
             '2019-01-01',
             1,
@@ -413,7 +409,6 @@ def sizes():
     
     db.session.add(
         Pet(
-            8,
             'negra',
             '2019-01-01',
             3,
@@ -426,7 +421,6 @@ def sizes():
     
     db.session.add(
         Pet(
-            9,
             'no color',
             '2019-01-01',
             3,
@@ -440,7 +434,6 @@ def sizes():
     
     db.session.add(
         Pet(
-            10,
             'mucho color',
             '2014-01-01',
             1,
@@ -503,6 +496,8 @@ def sizes():
     db.session.add(State('pendiente','estado pendiente'))
     db.session.add(State('rechazado','estado rechazado'))
     db.session.add(State('cancelado','estado cancelado'))
+    db.session.add(State('en espera','stand by'))
+    db.session.add(State('favoritos','me encantan'))
 
     return 'a'
 
