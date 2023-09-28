@@ -1,1 +1,1 @@
-web: gunicorn index:app_waiwen
+web: gunicorn index:app
