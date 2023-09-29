@@ -8,6 +8,18 @@ import CardPerson from '../components/Mismascotas/CardPersona';
 
 const Solicitud = () => {
   const [responseData, setResponseData] = useState(null);
+  const [requests, setRequests] = useState([]);
+  const [rejectedCards, setRejectedCards] = useState([]); // Nuevo estado
+
+  async function fetchData() {
+    try {
+      const response = await axios.get('http://localhost:5000/user/requests');
+      setRequests(response.data.response);
+      console.log('response Data:', responseData);
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error.message);
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -23,47 +35,49 @@ const Solicitud = () => {
     fetchData(); 
   }, []);  
 
+  const handleRejectCard = (cardId) => {
+    // Agrega el ID de la tarjeta rechazada al estado rejectedCards
+    setRejectedCards([...rejectedCards, cardId]);
+  };
+
   if(responseData?.status === 200){
     return (
-
       <>
-      <NavBar />
-      <Principio>
-        <Lamina>
-          <Flip top>
-            <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
-          </Flip>
-          <Hr />
-          {responseData.response.map((item) => (
-
-          <h1>EL PERRO TIENE <span style={{color:'orange', fontWeight:'bold'}}>{`${item.requests.length}`} </span>REQUESTS</h1>
-
-          ))}
-
+        <NavBar />
+        <Principio>
+          <Lamina>
+            <Flip top>
+              <Titulo>GENTE QUE QUIERE EL PERRO</Titulo>
+            </Flip>
+            <Hr />
+            {responseData.response.map((item) => (
+              <h1>EL PERRO TIENE <span style={{color:'orange', fontWeight:'bold'}}>{`${item.requests.length}`} </span>REQUESTS</h1>
+            ))}
           </Lamina>
-      </Principio>
+        </Principio>
   
-      <Grid>
-        <Zoom>
-          <Container>
-          {responseData.response.map((item) => (
-
-            <CardPerson
-              nombre={`${item.name}`}
-              district={`${item.id_address}`}
-              phone={`${item.phone_number}`}
-
-            />
-                      ))}
-
-          </Container>
-        </Zoom>
-      </Grid>
+        <Grid>
+          <Zoom>
+            <Container>
+              {responseData.response.map((item) => (
+                // Renderiza la tarjeta solo si su ID no está en rejectedCards
+                !rejectedCards.includes(item.id) && (
+                  <CardPerson
+                    key={item.id} // Asegúrate de agregar una clave única
+                    nombre={`${item.name}`}
+                    district={`${item.id_address}`}
+                    phone={`${item.phone_number}`}
+                    id={`${item.id}`} 
+                    onReject={() => handleRejectCard(item.id)} // Pasa la función de rechazo
+                  />
+                )
+              ))}
+            </Container>
+          </Zoom>
+        </Grid>
       </>
-  
     );
-  }
-  else {
+  } else {
     return (
       <Principio>
         <Lamina>
@@ -72,23 +86,8 @@ const Solicitud = () => {
           </Flip>
         </Lamina>
       </Principio>
-      );
+    );
   }
-  
-  
-
-    // return (
-  //   <div>
-  //     {loading ? (SPINNER) : (
-
-  //         {responseData.length > 0  responseData?.map((item) => (
-  //           item
-  //         ))}
-  //               )  }
-      
-  //   </div>
-  // );
-
 }
 
 export default Solicitud
