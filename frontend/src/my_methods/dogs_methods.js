@@ -7,26 +7,27 @@ import axios from "axios";
  * Si hay un error, se rechaza con un objeto que contiene un mensaje de error.
  */
 export async function PutDogs(values) {
-    try {
-        response = await axios.put('http://localhost:5000/pet', values);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-      return response
-  };
-
-export async function CreateRequest(dog, state){
-  response = await axios.put('http://localhost:5000/adopter/match', {'id_pet': dog, 'id_state': state})
-
-  try{
-    console.log(response)
+  let response; // Declarar la variable response
+  try {
+    response = await axios.put('http://localhost:5000/pet', values);
+  } catch (error) {
+    console.error('Error:', error);
   }
-  catch{
-    console.log('error...')
+  return response;
+}
+
+export async function CreateRequest(dog, state) {
+  let response; // Declarar la variable response
+  try {
+    response = await axios.put('http://localhost:5000/adopter/match', { 'id_pet': dog, 'id_state': state });
+    console.log(response);
+  } catch {
+    console.log('error...');
   }
 }
 
-export async function GetSinglePet(id){
+export async function GetSinglePet(id) {
+  let response; // Declarar la variable response
   response = await axios.get(`http://localhost:5000/pet/${id}`);
-  return response 
+  return response;
 }

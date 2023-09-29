@@ -48,7 +48,7 @@ function Error() {
       <div style={styles.centeredContent}>
         <h1 style={{ fontSize: '50px', fontWeight: 'bold' }}>Lo sentimos, ha ocurrido un error :c</h1>
         <img src="https://img.freepik.com/fotos-premium/terrier-brasileno-sobre-fondo-blanco_87557-14811.jpg" alt="" />
-        <Button variant="outlined" startIcon={<DeleteIcon />}>
+        <Button variant="outlined" startIcon={<HomeIcon />}>
         <a href="/">VOLVER AL INICIO</a>
         </Button>
       </div>

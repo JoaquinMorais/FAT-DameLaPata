@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { styled } from 'styled-components';
+import axios from 'axios';
 
 const Content = styled.div`
   width: 100%;
@@ -17,7 +18,7 @@ const Content = styled.div`
 `;
 
 const StyledCard = styled(Card)`
-  width: 100%; 
+  width: 100%;
 
   @media (max-width: 720px) {
     max-width: 100%;
@@ -49,6 +50,35 @@ const StyledButton = styled(Button)`
 `;
 
 function CardPerson(props) {
+  const [responseData, setResponseData] = useState(null);
+
+  const handleReject = async () => {
+    try {
+      await axios.post('http://localhost:5000/shelter/match', {
+        id_pet: props.id_pet, 
+        id_state: 4, 
+      });
+
+      console.log('La petición fue rechazada.');
+    } catch (error) {
+      console.error('Error al rechazar la solicitud:', error.message);
+    }
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/shelter/match');
+        setResponseData(response.data);
+        console.log('response Data:', responseData);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Content>
       <StyledCard>
@@ -64,11 +94,10 @@ function CardPerson(props) {
           </Typography>
         </StyledCardContent>
         <StyledCardActions>
-    
-          <Button variant='outlined' color="success" >
+          <Button variant='outlined' color="success">
             Aceptar
           </Button>
-          <Button variant='outlined' color="error">
+          <Button variant='outlined' color="error" onClick={handleReject}>
             Rechazar
           </Button>
         </StyledCardActions>
