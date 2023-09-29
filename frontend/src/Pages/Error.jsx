@@ -1,14 +1,9 @@
 import React from 'react';
 import Navbar from '../components/NavBar/NavBar';
 import Button from '@mui/material/Button';
-<<<<<<< HEAD
 import HomeIcon from '@mui/icons-material/Home';
 import { purple } from '@mui/material/colors';
 import { styled } from '@mui/material';
-=======
-import DeleteIcon from '@mui/icons-material/Delete';
-
->>>>>>> coneccion_to_demo
 
 function Error() {
   const ColorButton = styled(Button)({

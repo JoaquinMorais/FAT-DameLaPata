@@ -10,22 +10,6 @@ function setDefaultNavigationArrays() {
 }
 
 export async function FetchNavbarItems() {
-<<<<<<< HEAD
-    try{
-      if(localStorage.getItem('id') !== null){
-        if (localStorage.getItem('type') === 'adopter'){
-          pages_array = ['Inicio', 'Quienes Somos', 'Adoptar', 'Peticiones']
-          setting_array = ['Mi Perfil', 'Log Out']
-        }
-        else if (localStorage.getItem('type') === 'shelter'){
-          pages_array = ['Inicio', 'Quienes Somos', 'Publicar', 'Mis Mascotas']
-          setting_array = ['Perfil del Refugio', 'Log Out'] 
-        }
-      }   
-      else{
-        pages_array = ['Inicio', 'Quienes Somos']
-        setting_array = ['Iniciar Sesion', 'Crear Cuenta']
-=======
   try {
     if (localStorage.getItem('id') !== null) {
       if (localStorage.getItem('type') === 'adopter') {
@@ -34,7 +18,6 @@ export async function FetchNavbarItems() {
       } else if (localStorage.getItem('type') === 'shelter') {
         pages_array = ['Inicio', 'Quienes Somos', 'Publicar'];
         setting_array = ['Perfil del Refugio'];
->>>>>>> 0bba3e27d34e0285a9b4a19d2e846ab43e6d12f4
       }
     } else {
       setDefaultNavigationArrays();
