@@ -1,9 +1,14 @@
 import React from 'react';
 import Navbar from '../components/NavBar/NavBar';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD
 import HomeIcon from '@mui/icons-material/Home';
 import { purple } from '@mui/material/colors';
 import { styled } from '@mui/material';
+=======
+import DeleteIcon from '@mui/icons-material/Delete';
+
+>>>>>>> coneccion_to_demo
 
 function Error() {
   const ColorButton = styled(Button)({
@@ -46,11 +51,11 @@ function Error() {
     <>
       <Navbar />
       <div style={styles.centeredContent}>
-        <h1 style={{ fontSize: '5vw', fontWeight: 'bold', textAlign: 'center' }}>Lo sentimos, ha ocurrido un error :c</h1>
-        <img src="https://img.freepik.com/fotos-premium/terrier-brasileno-sobre-fondo-blanco_87557-14811.jpg" alt="" style={styles.image} />
-        <ColorButton variant="contained" startIcon={<HomeIcon />} style={styles.button}>
-          <a href="/" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>VOLVER AL INICIO</a>
-        </ColorButton>
+        <h1 style={{ fontSize: '50px', fontWeight: 'bold' }}>Lo sentimos, ha ocurrido un error :c</h1>
+        <img src="https://img.freepik.com/fotos-premium/terrier-brasileno-sobre-fondo-blanco_87557-14811.jpg" alt="" />
+        <Button variant="outlined" startIcon={<DeleteIcon />}>
+        <a href="/">VOLVER AL INICIO</a>
+        </Button>
       </div>
     </>
   );

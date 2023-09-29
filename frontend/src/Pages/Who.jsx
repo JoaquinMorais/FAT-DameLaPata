@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid';
 import CardTeam from '../components/Who/CardTeam';
 import NavBar from '../components/NavBar/NavBar';
 
-
 function Who() {
   return (
     <>
@@ -43,6 +42,7 @@ function Who() {
                   alt="Imagen de muestra"
                   height="auto"
                   image="https://images.ecestaticos.com/jLESCdMEXIc9qGG2FOpA1NP4H1w=/0x0:2121x1414/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fba6%2F896%2Ff44%2Fba6896f446572c38b60115e358ae8ccb.jpg"
+                  style={{ width: '100%' }} // Ancho ajustado al 100% del contenedor
                 />
               </ImageContainer>
             </Grid>
@@ -59,6 +59,7 @@ function Who() {
               alt="Imagen de muestra"
               height="auto"
               image="https://cdn.wikiwiki.jp/to/w/becomnextbot/Wenomechainsama/::attach/Wenomechainsama.png?rev=08e3f8c3e8252bc599d086a85d402b2d&t=20221226165443"
+              style={{ width: '100%' }} // Ancho ajustado al 100% del contenedor
             />
           </Grid>
           <Grid item xs={12} sm={6}>
