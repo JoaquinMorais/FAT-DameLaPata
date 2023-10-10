@@ -11,10 +11,13 @@ import Add from './Pages/Add';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Successful from './Pages/Successful';
-import ShelterProfile from './Pages/ProfileShelter';
-import AdopterProfile from './Pages/ProfileAdopter';
 import Preferences from './Pages/Preferences';
 import Error from './Pages/Error';
+import Mismascotas_Sh from './Pages/Mismascotas_Sh';
+import Profile from './Pages/Profile';
+import Solicitud from './Pages/Solicitud';
+import Peticiones from './Pages/Peticiones';
+
 
 const App = () => {
 
@@ -65,10 +68,12 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/successful" element={<Successful />} />
-          <Route path="/profile/shelter" element={<ShelterProfile />} />
-          <Route path="/profile/adopter" element={<AdopterProfile />} />
+          <Route path="/profile/" element={<Profile />} />
           <Route path="/preferences" element={<Preferences />} />
           <Route path="/error" element={<Error />} />
+          <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
+          <Route path="/solicitud" element={<Solicitud />} />
+          <Route path="/peticiones" element={<Peticiones />} />
 
         </Routes>
       </BrowserRouter>

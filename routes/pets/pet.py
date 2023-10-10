@@ -444,6 +444,41 @@ def sizes():
         )
      )
     
+    db.session.add(
+        Pet(
+            'BLANCA',
+            '2021-01-01',
+            2,
+            15,
+            3,
+            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
+            2
+        )
+    )   
+    db.session.add(
+        Pet(
+            'BLANCA',
+            '2021-01-01',
+            2,
+            15,
+            3,
+            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
+            2
+        )
+    )   
+    db.session.add(
+        Pet(
+            'BLANCA',
+            '2021-01-01',
+            2,
+            15,
+            3,
+            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
+            2
+        )
+    )   
+    
+    
 
     db.session.commit()
     
