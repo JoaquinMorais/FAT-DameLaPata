@@ -8,28 +8,33 @@ import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import Filters from '../components/Dogs/Filters/Filters';
-import axios from 'axios';
-
+import { GetPets } from '../my_methods/dogs_methods';
+let response;
 const Dogs = () => {
-  const [responseData, setResponseData] = useState(null); // Agrega el estado para la respuesta de axios
+  const [responseData, setResponseData] = useState([]); // Agrega el estado para la respuesta de axios
+  const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
+  const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        if (localStorage.getItem('type') !== 'adopter'){
-          window.location.href = "/profile";
-        }
-        const response = await axios.get('http://localhost:5000/pets');
-        setResponseData(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
+  async function fetchData() {
+    try {
+      response = await GetPets();
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error.message);
     }
-    
-    fetchData(); // Llama a la función fetchData para obtener los datos
+    setResponseData(response.data);
+    setResponseStatus(response.response_status);
+    setResponseMessage(response.response_message);
+
+  }
+  useEffect(() => {
+  if (localStorage.getItem('type') !== 'adopter'){
+    window.location.href = "/profile";
+  }
+  
+  fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
-  if(responseData?.status == 200){
+  if(responseStatus?.status == 200){
     return (
       <>
         <NavBar />
@@ -57,7 +62,7 @@ const Dogs = () => {
   
         <Grid>
           
-          {responseData?.response.map((item) => ( 
+          {responseData?.map((item) => ( 
             <Container key={item.id}>
               <Zoom>
                 <Cards

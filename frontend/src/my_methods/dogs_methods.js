@@ -1,23 +1,45 @@
 import axios from "axios";
+let response;
+let response_message;
+let response_status;
 
-/**
- * Envía una solicitud PUT para agregar un perro con los datos proporcionados.
- * @param {object} values - Los datos del perro a agregar.
- * @returns {Promise<object>} - Una promesa que resuelve en la respuesta del servidor.
- * Si hay un error, se rechaza con un objeto que contiene un mensaje de error.
- */
+function response_react(status = null, message = null, data = null){
+  return {
+    response_status : status,
+    response_message : message,
+    data : data,
+  }
+}
+
 export async function PutDogs(values) {
-  let response; // Declarar la variable response
   try {
     response = await axios.put('http://localhost:5000/pet', values);
+    response_message = 'Mascota no agregada, ocurrio un error'
+    if (response.status === 200){
+      response_message = 'Mascota agregada con exito'
+    }
   } catch (error) {
-    console.error('Error:', error);
+    response_message = 'Ocurrio un error'
   }
-  return response;
+  response_status = response.status
+  return response_react(response_status,response_message)
+}
+
+export async function GetPets() {
+  try {
+    response = await axios.get('http://localhost:5000/pets');
+    response_message = 'Error al traer a las mascotas, intente denuevo mas tarde'
+    if (response.status === 200){
+      response_message = ''
+    }
+  } catch (error) {
+    response_message = 'Ocurrio un error'
+  }
+  response_status = response.status
+  return response_react(response_status,response_message, response.data.response)
 }
 
 export async function CreateRequest(dog, state) {
-  let response; // Declarar la variable response
   try {
     response = await axios.put('http://localhost:5000/adopter/match', { 'id_pet': dog, 'id_state': state });
     console.log(response);
@@ -27,7 +49,7 @@ export async function CreateRequest(dog, state) {
 }
 
 export async function GetSinglePet(id) {
-  let response; // Declarar la variable response
   response = await axios.get(`http://localhost:5000/pet/${id}`);
+  console.log(response)
   return response;
 }
