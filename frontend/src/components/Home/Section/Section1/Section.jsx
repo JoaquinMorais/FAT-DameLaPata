@@ -23,7 +23,7 @@ function Section() {
               <Slide bottom>
                 <ButtonContainer>
                   <ButtonAdop src='/Images/pataa.jpg' />
-                  <ButtonText>ADOPTA</ButtonText>
+                  <ButtonText><a style={{color: 'white' }} href='/dogs'>ADOPTA</a></ButtonText>
                 </ButtonContainer>
               </Slide>
             </Container>
