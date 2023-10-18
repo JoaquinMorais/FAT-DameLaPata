@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./base_axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
 
@@ -8,8 +8,8 @@ export async function GetPreference() {
   let sizes_array = [];
 
   try {
-    const response_color = await axios.get('http://localhost:5000/adopter/tastes/colors', '');
-    const response_size = await axios.get('http://localhost:5000/adopter/tastes/sizes', '');
+    const response_color = await axios.get('adopter/tastes/colors', '');
+    const response_size = await axios.get('adopter/tastes/sizes', '');
 
     if (response_color.data.status === 402 || response_size.data.status === 402) {
       // Manejar el error 402 y redirigir a la página de error
@@ -44,7 +44,7 @@ let dogs_array = ['']
 
 export async function GetPets() {
   try {
-    const response_dogs = await axios.get('http://localhost:5000/pets ', '');
+    const response_dogs = await axios.get('pets ', '');
 
     if (response_dogs.data['status'] === 402){
       console.log(response_dogs);
@@ -71,7 +71,7 @@ export async function GetPets() {
 // Trae los colores a la pagina de registrar mascota
 export async function getColors() {
   try {
-    const response = await axios.get('http://localhost:5000/pets/info/colors');
+    const response = await axios.get('pets/info/colors');
     return response.data;
   } catch (error) {
     console.error('Error al realizar la solicitud de colores:', error.message);
@@ -82,7 +82,7 @@ export async function getColors() {
 // Trae las caracteristicas a la pagina de resgitrar la pagina
 export async function getCharacteristics() {
   try {
-    const response = await axios.get('http://localhost:5000/pets/info/characteristics');
+    const response = await axios.get('pets/info/characteristics');
     return response.data;
   } catch (error) {
     console.error('Error al realizar la solicitud de características:', error.message);

@@ -9,21 +9,23 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import Filters from '../components/Dogs/Filters/Filters';
 import { GetPets } from '../my_methods/dogs_methods';
-let response;
 const Dogs = () => {
   const [responseData, setResponseData] = useState([]); // Agrega el estado para la respuesta de axios
   const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
   const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
+  const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData() {
     try {
-      response = await GetPets();
+      await GetPets().then(checking => {
+        setResponseData(checking.data);
+        setResponseStatus(checking.response_status);
+        setResponseMessage(checking.response_message);
+        setIsLoading(false)
+      });
     } catch (error) {
       console.error('Error al realizar la solicitud:', error.message);
     }
-    setResponseData(response.data);
-    setResponseStatus(response.response_status);
-    setResponseMessage(response.response_message);
 
   }
   useEffect(() => {
@@ -34,7 +36,7 @@ const Dogs = () => {
   fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
 
-  if(responseStatus?.status == 200){
+  while (isLoading){
     return (
       <>
         <NavBar />
@@ -59,27 +61,14 @@ const Dogs = () => {
             </Filters>
           </slide> */}
         </Principio>
-  
-        <Grid>
+        <Grid style={{textAlign:'center'}}>
           
-          {responseData?.map((item) => ( 
-            <Container key={item.id}>
-              <Zoom>
-                <Cards
-                  id_pet={`${item.id_pet}`}
-                  foto={`${item.image_path}`}
-                  nombre={`${item.name}`}
-                  titulo={`${item.name} es un perro muy feliz :D`}
-                  descripcion={`${item.name} nació el ${item.birth_date}.`}
-                />
-              </Zoom>
-            </Container>
-          ))}
+          No hay perros que cumplan tus requisitos
         </Grid>
+        
       </>
     );
   }
-  else {
     return (
       <>
         <NavBar />
@@ -105,13 +94,25 @@ const Dogs = () => {
           </slide>
         </Principio>
   
-        <Grid style={{textAlign:'center'}}>
+        
+        <Grid>
           
-          No hay perros que cumplan tus requisitos
+          {responseData?.map((item) => ( // elemento a lodear
+            <Container key={item.id}>
+              <Zoom>
+                <Cards
+                  id_pet={`${item.id_pet}`}
+                  foto={`${item.image_path}`}
+                  nombre={`${item.name}`}
+                  titulo={`${item.name} es un perro muy feliz :D`}
+                  descripcion={`${item.name} nació el ${item.birth_date}.`}
+                />
+              </Zoom>
+            </Container>
+          ))}
         </Grid>
       </>
     );
-  }
   
   
 

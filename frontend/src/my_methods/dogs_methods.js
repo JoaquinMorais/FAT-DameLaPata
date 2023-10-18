@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./base_axios";
 let response;
 let response_message;
 let response_status;
@@ -13,7 +13,7 @@ function response_react(status = null, message = null, data = null){
 
 export async function PutDogs(values) {
   try {
-    response = await axios.put('http://localhost:5000/pet', values);
+    response = await axios.put('pet', values);
     response_message = 'Mascota no agregada, ocurrio un error'
     if (response.status === 200){
       response_message = 'Mascota agregada con exito'
@@ -27,7 +27,7 @@ export async function PutDogs(values) {
 
 export async function GetPets() {
   try {
-    response = await axios.get('http://localhost:5000/pets');
+    response = await axios.get('pets');
     response_message = 'Error al traer a las mascotas, intente denuevo mas tarde'
     if (response.status === 200){
       response_message = ''
@@ -41,7 +41,7 @@ export async function GetPets() {
 
 export async function CreateRequest(dog, state) {
   try {
-    response = await axios.put('http://localhost:5000/adopter/match', { 'id_pet': dog, 'id_state': state });
+    response = await axios.put('adopter/match', { 'id_pet': dog, 'id_state': state });
     console.log(response);
   } catch {
     console.log('error...');
@@ -49,7 +49,7 @@ export async function CreateRequest(dog, state) {
 }
 
 export async function GetSinglePet(id) {
-  response = await axios.get(`http://localhost:5000/pet/${id}`);
+  response = await axios.get(`pet/${id}`);
   console.log(response)
   return response;
 }

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './base_axios';
 
 axios.defaults.withCredentials = true;
 let pages_array = [];
@@ -34,7 +34,7 @@ export async function FetchNavbarItems() {
   export async function SendLogin(data_to_send) {
     let response = null;
     try {
-      response = await axios.post('http://localhost:5000/login', data_to_send);
+      response = await axios.post('login', data_to_send);
       if (response.data['status'] === 200) {
         localStorage.setItem('id', response.data.response['id']);
         localStorage.setItem('type', response.data.response['type']);
@@ -51,7 +51,7 @@ export async function FetchNavbarItems() {
   export async function SendRegister(data_to_send, method) {
     let response = null;
     try {
-      response = await axios.put('http://localhost:5000/' + method + '/register', data_to_send);
+      response = await axios.put('' + method + '/register', data_to_send);
       if (response.data['status'] === 200) {
         localStorage.setItem('id', response.data.response['id']);
         localStorage.setItem('type', response.data.response['type']);
@@ -76,7 +76,7 @@ export async function FetchNavbarItems() {
   }
 
   export async function GetProfile(){
-    var cosa = await axios.post('http://localhost:5000/profile', {
+    var cosa = await axios.post('profile', {
       address_is_requiered : true
     });
     return cosa
@@ -84,7 +84,7 @@ export async function FetchNavbarItems() {
 
   export async function LogOut(){
     try {
-      axios.post('http://localhost:5000/logout', []);
+      axios.post('logout', []);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

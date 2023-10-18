@@ -5,15 +5,23 @@ import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import axios from 'axios';
 import CardPets from '../components/Mismascotas/CardComponent';
+import { GetPets } from '../my_methods/dogs_methods';
 
 function Mismascotas_Sh() {
   const [responseData, setResponseData] = useState(null);
+  const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
+  const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('http://localhost:5000/pets');
-        setResponseData(response.data);
+        await GetPets().then(checking => {
+          setResponseData(checking.data);
+          setResponseStatus(checking.response_status);
+          setResponseMessage(checking.response_message);
+          setIsLoading(false)
+        });
         console.log('response Data:' + responseData)
       } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
@@ -23,7 +31,7 @@ function Mismascotas_Sh() {
     fetchData(); 
   }, []);
 
-  if (responseData && responseData.response && responseData.response.length > 0) {
+  if (responseData && responseData.length > 0) {
     return (
     <>
     <NavBar />
@@ -38,7 +46,7 @@ function Mismascotas_Sh() {
     <Grid>
       <Zoom>
       <div>
-        {responseData.response.map((item) => (
+        {responseData.map((item) => (
           <Container key={item.id}>
             <div>
               <div>
