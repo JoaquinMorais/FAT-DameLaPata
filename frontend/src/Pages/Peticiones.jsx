@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react'; 
 import CardsPets from '../components/Dogs/Cards/CardsPets';
 import { styled } from 'styled-components';
-import Phrase from '../components/Dogs/Phrase/Phrase';
 import Flip from 'react-reveal/Flip';
-import Fade from 'react-reveal/Fade';
-import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
-import IsLogged, { GetProfile } from '../my_methods/session_methods';
-import LoaderComp from '../components/Loader/Loader';
-import Filters from '../components/Dogs/Filters/Filters';
 import axios from 'axios';
 
 const Peticiones = () => {
@@ -28,7 +22,6 @@ const Peticiones = () => {
     fetchData();
   }, []);
 
-  // Define funciones para filtrar los elementos según el id_state
   const filterByState = (stateId) => {
     return responseData?.response.filter(item => item.id_state === stateId);
   }
