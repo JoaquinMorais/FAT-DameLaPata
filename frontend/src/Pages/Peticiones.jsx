@@ -133,6 +133,16 @@ const Peticiones = () => {
         <Grid style={{textAlign:'center'}}>
           No hay perros que cumplan tus requisitos
         </Grid>
+
+        <Principio>
+
+        <Lamina>
+            <Flip top>
+              <Titulo>FAVORITOS</Titulo>
+            </Flip>
+            <Hr />
+          </Lamina>
+        </Principio>
       </>
     );
   }
