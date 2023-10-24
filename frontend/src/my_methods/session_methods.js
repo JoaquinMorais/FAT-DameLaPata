@@ -6,18 +6,18 @@ let setting_array = [];
 
 function setDefaultNavigationArrays() {
   pages_array = ['Inicio', 'Quienes Somos'];
-  setting_array = ['Iniciar Sesion', 'Crear Cuenta'];
+  setting_array = ['Iniciar Sesion', 'Registrarse'];
 }
 
 export async function FetchNavbarItems() {
   try {
     if (localStorage.getItem('id') !== null) {
       if (localStorage.getItem('type') === 'adopter') {
-        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar'];
-        setting_array = ['Mi Perfil']; //'Cerrar Session'
+        pages_array = ['Inicio', 'Quienes Somos', 'Adoptar', 'Peticiones'];
+        setting_array = ['Mi Perfil', 'Cerrar Sesion'];
       } else if (localStorage.getItem('type') === 'shelter') {
         pages_array = ['Inicio', 'Quienes Somos', 'Publicar'];
-        setting_array = ['Perfil del Refugio'];
+        setting_array = ['Perfil del Refugio', 'Cerrar Sesion'];
       }
     } else {
       setDefaultNavigationArrays();

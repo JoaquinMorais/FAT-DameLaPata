@@ -78,11 +78,9 @@ function Navbar() {
         return '/login';
       case 'Cerrar Sesion':
         return '/login';
-      /*
-      case 'Crear Cuenta':
-        return '/TODAVIA-NO-BRO';
-      */
-        default:
+      case 'Registrarse':
+        return '/register';
+      default:
         return '/';
     }
   }

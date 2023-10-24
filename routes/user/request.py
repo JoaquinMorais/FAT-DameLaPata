@@ -37,6 +37,7 @@ def get_requests():
         )
     
     if user.type == 'adopter':
+        return session['user_id']
         response = getRequestSession().get(
             url_for(
                 'AdopterRequest.get_requests',
