@@ -7,20 +7,12 @@ import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import {  GetProfile } from '../../my_methods/session_methods';
 import Navbar from '../NavBar/NavBar';
-import ConfirmDialog from '../CloseAccount/ConfirmDialog';
-import SuccessDialog from '../CloseAccount/SuccessDialog';
-import GetPreference from '../../my_methods/query_methods';
 import axios from 'axios';
 
 const BackgroundImage = styled.div`
-  background-image: url('https://images.unsplash.com/photo-1519375722682-222902a76bf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYSUyMGVuJTIwbGFzJTIwbW9udGElQzMlQjFhc3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: gray;
   width:100%;
   min-height: 100vh;
   position: absolute;
@@ -225,6 +217,10 @@ function AdopterProfile() {
                 <strong>Location:</strong> {user.location}, {user.district}, {user.street}
               </Typography>
               <Typography variant="body1"><strong>Birthdate:</strong> {user.birthdate}</Typography>
+              <Button variant="contained" color="primary" href='/edit'>
+                Editar Perfil
+              </Button>
+
               <StyledHr />
               <ContactInfoContainer>
                 <ContactIcon>
