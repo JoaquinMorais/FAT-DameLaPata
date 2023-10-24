@@ -14,7 +14,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { CreateRequest, GetSinglePet } from '../../../my_methods/dogs_methods';
+
+import CustomizedTabs from './CustomizedTabs';
 
 
 
@@ -24,31 +25,37 @@ const Details = () => {
 
 
     useEffect(() => {
-      if(localStorage.getItem('type') !== 'adopter'){
-        window.location.href = "/profile";
-      } 
         async function fetchData() {
         try {
-            var response = await GetSinglePet(id)
+            const response = await axios.get(`http://localhost:5000/pet/${id}`);
             setResponseData(response.data);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error.message);
         }
-      }
+        }
         
         fetchData();
     }, []);
 
-    const calcularEdad = () => {
-      if (responseData?.response.birth_date) {
-          const fechaNacimiento = new Date(responseData?.response.birth_date);
-          const fechaHoy = new Date();
-          const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
-          const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
-          return `${edadPerro} años`;
+  /* ------------------------------------ */
+
+    const [selectedColors, setSelectedColors] = useState([]);
+    const [responseDataColors, setresponseDataColors] = useState(null); // Agrega el estado para la respuesta de axios
+
+    useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:5000/pets/info/colors'); 
+        setresponseDataColors(response.data);
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
       }
-      return '';
-    };
+    }
+    
+    fetchData(); // Llama a la función fetchData para obtener los datos
+    }, []);
+
+  /* ------------------------------------ */
 
   const ifGuion = (mylist,element) => {
     if(mylist[mylist.length - 1] === element){
@@ -57,32 +64,83 @@ const Details = () => {
     return ' - '
   }
 
+  /* ------------------------------------ */
 
+  const [availablePetIds, setAvailablePetIds] = useState([]);
+
+  // Obtener lista de IDs disponibles (excluyendo el ID actual)
+  useEffect(() => {
+    async function fetchAvailablePetIds() {
+      try {
+        const response = await axios.get('http://localhost:5000/adopter/match');
+        const availableIds = response.data.filter((id_pet) => id_pet !== id);
+        setAvailablePetIds(availableIds);
+      } catch (error) {
+        console.error('Error al obtener los IDs disponibles:', error.message);
+      }
+    }
+    fetchAvailablePetIds();
+  }, [id]);
+
+  /* ------------------------------------ */
+
+  const calcularEdad = () => {
+    if (responseData?.response.birth_date) {
+        const fechaNacimiento = new Date(responseData?.response.birth_date);
+        const fechaHoy = new Date();
+        const diferenciaMilisegundos = fechaHoy - fechaNacimiento;
+        const edadPerro = Math.floor(diferenciaMilisegundos / (365.25 * 24 * 60 * 60 * 1000));
+        return `${edadPerro} años`;
+    }
+    return '';
+};
 
 /* ------------------------------------ */
 
 const navigate = useNavigate();
 
+// const handlePerroSiClick = async () => {
+//   try {
+//     if (availablePetIds.length === 0) {
+//       // No hay más perros disponibles para mostrar
+//       console.log('availablePetIds:', availablePetIds);
+//       alert('No hay más perros disponibles.');
+//       return;
+//     }
+
+//     // Generar un número aleatorio basado en la lista de IDs disponibles
+//     const randomIndex = Math.floor(Math.random() * availablePetIds.length);
+//     const randomPetId = availablePetIds[randomIndex];
+
+//     const estado = {
+//       id_pet: randomPetId,
+//       id_status: 3,
+//     };
+
+//     const response = await axios.put('http://localhost:5000/adopter/match', estado);
+//     console.log('Respuesta del servidor:', response.data);
+
+//     // Redireccionar a la página de detalles del perro seleccionado aleatoriamente
+//     navigate(`/pet/details/${randomPetId}`);
+//   } catch (error) {
+//     console.error('Error al realizar la solicitud:', error.message);
+//   }
+// };
+
+/* ------------------------------------ */
+
+const estado = {
+  id_pet: parseInt(id),
+  id_status: 4,
+}
+console.log(estado);
+
 const handlePerroNoClick = async () => {
   try{
-    const response = await CreateRequest(parseInt(id), 4)
-    
-    window.location.href = "/dogs";
-    
+    const response = axios.put('http://localhost:5000/adopter/match', estado);
   }
   catch{
     alert("no");
-  }
-}
-
-const handlePerroSiClick = async () => {
-  try{
-    const response = await CreateRequest(parseInt(id), 3)
-    window.location.href = "/dogs";
-
-  }
-  catch{
-    alert("si");
   }
 }
 
@@ -112,6 +170,28 @@ const handlePerroSiClick = async () => {
 //     console.error('Error al realizar la solicitud:', error.message);
 //   }
 // };
+
+/* ------------------------------------ */
+
+const [open, setOpen] = React.useState(false);
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+/* ------------------------------------ */
+
+const shelterContact = {
+  name: 'Refugio zona sur',
+  whatsapp: '+54 9 351 123-1234',
+  mail: 'refugio1@gmail.com',
+};
+
+
   return (
     <>
         {
@@ -140,67 +220,33 @@ const handlePerroSiClick = async () => {
                     <Si>
                       <PerroSi
                         src={'https://cdn-icons-png.flaticon.com/256/9804/9804062.png'}
-                        onClick={handlePerroSiClick}
+                        // onClick={handlePerroSiClick}
+                        onClick={handleClickOpen}
                       ></PerroSi>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"FELICIDADES"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            Tu peticion ha sido enviada con exito 
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Continuar</Button>
+                        </DialogActions>
+                      </Dialog>
                     </Si>
                   </Zoom>
                 </Botones>
               </Abajo>
               </ImagenContainer>
-            <Container>
-
-            <Fade>
-              <Div1>
-                <Titulo2>Nombre</Titulo2>
-                <Caracteristicas>{`${responseData?.response.name}`}</Caracteristicas>
-              </Div1>
-            </Fade>
-              
-            <Fade>
-              <Div2>
-                <Titulo2>Nacimiento</Titulo2>
-                <Caracteristicas>{`${responseData?.response.birth_date}`}</Caracteristicas>
-              </Div2>
-            </Fade>
-
-            <Fade>
-              <Div3>
-                <Titulo2>Tamaño y peso</Titulo2>
-                <Caracteristicas>{`${responseData?.response.size}`} - {`${responseData?.response.weight}`}kg</Caracteristicas>
-              </Div3>
-            </Fade>
-            
-            <Fade>
-              <Div4>
-                <Titulo2>Color/es</Titulo2>
-                <Caracteristicas>
-                  {responseData?.response.colors.map(color => (
-                    <span key={color.id_color}>{color.title} {ifGuion(responseData?.response.colors,color)}</span>
-
-                  ))}
-                </Caracteristicas>
-              </Div4>
-            </Fade>
-
-            <Fade>
-              <Div5>
-                <Titulo2>Caracteristica/s</Titulo2>
-                <Caracteristicas>
-                  {responseData?.response.characteristics.map(carac => (
-                    <span key={carac.id_category}>{carac.title} {ifGuion(responseData?.response.characteristics,carac)} </span>
-                  ))}
-                </Caracteristicas>
-              </Div5>
-            </Fade>
-              
-            <Fade>
-              <Div6>
-                <Titulo2>Vacunas</Titulo2>
-                <Caracteristicas>Consultar</Caracteristicas>
-              </Div6>
-            </Fade>
-              
-            </Container>
+              <CustomizedTabs/>
           </Carta>
         </SwiperSlide>
         }
@@ -358,52 +404,4 @@ const Caracteristicas = styled.p`
     color: black;
     padding: 0px 15px 20px 15px;
     word-wrap: break-word;
-`;
-
-const Div1 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-`;
-
-const Div2 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fafafa;
-`;
-
-const Div3 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-`;
-
-const Div4 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-`;
-
-const Div5 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #ebebeb;
-`;
-
-const Div6 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #e0e0e0;
 `;

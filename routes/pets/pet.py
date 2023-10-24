@@ -419,6 +419,124 @@ def sizes():
         )
      )
     
+
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
+    
+    
+    db.session.add(
+        Pet(
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
+            2,
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
+        )
+     )
     db.session.add(
         Pet(
             'no color',
@@ -443,40 +561,20 @@ def sizes():
             1
         )
      )
+
+
     
     db.session.add(
         Pet(
-            'BLANCA',
-            '2021-01-01',
+            'mucho color',
+            '2014-01-01',
+            1,
+            40,
             2,
-            15,
-            3,
-            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
-            2
+            'https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=900,fit=cover/article/main-picture/617a613c7592b284460012.jpg',
+            1
         )
-    )   
-    db.session.add(
-        Pet(
-            'BLANCA',
-            '2021-01-01',
-            2,
-            15,
-            3,
-            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
-            2
-        )
-    )   
-    db.session.add(
-        Pet(
-            'BLANCA',
-            '2021-01-01',
-            2,
-            15,
-            3,
-            'https://i.blogs.es/b4b276/noemi-macavei-katocz-c7buirbqapa-unsplash/450_1000.jpeg',
-            2
-        )
-    )   
+     )
     
     
 
@@ -531,8 +629,6 @@ def sizes():
     db.session.add(State('pendiente','estado pendiente'))
     db.session.add(State('rechazado','estado rechazado'))
     db.session.add(State('cancelado','estado cancelado'))
-    db.session.add(State('en espera','stand by'))
-    db.session.add(State('favoritos','me encantan'))
 
     return 'a'
 
