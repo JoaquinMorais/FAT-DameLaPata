@@ -46,11 +46,8 @@ function Add() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const user = await GetProfile();
-        if (user.data['status'] === 200) {
-          if (user.data.response['type'] !== 'shelter') {
-            window.location.href = '/';
-          }
+        if (localStorage.getItem('type') !== 'shelter') {
+          window.location.href = '/';
         }
       } catch (error) {
         console.log('Error al obtener los datos del usuario:', error.message);

@@ -1,0 +1,36 @@
+Pets_methods:
+    GetPets
+    GetSinglePet
+
+query_methods:
+    GetColors(GetAllColors) -- done
+    getCharacteristics(GetAllCharacteristics) -- done
+    
+    #added#
+    GetAllSizes
+    GetAllCategories
+
+session_methods:
+    SendLogin
+    SendRegister
+    GetProfile
+    LogOut
+
+adopter_methods:
+    CreateRequest
+    GetPreference
+
+shelter_methods:
+    PutDogs -- done the same
+
+-- methods --
+
+  GetAllColors().then(response => {
+    const data = response.data.response;
+    console.log(data);
+    setIsLoading(false);
+  })
+  .catch(error => {
+    console.error(error);
+    setIsLoading(false);
+  });

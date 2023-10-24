@@ -26,7 +26,7 @@ function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    LogOut()
+    //LogOut()
     setIsLoading(false);
   }, []);
 
@@ -45,7 +45,7 @@ function Login() {
     validationSchema,
     onSubmit: async (values) => {
       let is_logged = await SendLogin(values);
-      if (is_logged === true) {
+      if (is_logged.data === true) {
           window.location.href = "/profile";
       } else {
         setIsDialogOpen(true);

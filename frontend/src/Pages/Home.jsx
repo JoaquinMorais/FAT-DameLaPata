@@ -5,11 +5,18 @@ import Section_3 from '../components/Home/Section/Section3/Section_3';
 import Sponsor from '../components/Home/Section/Section4/Sponsor';
 import NavBar from '../components/NavBar/NavBar';
 import LoaderComp from '../components/Loader/Loader';
+import { CreateRequest } from '../my_methods/adopter_methods';
 function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(false);
+    CreateRequest({"id_pet" : 4, "id_state" : 1}).then(response => {
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error(error);
+      setIsLoading(false);
+    });
   }, []);
 
   return (

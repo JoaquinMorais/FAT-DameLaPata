@@ -3,6 +3,10 @@ import axios from './base_axios';
 axios.defaults.withCredentials = true;
 let pages_array = [];
 let setting_array = [];
+let response;
+let response_message;
+let response_status;
+let data;
 
 function setDefaultNavigationArrays() {
   pages_array = ['Inicio', 'Quienes Somos'];
@@ -31,63 +35,25 @@ export async function FetchNavbarItems() {
   };
 }
 
-  export async function SendLogin(data_to_send) {
-    let response = null;
-    try {
-      response = await axios.post('login', data_to_send);
-      if (response.data['status'] === 200) {
+export async function SendLogin(values) {
+  try {
+    response = await axios.post('login', values);
+    response_message = 'Credenciales, incorrectas'
+    data = false;
+    if (response.status === 200){
         localStorage.setItem('id', response.data.response['id']);
         localStorage.setItem('type', response.data.response['type']);
-        return true;
-      } else {
-        return false;
+        data = true;
+
+    }
+  } catch (error) {
+    window.location.href = '/error';
+
+  }
+  response_status = response.status
+  return {
+      response_status,
+      response_message,
+      data : data
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-    return false;
-  }
-
-  export async function SendRegister(data_to_send, method) {
-    let response = null;
-    try {
-      response = await axios.put('' + method + '/register', data_to_send);
-      if (response.data['status'] === 200) {
-        localStorage.setItem('id', response.data.response['id']);
-        localStorage.setItem('type', response.data.response['type']);
-        return {
-          status : 200,
-          response : 'Succeslful'
-        };
-      } else {
-        return {
-          status : response.data.status,
-          response : response.data.response
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-
-    return {
-      status : 401,
-      response : 'error inesperado...'
-    };
-  }
-
-  export async function GetProfile(){
-    var cosa = await axios.post('profile', {
-      address_is_requiered : true
-    });
-    return cosa
-  }
-
-  export async function LogOut(){
-    try {
-      axios.post('logout', []);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-    localStorage.setItem('id', null);
-    localStorage.setItem('type', null);
-  }
+}

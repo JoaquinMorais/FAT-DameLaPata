@@ -1,91 +1,50 @@
 import axios from "./base_axios";
-import { Navigate, useNavigate } from "react-router-dom";
+let response;
 
-
-export async function GetPreference() {
-  const navigate = useNavigate();
-  let colors_array = [];
-  let sizes_array = [];
-
-  try {
-    const response_color = await axios.get('adopter/tastes/colors', '');
-    const response_size = await axios.get('adopter/tastes/sizes', '');
-
-    if (response_color.data.status === 402 || response_size.data.status === 402) {
-      // Manejar el error 402 y redirigir a la página de error
-      navigate('/error');
-      return { colors_array: [], sizes_array: [] };
+export async function GetAllColors(){
+  try{
+    response = await axios.get('pets/info/colors')
+    return{
+      data : response.data 
     }
-
-    if (response_color.data.status === 200) {
-      const colors_array = response_color.data.colors;
-      console.log('Colores:', colors_array);
-    }
-
-    if (response_size.data.status === 200) {
-      const sizes_array = response_size.data.sizes;
-      console.log('Tamaños:', sizes_array);
-    }
-
-    return {
-      colors_array: colors_array || [],
-      sizes_array: sizes_array || [],
-    };
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
-    // Manejar otros errores si es necesario
-    navigate('/error');
-    return { colors_array: [], sizes_array: [] };
+  }
+  catch(error){
+    console.log(error)
   }
 }
 
-let dogs_array = ['']
-
-
-export async function GetPets() {
-  try {
-    const response_dogs = await axios.get('pets ', '');
-
-    if (response_dogs.data['status'] === 402){
-      console.log(response_dogs);
-      <Navigate path='/error'/>
+export async function GetAllCharacteristics(){
+  try{
+    response = await axios.get('pets/info/characteristics')
+    return{
+      data : response.data 
     }
-    else if(response_dogs.data['status'] === 200){
-      dogs_array = response_dogs.data.colors;
-      response_dogs = console.log(response_dogs);
-      console.log(response_dogs);
-
-    }
-  } 
-  
-  catch (error) {
-    console.error('Error al realizar la solicitud:', error.message);
   }
-
-  return{
-    dogs_array: dogs_array,
+  catch(error){
+    console.log(error)
   }
 }
 
-
-// Trae los colores a la pagina de registrar mascota
-export async function getColors() {
-  try {
-    const response = await axios.get('pets/info/colors');
-    return response.data;
-  } catch (error) {
-    console.error('Error al realizar la solicitud de colores:', error.message);
-    throw error; // Re-lanza el error para que el componente pueda manejarlo
+export async function GetAllSizes(){
+  try{
+    response = await axios.get('pets/info/sizes')
+    return{
+      data : response.data 
+    }
+  }
+  catch(error){
+    console.log(error)
   }
 }
 
-// Trae las caracteristicas a la pagina de resgitrar la pagina
-export async function getCharacteristics() {
-  try {
-    const response = await axios.get('pets/info/characteristics');
-    return response.data;
-  } catch (error) {
-    console.error('Error al realizar la solicitud de características:', error.message);
-    throw error; // Re-lanza el error para que el componente pueda manejarlo
+export async function GetAllCategories(){
+  try{
+    response = await axios.get('pets/info/category-characteristics')
+    return{
+      data : response.data 
+    }
+  }
+  catch(error){
+    console.log(error)
   }
 }
