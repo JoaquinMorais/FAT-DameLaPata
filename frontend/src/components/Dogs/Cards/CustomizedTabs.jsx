@@ -20,7 +20,7 @@ const StyledTabs = styled((props) => (
   '& .MuiTabs-indicatorSpan': {
     maxWidth: 40,
     width: '100%',
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
   },
 });
 
@@ -32,7 +32,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
     marginRight: theme.spacing(1),
     color: 'rgba(255, 255, 255, 0.7)',
     '&.Mui-selected': {
-      color: '#000',
+      color: '#fff',
     },
     '&.Mui-focusVisible': {
       backgroundColor: 'rgba(100, 95, 228, 0.32)',
@@ -49,7 +49,7 @@ export default function CustomizedTabs() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ bgcolor: '#ffae8d' }}>
+      <Box sx={{ bgcolor: '#ad5a39' }}>
         <StyledTabs
           value={value}
           onChange={handleChange}
