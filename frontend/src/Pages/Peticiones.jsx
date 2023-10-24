@@ -7,21 +7,23 @@ import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
 import axios from 'axios';
+import { getUserDogs } from '../my_methods/salo_methods';
 
 const Peticiones = () => {
   const [responseData, setResponseData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get('http://localhost:5000/user/requests');
-        setResponseData(response.data);
-      } catch (error) {
-        console.error('Error al realizar la solicitud:', error.message);
-      }
-    }
-    fetchData();
+    getUserDogs().then(response => {
+      setResponseData(response.data.response);
+      setIsLoading(false);      
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }, []);
+
+  
 
   const filterByState = (stateId) => {
     if (responseData && responseData.response && Array.isArray(responseData.response)) {
