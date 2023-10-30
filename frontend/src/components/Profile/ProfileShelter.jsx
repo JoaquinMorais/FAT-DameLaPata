@@ -11,8 +11,6 @@ import Navbar from '../NavBar/NavBar';
 import ConfirmDialog from '../CloseAccount/ConfirmDialog';
 import SuccessDialog from '../CloseAccount/SuccessDialog';
 import { GetProfile } from '../../my_methods/session_methods';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -20,7 +18,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import EditIcon from '@mui/icons-material/Edit';
+import TextField from '@mui/material/TextField';
 
 const BackgroundImage = styled.div`
   background-color:#452900;
@@ -82,9 +80,12 @@ function ShelterProfile() {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isAccountDeleted, setIsAccountDeleted] = useState(false);
 
-  const openConfirmation = () => {
-    setIsConfirmationOpen(true);
-  };
+  const [isUsernameEditable, setIsUsernameEditable] = useState(false);
+  const [isOrganizationEditable, setIsOrganizationEditable] = useState(false);
+  const [isStreetEditable, setIsStreetEditable] = useState(false);
+  const [isLocationEditable, setIsLocationEditable] = useState(false);
+  const [isPhoneEditable, setIsPhoneEditable] = useState(false);
+  
 
   const closeConfirmation = () => {
     setIsConfirmationOpen(false);
@@ -108,7 +109,18 @@ function ShelterProfile() {
   const closeSuccessDialog = () => {
       setIsAccountDeleted(false);
   };
-
+  const inputStyles = {
+    width: '100%',
+    '& .MuiInputBase-root': {
+      width: '100%',
+    },
+    '& .MuiInputBase-input': {
+      fontSize: '16px', // Tamaño de fuente
+      padding: '10px', // Espaciado interno
+      // Agrega otros estilos según tu preferencia
+    },
+  };
+  
 
   const [shelter, setUser] = useState({
     name: '',
@@ -163,16 +175,9 @@ function ShelterProfile() {
                   alt="User Profile"
                   src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 />
-                
-                {/* <EditButton variant="contained" color="primary">
-                  <EditIcon /> 
-                </EditButton> */}
+
               </UserProfileAvatarContainer>
               
-              {/* <DeleteButton variant="contained" color="secondary" onClick={openConfirmation}>
-                <DeleteIcon /> 
-              </DeleteButton> */}
-
               {isConfirmationOpen && !isAccountDeleted && (
                 <ConfirmDialog
                     isOpen={isConfirmationOpen}
@@ -190,68 +195,96 @@ function ShelterProfile() {
             </Grid>
             <Grid item xs={12} md={8} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <StyledHr />
-              <Typography variant="h4" sx={{textAlign:'center'}}>DATOS DE USUARIO <Button variant="outlined" size='small'><EditIcon /></Button></Typography>
+              <Typography variant="h4" sx={{textAlign:'center'}}>DATOS DE USUARIO </Typography>
               <StyledHr />
-              <Grid container spacing={2}>
+              <Grid container spacing={2} >
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-username">Nombre de usuario</InputLabel>
-                    <Input
+                    <TextField
                       id="input-username"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <AccountCircleIcon />
-                        </InputAdornment>
-                      }
+                      label="Nombre de usuario"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircleIcon />
+                          </InputAdornment>
+                        ),
+                      }}
                       value={shelter.username}
-                      disabled
-                    />
+                      disabled={!isUsernameEditable}
+                      onChange={(e) => {
+                        setUser({ ...shelter, username: e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-organization">Nombre de organización</InputLabel>
-                    <Input
-                      id="input-organization"
-                      startAdornment={
-                        <InputAdornment position="start">
+                  <TextField
+                      id="input-org"
+                      label="Nombre de la organizacion"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
                           <CorporateFareIcon />
-                        </InputAdornment>
-                      }
+                          </InputAdornment>
+                        ),
+                      }}
                       value={shelter.name}
-                      disabled
-                    />
-                  </FormControl>
+                      disabled={!isOrganizationEditable}
+                      onChange={(e) => {
+                        setUser({ ...shelter, name: e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />                  
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-street">Calle</InputLabel>
-                    <Input
+                  <TextField
                       id="input-street"
-                      startAdornment={
-                        <InputAdornment position="start">
+                      label="Calle"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
                           <SignpostIcon />
-                        </InputAdornment>
-                      }
+                          </InputAdornment>
+                        ),
+                      }}
                       value={shelter.street}
-                      disabled
-                    />
+                      disabled={!isStreetEditable}
+                      onChange={(e) => {
+                        setUser({ ...shelter, street: e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />                  
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-location">Provincia / Ciudad</InputLabel>
-                    <Input
+                  <TextField
                       id="input-location"
-                      startAdornment={
-                        <InputAdornment position="start">
+                      label="Provincia/Ciudad"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
                           <LocationCityIcon />
-                        </InputAdornment>
-                      }
-                      value={`${shelter.location}, ${shelter.district}`}
-                      disabled
-                    />
-                  </FormControl>
+                          </InputAdornment>
+                        ),
+                      }}
+                      value={[shelter.location, shelter.district]}
+                      disabled={!isLocationEditable}
+                      onChange={(e) => {
+                        setUser({ ...shelter, 'location': e.target.value, 'district': e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />                     
+                    </FormControl>
                 </Grid>
               </Grid>
                     
@@ -260,40 +293,67 @@ function ShelterProfile() {
               <Grid container spacing={2} >
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-phone">Número de teléfono</InputLabel>
-                    <Input
-                      id="input-phone"
-                      startAdornment={
-                        <InputAdornment position="start">
+                  <TextField
+                      id="input-phonenumber"
+                      label="Numero de telefono"
+                      type='number'
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
                           <LocalPhoneIcon />
-                        </InputAdornment>
-                      }
+                          </InputAdornment>
+                        ),
+                      }}
                       value={shelter.phone_number}
-                      disabled
-                    />
-                  </FormControl>
+                      disabled={!isPhoneEditable}
+                      onChange={(e) => {
+                        setUser({ ...shelter, phone_number: e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />                       </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} sx={{display:'flex', justifyContent:'center'}}>
                   <FormControl variant="standard">
-                    <InputLabel htmlFor="input-email">Correo electrónico</InputLabel>
-                    <Input
+                  <TextField
                       id="input-email"
-                      startAdornment={
-                        <InputAdornment position="start">
+                      label="Correo electronico"
+                      variant="standard"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
                           <MailIcon />
-                        </InputAdornment>
-                      }
+                          </InputAdornment>
+                        ),
+                      }}
                       value={shelter.email}
                       disabled
-                    />
+                      onChange={(e) => {
+                        setUser({ ...shelter, email: e.target.value });
+                      }}
+                      sx={inputStyles}
+                      />     
                   </FormControl>
+                  
                 </Grid>
+                
               </Grid>
+              <div style={{marginTop:'40px'}}>
+                <Button variant="contained"onClick={() => {
+                  setIsUsernameEditable(true);
+                  setIsOrganizationEditable(true);
+                  setIsStreetEditable(true);
+                  setIsLocationEditable(true);
+                  setIsPhoneEditable(true);
+                 }} >Editar perfil</Button>
+                <Button >Guardar</Button>
+              </div>
             </Grid>
         </CenteredContainer>
       </BackgroundImage>
     </>
   );
 }
+
 
 export default ShelterProfile;
