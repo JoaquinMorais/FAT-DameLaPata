@@ -6,7 +6,6 @@ import Fade from 'react-reveal/Fade';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 import NavBar from '../components/NavBar/NavBar';
-import axios from 'axios';
 import { getUserDogs } from '../my_methods/salo_methods';
 
 const Peticiones = () => {
@@ -33,7 +32,7 @@ const Peticiones = () => {
     }
   }    
 
-  // if (responseData?.status === 200) {
+  // if (responseData?.status === 200)
     console.log(responseData)
 
     return (
