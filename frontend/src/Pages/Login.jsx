@@ -26,7 +26,7 @@ function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    //LogOut()
+    LogOut()
     setIsLoading(false);
   }, []);
 

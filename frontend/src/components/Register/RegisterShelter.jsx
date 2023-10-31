@@ -42,28 +42,24 @@ function ShelterRegister() {
   const [dialog_state , setDialogState] = useState('error');
 
   async function SendShelter(values) {
-    var response = await SendRegister(values, 'shelter');
-    console.log('i send shelter')
-    try {
-      if (response.status === 200){
-        setIsDialogOpen(true)
-        setDialogMessage('usuario creado')
-        setDialogState('success')  
+      SendRegister(values, 'shelter').then(response => {
 
-        window.location.href="/profile";
-      }
-      else{
-        setIsDialogOpen(true)
-        setDialogMessage('Ha ocurrido un error: ' + response['response'])
-        setDialogState('error')  
-      }
-
-    } catch (error) {
-      setIsDialogOpen(true)
-      setDialogMessage('Ha ocurrido un error: error interno')
-      setDialogState('error')
-
-    }
+        if (response.response.status === 200){
+          setIsDialogOpen(true)
+          setDialogMessage('usuario creado')
+          setDialogState('success')  
+  
+          window.location.href="/profile";
+        }
+        else{
+          setIsDialogOpen(true)
+          setDialogMessage('Ha ocurrido un error: ' + response.response_message)
+          setDialogState('error')  
+        }
+      })
+      .catch(error => {
+        setIsLoading(false);
+      });
   }
 
   const formik = useFormik({

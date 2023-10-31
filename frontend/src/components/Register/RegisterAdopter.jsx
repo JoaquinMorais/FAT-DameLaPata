@@ -52,10 +52,8 @@ function AdopterRegister() {
   const [dialog_state , setDialogState] = useState('error');
 
   async function SendAdopter(values) {
-    var response = await SendRegister(values, 'adopter');
-    console.log('should send adopter')
-    try {
-      if (response.status === 200){
+    SendRegister(values, 'adopter').then(response => {
+      if (response.response_status === 200){
         setIsDialogOpen(true)
         setDialogMessage('usuario creado')
         setDialogState('success')  
@@ -64,16 +62,13 @@ function AdopterRegister() {
       }
       else{
         setIsDialogOpen(true)
-        setDialogMessage('Ha ocurrido un error: ' + response['response'])
+        setDialogMessage('Ha ocurrido un error: ' + response.response_message)
         setDialogState('error')  
       }
-
-    } catch (error) {
-      setIsDialogOpen(true)
-      setDialogMessage('Ha ocurrido un error: error interno')
-      setDialogState('error')
-
-    }
+    })
+    .catch(error => {
+      setIsLoading(false);
+    });
   }
 
 

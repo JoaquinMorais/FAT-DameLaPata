@@ -11,13 +11,13 @@ query_methods:
     GetAllCategories
 
 session_methods:
-    SendLogin
-    SendRegister
-    GetProfile
-    LogOut
+    SendLogin -- done
+    SendRegister -- done
+    GetProfile --  done
+    LogOut -- done
 
 adopter_methods:
-    CreateRequest
+    CreateRequest -- done
     GetPreference
 
 shelter_methods:
