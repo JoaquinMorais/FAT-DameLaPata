@@ -107,6 +107,16 @@ const Peticiones = () => {
             </Container>
           ))}
         </Grid>
+
+        <Principio>
+
+        <Lamina>
+            <Flip top>
+              <Titulo>FAVORITOS</Titulo>
+            </Flip>
+            <Hr />
+          </Lamina>
+        </Principio>
       </>
     );
   // } else {

@@ -14,6 +14,7 @@ const Dogs = () => {
   const [responseStatus, setResponseStatus] = useState(''); // Agrega el estado para la respuesta de axios
   const [responseMessage, setResponseMessage] = useState(''); // Agrega el estado para la respuesta de axios
   const [isLoading, setIsLoading] = useState(true);
+  const [favoritePets, setFavoritePets] = useState([]);
 
   async function fetchData() {
     try {
@@ -32,9 +33,17 @@ const Dogs = () => {
   if (localStorage.getItem('type') !== 'adopter'){
     window.location.href = "/profile";
   }
-  
+   
   fetchData(); // Llama a la función fetchData para obtener los datos
   }, []);
+
+  const toggleFavorite = (id_pet) => {
+    if (favoritePets.includes(id_pet)) {
+      setFavoritePets(favoritePets.filter((id) => id !== id_pet));
+    } else {
+      setFavoritePets([...favoritePets, id_pet]);
+    }
+  };
 
   while (isLoading){
     return (
@@ -98,8 +107,7 @@ const Dogs = () => {
         
         <Grid>
           
-        {Array.isArray(responseData) && responseData.length > 0 ? (
-        responseData.map((item) => (
+          {responseData?.map((item) => ( // elemento a lodear
             <Container key={item.id}>
               <Zoom>
                 <Cards
@@ -111,10 +119,7 @@ const Dogs = () => {
                 />
               </Zoom>
             </Container>
-          ))
-          ) : (
-            <div>No hay perros que cumplan tus requisitos</div>
-          )}
+          ))}
         </Grid>
       </>
     );
