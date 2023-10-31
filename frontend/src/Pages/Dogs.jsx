@@ -120,7 +120,7 @@ const Dogs = () => {
             </Zoom>
           </Container>
         ))}
-      </Grid>
+      </Grid> 
       </>
     );
   
