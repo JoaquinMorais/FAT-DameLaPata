@@ -282,10 +282,10 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.province} // Cambiado de 'location' a 'province'
-                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
+                    value={user.province} 
+                    disabled={!isEditing} 
                     onChange={(e) => {
-                      setUser({ ...user, province: e.target.value }); // Cambiado de 'location' a 'province'
+                      setUser({ ...user, province: e.target.value }); 
                     }}
                     sx={inputStyles}
                   />
@@ -310,8 +310,7 @@ function AdopterProfile() {
                         </InputAdornment>
                       ),
                     }}
-                    value={user.phone_number}
-                    disabled={!isEditing} // Habilita o deshabilita según el estado de edición
+                    value={user.phone_number}// Habilita o deshabilita según el estado de edición
                     onChange={(e) => {
                       setUser({ ...user, phone_number: e.target.value });
                     }}
