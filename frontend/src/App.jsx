@@ -12,7 +12,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Successful from './Pages/Successful';
 import Preferences from './Pages/Preferences';
-import Error from './Pages/Error';
+import Error from './Pages/Error';  
 import Mismascotas_Sh from './Pages/Mismascotas_Sh';
 import Profile from './Pages/Profile';
 import Solicitud from './Pages/Solicitud';
@@ -70,7 +70,7 @@ const App = () => {
           <Route path="/successful" element={<Successful />} />
           <Route path="/profile/" element={<Profile />} />
           <Route path="/preferences" element={<Preferences />} />
-          <Route path="/error" element={<Error />} />
+          <Route path="*" element={<Error />} />
           <Route path="/mis-mascotas-shelter" element={<Mismascotas_Sh />} />
           <Route path="/solicitud" element={<Solicitud />} />
           <Route path="/peticiones" element={<Peticiones />} />
