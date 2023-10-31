@@ -1,4 +1,3 @@
-import { responsiveProperty } from '@mui/material/styles/cssUtils';
 import axios from './base_axios';
 
 axios.defaults.withCredentials = true;
