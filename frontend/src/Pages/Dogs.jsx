@@ -64,6 +64,7 @@ const Dogs = () => {
         <Grid style={{textAlign:'center'}}>
           
           No hay perros que cumplan tus requisitos
+          
         </Grid>
         
       </>
@@ -97,7 +98,8 @@ const Dogs = () => {
         
         <Grid>
           
-          {responseData?.map((item) => ( // elemento a lodear
+        {Array.isArray(responseData) && responseData.length > 0 ? (
+        responseData.map((item) => (
             <Container key={item.id}>
               <Zoom>
                 <Cards
@@ -109,7 +111,10 @@ const Dogs = () => {
                 />
               </Zoom>
             </Container>
-          ))}
+          ))
+          ) : (
+            <div>No hay perros que cumplan tus requisitos</div>
+          )}
         </Grid>
       </>
     );

@@ -12,21 +12,21 @@ import { useParams } from 'react-router-dom';
 
 function CardsPets(props) {
   const { id } = useParams();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false); // State para controlar si se está eliminando o no
+
+  const estado = {
+    id_status: 5,
+  };
 
   const handlePerroEliminar = async () => {
     try {
-      setIsDeleting(true);
-      const estado = {
-        id_pet : id,
-        id_state : 5
-      };
+      setIsDeleting(true); // Cambiar el estado a true para indicar que se está eliminando
       const response = await axios.put('http://localhost:5000/adopter/match', estado);
-      console.log('¿Supuestamente cambia?')
+      // Realizar alguna lógica adicional si es necesario después de eliminar
     } catch (error) {
-      alert("Hubo un error al eliminar el perro: " + error.message);
+      alert("Hubo un error al eliminar el perro.", error.message);
     } finally {
-      setIsDeleting(false);
+      setIsDeleting(false); // Cambiar el estado de nuevo a false después de finalizar
     }
   };
 
@@ -49,9 +49,9 @@ function CardsPets(props) {
         <CardActions sx={{ justifyContent: 'center' }}>
           <Button
             size="small"
-            sx={{ backgroundColor: '#8B0000', marginTop: '15px' }}
+            sx={{ backgroundColor: 'red', color: 'white', marginTop: '15px' }}
             onClick={handlePerroEliminar}
-            disabled={isDeleting}
+            disabled={isDeleting} // Deshabilitar el botón mientras se está eliminando
           >
             <a style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold' }}>
               {isDeleting ? 'Eliminando...' : 'Eliminar'}
@@ -62,9 +62,7 @@ function CardsPets(props) {
     </Content>
   );
 }
-
 export default CardsPets;
-
 const Content = styled.div`
   width: 100%;
   display: flex;
