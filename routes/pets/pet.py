@@ -153,35 +153,30 @@ def sizes():
     db.session.add(Category('Vacunacion', 'estado de vacunacion'))
     
     db.session.add(State('adoptado','¡match completado!'))
-    db.session.add(State('aceptado','¡match!'))
-    db.session.add(State('pendiente','estado pendiente'))
+    db.session.add(State('matcheado','¡match!'))
+    db.session.add(State('requerido','estado pendiente'))
     db.session.add(State('rechazado','estado rechazado'))
     db.session.add(State('cancelado','estado cancelado'))
+    db.session.add(State('en espera','estado rechazado'))
+    db.session.add(State('favoritos','estado cancelado'))
 
     
     
     
     #pelaje
-    db.session.add(Characteristics('Pelaje liso', 'Pelaje suave y corto que se adhiere al cuerpo', 1))
-    db.session.add(Characteristics('Pelaje largo', 'Pelaje suave y largo que puede requerir más cuidado', 1))
-    db.session.add(Characteristics('Pelaje duro', 'Pelaje áspero y resistente a la intemperie', 1))
-    db.session.add(Characteristics('Pelaje rizado', 'Pelaje que forma rizos u ondas', 1))
-    db.session.add(Characteristics('Pelaje doble', 'Dos capas de pelaje para aislamiento térmico', 1))
-    db.session.add(Characteristics('Pelaje sin pelo', 'Poca o ninguna cobertura de pelo', 1))
-    db.session.add(Characteristics('Pelaje lanudo', 'Pelaje con rizos densos y apretados', 1))
-    db.session.add(Characteristics('Pelaje abundante', 'Pelaje extremadamente denso y grueso', 1))
-    db.session.add(Characteristics('Pelaje de muda', 'Pelaje que arroja pelo estacionalmente', 1))
+    db.session.add(Characteristics('sin pelo', 'Poca o ninguna cobertura de pelo', 1))
+    db.session.add(Characteristics('pelo corto', 'Pelaje suave y corto que se adhiere al cuerpo', 1))
+    db.session.add(Characteristics('pelo largo', 'Pelaje suave y largo que puede requerir más cuidado', 1))
+    db.session.add(Characteristics('pelo duro', 'Pelaje áspero y resistente a la intemperie', 1))
+    db.session.add(Characteristics('pelo suave y sedoso', 'Dos capas de pelaje para aislamiento térmico', 1))
+    db.session.add(Characteristics('desprende mucho pelo', 'Pelaje que forma rizos u ondas', 1))
     #personalidad
     db.session.add(Characteristics('Juguetón', 'Activo y lleno de energía, le encanta jugar', 2))
     db.session.add(Characteristics('Tranquilo', 'Calmo y relajado, prefiere un ambiente tranquilo', 2))
-    db.session.add(Characteristics('Leal', 'Muestra una fuerte lealtad hacia su familia', 2))
     db.session.add(Characteristics('Protector', 'Cuida y protege a su familia y su hogar', 2))
-    db.session.add(Characteristics('Inteligente', 'Capaz de aprender rápidamente y resolver problemas', 2))
     db.session.add(Characteristics('Sociable', 'Le gusta estar con otros perros y personas', 2))
     db.session.add(Characteristics('Tímido', 'Reservado y a menudo se muestra cauteloso con desconocidos', 2))
-    db.session.add(Characteristics('Independiente', 'Prefiere hacer las cosas por sí mismo', 2))
-    db.session.add(Characteristics('Cariñoso', 'Demuestra afecto y busca la compañía de sus dueños', 2))
-    db.session.add(Characteristics('Dominante', 'Tiene una personalidad fuerte y tiende a liderar', 2))    
+    db.session.add(Characteristics('Cariñoso', 'Demuestra afecto y busca la compañía de sus dueños', 2))   
     #nivel energetico
     db.session.add(Characteristics('Alto Nivel de Energía', 'Requiere mucho ejercicio y actividad física diaria', 3))
     db.session.add(Characteristics('Moderado Nivel de Energía', 'Necesita actividad regular pero no excesiva', 3))
@@ -197,25 +192,20 @@ def sizes():
     db.session.add(Characteristics('Problemas digestivos', 'Sensible a problemas gastrointestinales', 4))
     db.session.add(Characteristics('Problemas de visión', 'Puede tener problemas de visión, como cataratas', 4))
     db.session.add(Characteristics('Problemas de oído', 'Sufre de problemas de oído, como infecciones', 4))
-    db.session.add(Characteristics('sin pierna', 'le falta una de sus piernas o mas', 4))
+    db.session.add(Characteristics('discapacitado', 'le falta una de sus piernas o mas', 4))
     db.session.add(Characteristics('castrado', 'sin posibilidad de tener crias', 4))
     #comportamiento social
     db.session.add(Characteristics('Sociable con otros perros', 'Se lleva bien y disfruta de la compañía de otros perros', 5))
     db.session.add(Characteristics('Sociable con personas', 'Le gusta estar con personas y es amigable con desconocidos', 5))
-    db.session.add(Characteristics('Tímido o reservado', 'Puede ser cauteloso con desconocidos y necesita tiempo para confiar', 5))
     db.session.add(Characteristics('Agresivo con otros perros', 'Tiene tendencia a pelear o mostrarse agresivo hacia otros perros', 5))
     db.session.add(Characteristics('Agresivo con personas', 'Muestra agresión hacia las personas, lo que puede ser peligroso', 5))
-    db.session.add(Characteristics('Independiente', 'Prefiere hacer las cosas por sí mismo y no es necesariamente dependiente de la atención constante', 5))
     db.session.add(Characteristics('Nervioso o ansioso', 'Sufre de ansiedad o nerviosismo en situaciones específicas', 5))
-    db.session.add(Characteristics('Protector', 'Cuida y protege a su familia y su hogar, mostrando comportamientos protectores', 5))
     db.session.add(Characteristics('Aventurero', 'Le gusta explorar y es curioso acerca de su entorno', 5))
     db.session.add(Characteristics('Pacífico', 'Es tranquilo y rara vez se involucra en conflictos o peleas', 5))
     #Vacunacion 
     db.session.add(Characteristics('Vacunado', 'El perro ha recibido todas las vacunas necesarias según el calendario de vacunación', 6))
     db.session.add(Characteristics('No vacunado', 'El perro no ha recibido todas las vacunas necesarias o no está actualizado en sus vacunas', 6))
     db.session.add(Characteristics('Programado para vacunas', 'El perro está en un programa de vacunación y recibirá sus vacunas en el futuro', 6))
-    db.session.add(Characteristics('Vacunación parcial', 'El perro ha recibido algunas vacunas pero no todas', 6))
-    db.session.add(Characteristics('Reacciones a las vacunas', 'El perro ha experimentado reacciones adversas a vacunas en el pasado', 6))
     db.session.commit()
 
    
