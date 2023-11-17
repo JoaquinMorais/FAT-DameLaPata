@@ -704,9 +704,4 @@ class Image(db.Model):
     field = db.Column(db.String(300), nullable = False)
     
     id_pet = db.Column(db.Integer, ForeignKey('pet.id_pet',  onupdate='CASCADE'))
-# alejo labura epicamente
-# primer commit de 'feature'
-# quiero pushear
-# borre feature y la recupere
-# xd
 
