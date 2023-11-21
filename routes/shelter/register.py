@@ -16,7 +16,7 @@ ShelterRegister = Blueprint("ShelterRegister",__name__)
 def register_shelter():
     session.pop('user_id',None)
     
-    data = Request('username','name','password','email','province','city','district')
+    data = Request('username','name','password','email','province','city','district','street')
     for x in data:
         if data[x] == None:
             return Response(
@@ -33,7 +33,7 @@ def register_shelter():
             409
         )
     
-    address = Address(data['province'],data['city'],data['district'],'1','1')
+    address = Address(data['province'],data['city'],data['district'],data['street'],'1','1')
     db.session.add(address)
     db.session.commit()
     

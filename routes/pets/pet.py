@@ -224,9 +224,10 @@ def sizes():
     
     db.session.add(
         Address(
-            'cordoba',
-            'cordoba',
-            '5151',
+            'province',
+            'city',
+            'district',
+            'calle',
             52,
             12
         )
@@ -234,11 +235,12 @@ def sizes():
     
     db.session.add(
         Address(
-            'Buenos aires',
-            'venezuela',
-            '5221',
-            12,
-            22
+            'BsAs',
+            'Conurbano',
+            'Conurbano district',
+            'Massa!',
+            52,
+            12
         )
     )
     db.session.add(
@@ -246,6 +248,7 @@ def sizes():
             'formoza',
             'LALAAL',
             '521',
+            'calle piola',
             2,
             6
         )
@@ -742,6 +745,7 @@ def sizes():
             'cordoba',
             'cordoba',
             '5151',
+            'calle piola 2',
             52,
             12
         )
@@ -752,6 +756,7 @@ def sizes():
             'Buenos aires',
             'venezuela',
             '5221',
+            'calle venezuela piolant',
             12,
             22
         )
@@ -761,6 +766,7 @@ def sizes():
             'formoza',
             'LALAAL',
             '521',
+            'lalalala',
             2,
             6
         )

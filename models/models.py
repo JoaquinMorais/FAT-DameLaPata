@@ -33,18 +33,20 @@ class DocumentType(db.Model):
 class Address(db.Model):
     __tablename__ = 'address'
     id_address = db.Column(db.Integer, primary_key=True)
-    location = db.Column(db.String(70), nullable = False)
+    province = db.Column(db.String(70), nullable = False)
+    city = db.Column(db.String(70), nullable = False)
     district = db.Column(db.String(70), nullable = False)
     street = db.Column(db.String(70), nullable = False)
     
     latitude = db.Column(db.String(70), nullable = False)
     longitude = db.Column(db.String(70), nullable = False)
     
-    def __init__(self, location, district, street, latitude, longitude):
-        self.location = location
+    def __init__(self, province, city, district,street, latitude, longitude):
+        self.province = province
+        self.city = city
         self.district = district
-        self.street = street
         self.latitude = latitude
+        self.street = street
         self.longitude = longitude
 
     def __repr__(self):
@@ -52,10 +54,10 @@ class Address(db.Model):
     
     def json(self):
         return {
-
-                'location': self.location,
+                'province': self.province,
+                'city': self.city,
                 'district': self.district,
-                'street': self.street,
+                'street':self.street
             
         }    
 
