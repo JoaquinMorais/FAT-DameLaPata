@@ -4,6 +4,9 @@ import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= '''mysql+pymysql://root:f6eDeE-hbeGdeceFc-4-B3a44e2ebgh-@viaduct.proxy.rlwy.net:57419/railway'''
+#app.config['SQLALCHEMY_DATABASE_URI']= "mysql+pymysql://bdi:pepe1234@localhost/LussaryTest"
+
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
