@@ -326,10 +326,12 @@ class Category(db.Model):
     id_category = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(70), nullable = False)
     description = db.Column(db.String(500), nullable = False)
-    
-    def __init__(self, title, description):
+    isRepeated = db.Column(db.Boolean, default=True)  # Agregado
+
+    def __init__(self, title, description,isRepeated=True):
         self.title = title
         self.description = description
+        self.isRepeated = isRepeated  # Agregado
 
     def __repr__(self):
         return f'{self.title}'
@@ -339,6 +341,7 @@ class Category(db.Model):
             'id_category':self.id_category,
             'title':self.title,
             'description':self.description,
+            'isRepeated': self.isRepeated  # Agregado
         }
 
     def json(self):
@@ -349,9 +352,12 @@ class Category(db.Model):
             'id_category':self.id_category,
             'title':self.title,
             'description':self.description,
+            'isRepeated': self.isRepeated,  # Agregado
+
             'characteristics' : [
                 characteristic.characteristic_json() for characteristic in characteristics
             ]
+
         }
 
 
@@ -360,33 +366,34 @@ class Category(db.Model):
 class Characteristics(db.Model):
     __tablename__ = 'characteristics'
     id_characteristics = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(70), nullable = False)
-    description = db.Column(db.String(500), nullable = False)
+    title = db.Column(db.String(70), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    
 
-    id_category = db.Column(db.Integer, ForeignKey('category.id_category',  onupdate='CASCADE'))
+    id_category = db.Column(db.Integer, ForeignKey('category.id_category', onupdate='CASCADE'))
 
-
-    def __init__(self, title, description, category):
+    def __init__(self, title, description, category):  # Actualizado
         self.title = title
         self.description = description
+        
         self.id_category = category
 
     def __repr__(self):
         return f'{self.title}'
-    
+
     def characteristic_json(self):
         return {
-            'id_characteristic':self.id_characteristics,
-            'title':self.title,
-            'max_height':self.description,
+            'id_characteristic': self.id_characteristics,
+            'title': self.title,
+            'max_height': self.description
         }
 
     def json(self):
         category = Category.query.get(self.id_category)
         return {
-            'id_characteristic':self.id_characteristics,
-            'title':self.title,
-            'max_height':self.description,
+            'id_characteristic': self.id_characteristics,
+            'title': self.title,
+            'max_height': self.description,
             'category': category.category_json()
         }
 

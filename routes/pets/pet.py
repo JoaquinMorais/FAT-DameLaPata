@@ -147,10 +147,10 @@ def sizes():
     
     db.session.add(Category('pelaje', 'tipo de pelo'))
     db.session.add(Category('personalidad', 'tipo de personalidades'))
-    db.session.add(Category('nivel energetico', 'que tanta actividad '))
+    db.session.add(Category('nivel energetico', 'que tanta actividad ',isRepeated=False))
     db.session.add(Category('salud', 'si tienen algun problema el perro'))
     db.session.add(Category('comportamiento social', 'como se conducta con los demas seres vivos y humanos'))
-    db.session.add(Category('Vacunacion', 'estado de vacunacion'))
+    db.session.add(Category('Vacunacion', 'estado de vacunacion',isRepeated=False))
     
     db.session.add(State('adoptado','¡match completado!'))
     db.session.add(State('aceptado','¡match!'))
