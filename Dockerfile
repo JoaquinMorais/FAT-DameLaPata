@@ -19,5 +19,5 @@ EXPOSE 5000
 ENV FLASK_APP=index.py
 
 # Ejecuta la aplicación Flask
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "index:app"]
 
