@@ -40,6 +40,7 @@ def fuckIt(func):
 def login_is_required(SESSION,accepted_users = ['user','adopter','shelter','volunteer']):
     def decorator(function):
         def wrapper(*args, **kwargs):
+            print(f'Someone use login_is_required: {function.__name__}')
             print(session)
             print([{x:SESSION[x]} for x in SESSION])
             print("user_id" in SESSION)
